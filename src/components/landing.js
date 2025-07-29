@@ -106,7 +106,7 @@ const LandingPage = () => {
                 onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
                 onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
               >
-                Começa a tua jornada agora
+                Dá o primeiro passo agora
               </button>
             </div>
           </div>
