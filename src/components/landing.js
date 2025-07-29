@@ -10,7 +10,7 @@ import mod3 from "../imgs/module3.jpg";
 import mod4 from "../imgs/module4.jpg";
 import mod5 from "../imgs/module5.jpg";
 import mod6 from "../imgs/module6.jpg";
-
+import landingImage from "../imgs/landing.jpg";
 import Login from "./login";
 import Signup from "./signup";
 
@@ -112,8 +112,8 @@ const LandingPage = () => {
           </div>
           <div className="d-none d-md-block w-50 text-center">
             <img
-              src={''}
-              alt=""
+              src={'landingImage'}
+              alt="Ilustração do programa TOUCHminds"
               className="img-fluid w-75 mx-auto d-block"
             />
           </div>
