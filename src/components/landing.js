@@ -87,7 +87,7 @@ const LandingPage = () => {
               Procurar ajuda é o começo da mudança!
             </h1>
             <p className="text-muted font-lato py-3">
-              Bem-vindo/a ao TOUCHminds. <br />O TOUCHminds oferece um programa online gratuito destinado a ajudar os adolescentes entre os 15 e os 17 anos a compreender a ansiedade e a promover a procura de ajuda.
+              Bem-vindo/a ao TOUCHminds. <br />O TOUCHminds é um programa online e gratuito destinado a ajudar os adolescentes entre os 15 e os 17 anos a compreender a ansiedade e a procura de ajuda.
             </p>
             <div className="py-3">
               <button
