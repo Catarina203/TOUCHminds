@@ -152,7 +152,6 @@ const LandingPage = () => {
                   <li>É 100% online e gratuito.</li>
                   <li>Composto por seis módulos interativos com vídeos, áudios, imagens e atividades interativas.</li>
                   <li>O programa adapta-se à tua rotina, para que possas fazê-lo ao teu ritmo.</li>
-                  <li>Oferece privacidade total e recursos personalizados.</li>
                   <li>Inclui três sessões com um psicólogo, online e síncronos.</li>
                 </ul>
               </Accordion.Body>
