@@ -112,7 +112,7 @@ const LandingPage = () => {
           </div>
           <div className="d-none d-md-block w-50 text-center">
             <img
-              src={'landingImage'}
+              src={landingImage}
               alt="Ilustração do programa TOUCHminds"
               className="img-fluid w-75 mx-auto d-block"
             />
