@@ -18,7 +18,8 @@ const AtividadeCard = ({ atividade, status, concluido, moduloId }) => {
         alt={atividade.titulo}
         style={{
           width: "100%",
-          height: "180px",
+          /*height: "180px",*/
+          aspectRatio: "3 / 2",
           objectFit: "cover",
           borderRadius: "12px",
           opacity: status ? 1 : 0.7,
