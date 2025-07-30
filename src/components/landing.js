@@ -102,7 +102,7 @@ const LandingPage = () => {
                   transition: "transform 0.2s",
                   fontSize: "clamp(0.8rem, 1.5vw, 1.1rem)"
                 }}
-                onClick={handleOpenSignup}
+                onClick={handleOpenLogin}
                 onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
                 onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
               >
