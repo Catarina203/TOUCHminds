@@ -157,20 +157,18 @@ const Modulos = () => {
       >
         <Modal.Header
           closeButton
-          className="justify-content-center"
           style={{
             backgroundColor: "#99CBC8",
             borderBottom: "none",
             color: "#fff",
           }}
         >
-          <Modal.Title style={{ fontWeight: "600" }}>
+           <Modal.Title style={{ "text-align:center" }}>
            ⚡ Energia TOUCH
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body
-        className="justify-content-center"
           style={{
             padding: "1.5rem",
             fontSize: "1.05rem",
