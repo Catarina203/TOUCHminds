@@ -156,7 +156,7 @@ const Modulos = () => {
         show={showModal}
         onHide={() => {
           setShowModal(false);
-          if (id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'nao_mostrada') {
+          if (id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada') {
             setShowExtraModal(true);
           }
         }}
