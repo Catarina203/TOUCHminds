@@ -60,7 +60,7 @@ const Modulos = () => {
     if (Math.round(progresso) >= 100 && mfim === 'naomostrada') {
       // marca no Firestore
       updateDoc(doc(db, 'alunos', userData.uid), {
-        [`modulos.${moduloKey}.mensagemdefim`]: 'mostrada'
+        [`modulos.${moduloUserKey}.mensagemdefim`]: 'mostrada'
       })
       .catch(console.error);
 
@@ -68,7 +68,7 @@ const Modulos = () => {
       setMensagemModal(mensagensFim[modulo.id]);
       setShowModal(true);
     }
-  }, [progresso, mfim, modulo, moduloKey, userData.uid]);
+  }, [progresso, mfim, modulo, moduloUserKey, userData.uid]);
 
   if (!userData || !modulo) {
     return <Loading message="A carregar o módulo..." />;
