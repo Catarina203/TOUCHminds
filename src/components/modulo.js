@@ -52,8 +52,6 @@ const Modulos = () => {
     ? (atividadesConcluidas / atividadesStatus.length) * 100
     : 50;
 
-  const modalShownKey = `modalShown_modulo_${modulo?.id}`;
-
   const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
     return (progressoModulo === 100 && mfim == "naomostrada") || progressoModulo === 0
@@ -211,8 +209,10 @@ const Modulos = () => {
           <Button
             onClick={() => {
               setShowModal(false);
-              if (progressoModulo === 100) {
-                localStorage.setItem(modalShownKey, 'true');
+              if ((id === '3' && progressoModulo === 100 && mfim === 'naomostrada') ||
+                  (id === '6' && progressoModulo === 100 && mfim === 'naomostrada'))
+              {
+                setShowExtraModal(true);
               }
             }}
             style={{
