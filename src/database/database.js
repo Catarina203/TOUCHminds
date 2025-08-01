@@ -35,7 +35,7 @@ export async function registerAluno(codigoParticipante, password) {
     }
 
     // Verificar se o código está presente na lista autorizada em "codigos"
-    const docRef = doc(db, "codigos", "wLKyBPDvr1keyJ8q1sCE"); 
+    const docRef = doc(db, "codigos", "PDk7jxWHkYrNcaAwPd8y"); 
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
