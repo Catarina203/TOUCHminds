@@ -166,7 +166,7 @@ const Modulos = () => {
             alignItems: "center",
           }}
         >
-           <Modal.Title style={{fontWeight: "600", margin: "0 auto",}}>
+           <Modal.Title style={{fontWeight: "600", margin: "0",}}>
            ⚡ Energia TOUCH
           </Modal.Title>
         </Modal.Header>
