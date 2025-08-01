@@ -154,9 +154,8 @@ const Modulos = () => {
         show={showModal}
         onHide={() => {
           setShowModal(false);
-          if (id === '3' && progressoModulo === 100 && localStorage.getItem(extraSeenKey) !== 'true') {
+          if (id === '3' && progressoModulo === 100) {
             setShowExtraModal(true);
-            localStorage.setItem(extraSeenKey, 'true');
           }
         }}
         centered
