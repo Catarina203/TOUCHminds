@@ -42,7 +42,7 @@ const Modulos = () => {
   const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
   const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
-  const progressoModulo = 100;
+  const progressoModulo = 0;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
   const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
@@ -100,7 +100,7 @@ const Modulos = () => {
               <div className="mb-4">
                 <div className="d-flex justify-content-between mb-1">
                   <span className="small fw-semibold" style={{ color: "#234970" }}>Progresso do Módulo</span>
-                  <span className="small fw-semibold" style={{ color: "#234970" }}>{progressoModulo}%</span>
+                  <span className="small fw-semibold" style={{ color: "#234970" }}>{progressoModulo.toFixed(0)}%</span>
                 </div>
 
                 <div className="progress" style={{ height: "10px" }}>
