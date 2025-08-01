@@ -35,6 +35,8 @@ const mensagensFim = {
   6: "Neste módulo, explorastes o papel da ajuda profissional: o que envolve e quando a procurar. Guarda esta informação e confia que podes pedir ajuda sempre que for preciso!"
 };
 
+const mensagemExtraModulo3 = "Parabéns por concluir todas as atividades! Aqui está essa mensagem extra que queres mostrar.";
+
 const Modulos = () => {
   const { id } = useParams();  
   const { userData } = useContext(UserContext);  
@@ -150,7 +152,13 @@ const Modulos = () => {
 
       <Modal
         show={showModal}
-        onHide={() => setShowModal(false)}
+        onHide={() => {
+          setShowModal(false);
+          if (id === '3' && progressoModulo === 100 && localStorage.getItem(extraSeenKey) !== 'true') {
+            setShowExtraModal(true);
+            localStorage.setItem(extraSeenKey, 'true');
+          }
+        }}
         centered
         backdrop="static"
         keyboard={false}
@@ -205,6 +213,20 @@ const Modulos = () => {
               fontWeight: "500",
             }}
           >
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showExtraModal} onHide={() => setShowExtraModal(false)} centered backdrop="static" keyboard={false}>
+        <Modal.Header closeButton style={{backgroundColor: '#99CBC8', color: '#fff'}}>
+          <Modal.Title>⚡ Energia TOUCH</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{textAlign: 'center', color: '#234970', backgroundColor: '#F5FDFC'}}>
+          {mensagemExtraModulo3}
+        </Modal.Body>
+        <Modal.Footer style={{backgroundColor: '#F5FDFC', justifyContent: 'center'}}>
+          <Button onClick={() => setShowExtraModal(false)} style={{backgroundColor: '#234970'}}>
             Fechar
           </Button>
         </Modal.Footer>
