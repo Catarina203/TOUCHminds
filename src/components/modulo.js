@@ -40,7 +40,7 @@ const Modulos = () => {
   const modulo = modulos.find((m) => m.id === id);
   const moduloUserKey = modulo ? `modulo${modulo.id}` : '';
   const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim ?? 'naomostrada';
-  const atividades = userData?.modulos?.[moduloKey]?.atividades || [];
+  const atividades = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const concluidas = atividades.filter(a => a.concluido).length;
   const progresso = 100;
 
