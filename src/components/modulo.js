@@ -16,7 +16,7 @@ import { Modal, Button } from 'react-bootstrap';
 import Loading from './loading';
 
 const mensagensInicio = {
-  1: "Falar de ansiedade pode ser desconfortável, mas ao reconhecer o que sentes ganhas clareza para a enfrentar—és mais resiliente do que imaginas!",
+  1: "Falar sobre ansiedade pode ser desconfortável. Ao compreendê-la melhor, tornamo-nos mais conscientes dos seus desafios e descobrimos caminhos para lidar com ela com mais confiança",
   2: "Desafiar mitos e estigmas pode abalar certezas, mas cada dúvida que vais esclarecendo fortalece a tua compreensão—continua curioso(a)!",
   3: "Olhar de frente para a tua voz crítica pode ser difícil, mas ao praticares autocompaixão constróis um alicerce sólido para o teu bem-estar.",
   4: "Mudar gera incerteza e desconforto, mas cada análise de prós e contras de mudar é um ato de coragem—confia na tua capacidade de evoluir!",
@@ -55,7 +55,8 @@ const Modulos = () => {
 
   const [mensagemModal] = useState(() => {
     if (!modulo) return '';
-    if (progressoModulo === 100 && !modalAlreadyShown) {
+    if (progressoModulo === 100 && moduloSeguinte?.status === "naomostrada") {
+      userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
     } else if (progressoModulo === 0) {
       return mensagensInicio[modulo.id];

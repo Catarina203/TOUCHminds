@@ -72,7 +72,7 @@ export async function registerAluno(codigoParticipante, password) {
       },
       modulos: {
         // ter em conta o numero de atividades de cada modulo
-        modulo1: { status: "desbloqueado", desafioSemanal: [],  
+        modulo1: { status: "desbloqueado", desafioSemanal: [], mensagemdefim: "naomostrada",
           atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
@@ -80,29 +80,29 @@ export async function registerAluno(codigoParticipante, password) {
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false }
         ]},
-        modulo2: { status: "bloqueado", desafioSemanal: [], atividades: [
+        modulo2: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false }
         ]},
-        modulo3: { status: "bloqueado", desafioSemanal: [], atividades: [
-          { status: "desbloqueado", concluido: false },
-          { status: "bloqueado", concluido: false },
-          { status: "bloqueado", concluido: false },
-          { status: "bloqueado", concluido: false }
-        ]},
-        modulo4: { status: "bloqueado", desafioSemanal: [], atividades: [
+        modulo3: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false }
         ]},
-        modulo5: { status: "bloqueado", desafioSemanal: [], atividades: [
+        modulo4: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
+          { status: "desbloqueado", concluido: false },
+          { status: "bloqueado", concluido: false },
+          { status: "bloqueado", concluido: false },
+          { status: "bloqueado", concluido: false }
+        ]},
+        modulo5: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
         ]},
-        modulo6: { status: "bloqueado", desafioSemanal: [], atividades: [
+        modulo6: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
