@@ -34,7 +34,7 @@ const mensagensFim = {
 };
 
 const Modulos = () => {
-    const { id } = useParams();  
+  const { id } = useParams();  
   const { userData } = useContext(UserContext);  
 
   const modulo = modulos.find((m) => m.id === id);
