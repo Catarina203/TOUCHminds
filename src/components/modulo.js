@@ -161,7 +161,7 @@ const Modulos = () => {
             backgroundColor: "#99CBC8",
             borderBottom: "none",
             color: "#fff",
-            justifycontent: "center",
+            textAlign: "center",
           }}
         >
            <Modal.Title style={{ fontWeight: "600" }}>
@@ -175,7 +175,7 @@ const Modulos = () => {
             fontSize: "1.05rem",
             color: "#234970",
             backgroundColor: "#F5FDFC",
-            justifycontent: "center",
+            textAlign: "center",
           }}
         >
           {mensagemModal}
