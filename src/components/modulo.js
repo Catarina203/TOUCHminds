@@ -164,7 +164,7 @@ const Modulos = () => {
             textAlign: "center",
             display: "flex",
             alignItems: "center",
-            padding: '1rem 1.5rem',
+            padding: '1rem 5rem',
           }}
         >
            <Modal.Title style={{fontWeight: "600", margin: "0",}}>
