@@ -42,7 +42,7 @@ const Modulos = () => {
   const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
   const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
-  const progressoModulo = 0;
+  const progressoModulo = 100;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
   const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
@@ -55,7 +55,7 @@ const Modulos = () => {
   const [mensagemModal] = useState(() => {
     if (!modulo) return '';
     if (progressoModulo === 100 && mfim === "naomostrada") {
-      userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
+      /*userData.modulos[moduloUserKey].mensagemdefim = "mostrada";*/
       return mensagensFim[modulo.id];
     } else if (progressoModulo === 0) {
       return mfim;
