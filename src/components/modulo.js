@@ -35,7 +35,9 @@ const mensagensFim = {
   6: "Neste módulo, explorastes o papel da ajuda profissional: o que envolve e quando a procurar. Guarda esta informação e confia que podes pedir ajuda sempre que for preciso!"
 };
 
-const mensagemExtraModulo3 = "Parabéns por concluir todas as atividades! Aqui está essa mensagem extra que queres mostrar.";
+const mensagensExtra = {
+  3: "Parabéns por chegares a meio do percurso! Até agora, exploraste a ansiedade, os estigmas associados e a forma como nos relacionamos com a nossa voz crítica. Estes temas podem ser desafiantes, mas refletir sobre eles demonstra o teu envolvimento. Mantém esta atitude nos próximos módulos — cada passo conta!",
+  6: "Parabéns por terminares os seis módulos! Ao longo deste percurso, refletiste sobre desafios, decisões e formas de pedir ajuda quando necessário. Explorar estes temas exige tempo e empenho — e isso já é um grande passo. Agora falta apenas a sessão final com o psicólogo, onde vais consolidar tudo o que aprendeste. Leva contigo estas aprendizagens e recorre a elas sempre que precisares."};
 
 const Modulos = () => {
   const { id } = useParams();  
@@ -70,6 +72,11 @@ const Modulos = () => {
       return mensagensInicio[modulo.id];
     }
     return '';
+  });
+
+  const [mensagemModelExtra] = useState(() => {
+    if (!modulo) return '';
+    return mensagensExtra[modulo.id];
   });
 
   if (!userData || !modulo) {
@@ -156,7 +163,9 @@ const Modulos = () => {
         show={showModal}
         onHide={() => {
           setShowModal(false);
-          if (id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada') {
+          if ((id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada') || 
+              (id === '6' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada'))
+          {
             setShowExtraModal(true);
           }
         }}
@@ -220,11 +229,32 @@ const Modulos = () => {
       </Modal>
 
       <Modal show={showExtraModal} onHide={() => setShowExtraModal(false)} centered backdrop="static" keyboard={false}>
-        <Modal.Header closeButton style={{backgroundColor: '#99CBC8', color: '#fff'}}>
-          <Modal.Title>⚡ Energia TOUCH</Modal.Title>
+        <Modal.Header
+          closeButton
+          style={{
+            backgroundColor: "#99CBC8",
+            borderBottom: "none",
+            color: "#fff",
+            textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+           <Modal.Title style={{fontWeight: "600", margin: "0", padding: '1rem 7rem',}}>
+           ⚡ Energia TOUCH
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{textAlign: 'center', color: '#234970', backgroundColor: '#F5FDFC'}}>
-          {mensagemExtraModulo3}
+
+        <Modal.Body
+          style={{
+            padding: "1.5rem",
+            fontSize: "1.05rem",
+            color: "#234970",
+            backgroundColor: "#F5FDFC",
+            textAlign: "center",
+          }}
+        >
+          {mensagemModelExtra}
         </Modal.Body>
         <Modal.Footer style={{backgroundColor: '#F5FDFC', justifyContent: 'center'}}>
           <Button onClick={() => setShowExtraModal(false)} style={{backgroundColor: '#234970'}}>
