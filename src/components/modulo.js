@@ -54,9 +54,10 @@ const Modulos = () => {
   });
 
   const [mensagemModal] = useState(() => {
-    if (progressoModulo === 100) {
+    if (progressoModulo === 100 && mfim == "naomostrada") {
       return mfim;
     }
+    return progressoModulo
   });
 
   /*const [mensagemModal] = useState(() => {
