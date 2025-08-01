@@ -157,11 +157,11 @@ const Modulos = () => {
       >
         <Modal.Header
           closeButton
+          className="justify-content-center"
           style={{
             backgroundColor: "#99CBC8",
             borderBottom: "none",
             color: "#fff",
-            textalign: "center",
           }}
         >
           <Modal.Title style={{ fontWeight: "600" }}>
@@ -170,12 +170,12 @@ const Modulos = () => {
         </Modal.Header>
 
         <Modal.Body
+        className="justify-content-center"
           style={{
             padding: "1.5rem",
             fontSize: "1.05rem",
             color: "#234970",
             backgroundColor: "#F5FDFC",
-            textalign: "center",
           }}
         >
           {mensagemModal}
