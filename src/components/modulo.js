@@ -44,7 +44,7 @@ const Modulos = () => {
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
   const progressoModulo = (atividadesStatus.length > 0)
     ? (atividadesConcluidas / atividadesStatus.length) * 100
-    : 0;
+    : 50;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
   const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
@@ -56,11 +56,10 @@ const Modulos = () => {
 
   const [mensagemModal] = useState(() => {
     if (!modulo) return '';
-    if (progressoModulo === 100 && userData.modulos[moduloUserKey].mensagemdefim === "naomostrada") {
+    if (progressoModulo === 100 && mfim === "naomostrada") {
       userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
     } else if (progressoModulo === 0) {
-      return mfim;
       return mensagensInicio[modulo.id];
     }
     return '';
