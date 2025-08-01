@@ -39,6 +39,7 @@ const Modulos = () => {
 
   const modulo = modulos.find((m) => m.id === id);
   const moduloUserKey = modulo ? `modulo${modulo.id}` : '';
+  const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
   const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
   const progressoModulo = (atividadesStatus.length > 0)
@@ -59,7 +60,7 @@ const Modulos = () => {
       userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
     } else if (progressoModulo === 0) {
-      return progressoModulo;
+      return mfim;
       return mensagensInicio[modulo.id];
     }
     return '';
