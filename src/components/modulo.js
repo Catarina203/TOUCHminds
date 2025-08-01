@@ -42,9 +42,7 @@ const Modulos = () => {
   const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
   const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
-  const progressoModulo = (atividadesStatus.length > 0)
-    ? (atividadesConcluidas / atividadesStatus.length) * 100
-    : 50;
+  const progressoModulo = 0;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
   const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
