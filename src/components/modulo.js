@@ -22,17 +22,17 @@ const mensagensInicio = {
   2: "Desafiar mitos e estigmas pode abalar algumas ideias feitas. Esclarecer dúvidas permite desenvolver uma visão mais aberta e informada, abrindo espaço para novas formas de pensar!",
   3: "A voz crítica tem impacto no nosso bem-estar. Compreendê-la e conhecer alternativas, como a autocompaixão, ajuda-nos a transformar a forma como lidamos connosco mesmos!",
   4: "A mudança gera dúvidas e desconforto. Refletir sobre os prós e contras torna as decisões mais conscientes, aumentando a clareza e a confiança no processo!",
-  5: "Falar sobre sintomas e pedir ajuda pode ser difícil. Entender a importância desse passo mostra como procurar ajuda é um gesto de cuidado, e saber que existem diferentes formas de ajuda permite encontrar respostas adequadas a cada situação!",
-  6: "Conhecer melhor a ajuda profissional revela como este recurso pode ser essencial para o bem-estar. Informar-se é uma forma de estar mais preparado/a para lidar com o que surgir!"
+  5: "Falar sobre sintomas e pedir ajuda pode ser difícil. Perceber este passo mostra que pedir ajuda é um gesto de cuidado, e saber que existem diferentes formas de ajuda permite encontrar respostas adequadas a cada situação!",
+  6: "Conhecer melhor a ajuda profissional revela como este recurso pode ser essencial para o bem-estar. Estar bem informado/a ajuda a lidar com qualquer situação que surja!"
 };
 
 const mensagensFim = {
-  1: "Neste módulo foi possível conhecer melhor o que é a ansiedade e os desafios que pode trazer porque compreender a ansiedade é um passo importante para melhor lidar com ela. Continua a explorar com curiosidade e abertura!",
-  2: "Neste módulo foram exploradas ideias feitas sobre a ansiedade, ajudando a perceber como alguns mitos e estigmas podem ser postos em causa. Pensar de forma mais aberta faz a diferença e é importante mantém o espírito crítico e a vontade de aprender!",
-  3: "Neste módulo falámos da voz crítica que todos temos e de como existem formas diferentes de nos tratarmos, incluindo tratarmo-nos com mais bondade. Conhecer estas alternativas faz parte do processo. Leva contigo esta nova perspetiva e continua a praticá-la!",
-  4: "Neste módulo refletimos sobre os prós e contras da mudança, o que ajuda a perceber que tomar decisões envolve dúvidas ao mesmo tempo que mostra que pensar sobre elas é um gesto de coragem. Confia no processo e no que vais descobrindo pelo caminho!",
-  5: "Neste módulo discutimos a importância de falar sobre sinais de mal-estar e de pedir ajuda. Reconhecer este passo pode abrir caminho para encontrar ajuda quando necessário. Valoriza o gesto de pedir ajuda e continua a cuidar de ti!",
-  6: "Neste módulo falámos sobre ajuda profissional para perceber melhor em que consiste esta ajuda e quando pode ser útil. Conhecer estas possibilidades é parte de estar mais preparado(a). Leva contigo essa informação e confia que podes procurar ajuda quando fizer sentido!"
+  1: "Neste módulo, exploraste o que é a ansiedade e os desafios que ela acarreta. Compreender a ansiedade é um passo essencial para lidar com ela. Continua a explorar com curiosidade e abertura!",
+  2: "Neste módulo, desmontaste mitos e estigmas sobre a ansiedade e viste como pô-los em causa. Preserva o espírito crítico e estimula a vontade de aprender!",
+  3: "Neste módulo, exploraste a tua voz crítica e aprendeste a tratar-te de outra forma. Adota esta nova perspetiva e sê mais gentil contigo!",
+  4: "Neste módulo, ponderaste os prós e os contras da mudança. Reconhecer que decidir traz incertezas mostra que pensar com cuidado é um ato de coragem. Confia no processo e no que vais descobrindo pelo caminho!",
+  5: "Neste módulo conheceste alguns sinais de mal-estar e a importância de pedir ajuda. Reconhecer este passo abre caminho para encontrares ajuda quando precisares. Valoriza este gesto e continua a cuidar de ti!",
+  6: "Neste módulo, explorastes o papel da ajuda profissional: o que envolve e quando a procurar. Guarda esta informação e confia que podes pedir ajuda sempre que for preciso!"
 };
 
 const Modulos = () => {
