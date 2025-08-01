@@ -49,12 +49,14 @@ const Modulos = () => {
 
   const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
-    return progressoModulo === 100;
+    return progressoModulo;
     return (progressoModulo === 100 && !modalAlreadyShown) || progressoModulo === 0;
   });
 
   const [mensagemModal] = useState(() => {
-    return progressoModulo;
+    if (progressoModulo === 100) {
+      return mfim;
+    }
   });
 
   /*const [mensagemModal] = useState(() => {
