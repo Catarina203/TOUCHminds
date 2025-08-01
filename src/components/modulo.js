@@ -189,7 +189,7 @@ const Modulos = () => {
         >
           <Button
             onClick={() => {
-              setShowModal(false);
+              /*setShowModal(false);*/
               if (progressoModulo === 100) {
                 localStorage.setItem(modalShownKey, 'true');
               }
