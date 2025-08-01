@@ -42,15 +42,16 @@ const Modulos = () => {
   const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
   const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
-  const progressoModulo = 0;
+  const progressoModulo = 100;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
   const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
 
-/*  const [showModal, setShowModal] = useState(() => {
+  const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
+    return progressoModulo === 100;
     return (progressoModulo === 100 && !modalAlreadyShown) || progressoModulo === 0;
-  });*/
+  });
 
   const [mensagemModal] = useState(() => {
     return progressoModulo;
@@ -150,8 +151,8 @@ const Modulos = () => {
       </div>
 
       <Modal
-        /*show={showModal}
-        onHide={() => setShowModal(false)}*/
+        show={showModal}
+        onHide={() => setShowModal(false)}
         centered
         backdrop="static"
         keyboard={false}
@@ -189,7 +190,7 @@ const Modulos = () => {
         >
           <Button
             onClick={() => {
-              /*setShowModal(false);*/
+              setShowModal(false);
               if (progressoModulo === 100) {
                 localStorage.setItem(modalShownKey, 'true');
               }
