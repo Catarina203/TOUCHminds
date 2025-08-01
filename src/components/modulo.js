@@ -34,41 +34,36 @@ const mensagensFim = {
 };
 
 const Modulos = () => {
-  const { id } = useParams();  
-  const { userData } = useContext(UserContext);
+    const { id } = useParams();  
+  const { userData } = useContext(UserContext);  
 
   const modulo = modulos.find((m) => m.id === id);
   const moduloUserKey = modulo ? `modulo${modulo.id}` : '';
-  const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim ?? 'naomostrada';
-  const atividades = userData?.modulos?.[moduloUserKey]?.atividades || [];
-  const concluidas = atividades.filter(a => a.concluido).length;
-  const progresso = 100;
+  const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
+  const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
+  const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
+  const progressoModulo = 100;
 
-  // 1️⃣ Efeito do modal de início
-  useEffect(() => {
-    if (!modulo) return;
-    if (progresso === 0) {
-      setMensagemModal(mensagensInicio[modulo.id]);
-      setShowModal(true);
+  const modalShownKey = `modalShown_modulo_${modulo?.id}`;
+  const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
+
+  const [showModal, setShowModal] = useState(() => {
+    if (!modulo) return false;
+    return (progressoModulo === 100 && !modalAlreadyShown) || progressoModulo === 0;
+  });
+
+  const [mensagemModal] = useState(() => {
+    if (!modulo) return '';
+    if (progressoModulo === 100 && mfim === "naomostrada") {
+      /*userData.modulos[moduloUserKey].mensagemdefim = "mostrada";*/
+      return mensagensFim[modulo.id];
+    } else if (progressoModulo === 100) {
+      return mfim;
+    } else if (progressoModulo === 0) {
+      return mensagensInicio[modulo.id];
     }
-  }, [modulo, progresso]);
-
-  // 2️⃣ Efeito do modal de fim
-  useEffect(() => {
-    if (!modulo) return;
-    // arredondamos para evitar 99.9999…
-    if (Math.round(progresso) >= 100 && mfim === 'naomostrada') {
-      // marca no Firestore
-      updateDoc(doc(db, 'alunos', userData.uid), {
-        [`modulos.${moduloUserKey}.mensagemdefim`]: 'mostrada'
-      })
-      .catch(console.error);
-
-      // abre o modal de celebração
-      setMensagemModal(mensagensFim[modulo.id]);
-      setShowModal(true);
-    }
-  }, [progresso, mfim, modulo, moduloUserKey, userData.uid]);
+    return '';
+  });
 
   if (!userData || !modulo) {
     return <Loading message="A carregar o módulo..." />;
