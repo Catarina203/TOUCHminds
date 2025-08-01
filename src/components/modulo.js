@@ -27,12 +27,12 @@ const mensagensInicio = {
 };
 
 const mensagensFim = {
-  1: "Superaste o desconforto de falares sobre ansiedade e ganhaste clareza sobre o que sentes — és mais resiliente do que pensas!",
-  2: "Passaste pelo desafio de questionares mitos e estigmas, e acabaste com uma visão mais clara — mantém essa curiosidade!",
-  3: "Enfrentaste a tua voz crítica e praticaste autocompaixão, construindo um alicerce sólido para o teu bem-estar — orgulha-te deste passo!",
-  4: "Analisaste prós e contras da mudança e suportaste a incerteza — demonstraste coragem para evoluir!",
-  5: "Falaste de sintomas e abriste-te à ajuda, reconhecendo a tua vulnerabilidade — foste corajoso(a)!",
-  6: "Abordaste a ideia de ajuda profissional e confirmaste a tua determinação — confia em ti para continuares em frente!"
+  1: "Neste módulo foi possível conhecer melhor o que é a ansiedade e os desafios que pode trazer porque compreender a ansiedade é um passo importante para melhor lidar com ela. Continua a explorar com curiosidade e abertura!",
+  2: "Neste módulo foram exploradas ideias feitas sobre a ansiedade, ajudando a perceber como alguns mitos e estigmas podem ser postos em causa. Pensar de forma mais aberta faz a diferença e é importante mantém o espírito crítico e a vontade de aprender!",
+  3: "Neste módulo falámos da voz crítica que todos temos e de como existem formas diferentes de nos tratarmos, incluindo tratarmo-nos com mais bondade. Conhecer estas alternativas faz parte do processo. Leva contigo esta nova perspetiva e continua a praticá-la!",
+  4: "Neste módulo refletimos sobre os prós e contras da mudança, o que ajuda a perceber que tomar decisões envolve dúvidas ao mesmo tempo que mostra que pensar sobre elas é um gesto de coragem. Confia no processo e no que vais descobrindo pelo caminho!",
+  5: "Neste módulo discutimos a importância de falar sobre sinais de mal-estar e de pedir ajuda. Reconhecer este passo pode abrir caminho para encontrar ajuda quando necessário. Valoriza o gesto de pedir ajuda e continua a cuidar de ti!",
+  6: "Neste módulo falámos sobre ajuda profissional para perceber melhor em que consiste esta ajuda e quando pode ser útil. Conhecer estas possibilidades é parte de estar mais preparado(a). Leva contigo essa informação e confia que podes procurar ajuda quando fizer sentido!"
 };
 
 const Modulos = () => {
@@ -49,7 +49,6 @@ const Modulos = () => {
     : 50;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
-  const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
 
   const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
@@ -162,10 +161,11 @@ const Modulos = () => {
             backgroundColor: "#99CBC8",
             borderBottom: "none",
             color: "#fff",
+            textalign: "center",
           }}
         >
           <Modal.Title style={{ fontWeight: "600" }}>
-            ✨ Uma reflexão para ti
+           ⚡ Energia TOUCH
           </Modal.Title>
         </Modal.Header>
 
@@ -175,6 +175,7 @@ const Modulos = () => {
             fontSize: "1.05rem",
             color: "#234970",
             backgroundColor: "#F5FDFC",
+            textalign: "center",
           }}
         >
           {mensagemModal}
