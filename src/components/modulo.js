@@ -16,12 +16,12 @@ import { Modal, Button } from 'react-bootstrap';
 import Loading from './loading';
 
 const mensagensInicio = {
-  1: "Falar sobre ansiedade pode ser desconfortável. Ao compreendê-la melhor, tornamo-nos mais conscientes dos seus desafios e descobrimos caminhos para lidar com ela com mais confiança",
-  2: "Desafiar mitos e estigmas pode abalar certezas, mas cada dúvida que vais esclarecendo fortalece a tua compreensão—continua curioso(a)!",
-  3: "Olhar de frente para a tua voz crítica pode ser difícil, mas ao praticares autocompaixão constróis um alicerce sólido para o teu bem-estar.",
-  4: "Mudar gera incerteza e desconforto, mas cada análise de prós e contras de mudar é um ato de coragem—confia na tua capacidade de evoluir!",
-  5: "Falar de sintomas e pedir ajuda pode ser desafiante, mas reconhecer essa vulnerabilidade abre-te portas a ligações verdadeiras—és capaz de o fazer!",
-  6: "Falar sobre ajuda profissional pode intimidar, mas este passo revela a tua determinação—acredita em ti para seguires em frente!"
+  1: "Falar sobre ansiedade pode ser desconfortável. Ao compreendê-la melhor, tornamo-nos mais conscientes dos seus desafios e descobrimos caminhos para lidar com ela com mais confiança!",
+  2: "Desafiar mitos e estigmas pode abalar algumas ideias feitas. Esclarecer dúvidas permite desenvolver uma visão mais aberta e informada, abrindo espaço para novas formas de pensar!",
+  3: "A voz crítica tem impacto no nosso bem-estar. Compreendê-la e conhecer alternativas, como a autocompaixão, ajuda-nos a transformar a forma como lidamos connosco mesmos!",
+  4: "A mudança gera dúvidas e desconforto. Refletir sobre os prós e contras torna as decisões mais conscientes, aumentando a clareza e a confiança no processo!",
+  5: "Falar sobre sintomas e pedir ajuda pode ser difícil. Entender a importância desse passo mostra como procurar ajuda é um gesto de cuidado, e saber que existem diferentes formas de ajuda permite encontrar respostas adequadas a cada situação!",
+  6: "Conhecer melhor a ajuda profissional revela como este recurso pode ser essencial para o bem-estar. Informar-se é uma forma de estar mais preparado/a para lidar com o que surgir!"
 };
 
 const mensagensFim = {
@@ -53,9 +53,13 @@ const Modulos = () => {
   });
 
   const [mensagemModal] = useState(() => {
+    return progressoModulo;
+  });
+
+  /*const [mensagemModal] = useState(() => {
     if (!modulo) return '';
     if (progressoModulo == 100 && mfim == "naomostrada") {
-      /*userData.modulos[moduloUserKey].mensagemdefim = "mostrada";*/
+      userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
     } else if (progressoModulo !== 0) {
       return progressoModulo;
@@ -63,7 +67,7 @@ const Modulos = () => {
       return mensagensInicio[modulo.id];
     }
     return '';
-  });
+  });*/
 
   if (!userData || !modulo) {
     return <Loading message="A carregar o módulo..." />;
