@@ -42,7 +42,9 @@ const Modulos = () => {
   const mfim = userData?.modulos?.[moduloUserKey]?.mensagemdefim;
   const atividadesStatus = userData?.modulos?.[moduloUserKey]?.atividades || [];
   const atividadesConcluidas = atividadesStatus.filter((a) => a.concluido).length;
-  const progressoModulo = 100;
+  const progressoModulo = (atividadesStatus.length > 0)
+    ? (atividadesConcluidas / atividadesStatus.length) * 100
+    : 50;
 
   const modalShownKey = `modalShown_modulo_${modulo?.id}`;
   const modalAlreadyShown = localStorage.getItem(modalShownKey) === 'true';
@@ -50,28 +52,18 @@ const Modulos = () => {
   const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
     return progressoModulo;
-    return (progressoModulo === 100 && !modalAlreadyShown) || progressoModulo === 0;
   });
 
   const [mensagemModal] = useState(() => {
-    if (progressoModulo === 100 && mfim == "naomostrada") {
-      return mfim;
-    }
-    return progressoModulo
-  });
-
-  /*const [mensagemModal] = useState(() => {
     if (!modulo) return '';
-    if (progressoModulo == 100 && mfim == "naomostrada") {
+    if (progressoModulo === 100 && mfim == "naomostrada") {
       userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
     } else if (progressoModulo !== 0) {
-      return progressoModulo;
-    } else if (progressoModulo === 0) {
       return mensagensInicio[modulo.id];
     }
     return '';
-  });*/
+  });
 
   if (!userData || !modulo) {
     return <Loading message="A carregar o módulo..." />;
