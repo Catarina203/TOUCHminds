@@ -163,10 +163,15 @@ const Modulos = () => {
         show={showModal}
         onHide={() => {
           setShowModal(false);
-          if ((id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada') || 
-              (id === '6' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada'))
+          if ((id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada') ||
+              (id === '3' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'mostrada') || 
+              (id === '6' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'naomostrada') ||
+              (id === '6' && progressoModulo === 100 && userData?.modulos?.[moduloUserKey]?.mensagemdefim === 'mostrada'))
           {
             setShowExtraModal(true);
+            updateDoc(doc(db, "alunos", userData.uid), {
+              [`modulos.${moduloUserKey}.mensagemdefim`]: "mostrada_dois"
+            }).catch(console.error);
           }
         }}
         centered
