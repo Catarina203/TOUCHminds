@@ -59,7 +59,7 @@ const Modulos = () => {
     if (progressoModulo === 100 && mfim == "naomostrada") {
       userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
-    } else if (progressoModulo !== 0) {
+    } else if (progressoModulo === 0) {
       return mensagensInicio[modulo.id];
     }
     return '';
