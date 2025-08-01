@@ -161,10 +161,9 @@ const Modulos = () => {
             backgroundColor: "#99CBC8",
             borderBottom: "none",
             color: "#fff",
-            textAlign: "center",
           }}
         >
-           <Modal.Title style={{ fontWeight: "600" }}>
+           <Modal.Title style={{ fontWeight: "600", textAlign: "center", }}>
            ⚡ Energia TOUCH
           </Modal.Title>
         </Modal.Header>
