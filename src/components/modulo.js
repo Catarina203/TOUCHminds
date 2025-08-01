@@ -8,6 +8,8 @@ import DesafioSemanal3 from './atividades/modulo3/desafioSemanal';
 import DesafioSemanal4 from './atividades/modulo4/desafioSemanal';
 import DesafioSemanal5 from './atividades/modulo5/desafioSemanal';
 import DesafioSemanal6 from './atividades/modulo6/desafioSemanal';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../database/database";
 
 import { UserContext } from '../App';
 import modulos from '../data/modulos';
@@ -57,7 +59,9 @@ const Modulos = () => {
   const [mensagemModal] = useState(() => {
     if (!modulo) return '';
     if (progressoModulo === 100 && mfim == "naomostrada") {
-      userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
+      updateDoc(doc(db, "alunos", userData.uid), {
+          [`modulos.${moduloUserKey}.mensagemdefim`]: "mostrada"
+        }).catch(console.error);
       return mensagensFim[modulo.id];
     } else if (progressoModulo === 0) {
       return mensagensInicio[modulo.id];
