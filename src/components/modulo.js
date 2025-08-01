@@ -53,7 +53,7 @@ const Modulos = () => {
 
   const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
-    return progressoModulo;
+    return true;
   });
 
   const [mensagemModal] = useState(() => {
@@ -66,6 +66,7 @@ const Modulos = () => {
     } else if (progressoModulo === 0) {
       return mensagensInicio[modulo.id];
     }
+    showModal = false;
     return '';
   });
 
