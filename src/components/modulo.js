@@ -55,7 +55,7 @@ const Modulos = () => {
 
   const [mensagemModal] = useState(() => {
     if (!modulo) return '';
-    if (progressoModulo === 100 && moduloSeguinte?.status === "naomostrada") {
+    if (progressoModulo === 100 && userData.modulos[moduloUserKey].mensagemdefim === "naomostrada") {
       userData.modulos[moduloUserKey].mensagemdefim = "mostrada";
       return mensagensFim[modulo.id];
     } else if (progressoModulo === 0) {
