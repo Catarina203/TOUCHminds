@@ -87,9 +87,13 @@ const BandaDesenhada = () => {
                      <strong><strong>Ansiedade comum</strong></strong>, que nos ajuda a enfrentar desafios;<br></br>
                      <strong><strong>Ansiedade SOS</strong></strong>, que pode atrapalhar o nosso bem-estar.<br></br><br></br>
                      </p>
-              
-              <p className="lead mb-3">O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade. <br>
-              </br>Para isso, lê com atenção os quadros da banda desenhada que se seguem. </p>
+               
+               <div className="row ">
+                  <div className="col-md-12">
+                    <p className="lead mb-3">
+                   O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade. <br>
+                   Para isso, <strong>lê com atenção</strong> os quadros da banda desenhada que se seguem. </br>
+                   </p>
                     
              <div className="text-center">
              <button
@@ -101,8 +105,10 @@ const BandaDesenhada = () => {
            </button>
          </div>
        </div>
-      </div>
-    </div>
+       </div>
+       </div>
+       </div>
+       </div>
         )}
 
             {/* QUADROS */}
@@ -153,8 +159,7 @@ const BandaDesenhada = () => {
                  <p className="lead mb-3">
                  Agora, vou pedir-te que <strong>refletas</strong> sobre o que compreendeste acerca da <strong>ansiedade comum</strong> e da <strong>ansiedade SOS</strong>.
                  <br /><br />
-                 Escreve uma expressão curta ou uma palavra sobre o que compreendeste ser a <strong>ansiedade comum</strong> e outra expressão curta ou palavra sobre o que compreendeste ser a <strong>ansiedade SOS</strong>.
-                 <br /><br />
+                 Escreve uma expressão curta ou uma palavra sobre o que compreendeste ser a <strong>ansiedade comum</strong> e outra expressão curta ou palavra sobre o que compreendeste ser a <strong>ansiedade SOS</strong>. Escreve no espaço abaixo indicado.<br /><br />
                  <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu compreendeste</strong>!
                  </p>
                  </div>
@@ -192,7 +197,7 @@ const BandaDesenhada = () => {
                     id="ansiedadeSOS"
                     value={ansiedadeSOS}
                     onChange={handleAnsiedadeSOSChange}
-                    placeholder="Escreve aqui a tua palavra/expressão que representa ansiedade SOS"
+                    placeholder="Escreve aqui a tua palavra/expressão que representa a ansiedade SOS"
                     required
                     aria-required="true"
                     aria-invalid={inputError && !ansiedadeSOS.trim()}
@@ -233,13 +238,15 @@ const BandaDesenhada = () => {
                   Conclusão da Atividade
                 </h4>
                 <p className="lead">
-                  Espero que esta atividade tenha sido <strong>importante para compreenderes melhor </strong> como a <strong>ansiedade</strong> pode interferir na tua vida. <br /><br />
-                  Lembra-te de que a <strong>ansiedade comum</strong> pode ser uma <strong>aliada</strong>, ajudando-nos a enfrentar desafios e a <strong>preparar-nos</strong> para momentos difíceis.
-                  <br /><br />
-                  No entanto, quando a <strong>ansiedade se torna SOS </strong>, ela pode interferir no nosso <strong>bem-estar</strong> e até prejudicar as nossas <strong>relações</strong> e <strong>atividades diárias</strong>.
-                  <br /><br />
+                 Espero que esta atividade tenha sido <strong>importante para compreenderes melhor</strong> como a <strong>ansiedade</strong> pode interferir na tua vida.
+                 <br /><br />
+                 Lembra-te de que a <strong>ansiedade comum</strong> pode ser uma <strong>aliada</strong>, <strong>ajudando-nos</strong> a enfrentar desafios e a <strong>preparar-nos</strong> para momentos difíceis.
+                 <br /><br />
+                 No entanto, quando a <strong>ansiedade se torna SOS</strong>, ela pode interferir no nosso <strong>bem-estar</strong> e até prejudicar as nossas <strong>relações</strong> e <strong>atividades diárias</strong>.
+                 <br /><br />
                   É importante saber <strong>distinguir</strong> quando a ansiedade está a ser <strong>útil</strong> e quando está a tornar-se um <strong>problema</strong>.
                 </p>
+                
                 <div className="d-flex justify-content-between mt-4">
                   <button
                     className="custom-btn-pink"
