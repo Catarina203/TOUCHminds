@@ -148,24 +148,16 @@ const BandaDesenhada = () => {
                   </div>
                 )}
 
-               <div className="px-4 space-y-4 text-start">
-               <p className="text-base">
-               Agora, vou pedir-te que <strong>refletas</strong> sobre o que compreendeste acerca da <strong>ansiedade comum</strong> e da <strong>ansiedade SOS</strong>.
-               </p>
-
-               <p className="fw-bold text-base">
-               Escreve uma expressão curta ou uma palavra sobre:
-               </p>
-
-                <ul className="list-disc ps-5 space-y-1">
-               <li>O que compreendeste ser a <strong>ansiedade comum</strong>.</li>
-               <li>O que compreendeste ser a <strong>ansiedade SOS</strong>.</li>
-              </ul>
-
-               <p className="text-base">
-              <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu compreendeste</strong>!
-                </p>
-              </div>
+                  <div className="row">
+                  <div className="col-md-12">
+                 <p className="lead mb-3">
+                 Agora, vou pedir-te que <strong>refletas</strong> sobre o que compreendeste acerca da <strong>ansiedade comum</strong> e da <strong>ansiedade SOS</strong>.
+                 <br /><br />
+                 Escreve uma expressão curta ou uma palavra sobre o que compreendeste ser a <strong>ansiedade comum</strong> e outra expressão curta ou palavra sobre o que compreendeste ser a <strong>ansiedade SOS</strong>.
+                 <br /><br />
+                 <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu compreendeste</strong>!
+                 </p>
+                 </div>
 
                 <div className="mb-3">
                   <label htmlFor="ansiedadeComum" className="form-label lead">
@@ -229,6 +221,7 @@ const BandaDesenhada = () => {
                     Conclusão
                     <i className="bi bi-check-lg ms-2"></i>
                   </button>
+                </div>
                 </div>
               </>
             )}
