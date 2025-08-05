@@ -77,26 +77,15 @@ const BandaDesenhada = () => {
 
             {/* INTRODUÇÃO */}
             {pagina === 0 && (
-              <div className="text-start py-4 ps-2">
+              <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>{atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}</h2>
                 <div className="row ">
                   <div className="col-md-12">
                     <p className="lead mb-3">
-                      <strong>Sê muito bem-vindo ou bem-vinda à Banda Desenhada da Ansiedade: Aliada ou Empecilho?!</strong><br></br><br></br>
+                      <strong>Sê muito bem-vindo/a à Banda Desenhada da Ansiedade: Aliada ou Empecilho?!</strong><br></br><br></br>
                       <strong>Nesta banda desenhada</strong>, vais conhecer dois tipos de ansiedade:<br></br><br></br>
                   <strong><strong>Ansiedade comum</strong></strong>, que nos ajuda a enfrentar desafios<br></br>
                    <strong><strong>Ansiedade SOS</strong></strong>, que pode atrapalhar o nosso bem-estar<br></br><br></br>
-
-                    <p className="lead mb-3">O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade. <br>
-                    </br>Para isso, lê com atenção os quadros da banda desenhada que se seguem. </p>
-                    <p className="lead mb-3">No final, <strong>escreve duas palavras</strong> que, para ti, represente:</p>
-                     o que é a <strong><strong>ansiedade comum;</strong></strong><br></br>
-                     o que é a <strong><strong>ansiedade SOS.</strong></strong><br></br><br></br>
-                    Escreve essas duas palavras no espaço indicado.
-                    </p>
-
-                    <p className="lead mb-3">
-                      <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu</strong> compreendeste!
                     </p>
 
                     <div className="text-center">
