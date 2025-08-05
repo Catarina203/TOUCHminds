@@ -76,42 +76,46 @@ const BandaDesenhada = () => {
             </div>
 
             {/* INTRODUÇÃO */}
-           {pagina === 0 && (
-          <div className="text-center">
-          <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
+            {pagina === 0 && (
+             <div className="text-center">
+             <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
              {atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}
-           </h2>
-
-          <p className="lead mb-3">
-          <strong>Sê muito bem-vindo/a à Banda Desenhada da Ansiedade: Aliada ou Empecilho?!</strong>
-        </p>
-
-         <p className="lead mb-3">
-         <strong>Nesta banda desenhada</strong>, vais conhecer dois tipos de ansiedade:
-         </p>
-
-        <ul className="mb-3">
-      <li><strong>Ansiedade comum</strong>, que nos ajuda a enfrentar desafios;</li>
-      <li><strong>Ansiedade SOS</strong>, que pode atrapalhar o nosso bem-estar.</li>
-        </ul>
-
-    <p className="lead mb-3">
-      O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade.
-      <br />
-      Para isso, <strong>lê com atenção</strong> os quadros da banda desenhada que se seguem.
-    </p>
-
-    <div className="text-center">
-      <button
-        className="custom-btn-turquoise mt-3 px-4 py-2"
-        onClick={avancarPagina}
-        aria-label="Iniciar banda desenhada"
-      >
-        <i className="bi bi-play-fill me-2"></i>Vamos a isto?
-      </button>
-    </div>
-  </div>
-)}
+            </h2>
+          
+           <p className="lead mb-3">
+           <strong>Sê muito bem-vindo/a à Banda Desenhada da Ansiedade: Aliada ou Empecilho?!</strong>
+           </p>
+        
+           <p className="lead mb-3">
+           <strong>Nesta banda desenhada</strong>, vais conhecer dois tipos de ansiedade:
+          </p>
+        
+           <div className="d-flex justify-content-between mb-3">
+           <p className="lead mb-0">
+           <strong>Ansiedade comum</strong>, que nos ajuda a enfrentar desafios;
+          </p>
+           <p className="lead mb-0">
+           <strong>Ansiedade SOS</strong>, que pode atrapalhar o nosso bem-estar.
+           </p>
+           </div>
+       
+            <p className="lead mb-3">
+            O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade.
+           <br />
+           Para isso, <strong>lê com atenção</strong> os quadros da banda desenhada que se seguem.
+             </p>
+            
+             <div className="text-center">
+             <button
+             className="custom-btn-turquoise mt-3 px-4 py-2"
+              onClick={avancarPagina}
+             aria-label="Iniciar banda desenhada"
+             >
+            <i className="bi bi-play-fill me-2"></i>Vamos a isto?
+           </button>
+         </div>
+       </div>
+        )}
 
             {/* QUADROS */}
             {pagina > 0 && pagina <= quadros.length && (
@@ -147,7 +151,7 @@ const BandaDesenhada = () => {
             {/* REFLEXÃO */}
             {pagina === quadros.length + 1 && (
               <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Vamos Refletir!</h4>
+                <h4 className="text-center" style={{ color: "#234970" }}>Vamos Refletir!</h4>
 
                 {inputError && (
                   <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
@@ -157,14 +161,16 @@ const BandaDesenhada = () => {
                 )}
 
                 <p className="lead">
-                  <strong>Escreve aqui duas palavras que para ti</strong> representem o que é a ansiedade comum e a ansiedade SOS. Escreve essas duas palavras no espaço indicado. 
-                  <br />
-                  <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu</strong> compreendeste!
-                </p>
+                  Agora vou pedir-te que reflitas sobre o que compreendestes sobre a ansiedade comum e a ansiedade SOS. 
+                   <strong>Escreve uma expressão curta ou uma palavra sobre o que compreendeste ser a ansiedade comum </strong> e 
+                    <strong>outra expressão curta ou palavra sobre o que compreendeste ser a ansiedade SOS </strong>. Escreve no espaço abaixo indicado.
+                   <br />
+                   <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu</strong> compreendeste!
+                  </p>
 
                 <div className="mb-3">
                   <label htmlFor="ansiedadeComum" className="form-label lead">
-                    <strong>A minha palavra para definir a ansiedade comum é:</strong>
+                    <strong>A minha palavra/expressão sobre o que compreendi ser a ansiedade comum é:</strong>
                   </label>
                   <input
                     type="text"
@@ -172,7 +178,7 @@ const BandaDesenhada = () => {
                     id="ansiedadeComum"
                     value={ansiedadeComum}
                     onChange={handleAnsiedadeComumChange}
-                    placeholder="Exemplo: alerta"
+                    placeholder="Escreve aqui a tua palavra/expressão que representa a ansiedade comum"
                     required
                     aria-required="true"
                     aria-invalid={inputError && !ansiedadeComum.trim()}
@@ -187,7 +193,7 @@ const BandaDesenhada = () => {
 
                 <div className="mb-3">
                   <label htmlFor="ansiedadeSOS" className="form-label lead">
-                    <strong>A minha palavra para definir a ansiedade SOS é:</strong>
+                    <strong>A minha palavra/expressão sobre o que compreendi ser a ansiedade SOS é:</strong>
                   </label>
                   <input
                     type="text"
@@ -195,7 +201,7 @@ const BandaDesenhada = () => {
                     id="ansiedadeSOS"
                     value={ansiedadeSOS}
                     onChange={handleAnsiedadeSOSChange}
-                    placeholder="Exemplo: paralisante"
+                    placeholder="Escreve aqui a tua palavra/expressão que representa ansiedade SOS"
                     required
                     aria-required="true"
                     aria-invalid={inputError && !ansiedadeSOS.trim()}
@@ -231,14 +237,14 @@ const BandaDesenhada = () => {
             {/* CONCLUSÃO */}
             {pagina === quadros.length + 2 && (
               <>
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
+                <h4 className="text-center" style={{ color: "#234970" }}>
                   Conclusão da Atividade
                 </h4>
                 <p className="lead">
-                  Espero que tenha sido um <strong>primeiro passo importante</strong> para compreenderes melhor como a <strong>ansiedade</strong> pode afetar a tua vida. <br /><br />
-                  Lembra-te de que a <strong>ansiedade comum</strong> pode ser uma <strong>aliada</strong>, ajudando-nos a enfrentar desafios e a <strong>preparar</strong> para momentos difíceis.
+                  Espero que esta atividade tenha sido <strong>importante para compreenderes melhor </strong> como a <strong>ansiedade</strong> pode interferir a tua vida. <br /><br />
+                  Lembra-te de que a <strong>ansiedade comum</strong> pode ser uma <strong>aliada</strong>, ajudando-nos a enfrentar desafios e a <strong>preparar-nos</strong> para momentos difíceis.
                   <br /><br />
-                  No entanto, quando a <strong>ansiedade SOS</strong> se torna intrusiva, ela pode interferir no nosso <strong>bem-estar</strong> e até prejudicar as nossas <strong>relações</strong> e <strong>atividades diárias</strong>.
+                  No entanto, quando a <strong>ansiedade </strong> se torna SOS, ela pode interferir no nosso <strong>bem-estar</strong> e até prejudicar as nossas <strong>relações</strong> e <strong>atividades diárias</strong>.
                   <br /><br />
                   É importante saber <strong>distinguir</strong> quando a ansiedade está a ser <strong>útil</strong> e quando está a tornar-se um <strong>problema</strong>.
                 </p>
