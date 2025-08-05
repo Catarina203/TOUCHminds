@@ -78,38 +78,19 @@ const BandaDesenhada = () => {
             {/* INTRODUÇÃO */}
             {pagina === 0 && (
              <div className="text-center">
-             <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
-             {atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}
-             </h2>
-          
-             <p className="lead">
-             <strong>Sê muito bem-vindo/a</strong> à <em>Banda Desenhada da Ansiedade: Aliada ou Empecilho?!</em>
-             </p>
-
-             <p className="lead">
-             <strong>Nesta história</strong>, vais conhecer dois tipos de ansiedade:
-             </p>
-
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-               <div className="p-4 border rounded-2xl shadow-sm bg-white">
-              <p className="lead">
-             🟢 <strong>Ansiedade comum:</strong><br /> ajuda-nos a enfrentar desafios.
-             </p>
-     
-             </div>
-             <div className="p-4 border rounded-2xl shadow-sm bg-white">
-              <p className="lead">
-             🔴 <strong>Ansiedade SOS:</strong><br /> pode atrapalhar o nosso bem-estar.
-             </p>
-             </div>
-             </div>
-
-             <p className="lead">
-             O teu <strong>desafio</strong> é perceber a diferença entre estas duas formas de ansiedade.
-               <br />
-             Para isso, <strong>lê com atenção</strong> os quadros da banda desenhada que se seguem.
-            </p>
-            
+              <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>{atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}</h2>
+                <div className="row ">
+                  <div className="col-md-12">
+                    <p className="lead mb-3">
+                     <strong>Sê muito bem-vindo/a à Banda Desenhada da Ansiedade: Aliada ou Empecilho?!</strong><br></br><br></br>
+                     <strong>Nesta banda desenhada</strong>, vais conhecer dois tipos de ansiedade:<br></br><br></br>
+                     <strong><strong>Ansiedade comum</strong></strong>, que nos ajuda a enfrentar desafios;<br></br>
+                     <strong><strong>Ansiedade SOS</strong></strong>, que pode atrapalhar o nosso bem-estar.<br></br><br></br>
+                     </p>
+              
+              <p className="lead mb-3">O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade. <br>
+              </br>Para isso, lê com atenção os quadros da banda desenhada que se seguem. </p>
+                    
              <div className="text-center">
              <button
              className="custom-btn-turquoise mt-3 px-4 py-2"
@@ -120,6 +101,8 @@ const BandaDesenhada = () => {
            </button>
          </div>
        </div>
+      </div>
+    </div>
         )}
 
             {/* QUADROS */}
@@ -165,22 +148,24 @@ const BandaDesenhada = () => {
                   </div>
                 )}
 
-               <p className="lead space-y-2">
+               <div className="px-4 space-y-4 text-start">
+               <p className="text-base">
                Agora, vou pedir-te que <strong>refletas</strong> sobre o que compreendeste acerca da <strong>ansiedade comum</strong> e da <strong>ansiedade SOS</strong>.
                </p>
 
-                <p className="mt-4">
-               ✍️<strong>Escreve uma expressão curta ou uma palavra</strong> sobre:
+               <p className="fw-bold text-base">
+               Escreve uma expressão curta ou uma palavra sobre:
                </p>
 
-               <ul className="list-disc list-inside space-y-1 mt-2">
+                <ul className="list-disc ps-5 space-y-1">
                <li>O que compreendeste ser a <strong>ansiedade comum</strong>.</li>
-                <li>O que compreendeste ser a <strong>ansiedade SOS</strong>.</li>
-               </ul>
+               <li>O que compreendeste ser a <strong>ansiedade SOS</strong>.</li>
+              </ul>
 
-                <p className="mt-4">
-               🧠<strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu compreendeste</strong>!
-              </p>
+               <p className="text-base">
+              <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu compreendeste</strong>!
+                </p>
+              </div>
 
                 <div className="mb-3">
                   <label htmlFor="ansiedadeComum" className="form-label lead">
