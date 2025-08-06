@@ -21,6 +21,13 @@ const LinhaAnsiedade = () => {
     conclusao: false
   });
 
+  const [videoStatus, setVideoStatus] = useState({
+    antes: false,
+    durante: false,
+    depois: false,
+    conclusao: false
+  });
+
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
 
@@ -119,8 +126,6 @@ const LinhaAnsiedade = () => {
               {/* ATIVIDADE PRINCIPAL */}
               {pagina === 1 && (
                 <>
-                  <h4 className="text-center" style={{ color: "#234970" }}>Situação</h4>
-                  
                   <div className="text-center mb-5">
                   <video
                     controls
@@ -162,8 +167,8 @@ const LinhaAnsiedade = () => {
               
 
                   {/* LINHA DA ANSIEDADE NORMATIVA */}
-                  <div className="mb-4 p-4 border rounded" style={{ backgroundColor: "#e8f4f8" }}>
-                    <h5 className="fw-bold mb-3">LINHA DO TEMPO: ANSIEDADE NORMATIVA</h5>
+                  <div className="fw-bold mb-4" style={{  color: "#234970"  }}>
+                    <h5 className="text-center">Explora a linha de ansiedade comum, observando o que acontece ao Manuel antes, durante e depois desta situação</h5>
                     
                     <div className="position-relative mb-4">
 
@@ -197,6 +202,7 @@ const LinhaAnsiedade = () => {
                             className={`btn ${mostrarAnsiedadeNormativa.depois ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
                             onClick={() => toggleAnsiedadeNormativa('depois')}
+                            disabled={!videoStatus.durante} 
                           >
                             <i className="bi bi-check2-circle"></i>
                           </button>
@@ -208,6 +214,7 @@ const LinhaAnsiedade = () => {
                             className={`btn ${mostrarAnsiedadeNormativa.conclusao ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
                             onClick={() => toggleAnsiedadeNormativa('conclusao')}
+                            disabled={!videoStatus.depois} 
                           >
                             <i className="bi bi-lightbulb"></i>
                           </button>
@@ -217,28 +224,84 @@ const LinhaAnsiedade = () => {
                     </div>
                     
                     {mostrarAnsiedadeNormativa.antes && (
-                      <div className="alert alert-info">
-                        <p className="lead">A Maria sente-se agitada, tensa, pensa que a apresentação vai correr mal, que se poderá engasgar ou ter uma "branca" e que isso poderá prejudicar o grupo. Nessa noite, a Maria teve alguma dificuldade para adormecer.</p>
-                      </div>
-                    )}
-                    
+                      <div className="alert alert-info text-center">
+                       <video
+                         controls
+                         style={{ width: "100%", maxWidth: "800px" }}
+                         onEnded={() => setVideoStatus(prev => ({ ...prev, antes: true }))}
+                          >
+                         <source src="/videos/modulo1/linha/linhanormativaantes.mp4" type="video/mp4" />
+                         </video>
+                         </div>
+                         )}
+                    {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
+
                     {mostrarAnsiedadeNormativa.durante && (
-                      <div className="alert alert-info">
-                        <p className="lead">A Maria acorda na manhã da apresentação com o coração acelerado e uma sensação de nó no estômago. Enquanto se prepara para ir para a escola, surgem pensamentos como: "E se eu me esquecer de tudo? E se eu me esqueço de alguma coisa ou me engasgo e toda a turma goza comigo?". Mesmo assim, a Maria decide que vai para a escola, pensando que é melhor enfrentar a situação do que fugir dela. No caminho, a ansiedade continua a acompanhá-la, fazendo com que ela se pergunte se "conseguirá fazer uma boa apresentação". Ao entrar na sala de aula, a Maria sente o coração a bater muito rápido, as mãos a tremer e surgem pensamentos como "e se eu me engasgo ou não me lembro do que tenho que dizer?". No início da apresentação, a ansiedade é intensa e desconfortável, mas a Maria nota, quando começa a apresentar, que a intensidade da ansiedade gradualmente vai baixando.</p>
-                      </div>
-                    )}
+                    <div className="alert alert-info text-center">
+                       <video
+                       controls
+                       style={{ width: "100%", maxWidth: "800px" }}
+                       onEnded={() => setVideoStatus(prev => ({ ...prev, durante: true }))}
+                    >
+                      <source src="/videos/modulo1/linha/linhanormativadurante.mp4" type="video/mp4" />
+                     </video>
+                     </div>
+                     )}
+
+                     {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
                     
                     {mostrarAnsiedadeNormativa.depois && (
-                      <div className="alert alert-info">
-                        <p className="lead">Embora ainda esteja com algumas sensações físicas desconfortáveis, a Maria sente-se aliviada por ter feito a apresentação. E apesar de não ter dito alguma a coisa que considerava importante e de se ter atrapalhado um bocadinho em certos momentos, a Maria está contente com a sua prestação e com o feedback que recebeu da professora e dos colegas, que foi muito positivo. Na verdade, começa já a pensar no intervalo e no que vai fazer que os seus amigos/as.</p>
-                      </div>
-                    )}
-                    
+                     <div className="alert alert-info text-center">
+                       <video
+                        controls
+                       style={{ width: "100%", maxWidth: "800px" }}
+                      onEnded={() => setVideoStatus(prev => ({ ...prev, depois: true }))}
+                    >
+                   <source src="/videos/modulo1/linha/linhanormativadepois.mp4" type="video/mp4" />
+                    </video>
+                   </div>
+                 )}
+
+                {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
+
                     {mostrarAnsiedadeNormativa.conclusao && (
-                      <div className="alert alert-info">
-                        <p className="lead">Nesta situação, apesar da Maria estar ansiosa e de ter várias sensações físicas desconfortáveis por estar ansiosa, decide ir à apresentação. Ela não deixou de estar preocupada e desconfortável, porque era algo difícil para ela, mas foi capaz de ir à escola e fazer a apresentação. Notou, também, que ao fazê-lo a sua ansiedade começou a diminuir e quando terminou estava pronta para continuar com o seu dia e deixar a apresentação para trás. Neste caso, a ansiedade é normativa. Todos nós em apresentações orais sentimos alguma ansiedade e ela é útil, pois é essa ansiedade que nos permite preparar a apresentação. E, embora isso seja desconfortável, não deixamos de fazer as apresentações, que, tal como outras coisas, são importantes para nós.</p>
-                      </div>
-                    )}
+                     <div className="alert alert-info text-center">
+                     <video
+                     controls
+                     style={{ width: "100%", maxWidth: "800px" }}
+                     onEnded={() => setVideoStatus(prev => ({ ...prev, conclusao: true }))}
+                   >
+                   <source src="/videos/modulo1/linha/linhanormativaconclusao.mp4" type="video/mp4" />
+                   </video>
+                   </div>
+                   )}
+
+                   {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
+                  
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
@@ -247,6 +310,8 @@ const LinhaAnsiedade = () => {
                     </button>
 
                     <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                      disabled={!videoStatus.conclusao} 
+
                       <i className="bi bi-arrow-right me-2"></i>Próximo
                     </button>
                   </div>
