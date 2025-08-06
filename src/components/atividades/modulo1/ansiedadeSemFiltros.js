@@ -87,7 +87,7 @@ const AnsiedadeSemFiltros = () => {
             {pagina === 0 && (
               <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                  {atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}
+                  {atividade?.titulo || "Ansiedade Sem Filtros"}
                 </h2>
                 <div className="row">
                   <div className="col-md-12">
@@ -118,7 +118,7 @@ const AnsiedadeSemFiltros = () => {
             {pagina > 0 && pagina <= 12 && (
               <>
                <div className="text-center"></div>
-                <h4 className="text-center" style={{ color: "#234970" }}>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
                   Lê cada imagem com atenção e escrever um hashtag sobre a tua opinião acerca dessa informação.
                 </h4>
                 <div className="text-center mb-4">
@@ -207,7 +207,7 @@ const AnsiedadeSemFiltros = () => {
             {pagina === 13 && (
               <>
                <div className="text-center"></div>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
                   Conclusão da Atividade
                 </h4>
                 <p className="lead">

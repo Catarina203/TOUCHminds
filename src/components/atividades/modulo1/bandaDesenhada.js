@@ -146,7 +146,7 @@ const BandaDesenhada = () => {
             {pagina === quadros.length + 1 && (
               <>
                <div className="text-center"></div>
-                <h4 className="text-center" style={{ color: "#234970" }}>Vamos Refletir!</h4>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Vamos Refletir!</h4>
 
                 {inputError && (
                   <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
@@ -236,7 +236,7 @@ const BandaDesenhada = () => {
             {pagina === quadros.length + 2 && (
               <>
                <div className="text-center"></div>
-                <h4 className="text-center" style={{ color: "#234970" }}>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
                   Conclusão da Atividade
                 </h4>
                 <p className="lead">
