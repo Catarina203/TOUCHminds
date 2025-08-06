@@ -212,11 +212,11 @@ const AnsiedadeSemFiltros = () => {
                 </h4>
                 <p className="lead">
                  Agora que refletiste sobre as imagens, percebeste que a <strong>ansiedade</strong> não é algo <strong>que acontece apenas a alguns</strong>, mas <strong>afeta muitos jovens</strong> e pode ser <strong>mais intensa</strong> do que à primeira vista parece.
-                 <br /><br /> <br /><br />
+                 <br /><br />
                   Nas diferentes imagens, <strong>exploraste</strong> como a ansiedade <strong>surge</strong>, <strong>persiste</strong> ao longo do tempo e os <strong>desafios</strong> que acarreta.
-                   <br /><br /> <br /><br />
+                   <br /><br />
                  Aprendeste também que a ansiedade não deve ser <strong>ignorada</strong>, mas sim <strong>reconhecida</strong> atempadamente, não só para prevenir <strong>consequências mais graves</strong> no futuro, mas porque influencia o <strong>bem-estar</strong>.
-                <br /><br /> <br /><br />
+                <br /><br />
                  Lembra-te: <strong>falar</strong> sobre ansiedade <strong>é o primeiro passo para a compreender</strong> e para lidar da melhor forma com os seus desafios.
               </p>
 

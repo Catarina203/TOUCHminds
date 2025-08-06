@@ -425,7 +425,7 @@ const LinhaAnsiedade = () => {
                    onClick={avancarPagina}
                   disabled={!videoStatusPatologica.conclusao}
                   >
-                  Próximo <i className="bi bi-arrow-right ms-2"></i>
+                  Conclusão <i className="bi bi-arrow-right ms-2"></i>
                  </button>
                 </div>
 
