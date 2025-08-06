@@ -239,8 +239,8 @@ const LinhaAnsiedade = () => {
                           >
                          <source src="/videos/modulo1/linha/linhanormativaantes.mp4" type="video/mp4" />
                           O teu navegador não suporta o elemento de vídeo.
-                            </video>
-                            </div>
+                       </video>
+                       </div>
                          )}
                     
                     {mostrarAnsiedadeNormativa.durante && (
@@ -252,8 +252,8 @@ const LinhaAnsiedade = () => {
                     >
                       <source src="/videos/modulo1/linha/linhanormativadurante.mp4" type="video/mp4" />
                       O teu navegador não suporta o elemento de vídeo.
-                            </video>
-                            </div>
+                     </video>
+                     </div>
                      )}
                     
                     {mostrarAnsiedadeNormativa.depois && (
@@ -264,9 +264,9 @@ const LinhaAnsiedade = () => {
                       onEnded={() => setVideoStatus(prev => ({ ...prev, depois: true }))}
                     >
                    <source src="/videos/modulo1/linha/linhanormativadepois.mp4" type="video/mp4" />
-                     O teu navegador não suporta o elemento de vídeo.
-                            </video>
-                            </div>
+                   O teu navegador não suporta o elemento de vídeo.
+                    </video>
+                   </div>
                  )}
 
                     {mostrarAnsiedadeNormativa.conclusao && (
@@ -431,28 +431,18 @@ const LinhaAnsiedade = () => {
 
                 </>
               )}
-                      {pagina === 4 && (
+              {pagina === 4 && (
                 <>
                   {/* CONCLUSÃO DA ATIVIDADE */}
-                  <div className="text-center">
-                    <h4 className="fw-bold" style={{ color: "#234970" }}>
-                      Conclusão da Atividade
-                    </h4>
-                  </div>
-
-                  <p className="lead">
-                    Espero que esta atividade tenha ajudado a perceber como <strong>os nossos pensamentos, emoções e comportamentos</strong> influenciam a forma como enfrentamos uma situação desafiadora! 
-                    <br /><br />
-                    Lembra-te que a ansiedade é útil e ajuda-nos a <strong>preparar</strong> para situações difíceis. 
-                    <br /><br />
-                    No entanto, alguns <strong>comportamentos</strong>, como <strong>evitar</strong> certas situações, podem acabar por nos <strong>manter ansiosos</strong>, de tal maneira que parece que toda a nossa vida gira em torno da ansiedade. 
-                    <br /><br />
-                    <strong>Nem todo o tipo de evitamento</strong> é problemático; às vezes, pode ser a única maneira de lidar com uma situação difícil.
-                    <br /><br />
-                    O importante é <strong>reconheceres</strong> quando o <strong>evitamento</strong> ajuda e quando ele se torna um <strong>problema</strong>. 
-                    <br /><br />
-                  </p>
-
+                    <div className="text-center"></div>
+                    <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                    <p className="lead">
+                    Espero que esta atividade tenha ajudado a perceber como <strong>os nossos pensamentos, emoções e comportamentos</strong> influenciam a forma como enfrentamos uma situação desafiadora! <br></br><br></br>
+                    Lembra-te que a ansiedade é útil e ajuda-nos a <strong>preparar</strong> para situações difíceis. <br></br><br></br>
+                    No entanto, alguns <strong>comportamentos</strong>, como <strong>evitar</strong> certas situações, podem acabar por nos <strong>manter ansiosos</strong>, de tal maneira que parece que toda a nossa vida gira em torno da ansiedade. <br></br><br></br>
+                    <strong>Nem todo o tipo de evitamento</strong> é problemático; às vezes, pode ser a única maneira de lidar com uma situação difícil.<br></br><br></br>
+                    O importante é <strong>reconheceres</strong> quando o <strong>evitamento</strong> ajuda e quando ele se torna um <strong>problema</strong>. <br></br><br></br>
+                    </p>
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink" onClick={retrocederPagina}>
                       <i className="bi bi-arrow-left me-2"></i>Anterior
@@ -465,11 +455,11 @@ const LinhaAnsiedade = () => {
                   </div>
                 </>
               )}
-
-          </div> {/* fecha .container p-5 */}
-        </div> {/* fecha .col */}
-      </div> {/* fecha .row */}
-    </div> {/* fecha .container-fluid */}
+            
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

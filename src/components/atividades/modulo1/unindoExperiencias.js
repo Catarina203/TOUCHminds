@@ -103,8 +103,9 @@ const UnindoExperiencias = () => {
                       maxWidth: "900px",
                       height: "auto"
                     }}
+                    onEnded={() => setVideoCompleted(true)}
                   >
-                    <source src="/videos/modulo1/hashtag/hashtag_1.mp4" type="video/mp4" />
+                    <source src="/videos/modulo1/unindo/unindoexperiencias.mp4" type="video/mp4" />
                     O teu navegador não suporta o elemento de vídeo.
                   </video>
                 </div>
