@@ -26,9 +26,25 @@ const LinhaAnsiedade = () => {
 
   const modulo = modulos.find((m) => m.id === moduloId);
   const atividade = modulo?.atividades.find(a => a.url === "linha-ansiedade");
+  
+  const [videoCompleted, setVideoCompleted] = useState(false);
+  const [showVideoWarning, setShowVideoWarning] = useState(false);
+  const videoRef = useRef(null);
+  const avancarPagina = () => {
+    if (pagina === 1 && !videoCompleted) {
+      setShowVideoWarning(true); // Mostra aviso azul
+      return;
+    }
+    setShowVideoWarning(false);
+    setPagina(prev => prev + 1);
+  };
 
-  const avancarPagina = () => setPagina((prev) => prev + 1);
   const retrocederPagina = () => setPagina((prev) => prev - 1);
+
+  useEffect(() => {
+    setShowVideoWarning(false);
+    setVideoCompleted(false);
+  }, [pagina]);
 
   const toggleAnsiedadeNormativa = (fase) => {
     setMostrarAnsiedadeNormativa(prev => {
