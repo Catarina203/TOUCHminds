@@ -131,7 +131,7 @@ const LinhaAnsiedade = () => {
                       height: "auto"
                     }}
                   >
-                    <source src="/videos/modulo1/linha/linhasituaçao.mp4" type="video/mp4" />
+                    <source src="/videos/modulo1/linha/linhasituacao.mp4" type="video/mp4" />
                     O teu navegador não suporta o elemento de vídeo.
                   </video>
                 </div>
