@@ -28,6 +28,13 @@ const LinhaAnsiedade = () => {
     conclusao: false
   });
 
+    const [videoStatusPatologica, setVideoStatusPatologica] = useState({
+    antes: false,
+    durante: false,
+    depois: false,
+    conclusao: false
+  });
+
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
 
