@@ -118,7 +118,7 @@ const AnsiedadeSemFiltros = () => {
             {pagina > 0 && pagina <= 12 && (
               <>
                <div className="text-center"></div>
-                <h4 className="fw-bold mb-3" style={{ color: "#234970" }}>
+                <h4 className="text-center" style={{ color: "#234970" }}>
                   Lê cada imagem com atenção e escrever um hashtag sobre a tua opinião acerca dessa informação.
                 </h4>
                 <div className="text-center mb-4">
@@ -128,7 +128,7 @@ const AnsiedadeSemFiltros = () => {
                       alt={`Imagem ${pagina} sobre ansiedade`} // breve
                       aria-describedby={`descricao-imagem-${pagina}`}
                       className="img-fluid rounded"
-                      style={{ maxWidth: "100%", objectFit: "contain" }}
+                      style={{ maxHeight: "500px" }}
                       onError={(e) => {
                         e.target.style.display = 'none';
                         e.target.nextSibling.style.display = 'flex';

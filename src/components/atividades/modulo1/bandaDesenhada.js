@@ -91,8 +91,8 @@ const BandaDesenhada = () => {
                <div className="row ">
                   <div className="col-md-12">
                     <p className="lead mb-3">
-                   O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade. <br>
-                   Para isso, <strong>lê com atenção</strong> os quadros da banda desenhada que se seguem. </br>
+                   O teu <strong>desafio</strong> é compreender a diferença entre estas duas formas de ansiedade. <br></br>
+                   Para isso, <strong>lê com atenção</strong> os quadros da banda desenhada que se seguem. <br></br>
                    </p>
                     
              <div className="text-center">
