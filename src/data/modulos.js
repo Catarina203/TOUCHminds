@@ -52,7 +52,7 @@ const modulos = [
         },
         {
           url: "ansiedade-sem-filtros",
-          titulo: "Ansiedade sem Filtros",
+          titulo: "Ansiedade Sem Filtros",
           tipo: "imagem",
           descricao: "Imagens estilo Instagram sobre ansiedade na adolescência.",
           imagem: "../imgs/act4mod1.jpg"
