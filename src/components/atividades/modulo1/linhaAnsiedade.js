@@ -130,6 +130,7 @@ const LinhaAnsiedade = () => {
                       maxWidth: "900px",
                       height: "auto"
                     }}
+                    onEnded={() => setVideoCompleted(true)}
                   >
                     <source src="/videos/modulo1/linha/linhasituacao.mp4" type="video/mp4" />
                     O teu navegador não suporta o elemento de vídeo.
