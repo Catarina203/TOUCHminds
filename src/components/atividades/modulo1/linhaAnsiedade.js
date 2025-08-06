@@ -110,8 +110,7 @@ const LinhaAnsiedade = () => {
                          quando <strong>intensa</strong> pode tornar-se um <strong>problema</strong>. Aqui, vais observar como uma mesma situação
                           pode ser sentida como <strong>ansiedade comum</strong>, que nos ajuda a <strong>preparar</strong> para os desafios, ou como
                            <strong> ansiedade SOS</strong>, que pode prejudicar o nosso <strong>bem-estar.</strong><br></br><br></br> O objetivo é que explores as duas 
-                           linhas da ansiedade, observando o que acontece <strong>antes, durante e depois</strong> de uma situação  
-                           <strong>desafiadora</strong>.
+                           linhas da ansiedade, observando o que acontece <strong>antes, durante e depois</strong> de uma situação <strong> desafiadora</strong>.
                       </p>
                       <div className="text-center">
                       <button className="custom-btn-turquoise mt-3 px-4 py-2" onClick={avancarPagina}>
@@ -168,7 +167,7 @@ const LinhaAnsiedade = () => {
 
                   {/* LINHA DA ANSIEDADE NORMATIVA */}
                   <div className="fw-bold mb-4" style={{  color: "#234970"  }}>
-                    <h5 className="text-center">Explora a linha de ansiedade comum, observando o que acontece ao Manuel antes, durante e depois desta situação</h5>
+                    <h5 className="text-center fw-bold">Explora a linha de ansiedade comum, observando o que acontece ao Manuel antes, durante e depois desta situação</h5>
                     
                     <div className="position-relative mb-4">
 
@@ -191,6 +190,7 @@ const LinhaAnsiedade = () => {
                             className={`btn ${mostrarAnsiedadeNormativa.durante ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
                             onClick={() => toggleAnsiedadeNormativa('durante')}
+                            disabled={!videoStatus.antes}
                           >
                             <i className="bi bi-hourglass-split"></i>
                           </button>
@@ -234,14 +234,7 @@ const LinhaAnsiedade = () => {
                          </video>
                          </div>
                          )}
-                    {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
-
+                    
                     {mostrarAnsiedadeNormativa.durante && (
                     <div className="alert alert-info text-center">
                        <video
@@ -253,14 +246,6 @@ const LinhaAnsiedade = () => {
                      </video>
                      </div>
                      )}
-
-                     {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
                     
                     {mostrarAnsiedadeNormativa.depois && (
                      <div className="alert alert-info text-center">
@@ -274,14 +259,6 @@ const LinhaAnsiedade = () => {
                    </div>
                  )}
 
-                {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
-
                     {mostrarAnsiedadeNormativa.conclusao && (
                      <div className="alert alert-info text-center">
                      <video
@@ -292,16 +269,8 @@ const LinhaAnsiedade = () => {
                    <source src="/videos/modulo1/linha/linhanormativaconclusao.mp4" type="video/mp4" />
                    </video>
                    </div>
-                   )}
-
-                   {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
-                  
+                   )}    
+             
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
@@ -309,11 +278,13 @@ const LinhaAnsiedade = () => {
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
 
-                    <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                      disabled={!videoStatus.conclusao} 
-
-                      <i className="bi bi-arrow-right me-2"></i>Próximo
-                    </button>
+                    <button
+                       className="custom-btn-turquoise"
+                       onClick={avancarPagina}
+                        disabled={!videoStatus.conclusao} 
+                       >
+                       Próximo <i className="bi bi-arrow-right ms-2"></i>
+                      </button>
                   </div>
                 </>
                 )}
