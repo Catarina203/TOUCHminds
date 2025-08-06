@@ -218,7 +218,7 @@ const VerdadeOuMito = () => {
                     className="custom-btn-turquoise" onClick={avancarPagina}
                     disabled={!mostrarPopup}
                   >
-                    Próximo<i className="bi bi-arrow-right ms-2"></i>
+                    Próximo <i className="bi bi-arrow-right ms-2"></i>
                   </button>
                 </div>
               </div>

@@ -182,7 +182,7 @@ const AtividadeVozCritica = () => {
               )}
               {pagina < 11 && pagina > 0 ? (
                 <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                  Próximo<i className="bi bi-arrow-right ms-2"></i>
+                  Próximo <i className="bi bi-arrow-right ms-2"></i>
                 </button>
               ) : pagina === 11 ? (
                 <AtividadeProgressao

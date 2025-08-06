@@ -155,7 +155,7 @@ const LinhaAnsiedade = () => {
                     </button>
 
                     <button className="custom-btn-turquoise"  onClick={avancarPagina}>
-                      <i className="bi bi-arrow-right me-2"></i>Próximo
+                     Próximo <i className="bi bi-arrow-right me-2"></i>
                     </button>
                   </div>
                   </>
@@ -167,7 +167,7 @@ const LinhaAnsiedade = () => {
 
                   {/* LINHA DA ANSIEDADE NORMATIVA */}
                   <div className="fw-bold mb-4" style={{  color: "#234970"  }}>
-                    <h5 className="text-center fw-bold">Explora a linha de ansiedade comum, observando o que acontece ao Manuel antes, durante e depois desta situação</h5>
+                    <h5 className="text-center fw-bold" style={{ marginBottom: "20px" }}> Explora a linha de ansiedade comum, observando o que acontece ao Manuel antes, durante e depois desta situação</h5>
                     
                     <div className="position-relative mb-4">
 
@@ -294,8 +294,8 @@ const LinhaAnsiedade = () => {
               
 
                   {/* LINHA DA ANSIEDADE PATOLÓGICA */}
-                  <div className="mb-4 p-4 border rounded" style={{ backgroundColor: "#f8e8e8" }}>
-                    <h5 className="fw-bold mb-3">LINHA DO TEMPO: ANSIEDADE PATÓLOGIA</h5>
+                    <div className="fw-bold mb-4" style={{  color: "#234970"  }}>
+                    <h5 className="text-center fw-bold" style={{ marginBottom: "20px" }}> Explora a linha de ansiedade SOS, observando o que acontece ao Manuel antes, durante e depois desta situação</h5>
                     
                     <div className="position-relative mb-4">
 
@@ -318,6 +318,7 @@ const LinhaAnsiedade = () => {
                             className={`btn ${mostrarAnsiedadePatologica.durante ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
                             onClick={() => toggleAnsiedadePatologica('durante')}
+                            disabled={!videoStatusPatologica.antes}
                           >
                             <i className="bi bi-hourglass-split"></i>
                           </button>
@@ -329,6 +330,7 @@ const LinhaAnsiedade = () => {
                             className={`btn ${mostrarAnsiedadePatologica.depois ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
                             onClick={() => toggleAnsiedadePatologica('depois')}
+                            disabled={!videoStatusPatologica.durante}
                           >
                             <i className="bi bi-check2-circle"></i>
                           </button>
@@ -340,6 +342,7 @@ const LinhaAnsiedade = () => {
                             className={`btn ${mostrarAnsiedadePatologica.conclusao ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
                             onClick={() => toggleAnsiedadePatologica('conclusao')}
+                            disabled={!videoStatusPatologica.depois}
                           >
                             <i className="bi bi-lightbulb"></i>
                           </button>
@@ -349,28 +352,52 @@ const LinhaAnsiedade = () => {
                     </div>
                     
                     {mostrarAnsiedadePatologica.antes && (
-                      <div className="alert alert-danger">
-                        <p className="lead">A Maria sente-se agitada, tensa, e pensa que a apresentação vai correr mal. Ela acredita que sua dificuldade em falar em público pode prejudicar o desempenho do grupo. Além disso, acredita que se vai engasgar ou ter uma "branca", esquecendo-se do que tem de dizer. Se isso acontecer, a Maria imagina que o grupo ficará irritado com ela e que todos na turma se vão rir dela. Fica tão ansiosa que não consegue dormir bem nessa noite, sempre a pensar na desgraça que será a apresentação.</p>
-                      </div>
-                    )}
+                       <div className="alert alert-danger text-center">
+                      <video
+                        controls
+                       style={{ width: "100%", maxWidth: "800px" }}
+                       onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, antes: true }))}
+                        >
+                        <source src="/videos/modulo1/linha/linhapatologicaantes.mp4" type="video/mp4" />
+                       </video>
+                       </div>
+                       )}
                     
                     {mostrarAnsiedadePatologica.durante && (
-                      <div className="alert alert-danger">
-                        <p className="lead">Maria acorda na manhã da apresentação sentindo o coração a bater muito rápido, como se quisesse saltar do peito e um nó na garganta que a impede de engolir. O estômago está em constantes reviravoltas, como se uma tempestade estivesse dentro dela. Surgem pensamentos como: "Não vou conseguir. Vou-me engasgar de certeza e todos se vão rir de mim." Acredita que não é capaz de enfrentar esta situação e diz à mãe que não se sente bem e que é melhor não ir à escola.</p>
-                      </div>
+                      <div className="alert alert-danger text-center">
+                      <video
+                      controls
+                      style={{ width: "100%", maxWidth: "800px" }}
+                    onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, durante: true }))}
+                     >
+                     <source src="/videos/modulo1/linha/linhapatologicadurante.mp4" type="video/mp4" />
+                    </video>
+                    </div>
                     )}
                     
                     {mostrarAnsiedadePatologica.depois && (
-                      <div className="alert alert-danger">
-                        <p className="lead">A sensação de alívio é imediata. No entanto, pouco tempo depois, a Maria pensa que o facto de não ter ido à apresentação prejudicou os seus colegas de grupo, que contavam com ela. A ideia de que a professora poderá pedir que ela apresente sozinha noutra aula aparece e é ainda assustadora, intensificando a sua ansiedade. A Maria sente que faça o que fizer está sempre errado e fica a matutar que devia conseguir fazer diferente, mas parece que nunca consegue fazer a 'coisa certa'.</p>
-                      </div>
+                      <div className="alert alert-danger text-center">
+                     <video
+                      controls
+                      style={{ width: "100%", maxWidth: "800px" }}
+                    onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, depois: true }))}
+                   >
+                   <source src="/videos/modulo1/linha/linhapatologicadepois.mp4" type="video/mp4" />
+                     </video>
+                    </div>
                     )}
                     
                     {mostrarAnsiedadePatologica.conclusao && (
-                      <div className="alert alert-danger">
-                        <p className="lead">Esta situação, ilustra como a ansiedade se pode tornar debilitante e levar ao evitamento de diferentes situações. Certos comportamentos que nos levam a evitar ou fugir de emoções desconfortáveis, podem ajudar a que nossas dificuldades se mantenham. Apesar de algumas estratégias poderem parecer funcionar a curto prazo, a longo prazo o desconforto e a ansiedade mantêm-se ou tornam-se ainda maiores. Neste caso, é verdade que no imediato a Maria se sentiu aliviada por não ter feito a apresentação e por não ter de lidar com aquele desconforto. A Maria quis fugir do que antecipou ser uma situação horrível – o fazer a apresentação – mas acabou a sentir-se ansiosa na mesma, e até encontrou novos motivos para ficar ansiosa, incluindo o ter fugido desta apresentação. Quando fugimos ou evitamos muitas vezes, a nossa mente começa a utilizar automaticamente essa estratégia: "faz a mesma coisa que fizeste da última vez, mesmo que isso só signifique que te sintas melhor por um bocadinho de tempo". Depois de evitarmos ou fugirmos por algum tempo, podemos sentir que não existem outras opções e que esta é a única estratégia que vai funcionar para nós. Evitar aquilo que nos faz sentir desconfortável pode resultar num ciclo vicioso: "o ciclo do evitamento".</p>
-                      </div>
-                    )}
+                      <div className="alert alert-danger text-center">
+                    <video
+                    controls
+                  style={{ width: "100%", maxWidth: "800px" }}
+                onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, conclusao: true }))}
+               >
+                <source src="/videos/modulo1/linha/linhapatologicaconclusao.mp4" type="video/mp4" />
+                </video>
+              </div>
+                )}
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
@@ -378,25 +405,29 @@ const LinhaAnsiedade = () => {
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
 
-                    <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                      <i className="bi bi-arrow-right me-2"></i>Próximo
-                    </button>
-                  </div>
+                    <button
+                   className="custom-btn-turquoise"
+                   onClick={avancarPagina}
+                  disabled={!videoStatusPatologica.conclusao}
+                  >
+                  Próximo <i className="bi bi-arrow-right ms-2"></i>
+                 </button>
+                </div>
 
                 </>
               )}
               {pagina === 4 && (
                 <>
                   {/* CONCLUSÃO DA ATIVIDADE */}
+                    <div className="text-center"></div>
                     <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                     <p className="lead">
-                      <strong>Espero que esta atividade tenha sido um primeiro passo importante para compreenderes melhor a ansiedade!</strong> <br></br><br></br>
+                      <strong>Espero que esta atividade tenha sido um primeiro passo importante para compreenderes melhor as diferentes intensidades da ansiedade! </strong> <br></br><br></br>
                       <strong>Lembra-te</strong> que a <strong>ansiedade</strong> é útil e ajuda-nos a <strong>preparar</strong> para situações difíceis. <br></br><br></br>
                       No entanto, alguns <strong>comportamentos</strong>, como <strong>evitar</strong> certas situações, podem acabar por nos <strong>manter ansiosos</strong>, de tal maneira que parece que toda a nossa 
                       vida gira em torno da ansiedade. <br></br><br></br>
-                      <strong>Nem todo o tipo de evitamento</strong> é pouco útil ou problemático; às vezes, pode ser a única maneira de lidar com uma situação difícil.<br></br><br></br>
+                      <strong>Nem todo o tipo de evitamento</strong> é problemático; às vezes, pode ser a única maneira de lidar com uma situação difícil.<br></br><br></br>
                        O importante é <strong>reconheceres</strong> quando o <strong>evitamento</strong> ajuda e quando ele se torna um <strong>problema</strong>. <br></br><br></br>
-                       <strong>Aprender</strong> a reconhecer e <strong>lidar com a ansiedade</strong> é um passo importante para o teu <strong>bem-estar</strong>.
                     </p>
 
                   <div className="d-flex justify-content-between mt-4">
