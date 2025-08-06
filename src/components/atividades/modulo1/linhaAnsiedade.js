@@ -75,19 +75,19 @@ const LinhaAnsiedade = () => {
             
               {/* INTRODUÇÃO */}
               {pagina === 0 && (
-                <div className="text-start py-4">
+                <div className="text-center">
                   <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>{atividade?.titulo || "Linha da Ansiedade"}</h2>
                   <div className="row justify-content-center">
                     <div className="col-md-12">
                       <p className="lead">
-                        <strong>Sê muito bem-vindo ou bem-vinda à Linha da Ansiedade!</strong><br></br><br></br>
-                         Nesta <strong>atividade interativa</strong>, vais explorar como a ansiedade 
+                        <strong>Sê muito bem-vindo/a à Linha da Ansiedade!</strong><br></br><br></br>
+                         Nesta <strong>atividade </strong>, vais explorar como a ansiedade 
                          pode aparecer nas nossas vidas com <strong>diferentes intensidade.</strong><br></br> <br></br>
                          A <strong>ansiedade</strong> é <strong>normal</strong> e <strong>útil</strong>, mas 
                          quando <strong>intensa</strong> pode tornar-se um <strong>problema</strong>. Aqui, vais observar como uma mesma situação
-                          pode ser sentida como <strong>ansiedade comum</strong>, que nos ajuda a <strong>preparar</strong> para desafios, ou como
-                           <strong> ansiedade SOS</strong>, que pode prejudicar o nosso <strong>bem-estar</strong><br></br><br></br> O objetivo é que explores as duas 
-                           linhas da ansiedade, observando o que acontece <strong>antes, durante e depois</strong> de uma situação 
+                          pode ser sentida como <strong>ansiedade comum</strong>, que nos ajuda a <strong>preparar</strong> para os desafios, ou como
+                           <strong> ansiedade SOS</strong>, que pode prejudicar o nosso <strong>bem-estar.</strong><br></br><br></br> O objetivo é que explores as duas 
+                           linhas da ansiedade, observando o que acontece <strong>antes, durante e depois</strong> de uma situação  
                            <strong>desafiadora</strong>.
                       </p>
                       <div className="text-center">
@@ -103,12 +103,30 @@ const LinhaAnsiedade = () => {
               {/* ATIVIDADE PRINCIPAL */}
               {pagina === 1 && (
                 <>
-                  <h4 className="fw-bold mb-3" style={{ color: "#234970" }}>Linha da Ansiedade</h4>
+                  <h4 className="text-center" style={{ color: "#234970" }}>Situação</h4>
                   
-                  <div className="p-4 mb-4 rounded" style={{ backgroundColor: "#fbf9f9" }}> {/* Alterei o tom da caixa de texto, caso seja para ficar*/}
-                    <h5 className="lead" style={{fontWeight:'500'}}>Situação:</h5>
-                    <p className="lead mb-0 fs-5">A Maria não gosta de fazer apresentações orais, mas amanhã terá de apresentar um trabalho de grupo na aula de português.</p>
+                  <div className="text-center mb-5">
+                  <video
+                    controls
+                    className="rounded shadow"
+                    style={{
+                      width: "100%",
+                      maxWidth: "900px",
+                      height: "auto"
+                    }}
+                  >
+                    <source src="/videos/modulo1/linha/linhasituaçao.mp4" type="video/mp4" />
+                    O teu navegador não suporta o elemento de vídeo.
+                  </video>
+                </div>
+
+                {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
                   </div>
+                )}
 
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink"  onClick={retrocederPagina}>

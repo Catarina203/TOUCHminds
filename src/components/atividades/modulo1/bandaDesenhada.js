@@ -225,7 +225,7 @@ const BandaDesenhada = () => {
                     aria-label="Avançar para a conclusão"
                   >
                     Conclusão
-                    <i className="bi bi-check-lg ms-2"></i>
+                    <i className="bi bi-arrow-right ms-2"></i>
                   </button>
                 </div>
                 </div>
