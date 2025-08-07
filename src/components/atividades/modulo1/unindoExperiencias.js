@@ -156,43 +156,76 @@ const [comportamento, setComportamento] = useState("");
                       </p>
                     </div>
                   </div>
-
-                        <div className="table-responsive font-poppins">
-                          <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
-                            <thead style={{ backgroundColor: "#99CBC8" }}>
-                              <tr>
-                                <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }} >Pensamentos</th>
-                                <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Sensações Físicas</th>
-                                <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Comportamentos</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {[
-                                ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
-                                ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
-                                ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
-                                ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
-                                ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
-                                ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
-                                ["", "Formigueiro nos joelhos", ""],
-                                ["", "Sensação de aperto no peito", ""],
-                                ["", "Ficar mais cansado/a", ""],
-                              ].map((row, index) => (
-                                <tr
-                                  key={index}
+                  
+                    <div className="table-responsive font-poppins">
+                      <table
+                        className="table align-middle text-center"
+                        style={{ borderCollapse: "collapse", backgroundColor: "#fff" }}
+                      >
+                        <thead>
+                          <tr>
+                            <th
+                              style={{
+                                backgroundColor: "#E7C8C2",
+                                color: "#234970",
+                                fontWeight: "bold",
+                                border: "1px solid #99CBC8",
+                              }}
+                            >
+                              Pensamentos
+                            </th>
+                            <th
+                              style={{
+                                backgroundColor: "#E7C8C2",
+                                color: "#234970",
+                                fontWeight: "bold",
+                                border: "1px solid #99CBC8",
+                              }}
+                            >
+                              Sensações Físicas
+                            </th>
+                            <th
+                              style={{
+                                backgroundColor: "#E7C8C2",
+                                color: "#234970",
+                                fontWeight: "bold",
+                                border: "1px solid #99CBC8",
+                              }}
+                            >
+                              Comportamentos
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[
+                            ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
+                            ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
+                            ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
+                            ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
+                            ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
+                            ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
+                            ["", "Formigueiro nos joelhos", ""],
+                            ["", "Sensação de aperto no peito", ""],
+                            ["", "Ficar mais cansado/a", ""],
+                          ].map((row, index) => (
+                            <tr key={index}>
+                              {row.map((cell, i) => (
+                                <td
+                                  key={i}
                                   style={{
-                                    backgroundColor: "#66BFBF",
-                                    color: "white",
+                                    backgroundColor: "white",
+                                    border: "1px solid #99CBC8",
+                                    color: "#234970",
                                   }}
                                 >
-                                  {row.map((cell, i) => (
-                                    <td key={i} style={{ backgroundColor: "#99CBC8"}}>{cell}</td>
-                                  ))}
-                                </tr>
+                                  {cell}
+                                </td>
                               ))}
-                            </tbody>
-                          </table>
-                        </div>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
 
                   <div className="row">
                     <div className="col-md-12">
