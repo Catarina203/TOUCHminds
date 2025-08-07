@@ -259,7 +259,7 @@ const AtividadeResumo = () => {
                       Imagina que <strong>és tu</strong> que estás na situação que te vou apresentar, e <strong>seleciona</strong> a opção que melhor representa a forma
                       como te irias <strong>comportar</strong> nessa situação.<br></br><br></br>
                       Cada escolha representará um <strong>comportamento</strong> e influenciará como a personagem lida com a ansiedade e se relaciona com os outros.<br></br><br></br>
-                      Este exercício é uma oportunidade para <strong>refletires</strong> sobre como os teus <strong>comportamentos e escolhas</strong> podem moldar as tuas <strong>experiências</strong> em momentos de ansiedade e em interações sociais.
+                      Esta atividade é uma oportunidade para <strong>refletires</strong> sobre como os teus <strong>comportamentos e escolhas</strong> podem moldar as tuas <strong>experiências</strong> em momentos de ansiedade e em interações sociais.
                     </p>
                     <div className="text-center">
                       <button className="custom-btn-turquoise mt-3 px-4 py-2" onClick={avancarPagina}>
@@ -385,7 +385,7 @@ const AtividadeResumo = () => {
                               className="btn btn-primary mt-3"
                               onClick={avancarPagina}
                             >
-                              {pagina === 4 ? 'Resumo' : 'Próximo'}
+                              {pagina + 1 === 5 ? 'Resumo' : 'Próximo'}
                             </button>
                           </div>
                         </div>
@@ -550,7 +550,7 @@ const AtividadeResumo = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-12">
                     <p className="lead">
-                      Espero que esta atividade tenha sido útil para refletires. Assim como a Sara, <strong>todos nós</strong> tomamos decisões todos os dias que <strong>moldam</strong> as nossas experiências e as nossas interações com os outros. <br /><br /> 
+                      Assim como a Sara, <strong>todos nós</strong> tomamos decisões todos os dias que <strong>moldam</strong> as nossas experiências e as nossas interações com os outros. <br /><br /> 
                       Mesmo quando estamos ansiosos, as <strong>escolhas</strong> que fazemos têm impacto, tanto em nós como nos outros. <br /><br />
                       <strong>Evitar</strong> uma situação pode aliviar momentaneamente, mas a longo prazo torna mais difícil enfrentá-la. <br /><br />
                       <strong>Enfrentar</strong> o desconforto, embora seja difícil no momento, pode não só ajudar-nos a criar relações novas, como também a <strong>reduzir a ansiedade</strong> ao longo do tempo. <br /><br />

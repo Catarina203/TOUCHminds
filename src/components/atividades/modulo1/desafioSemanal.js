@@ -131,7 +131,7 @@ const DesafioSemanal = ({ id }) => {
                   {
                     name: "situacao",
                     label: "Situação",
-                    placeholder: "Ex: Descreve brevemente a situação",
+                    placeholder: "Descreve brevemente a situação",
                   },
                   {
                     name: "comoMeSenti",
@@ -146,7 +146,7 @@ const DesafioSemanal = ({ id }) => {
                   {
                     name: "comoLidei",
                     label: "Como lidei com a situação?",
-                    placeholder: "Ex: Escreve o que fizeste naquele momento",
+                    placeholder: "Escreve o que fizeste naquele momento",
                   },
                   {
                     name: "funcionou",
