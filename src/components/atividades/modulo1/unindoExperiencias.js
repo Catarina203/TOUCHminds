@@ -161,9 +161,9 @@ const [comportamento, setComportamento] = useState("");
   <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
     <thead style={{ backgroundColor: "#99CBC8" }}>
       <tr>
-        <th style={{ color: "#234970", fontWeight: "bold", border: "1px solid #dee2e6" }}>Pensamentos</th>
-        <th style={{ color: "#234970", fontWeight: "bold", border: "1px solid #dee2e6" }}>Sensações Físicas</th>
-        <th style={{ color: "#234970", fontWeight: "bold", border: "1px solid #dee2e6" }}>Comportamentos</th>
+        <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }} >Pensamentos</th>
+        <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Sensações Físicas</th>
+        <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Comportamentos</th>
       </tr>
     </thead>
     <tbody>
@@ -181,11 +181,12 @@ const [comportamento, setComportamento] = useState("");
         <tr
           key={index}
           style={{
-            backgroundColor: index % 2 === 0 ? "#E0F7F4" : "#ffffff"
+            backgroundColor: "#66BFBF",
+            color: "white",
           }}
         >
           {row.map((cell, i) => (
-            <td key={i} style={{ border: "1px solid #dee2e6" }}>{cell}</td>
+            <td key={i} style={{ backgroundColor: "#E7C8C2", color: "#234970"  }}>{cell}</td>
           ))}
         </tr>
       ))}
