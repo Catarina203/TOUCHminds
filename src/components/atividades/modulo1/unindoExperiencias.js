@@ -158,40 +158,58 @@ const [comportamento, setComportamento] = useState("");
                   </div>
 
                   <div className="table-responsive font-poppins">
-                    <table className="table text-center align-middle font-poppins">
-                    <thead style={{ backgroundColor: "#99CBC8", color: "#234970" }}>
-                    <tr>
-                      <th style={{ border: "1px solid #FBF9F9" }}>Pensamentos</th>
-                      <th style={{ border: "1px solid #FBF9F9" }}>Sensações Físicas</th>
-                      <th style={{ border: "1px solid #FBF9F9" }}>Comportamentos</th>
-                    </tr>
-                  </thead>
-                         <tbody>
-                              {[
-                                ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
-                                ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
-                                ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
-                                ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
-                                ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
-                                ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
-                                ["", "Formigueiro nos joelhos", ""],
-                                ["", "Sensação de aperto no peito", ""],
-                                ["", "Ficar mais cansado/a", ""],
-                              ].map((row, index) => (
-                                <tr
-                                  key={index}
-                                  style={{
-                                    backgroundColor: index % 2 === 0 ? "#FBF9F9" : "#F0F8F7", // alternância suave
-                                  }}
-                                >
-                                  {row.map((cell, i) => (
-                                    <td key={i} style={{ border: "1px solid #dee2e6" }}>{cell}</td>
-                                  ))}
-                                </tr>
-                              ))}
-                            </tbody>
-                    </table>
-                  </div>
+                                  <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
+                                    <thead style={{ backgroundColor: "#E2F0EF" }}>
+                                      <tr>
+                                        <th style={{
+                                          border: "1px solid #dee2e6",
+                                          color: "#234970",
+                                          fontWeight: "bold"
+                                        }}>
+                                          Pensamentos
+                                        </th>
+                                        <th style={{
+                                          border: "1px solid #dee2e6",
+                                          color: "#234970",
+                                          fontWeight: "bold"
+                                        }}>
+                                          Sensações Físicas
+                                        </th>
+                                        <th style={{
+                                          border: "1px solid #dee2e6",
+                                          color: "#234970",
+                                          fontWeight: "bold"
+                                        }}>
+                                          Comportamentos
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {[
+                                        ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
+                                        ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
+                                        ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
+                                        ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
+                                        ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
+                                        ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
+                                        ["", "Formigueiro nos joelhos", ""],
+                                        ["", "Sensação de aperto no peito", ""],
+                                        ["", "Ficar mais cansado/a", ""],
+                                      ].map((row, index) => (
+                                        <tr
+                                          key={index}
+                                          style={{
+                                            backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#E2F0EF"
+                                          }}
+                                        >
+                                          {row.map((cell, i) => (
+                                            <td key={i} style={{ border: "1px solid #dee2e6" }}>{cell}</td>
+                                          ))}
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
 
                   <div className="row">
                     <div className="col-md-12">
