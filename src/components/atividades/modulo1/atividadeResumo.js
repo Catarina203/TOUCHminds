@@ -205,21 +205,21 @@ const AtividadeResumo = () => {
                 }}
               >
                <button
-                    type="button"
-                    onClick={onClose}
-                    style={{
-                      backgroundColor: "#234970",
-                      border: "none",
-                      color: "white",
-                      borderRadius: "20px",
-                      padding: "0.5rem 1.5rem",
-                      fontWeight: "500",
-                      boxShadow: "none",
-                      outline: "none"
-                    }}
-                  >
-                    Próximo
-                  </button>
+                  type="button"
+                  onClick={onClose}
+                  style={{
+                    backgroundColor: "#234970",
+                    border: "none",
+                    color: "white",
+                    borderRadius: "20px",
+                    padding: "0.5rem 1.5rem",
+                    fontWeight: "500",
+                    boxShadow: "none",
+                    outline: "none"
+                  }}
+                >
+                  {pagina === 4 ? 'Resumo' : 'Próximo'}
+                </button>
               </div>
             </div>
           </div>
@@ -367,30 +367,6 @@ const AtividadeResumo = () => {
                       Por favor, seleciona uma opção antes de continuar.
                     </div>
                   )}
-                   {showModal && (
-                      <div
-                        className="modal fade show d-block"
-                        tabIndex="-1"
-                        role="dialog"
-                        style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-                      >
-                        <div className="modal-dialog modal-dialog-centered">
-                          <div className="modal-content p-4 text-center">
-                            <h5 className="fw-bold mb-3" style={{ color: "#2C7A7B" }}>
-                              Impacto da tua escolha!
-                            </h5>
-                            <p>{userChoices[0]?.summary}</p>
-
-                            <button
-                              className="btn btn-primary mt-3"
-                              onClick={avancarPagina}
-                            >
-                              {pagina + 1 === 5 ? 'Resumo' : 'Próximo'}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
 
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink" onClick={retrocederPagina}>
