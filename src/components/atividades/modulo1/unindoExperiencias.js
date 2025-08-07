@@ -156,7 +156,7 @@ const [comportamento, setComportamento] = useState("");
                       </p>
                     </div>
                   </div>
-                  
+
                     <div className="table-responsive font-poppins">
                       <table
                         className="table align-middle text-center"
@@ -344,16 +344,20 @@ const [comportamento, setComportamento] = useState("");
                   Conclusão da Atividade
                 </h4>
                 <p className="lead">
-                  <strong>Como viste neste vídeo, a ansiedade pode ser desafiadora, mas é importante lembrar-te que não estás
-                    sozinho/a nesta experiência.</strong><br></br><br></br>
-                  Todos enfrentamos momentos difíceis e, ao <strong>partilharmos as nossas histórias</strong>, percebemos que a <strong>ansiedade
-                    é uma emoção comum a todos nós.</strong><br></br><br></br>
-                  Este conceito de <strong>“humanidade comum”</strong> conecta-nos, mostrando que as nossas <strong>dificuldades e emoções</strong> fazem
-                  parte da <strong>experiência universal</strong>.<br></br><br></br>
-                  Ao <strong>falarmos sobre o que sentimos</strong> e ao <strong>procurarmos apoio</strong>, fortalecemos esses <strong>laços</strong> e aprendemos uns com
-                  os outros.<br></br><br></br>
-                  <strong>Juntos, podemos enfrentar a ansiedade e apoiar-nos mutuamente neste caminho.</strong>
+                 
+                    Como viste neste vídeo, <strong>a ansiedade pode ser desafiadora</strong>, mas é importante lembrar-te que <strong>não estás
+                    sozinho/a</strong> nesta experiência.<br /><br />
 
+                    Todos enfrentamos momentos difíceis e, ao <strong>partilharmos as nossas histórias</strong>, percebemos que a <strong>ansiedade
+                    é uma emoção comum a todos nós.</strong><br /><br />
+
+                    Este conceito de <strong>“humanidade comum”</strong> conecta-nos, mostrando que as nossas <strong>dificuldades e emoções</strong> fazem
+                    parte da <strong>experiência universal</strong>.<br /><br />
+
+                    Ao <strong>falarmos sobre o que sentimos</strong> e ao <strong>procurarmos apoio</strong>, fortalecemos esses <strong>laços</strong> e aprendemos uns com
+                    os outros.<br /><br />
+
+                    Juntos, podemos enfrentar a ansiedade e apoiar-nos mutuamente neste caminho.
                 </p>
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>

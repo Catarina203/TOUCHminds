@@ -53,8 +53,8 @@ const AtividadeResumo = () => {
     setHashtags(newHashtags);
   };
 
-  const handleOptionClick = (feedbackImage, option, questionIndex) => {
-    setModalContent(feedbackImage);
+  const handleOptionClick = ( option, questionIndex) => {
+    setModalContent(option);
     setShowModal(true);
     setSelectedOption(option.text.substring(0, 20)); 
 
@@ -78,26 +78,27 @@ const AtividadeResumo = () => {
   const quizPages = [
     {
       title: "Chegada ao Clube",
+      description: "A Sara vê os outros colegas a conversar em pequenos grupos e sente-se dividida entre aproximar-se ou ficar ali sozinha.", 
       questionImage: "/imgs/modulo1/resumo/resumo_1.png",
       options: [
         {
-          text: "Decidir aproximar-se de um grupo e iniciar uma conversa, mesmo sentindo algum desconforto.",
+          text: "Aproximava-me do grupo e iniciava uma conversa, mesmo sentindo algum desconforto.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_1_1.png",
           feedback: "A Sara respira fundo e, com o coração acelerado, aproxima-se de um grupo que está a falar sobre o teatro. No início, a voz sai um pouco trémula, mas aos poucos vai-se sentindo mais confortável. Os outros colegas sorriem e fazem perguntas, o que a faz sentir-se mais integrada. A ansiedade começa a diminuir conforme vai participando na conversa.",
-          summary: "Sara decide aproximar-se de um grupo e iniciar uma conversa. Com o tempo, sente-se mais confortável e a ansiedade diminui.",
+          summary: "Sara decide aproximar-se de um grupo e inicia uma conversa. Com o tempo, sente-se mais confortável.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_1.png"
         },
         {
-          text: "Ficar próxima da porta, a observar os outros antes de decidir onde se sentar.",
+          text: "Ficava próxima da porta, a observar os outros antes de decidir onde me sentar.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_1_2.png",
           feedback: "A Sara opta por não se apressar. Fica encostada à parede, observando e ouvindo as conversas, tentando perceber o ambiente antes de se juntar a alguém. Isso permite-lhe acalmar-se um pouco, mas também a faz sentir-se mais distante dos colegas que já estão a socializar.",
           summary: "Sara fica próxima da porta, observando. Sente-se mais calma, mas um pouco distante dos colegas.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_2.png"
         },
         {
-          text: "Ficar num canto, a fingir que está no telemóvel para parecer ocupada.",
+          text: "Ficava num canto, a fingir que estava no telemóvel para parecer ocupada.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_1_3.png",
-          feedback: "A Sara pega no telemóvel e finge enviar mensagens, evitando olhar para os colegas. Isso diminui temporariamente a ansiedade, mas não a ajuda a integrar-se no grupo. Conforme os minutos passam, começa a sentir-se mais isolada, como se estivesse a perder a oportunidade de se relacionar com os outros.",
+          feedback: "A Sara pega no telemóvel e finge estar a enviar mensagens, evitando olhar para os colegas. Isso diminui temporariamente a ansiedade, mas não a ajuda a integrar-se no grupo. Conforme os minutos passam, começa a sentir-se mais isolada, como se estivesse a perder a oportunidade de se relacionar com os outros.",
           summary: "Sara finge estar ocupada no telemóvel, o que diminui a ansiedade temporariamente, mas faz sentir-se mais isolada.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_3.png"
         }
@@ -105,24 +106,25 @@ const AtividadeResumo = () => {
     },
     {
       title: "Durante a primeira atividade",
+      description: "A primeira atividade do clube de teatro é uma improvisação no palco. A Sara é chamada para participar e sente o coração a bater ainda mais rápido.",
       questionImage: "/imgs/modulo1/resumo/resumo_2.png",
       options: [
         {
-          text: "Aceitar o desafio e participar, mesmo com a voz um pouco trémula.",
+          text: "Aceitava o desafio e participava, mesmo com a voz um pouco trémula.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_2_1.png",
           feedback: "Com a respiração acelerada, a Sara decide tentar. Sobe ao palco com as mãos a tremer e começa a improvisar. No início, sente-se inquieta, mas à medida que continua, nota que os colegas estão a prestar atenção com curiosidade e não com julgamento. A ansiedade começa a diminuir à medida que se envolve mais com a atividade.",
           summary: "Sara aceita o desafio da improvisação. No início, está ansiosa, mas à medida que continua a ansiedade diminui.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_4.png"
         },
         {
-          text: "Sugerir começar com uma parte mais pequena e deixar a improvisação completa para outra pessoa.",
+          text: "Sugeria começar com uma parte mais pequena e deixava a improvisação completa para outra pessoa.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_2_2.png",
           feedback: "A Sara sente que não está preparada para fazer uma improvisação longa e decide sugerir que o papel seja dividido. Participa num pequeno segmento, o que reduz a ansiedade, mas também a impede que se envolva totalmente na atividade, deixando alguma ansiedade presente.",
           summary: "Sara sugere uma intervenção mais pequena. Participa um pouco, reduzindo a pressão, mas não se envolve totalmente, deixando alguma ansiedade presente.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_5.png"
         },
         {
-          text: "Recusar educadamente, dizendo que prefere observar os outros por enquanto.",
+          text: "Recusava educadamente, dizendo que preferia observar os outros por enquanto.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_2_3.png",
           feedback: "A Sara diz ao professor que não se sente pronta para participar e pede para observar. Sente um alívio momentâneo, mas à medida que vê os outros a participar, surge um sentimento de culpa por não ter tentado, o que faz com que a ansiedade e a frustração aumentem ligeiramente.",
           summary: "Sara recusa participar e prefere observar. Sente alívio momentâneo, mas depois sente culpa e frustração por não ter tentado.",
@@ -132,24 +134,25 @@ const AtividadeResumo = () => {
     },
     {
       title: "Após a atividade",
+      description: "O encontro do clube termina, e alguns colegas sugerem ensaiar juntos fora do clube para se preparem para o próximo encontro. A Sara sente uma mistura de ansiedade, alívio, e vontade de se aproximar dos colegas.",
       questionImage: "/imgs/modulo1/resumo/resumo_3.png",
       options: [
         {
-          text: "Aceitar e combinar ensaiar com eles.",
+          text: "Aceitava e combinava ensaiar com eles." ,
           feedbackImage: "/imgs/modulo1/resumo/resumo_3_1.png",
           feedback: "Apesar da ansiedade, a Sara decide aceitar o convite. Durante o ensaio, começa a sentir-se mais à vontade, fazendo novas amizades e percebendo que os outros também têm os seus momentos de ansiedade. A ansiedade diminui e sente-se mais integrada.",
-          summary: "Sara aceita ensaiar com os colegas. Aos poucos, faz amizades e sente-se mais à vontade e integrada no grupo, com a ansiedade reduzida.",
+          summary: "Sara aceita ensaiar com os colegas. Aos poucos, faz amizades e sente-se mais à vontade e integrada no grupo.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_7.png"
         },
         {
-          text: "Dizer que está um pouco ocupada, mas que vai tentar aparecer no próximo ensaio",
+          text: "Dizia que estava com um pouco de pressa, mas que ia tentar aparecer no próximo ensaio.",
           feedbackImage: "/imgs/modulo1/resumo/resumo_3_2.png",
           feedback: "A Sara agradece o convite, mas diz que tem de ficar para uma próxima porque agora precisa de ir para casa. Embora mantenha uma porta aberta para futuras interações, sente que perdeu uma oportunidade de se aproximar do grupo, e a ansiedade por não ter participado permanece.",
-          summary: "Sara agradece, mas diz que está ocupada e promete tentar na próxima vez. Sente que perdeu uma oportunidade de aproximar dos colegas e a ansiedade permanece.",
+          summary: "Sara agradece, mas diz que está ocupada e promete tentar na próxima vez. Sente que perdeu uma oportunidade de aproximar dos colegas.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_8.png"
         },
         {
-          text: "Recusar e ir para casa rapidamente.",
+          text: "Recusava e ia para casa rapidamente." ,
           feedbackImage: "/imgs/modulo1/resumo/resumo_3_3.png",
           feedback: "A Sara diz que não vai poder e sai rapidamente, sentindo um alívio imediato por não ter de interagir mais naquele dia. No entanto, ao chegar a casa, fica com a sensação de que se afastou ainda mais do grupo e teme que a próxima aula seja ainda mais desafiante.",
           summary: "Sara recusa e vai para casa rapidamente, sentindo alívio imediato. No entanto, depois, sente que se afastou ainda mais do grupo.",
@@ -169,10 +172,11 @@ const AtividadeResumo = () => {
           style={{
             display: "block",
             backgroundColor: "rgba(0,0,0,0.5)",
-          }}
-        >
-          <div className="modal-dialog modal-dialog-centered modal-lg">
-            <div className="modal-content">
+         }}
+                >
+              <div className="modal-dialog modal-dialog-centered modal-lg">
+              <div className="modal-content">
+                        
               <div
                 className="modal-header"
                 style={{
@@ -191,15 +195,12 @@ const AtividadeResumo = () => {
                   aria-label="Close"
                   onClick={onClose}
                 ></button>
-              </div>
-              <div className="modal-body pt-4 ps-4 pe-4 text-center">
-                <img
-                  src={content}
-                  alt="Resultado da escolha"
-                  className="img-fluid"
-                  style={{ maxHeight: "300px", objectFit: "contain" }}
-                />
-              </div>
+                </div>
+          
+              <div className="modal-body pt-4 ps-4 pe-4">
+                <p className="lead text-start">{content.feedback}</p>
+                </div>
+              
               <div
                 className="modal-footer"
                 style={{
@@ -273,91 +274,99 @@ const AtividadeResumo = () => {
               </div>
             )}
 
-            {pagina === 1 && (
-              <div className="text-center py-4">
-                <div className="row justify-content-center">
-                  <div className="col-md-12">
-                    <img
-                      src="/imgs/modulo1/resumo/resumo_0.png"
-                      alt="O Primeiro Dia no Clube de Teatro"
-                      className="img-fluid mb-4"
-                      style={{ maxWidth: "350px", height: "auto" }}
-                    />
-                    <div className="d-flex justify-content-between">
-                      <button className="custom-btn-pink" onClick={retrocederPagina}>
-                        <i className="bi bi-arrow-left me-2"></i>Anterior
-                      </button>
-                      <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                        Próximo<i className="bi bi-arrow-right ms-2"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+           {pagina === 1 && (
+            <div className="text-center">
+              <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
+                O Primeiro Dia no Clube de Teatro
+              </h4>
+
+              <p className="lead">
+                A Sara está a participar no primeiro dia do clube de teatro. Sente-se ansiosa por estar num ambiente novo,
+                sem conhecer ninguém, e preocupada com a possibilidade de ter de falar em público. Ao entrar na sala,
+                sente o coração acelerado e as mãos suadas, com pensamentos como: "Será que vou fazer amigos?
+                E se me enganar durante as atividades?".
+              </p>
+
+              <img
+                src="/imgs/modulo1/resumo/resumo_0.png"
+                alt="O Primeiro Dia no Clube de Teatro"
+                className="img-fluid mb-4"
+                style={{ maxWidth: "350px", height: "auto" }}
+              />
+
+              <div className="d-flex justify-content-between">
+                <button className="custom-btn-pink" onClick={retrocederPagina}>
+                  <i className="bi bi-arrow-left me-2"></i>Anterior
+                </button>
+                <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                  Próximo<i className="bi bi-arrow-right ms-2"></i>
+                </button>
               </div>
-            )}
+            </div>
+          )}
 
             {pagina >= 2 && pagina <= 4 && (
-              <>
-                <h4 className="fw-bold mb-3" style={{ color: "#234970" }}>{quizPages[pagina - 2].title}</h4>
-                <div className="mb-4">
-                  {/* Display question image */}
+                    <>
+                   <h4 className="fw-bold mb-3" style={{ color: "#234970" }}>
+                    {quizPages[pagina - 2].title}
+                  </h4>
+
+                  <p className="lead mb-4">
+                    {quizPages[pagina - 2].description || "Imagina-te nesta situação... O que farias?"}
+                  </p>
+
                   <div className="text-center mb-4">
                     <img
                       src={quizPages[pagina - 2].questionImage}
-                      alt={`Pergunta ${pagina - 1}`}
+                      alt={`Imagem da pergunta ${pagina - 1}`}
                       className="img-fluid"
                       style={{ maxWidth: "300px", height: "auto" }}
                     />
                   </div>
 
-                  {/* Display option images as clickable buttons */}
                   <div className="d-flex flex-column gap-3">
                     {quizPages[pagina - 2].options.map((option, index) => {
-                      const isSelected = userChoices[pagina - 2] && userChoices[pagina - 2].text === option.text;
+                      const isSelected =
+                        userChoices[pagina - 2] &&
+                        userChoices[pagina - 2].text === option.text;
 
                       return (
-
-
-                        <button
+                        <div
                           key={index}
-                          onMouseEnter={() => setHoverIndex(index)}
-                          onMouseLeave={() => setHoverIndex(null)}
-                          className={`btn ${isSelected ? 'btn-primary' : 'btn-outline-secondary'} text-${isSelected ? 'white' : 'dark'} p-3 text-start`}
+                          onClick={() => handleOptionClick(option, pagina - 2)}
+                          className="p-3 rounded border"
                           style={{
-                            backgroundColor: isSelected ? '#99CBC8' : hoverIndex === index ? '#5AAAA5' : '#ffffff',
-                            color: isSelected ? 'white' : hoverIndex === index ? 'white' : '#99CBC8',
-                            border: `1px solid ${isSelected ? '#99CBC8' : '#99CBC8'}`,
-                            borderRadius: '10px',
-                            fontWeight: isSelected ? '300' : 'normal',
+                            backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
+                            color: isSelected ? 'white' : '#234970',
+                            borderColor: '#99CBC8',
+                            borderWidth: '2px',
+                            cursor: 'pointer',
                             transition: 'all 0.3s ease',
                           }}
-                          onClick={() => handleOptionClick(option.feedbackImage, option, pagina - 2)}
                         >
-                          {option.text}
-                        </button>
+                          <p className="mb-0 fw-medium">{option.text}</p>
+                        </div>
                       );
                     })}
                   </div>
-                </div>
 
-                {/* Warning message - moved here to show on quiz pages */}
-                {showWarning && (
-                  <div className="alert alert-warning mt-3 text-center" role="alert">
-                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                    Por favor, seleciona uma opção antes de continuar.
+                  {showWarning && (
+                    <div className="alert alert-warning mt-3 text-center" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                      Por favor, seleciona uma opção antes de continuar.
+                    </div>
+                  )}
+
+                  <div className="d-flex justify-content-between mt-4">
+                    <button className="custom-btn-pink" onClick={retrocederPagina}>
+                      <i className="bi bi-arrow-left me-2"></i>Anterior
+                    </button>
+                    <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                      Próximo<i className="bi bi-arrow-right ms-2"></i>
+                    </button>
                   </div>
-                )}
-
-                <div className="d-flex justify-content-between">
-                  <button className="custom-btn-pink" onClick={retrocederPagina}>
-                    <i className="bi bi-arrow-left me-2"></i>Anterior
-                  </button>
-                  <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                    Próximo<i className="bi bi-arrow-right ms-2"></i>
-                  </button>
-                </div>
-              </>
-            )}
+                    </>
+                  )}
 
             {pagina === 5 && (
               <>
