@@ -157,28 +157,13 @@ const [comportamento, setComportamento] = useState("");
                     </div>
                   </div>
 
-                  <div className="table-responsive font-poppins">
-  <table className="table text-center align-middle" style={{ borderCollapse: "collapse" }}>
+<div className="table-responsive font-poppins">
+  <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
     <thead style={{ backgroundColor: "#99CBC8" }}>
       <tr>
-        <th style={{
-          border: "1px solid #dee2e6",
-          color: "#234970",
-          fontWeight: "bold",
-          fontFamily: "'Poppins', sans-serif"
-        }}>Pensamentos</th>
-        <th style={{
-          border: "1px solid #dee2e6",
-          color: "#234970",
-          fontWeight: "bold",
-          fontFamily: "'Poppins', sans-serif"
-        }}>Sensações Físicas</th>
-        <th style={{
-          border: "1px solid #dee2e6",
-          color: "#234970",
-          fontWeight: "bold",
-          fontFamily: "'Poppins', sans-serif"
-        }}>Comportamentos</th>
+        <th style={{ color: "#234970", fontWeight: "bold", border: "1px solid #dee2e6" }}>Pensamentos</th>
+        <th style={{ color: "#234970", fontWeight: "bold", border: "1px solid #dee2e6" }}>Sensações Físicas</th>
+        <th style={{ color: "#234970", fontWeight: "bold", border: "1px solid #dee2e6" }}>Comportamentos</th>
       </tr>
     </thead>
     <tbody>
@@ -196,14 +181,11 @@ const [comportamento, setComportamento] = useState("");
         <tr
           key={index}
           style={{
-            backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#E0F2F1"  // Alternância branco/verde claro
+            backgroundColor: index % 2 === 0 ? "#E0F7F4" : "#ffffff"
           }}
         >
           {row.map((cell, i) => (
-            <td key={i} style={{
-              border: "1px solid #dee2e6",
-              fontFamily: "'Poppins', sans-serif"
-            }}>{cell}</td>
+            <td key={i} style={{ border: "1px solid #dee2e6" }}>{cell}</td>
           ))}
         </tr>
       ))}
