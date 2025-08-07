@@ -546,8 +546,7 @@ const AtividadeResumo = () => {
 
             {pagina === 6 && (
               <>
-                <div className="text-center"></div>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                <h4 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <div className="row justify-content-center">
                   <div className="col-md-12">
                     <p className="lead">

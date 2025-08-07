@@ -85,14 +85,14 @@ const DesafioSemanal = ({ id }) => {
         <br /><br /> 
         A ideia é que <b>reflitas como te sentes</b>, o que <b>pensas</b> e como te <b>comportas</b> nessa situação.
         <br /><br /> 
-        Podes usar esta <b>tabela</b> para registares ou simplesmente refletires sobre isso.
+        Podes usar esta <b>tabela</b> para registares.
       </p>
       <ul style={{ marginTop: "0px" }}>
-        <li><b>Situação:</b> Regista a situação que te deixou ansioso/a.</li>
-        <li><b>Como me senti?:</b> Descreve as sensações físicas que sentiste (por exemplo, suor, coração acelerado).</li>
-        <li><b>Pensamentos que surgiram?:</b> Anota os pensamentos que te passaram pela cabeça naquele momento.</li>
-        <li><b>Como agi na situação?:</b> Descreve o que fizeste para lidar com a ansiedade.</li>
-        <li><b>Funcionou?:</b> Avalia se o que fizeste te aproximou ou te afastou dos teus objetivos, daquilo que queres ser ou das outras pessoas.</li>
+        <li><b>Situação:</b>  Regista a situação que te deixou ansioso/a.</li>
+        <li><b>Como me senti?:</b>  Descreve as sensações físicas que sentiste (por exemplo, suor, coração acelerado).</li>
+        <li><b>Pensamentos que surgiram?:</b>  Anota os pensamentos que te passaram pela cabeça naquele momento.</li>
+        <li><b>Como agi na situação?:</b>  Descreve o que fizeste para lidar com a ansiedade.</li>
+        <li><b>Funcionou?:</b>  Avalia se o que fizeste te aproximou ou te afastou dos teus objetivos, daquilo que queres ser ou das outras pessoas.</li>
       </ul>
       </div>
 
@@ -120,68 +120,70 @@ const DesafioSemanal = ({ id }) => {
               ))}
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              {[
-                {
-                  name: "dia",
-                  label: "Dia",
-                  placeholder: "Escreve aqui o dia da semana que aconteceu",
-                },
-                {
-                  name: "situacao",
-                  label: "Situação",
-                  placeholder: "Ex: Descreve brevemente o que aconteceu",
-                },
-                {
-                  name: "comoMeSenti",
-                  label: "Como me senti?",
-                  placeholder: "Escreve que sensações físicas sentiste naquele momento",
-                },
-                {
-                  name: "pensamentos",
-                  label: "Que pensamentos surgiram?",
-                  placeholder: "Escreve o que pensaste naquele momento",
-                },
-                {
-                  name: "comoLidei",
-                  label: "Como lidei com a situação?",
-                  placeholder: "Ex: Escreve o que fizeste naquele momento",
-                },
-                {
-                  name: "funcionou",
-                  label: "O que funcionou?",
-                  placeholder: "Escreve se aquilo que fizeste te aproximou ou afastou dos teus objetivos",
-                },
-              ].map(({ name, label }) => (
-                <td key={name}>
-                  <label htmlFor={`input-${name}`} className="visually-hidden">{label}</label>
-                  <textarea
-                    id={`input-${name}`}
-                    name={name}
-                    value={form[name]}
-                    onChange={handleChange}
-                    className="form-control"
-                    rows={3}
-                    style={{ resize: 'vertical' }}
-                    aria-required="true"
-                    aria-describedby={feedback && form[name].trim() === '' ? `error-${name}` : undefined}
-                    aria-invalid={feedback && form[name].trim() === '' ? 'true' : 'false'}
-                    placeholder={`Escreve ${label.toLowerCase()}`}
-                  />
-                  {feedback && form[name].trim() === '' && (
-                    <div
-                      id={`error-${name}`}
-                      className="invalid-feedback d-block"
-                      role="alert"
-                    >
-                      Por favor, preenche este campo.
-                    </div>
-                  )}
-                </td>
-              ))}
-            </tr>
-          </tbody>
+            <tbody>
+              <tr>
+                {[
+                  {
+                    name: "dia",
+                    label: "Dia",
+                    placeholder: "Escreve aqui o dia da semana",
+                  },
+                  {
+                    name: "situacao",
+                    label: "Situação",
+                    placeholder: "Ex: Descreve brevemente a situação",
+                  },
+                  {
+                    name: "comoMeSenti",
+                    label: "Como me senti?",
+                    placeholder: "Escreve que sensações físicas sentiste naquele momento",
+                  },
+                  {
+                    name: "pensamentos",
+                    label: "Que pensamentos surgiram?",
+                    placeholder: "Escreve o que pensaste naquele momento",
+                  },
+                  {
+                    name: "comoLidei",
+                    label: "Como lidei com a situação?",
+                    placeholder: "Ex: Escreve o que fizeste naquele momento",
+                  },
+                  {
+                    name: "funcionou",
+                    label: "O que funcionou?",
+                    placeholder: "Escreve se aquilo que fizeste te aproximou ou afastou dos teus objetivos",
+                  },
+                ].map(({ name, label, placeholder }) => (
+                  <td key={name}>
+                    <label htmlFor={`input-${name}`} className="visually-hidden">
+                      {label}
+                    </label>
+                    <textarea
+                      id={`input-${name}`}
+                      name={name}
+                      value={form[name]}
+                      onChange={handleChange}
+                      className="form-control"
+                      rows={3}
+                      style={{ resize: 'vertical' }}
+                      aria-required="true"
+                      aria-describedby={feedback && form[name].trim() === '' ? `error-${name}` : undefined}
+                      aria-invalid={feedback && form[name].trim() === '' ? 'true' : 'false'}
+                      placeholder={placeholder}
+                    />
+                    {feedback && form[name].trim() === '' && (
+                      <div
+                        id={`error-${name}`}
+                        className="invalid-feedback d-block"
+                        role="alert"
+                      >
+                        Por favor, preenche este campo.
+                      </div>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
         </table>
               <div className="lead mb-4">
         <p>
