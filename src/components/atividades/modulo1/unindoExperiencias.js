@@ -157,8 +157,8 @@ const [comportamento, setComportamento] = useState("");
                     </div>
                   </div>
 
-                  <div className="table-responsive font-poppins">
-                                  <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
+                  <div className="table-responsive">
+                  <table className="table text-center align-middle font-poppins" style={{ borderCollapse: "collapse" }}>
                                     <thead style={{ backgroundColor: "#E2F0EF" }}>
                                       <tr>
                                         <th style={{
@@ -199,7 +199,7 @@ const [comportamento, setComportamento] = useState("");
                                         <tr
                                           key={index}
                                           style={{
-                                            backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#E2F0EF"
+                                            backgroundColor: index % 2 === 0 ? "#FBF9F9" : "#E2F0EF"
                                           }}
                                         >
                                           {row.map((cell, i) => (
