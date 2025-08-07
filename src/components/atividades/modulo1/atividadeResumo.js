@@ -251,12 +251,12 @@ const AtividadeResumo = () => {
 
             {/* INTRODUÇÃO */}
             {pagina === 0 && (
-              <div className="text-start py-4">
+              <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>{atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}</h2>
                 <div className="row justify-content-center">
                   <div className="col-md-12">
                     <p className="lead">
-                      <strong>Sê muito bem-vindo(a) à atividade resumo do Módulo 1</strong> – <strong>"Ansiedade NÃO é Bicho Papão!"</strong>.
+                      <strong>Sê muito bem-vindo/a à atividade resumo do Módulo 1</strong> – <strong>"Ansiedade NÃO é Bicho Papão!"</strong>.
                       O <strong>objetivo</strong> desta atividade é <strong>consolidar</strong> os conteúdos que explorámos ao longo do módulo. <br></br><br></br>
                       Imagina que <strong>és tu</strong> que estás na situação que te vou apresentar, e <strong>seleciona</strong> a opção que melhor representa a forma
                       como te irias <strong>comportar</strong> nessa situação.<br></br><br></br>
