@@ -83,11 +83,9 @@ const DesafioSemanal = ({ id }) => {
         <b className='fw-bold'>Queria lançar-te um desafio para esta semana! </b> <br /> 
         <br />Ao longo dos próximos dias, sempre que sentires <b>ansiedade</b> em alguma situação, convido-te a <b>refletir</b> sobre a tua experiência.
         <br /><br /> 
-        Se quiseres, podes depois vir aqui e registar o que pensaste sobre a situação.
-        <br /><br /> 
         A ideia é que <b>reflitas como te sentes</b>, o que <b>pensas</b> e como te <b>comportas</b> nessa situação.
         <br /><br /> 
-        Podes usar esta <b>tabela</b> para registares.
+        Podes usar esta <b>tabela</b> para registares ou simplesmente refletires sobre isso.
       </p>
       <ul style={{ marginTop: "0px" }}>
         <li><b>Situação:</b> Regista a situação que te deixou ansioso/a.</li>
@@ -125,12 +123,36 @@ const DesafioSemanal = ({ id }) => {
           <tbody>
             <tr>
               {[
-                { name: "dia", label: "Dia" },
-                { name: "situacao", label: "Situação" },
-                { name: "comoMeSenti", label: "Como me senti?" },
-                { name: "pensamentos", label: "Que pensamentos surgiram?" },
-                { name: "comoLidei", label: "Como lidei com a situação?" },
-                { name: "funcionou", label: "O que funcionou?" },
+                {
+                  name: "dia",
+                  label: "Dia",
+                  placeholder: "Escreve aqui o dia da semana que aconteceu",
+                },
+                {
+                  name: "situacao",
+                  label: "Situação",
+                  placeholder: "Ex: Descreve brevemente o que aconteceu",
+                },
+                {
+                  name: "comoMeSenti",
+                  label: "Como me senti?",
+                  placeholder: "Escreve que sensações físicas sentiste naquele momento",
+                },
+                {
+                  name: "pensamentos",
+                  label: "Que pensamentos surgiram?",
+                  placeholder: "Escreve o que pensaste naquele momento",
+                },
+                {
+                  name: "comoLidei",
+                  label: "Como lidei com a situação?",
+                  placeholder: "Ex: Escreve o que fizeste naquele momento",
+                },
+                {
+                  name: "funcionou",
+                  label: "O que funcionou?",
+                  placeholder: "Escreve se aquilo que fizeste te aproximou ou afastou dos teus objetivos",
+                },
               ].map(({ name, label }) => (
                 <td key={name}>
                   <label htmlFor={`input-${name}`} className="visually-hidden">{label}</label>
@@ -163,7 +185,7 @@ const DesafioSemanal = ({ id }) => {
         </table>
               <div className="lead mb-4">
         <p>
-          Ao <b>refletires</b> sobre a tua <b>experiência de ansiedade</b>, estarás a dar um passo importante para a <b>compreenderes</b> e <b>lidares</b> com ela de forma mais <b>eficaz</b>.
+         Ao <b>refletires</b> sobre a tua <b>experiência de ansiedade</b>, estarás a dar um passo importante para <b>compreender</b> e <b>lidar</b> de forma que traga mais <b>bem-estar e significado à tua vida</b>.
         </p>
         <p>Espero que esta semana te ajude a <b>aprender mais sobre ti</b> e sobre a tua <b>experiência da ansiedade!</b></p>
         <p><b><b>Vamos em frente! #SemBichoPapão</b></b></p>
