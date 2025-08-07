@@ -137,191 +137,171 @@ const [comportamento, setComportamento] = useState("");
 
 
              {/* REFLEXÃO */}
-            {pagina === 2 && (
-              <>
-               <div className="text-center"></div>
-                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Vamos Refletir!</h4>
+              {pagina === 2 && (
+                <>
+                  <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Vamos Refletir!</h4>
 
-                {inputError && (
-                  <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
-                    <i className="bi bi-exclamation-triangle me-2"></i>
-                    Por favor, preenche todos os campos antes de avançar.
-                  </div>
-                )}
-                  
+                  {inputError && (
+                    <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+                      <i className="bi bi-exclamation-triangle me-2"></i>
+                      Por favor, preenche todos os campos antes de avançar.
+                    </div>
+                  )}
+
                   <div className="row">
-                  <div className="col-md-12">
-                 <p className="lead mb-3">
-                 Os jovens que acabaste de ouvir partilharam que, apesar de viverem situações de ansiedade muito diferentes, <strong>os seus pensamentos, sensações e comportamentos eram bastante semelhantes.</strong><br></br>
-                  <strong>Observa agora a tabela abaixo</strong>, que resume o que eles disseram:
-                   </p>
+                    <div className="col-md-12">
+                      <p className="lead mb-3">
+                        Os jovens que acabaste de ouvir partilharam que, apesar de viverem situações de ansiedade muito diferentes, <strong>os seus pensamentos, sensações e comportamentos eram bastante semelhantes.</strong><br />
+                        <strong>Observa agora a tabela abaixo</strong>, que resume o que eles disseram:
+                      </p>
+                    </div>
                   </div>
 
-                 <div className="table-responsive">
-                  <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
-                 <thead style={{ backgroundColor: "#99CBC8", color: "#234970" }}>
-                  <tr>
-                  <th style={{ border: "1px solid #dee2e6" }}>Pensamentos</th>
-                 <th style={{ border: "1px solid #dee2e6" }}>Sensações Físicas</th>
-                 <th style={{ border: "1px solid #dee2e6" }}>Comportamentos</th>
-                 </tr>
-                 </thead>
-                <tbody>
-                <tr>
-                  <td style={{ border: "1px solid #dee2e6" }}>Não vou conseguir fazer</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Borboletas na barriga</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Lembrar-me de todo o trabalho que já fiz</td>
-                </tr>
-                <tr>
-                  <td style={{ border: "1px solid #dee2e6" }}>Vou fazer as coisas mal</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Músculos presos</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Respirar fundo</td>
-                </tr>
-                <tr>
-                  <td style={{ border: "1px solid #dee2e6" }}>Não vou conseguir atingir os meus objetivos</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Dor no peito</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Prestar atenção ao que está ao meu redor</td>
-                </tr>
-                <tr>
-                  <td style={{ border: "1px solid #dee2e6" }}>Duvidar de mim mesmo/a</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Respiração mais acelerada</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Dar a mão a alguém</td>
-                </tr>
-                <tr>
-                  <td style={{ border: "1px solid #dee2e6" }}>Não vou ser capaz</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Dificuldade em movimentar-me</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Enfrentar a situação</td>
-                </tr>
-                <tr>
-                  <td style={{ border: "1px solid #dee2e6" }}>Pensar no que pode correr mal, em vez do que pode correr bem</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Coração acelerar</td>
-                  <td style={{ border: "1px solid #dee2e6" }}>Procurar conforto nos amigos/familiares</td>
-                </tr>
-                              <tr>
-                                <td style={{ border: "1px solid #dee2e6" }}></td>
-                                <td style={{ border: "1px solid #dee2e6" }}>Formigueiro nos joelhos</td>
-                                <td style={{ border: "1px solid #dee2e6" }}></td>
-                              </tr>
-                              <tr>
-                                <td style={{ border: "1px solid #dee2e6" }}></td>
-                                <td style={{ border: "1px solid #dee2e6" }}>Sensação de aperto no peito</td>
-                                <td style={{ border: "1px solid #dee2e6" }}></td>
-                              </tr>
-                              <tr>
-                                <td style={{ border: "1px solid #dee2e6" }}></td>
-                                <td style={{ border: "1px solid #dee2e6" }}>Ficar mais cansado/a</td>
-                                <td style={{ border: "1px solid #dee2e6" }}></td>
-                              </tr>
-                            </tbody>
-                          </table>
+                  <div className="table-responsive font-poppins">
+                    <table className="table text-center align-middle" style={{ borderCollapse: "collapse" }}>
+                      <thead style={{ backgroundColor: "#99CBC8", color: "#234970" }}>
+                        <tr>
+                          <th style={{ border: "1px solid #dee2e6" }}>Pensamentos</th>
+                          <th style={{ border: "1px solid #dee2e6" }}>Sensações Físicas</th>
+                          <th style={{ border: "1px solid #dee2e6" }}>Comportamentos</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
+                          ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
+                          ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
+                          ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
+                          ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
+                          ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
+                          ["", "Formigueiro nos joelhos", ""],
+                          ["", "Sensação de aperto no peito", ""],
+                          ["", "Ficar mais cansado/a", ""],
+                        ].map((row, index) => (
+                          <tr
+                            key={index}
+                            style={{
+                              backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#F0F0F0"
+                            }}
+                          >
+                            {row.map((cell, i) => (
+                              <td key={i} style={{ border: "1px solid #dee2e6" }}>{cell}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-12">
+                      <p className="lead mb-3">
+                        E tu? Já pensaste em como costumas <strong>reagir</strong> quando estás ansioso/a? <strong>Reflete sobre as tuas próprias experiências:</strong> o que costumas pensar, sentir e como costumas agir nessas situações?
+                        <br /><br />
+                        Escreve <strong>o pensamento, a sensação física e o comportamento</strong> mais frequente quando estás <strong>numa situação de ansiedade</strong>. Escreve no espaço abaixo indicado.
+                      </p>
+                    </div>
+
+                    {/* Campo Pensamento */}
+                    <div className="mb-3">
+                      <label htmlFor="pensamento" className="form-label lead">
+                        <strong>O meu pensamento mais frequente numa situação de ansiedade é:</strong>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${inputError && !pensamento.trim() ? 'is-invalid' : ''}`}
+                        id="pensamento"
+                        value={pensamento}
+                        onChange={(e) => setPensamento(e.target.value)}
+                        placeholder="Escreve aqui o teu pensamento"
+                        required
+                        aria-required="true"
+                        aria-invalid={inputError && !pensamento.trim()}
+                        aria-describedby={inputError && !pensamento.trim() ? "error-pensamento" : undefined}
+                      />
+                      {inputError && !pensamento.trim() && (
+                        <div id="error-pensamento" className="invalid-feedback" role="alert">
+                          Este campo é obrigatório.
                         </div>
-                      </div>
+                      )}
+                    </div>
 
-                      <div className="row">
-                                        <div className="col-md-12">
-                                      <p className="lead mb-3">
-                                      E tu? Já pensaste em como costumas <strong>reagir</strong> quando estás ansioso/a? <strong>Reflete sobre as tuas próprias experiências:</strong> o que costumas pensar, sentir fisicamente e como costumas agir nessas situações?  
-                                      <br /><br />
-                                      Escreve <strong> o pensamento, a sensação física e o comportamento </strong> que mais frequentemente tens quando estás <strong>numa situação de ansiedade </strong>. Escreve no espaço abaixo indicado.<br /><br />
-                                      </p>
-                                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="pensamento" className="form-label lead">
-                          <strong>O meu pensamento mais frequente numa situação de ansiedade é:</strong>
-                        </label>
-                        <input
-                          type="text"
-                          className={`form-control ${inputError && !pensamento.trim() ? 'is-invalid' : ''}`}
-                          id="pensamento"
-                          value={pensamento}
-                          onChange={(e) => setPensamento(e.target.value)}
-                          placeholder="Escreve aqui o teu pensamento"
-                          required
-                          aria-required="true"
-                          aria-invalid={inputError && !pensamento.trim()}
-                          aria-describedby={inputError && !pensamento.trim() ? "error-pensamento" : undefined}
-                        />
-                        {inputError && !pensamento.trim() && (
-                          <div id="error-pensamento" className="invalid-feedback" role="alert">
-                            Este campo é obrigatório.
-                          </div>
-                        )}
-                      </div>
+                    {/* Campo Sensação */}
+                    <div className="mb-3">
+                      <label htmlFor="sensacao" className="form-label lead">
+                        <strong>A minha sensação física mais frequente numa situação de ansiedade é:</strong>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${inputError && !sensacao.trim() ? 'is-invalid' : ''}`}
+                        id="sensacao"
+                        value={sensacao}
+                        onChange={(e) => setSensacao(e.target.value)}
+                        placeholder="Escreve aqui a tua sensação física"
+                        required
+                        aria-required="true"
+                        aria-invalid={inputError && !sensacao.trim()}
+                        aria-describedby={inputError && !sensacao.trim() ? "error-sensacao" : undefined}
+                      />
+                      {inputError && !sensacao.trim() && (
+                        <div id="error-sensacao" className="invalid-feedback" role="alert">
+                          Este campo é obrigatório.
+                        </div>
+                      )}
+                    </div>
 
-                      <div className="mb-3">
-                        <label htmlFor="sensacao" className="form-label lead">
-                          <strong>A minha sensação física mais frequente numa situação de ansiedade é:</strong>
-                        </label>
-                        <input
-                          type="text"
-                          className={`form-control ${inputError && !sensacao.trim() ? 'is-invalid' : ''}`}
-                          id="sensacao"
-                          value={sensacao}
-                          onChange={(e) => setSensacao(e.target.value)}
-                          placeholder="Escreve aqui a tua sensação física"
-                          required
-                          aria-required="true"
-                          aria-invalid={inputError && !sensacao.trim()}
-                          aria-describedby={inputError && !sensacao.trim() ? "error-sensacao" : undefined}
-                        />
-                        {inputError && !sensacao.trim() && (
-                          <div id="error-sensacao" className="invalid-feedback" role="alert">
-                            Este campo é obrigatório.
-                          </div>
-                        )}
-                      </div>
+                    {/* Campo Comportamento */}
+                    <div className="mb-4">
+                      <label htmlFor="comportamento" className="form-label lead">
+                        <strong>O meu comportamento mais frequente numa situação de ansiedade é:</strong>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control ${inputError && !comportamento.trim() ? 'is-invalid' : ''}`}
+                        id="comportamento"
+                        value={comportamento}
+                        onChange={(e) => setComportamento(e.target.value)}
+                        placeholder="Escreve aqui o teu comportamento"
+                        required
+                        aria-required="true"
+                        aria-invalid={inputError && !comportamento.trim()}
+                        aria-describedby={inputError && !comportamento.trim() ? "error-comportamento" : undefined}
+                      />
+                      {inputError && !comportamento.trim() && (
+                        <div id="error-comportamento" className="invalid-feedback" role="alert">
+                          Este campo é obrigatório.
+                        </div>
+                      )}
+                    </div>
 
-                      <div className="mb-4">
-                        <label htmlFor="comportamento" className="form-label lead">
-                          <strong>O meu comportamento mais frequente numa situação de ansiedade é:</strong>
-                        </label>
-                        <input
-                          type="text"
-                          className={`form-control ${inputError && !comportamento.trim() ? 'is-invalid' : ''}`}
-                          id="comportamento"
-                          value={comportamento}
-                          onChange={(e) => setComportamento(e.target.value)}
-                          placeholder="Escreve aqui o teu comportamento"
-                          required
-                          aria-required="true"
-                          aria-invalid={inputError && !comportamento.trim()}
-                          aria-describedby={inputError && !comportamento.trim() ? "error-comportamento" : undefined}
-                        />
-                        {inputError && !comportamento.trim() && (
-                          <div id="error-comportamento" className="invalid-feedback" role="alert">
-                            Este campo é obrigatório.
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="d-flex justify-content-between mt-4">
-                        <button
-                          className="custom-btn-pink"
-                          onClick={retrocederPagina}
-                          aria-label="Voltar para o vídeo"
-                        >
-                          <i className="bi bi-arrow-left me-2"></i>Anterior
-                        </button>
-                        <button
-                          className="custom-btn-turquoise"
-                          onClick={() => {
-                            if (!pensamento.trim() || !sensacao.trim() || !comportamento.trim()) {
-                              setInputError(true);
-                              return;
-                            }
-                            setInputError(false);
-                            avancarPagina();
-                          }}
-                          aria-label="Avançar para a conclusão"
-                        >
-                          Conclusão
-                          <i className="bi bi-arrow-right ms-2"></i>
-                        </button>
-                           </div>
-                           </div>
-                          </>
-                         )}
-
+                    {/* Botões */}
+                    <div className="d-flex justify-content-between mt-4">
+                      <button
+                        className="custom-btn-pink"
+                        onClick={retrocederPagina}
+                        aria-label="Voltar para o vídeo"
+                      >
+                        <i className="bi bi-arrow-left me-2"></i>Anterior
+                      </button>
+                      <button
+                        className="custom-btn-turquoise"
+                        onClick={() => {
+                          if (!pensamento.trim() || !sensacao.trim() || !comportamento.trim()) {
+                            setInputError(true);
+                            return;
+                          }
+                          setInputError(false);
+                          avancarPagina();
+                        }}
+                        aria-label="Avançar para a conclusão"
+                      >
+                        Conclusão
+                        <i className="bi bi-arrow-right ms-2"></i>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             {/* CONCLUSÃO */}
             {pagina === 3 && (
               <>
