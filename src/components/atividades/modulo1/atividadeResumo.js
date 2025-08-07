@@ -71,9 +71,10 @@ const AtividadeResumo = () => {
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+ const closeModal = () => {
+  setShowModal(false);
+  setPagina((prev) => prev + 1);
+};
 
   const quizPages = [
     {
@@ -185,9 +186,12 @@ const AtividadeResumo = () => {
                   color: "#fff",
                 }}
               >
-                <h5 className="modal-title" style={{ fontWeight: "600" }}>
-                  Resultado da tua escolha
-                </h5>
+                <h5
+                      className="modal-title w-100 text-center"
+                      style={{ fontWeight: "600" }}
+                    >
+                      O que esta escolha mostra
+                    </h5>
                 <button
                   type="button"
                   className="btn-close"
@@ -209,20 +213,22 @@ const AtividadeResumo = () => {
                   justifyContent: "center",
                 }}
               >
-                <button
-                  type="button"
-                  onClick={onClose}
-                  style={{
-                    backgroundColor: "#234970",
-                    borderColor: "#234970",
-                    color: "white",
-                    borderRadius: "20px",
-                    padding: "0.5rem 1.5rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  Próximo
-                </button>
+               <button
+                    type="button"
+                    onClick={onClose}
+                    style={{
+                      backgroundColor: "#234970",
+                      border: "none",
+                      color: "white",
+                      borderRadius: "20px",
+                      padding: "0.5rem 1.5rem",
+                      fontWeight: "500",
+                      boxShadow: "none",
+                      outline: "none"
+                    }}
+                  >
+                    Próximo
+                  </button>
               </div>
             </div>
           </div>
@@ -257,7 +263,7 @@ const AtividadeResumo = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-12">
                     <p className="lead">
-                      <strong>Sê muito bem-vindo/a à atividade resumo do Módulo 1</strong> – <strong>"Ansiedade NÃO é Bicho Papão!"</strong>.
+                      <strong>Sê muito bem-vindo/a à atividade resumo do Módulo 1</strong> – <strong>"Ansiedade NÃO é Bicho Papão!"</strong>. <br></br><br></br> 
                       O <strong>objetivo</strong> desta atividade é <strong>consolidar</strong> os conteúdos que explorámos ao longo do módulo. <br></br><br></br>
                       Imagina que <strong>és tu</strong> que estás na situação que te vou apresentar, e <strong>seleciona</strong> a opção que melhor representa a forma
                       como te irias <strong>comportar</strong> nessa situação.<br></br><br></br>
@@ -307,13 +313,17 @@ const AtividadeResumo = () => {
 
             {pagina >= 2 && pagina <= 4 && (
                     <>
-                   <h4 className="fw-bold mb-3" style={{ color: "#234970" }}>
+                   <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
                     {quizPages[pagina - 2].title}
                   </h4>
 
                   <p className="lead mb-4">
                     {quizPages[pagina - 2].description || "Imagina-te nesta situação... O que farias?"}
                   </p>
+
+                    <p className="fw-semibold mb-4" style={{ color: "#234970" }}>
+                      Imagina que tu és a Sara nesta situação. O que farias? Escolhe apenas uma das seguintes opções:
+                    </p>
 
                   <div className="text-center mb-4">
                     <img
