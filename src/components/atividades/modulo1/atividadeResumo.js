@@ -181,7 +181,7 @@ const AtividadeResumo = () => {
                       className="modal-title w-100 text-center"
                       style={{ fontWeight: "600" }}
                     >
-                     Impacto da tua escolha 
+                     Impacto da tua escolha! 
                     </h5>
                 <button
                   type="button"
@@ -318,10 +318,15 @@ const AtividadeResumo = () => {
 
                   <div className="text-center mb-4">
                     <img
-                      src={quizPages[pagina - 2].questionImage}
-                      alt={`Imagem da pergunta ${pagina - 1}`}
-                      className="img-fluid"
-                      style={{ maxWidth: "300px", height: "auto" }}
+                    src={quizPages[pagina - 2].questionImage}
+                    alt={`Imagem da pergunta ${pagina - 1}`}
+                    className="img-fluid"
+                    style={{
+                      width: "100%",        // ocupa toda a largura do container
+                      maxWidth: "500px",    // limita o tamanho máximo
+                      height: "auto",       // mantém proporção
+                      objectFit: "cover",   // se quiser forçar o ajuste visual
+                    }}
                     />
                   </div>
 
@@ -362,10 +367,16 @@ const AtividadeResumo = () => {
                     <button className="custom-btn-pink" onClick={retrocederPagina}>
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
-                    <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                      Próximo<i className="bi bi-arrow-right ms-2"></i>
-                    </button>
-                  </div>
+                      {pagina === 4 ? (
+                        <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                          Resumo<i className="bi bi-arrow-right ms-2"></i>
+                        </button>
+                      ) : (
+                        <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                          Próximo<i className="bi bi-arrow-right ms-2"></i>
+                        </button>
+                      )}
+                    </div>
                     </>
                   )}
 
@@ -425,72 +436,71 @@ const AtividadeResumo = () => {
                     </tr>
                   </thead>
                     
-                         <tbody>
-                          {quizPages.map((page, idx) => (
-                            <tr key={idx}>
+                    <tbody>
+                      {quizPages.map((page, idx) => (
+                        <tr key={idx}>
+                          <td
+                            style={{
+                              backgroundColor: "#E7C8C2", // Aplica o fundo rosa claro
+                              color: "#234970",
+                              fontWeight: "bold",
+                              border: "1px solid #99CBC8",
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                            }}
+                          >
+                            {page.title}
+                          </td>
+                          {page.options.map((option, optIdx) => {
+                            const isSelected = userChoices[idx] && userChoices[idx].text === option.text;
+
+                            return (
                               <td
+                                key={optIdx}
                                 style={{
                                   backgroundColor: "white",
                                   color: "#234970",
-                                  fontWeight: "bold",
                                   border: "1px solid #99CBC8",
                                   verticalAlign: "middle",
-                                  textAlign: "center",
+                                  textAlign: "left",
+                                  padding: "8px",
                                 }}
                               >
-                                {page.title}
-                              </td>
-                              {page.options.map((option, optIdx) => {
-                                const isSelected = userChoices[idx] && userChoices[idx].text === option.text;
-
-                                return (
-                                  <td
-                                    key={optIdx}
+                                {isSelected && (
+                                  <div
                                     style={{
-                                      backgroundColor: "white",
+                                      textDecoration: "underline",
+                                      fontWeight: "bold",
+                                      marginBottom: "5px",
+                                      textAlign: "center",
                                       color: "#234970",
-                                      border: "1px solid #99CBC8",
-                                      verticalAlign: "middle",
-                                      textAlign: "left",
-                                      padding: "8px",
                                     }}
                                   >
-                                    {isSelected && (
-                                      <div
-                                        style={{
-                                          textDecoration: "underline",
-                                          fontWeight: "bold",
-                                          marginBottom: "5px",
-                                          textAlign: "center",
-                                          color: "#234970",
-                                        }}
-                                      >
-                                        A tua escolha:
-                                      </div>
-                                    )}
-                                    {option.summaryImage && (
-                                      <img
-                                        src={option.summaryImage}
-                                        alt="Resultado da escolha"
-                                        style={{
-                                          width: "100px",
-                                          height: "100px",
-                                          objectFit: "cover",
-                                          marginBottom: "5px",
-                                          display: "block",
-                                          marginLeft: "auto",
-                                          marginRight: "auto",
-                                        }}
-                                      />
-                                    )}
-                                    {option.summary}
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          ))}
-                        </tbody>
-
+                                    A tua escolha:
+                                  </div>
+                                )}
+                                {option.summaryImage && (
+                                  <img
+                                    src={option.summaryImage}
+                                    alt="Impacto da tua escolha!"
+                                    style={{
+                                      width: "100px",
+                                      height: "100px",
+                                      objectFit: "cover",
+                                      marginBottom: "5px",
+                                      display: "block",
+                                      marginLeft: "auto",
+                                      marginRight: "auto",
+                                    }}
+                                  />
+                                )}
+                                {option.summary}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
                   </table>
                 </div>
 
@@ -507,6 +517,7 @@ const AtividadeResumo = () => {
 
             {pagina === 6 && (
               <>
+                <div className="text-center"></div>
                 <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <div className="row justify-content-center">
                   <div className="col-md-12">
@@ -517,7 +528,6 @@ const AtividadeResumo = () => {
                       <strong>Enfrentar</strong> o desconforto, embora seja difícil no momento, pode não só ajudar-nos a criar relações novas, como também a <strong>reduzir a ansiedade</strong> ao longo do tempo. <br /><br />
                       Ao enfrentar os desafios e praticar novas formas de agir, poderás <strong>fortalecer</strong> as tuas relações e <strong>melhorar</strong> a forma como te vês e te sentes contigo mesmo/a. <br /><br />
                       </p>
-
 
                     <div className="d-flex justify-content-between mt-4">
                       <button className="custom-btn-pink" onClick={retrocederPagina}>
