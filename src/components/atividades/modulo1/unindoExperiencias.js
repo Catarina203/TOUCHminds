@@ -39,7 +39,11 @@ const UnindoExperiencias = () => {
   }, [pagina]);
 
 
-  const progresso = Math.round((pagina / 2) * 100);
+  const progresso = Math.round((pagina / 3) * 100);
+
+const [pensamento, setPensamento] = useState("");
+const [sensacao, setSensacao] = useState("");
+const [comportamento, setComportamento] = useState("");
 
 
   return (
@@ -63,24 +67,21 @@ const UnindoExperiencias = () => {
 
             {/* INTRODUÇÃO */}
             {pagina === 0 && (
-              <div className="text-start py-4">
+              <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>{atividade?.titulo || "Ansiedade: Aliada ou Empecilho?"}</h2>
-                <div className="row justify-content-center">
+                <div className="row ">
                   <div className="col-md-12">
-                    <p className="lead">
-                      <strong>Sê muito bem-vindo ou bem-vinda ao Unindo Experiências!</strong><br></br><br></br>
+                    <p className="lead mb-3">
+                      <strong>Sê muito bem-vindo/a ao Unindo Experiências!</strong><br></br><br></br>
                       Todos nós, em alguns momentos, sentimos <strong>ansiedade</strong>, e, às vezes, parece que ela toma conta de tudo,
                       tornando-se difícil lidar com ela.<br></br><br></br> No entanto, é importante lembrar-te que <strong>não estás sozinho/a
-                        nesta experiência.</strong> A ansiedade é uma <strong>emoção comum e partilhada por todos os seres humanos.</strong><br></br><br></br>
+                      nesta experiência.</strong> A ansiedade é uma <strong>emoção comum e partilhada por todos os seres humanos.</strong><br></br><br></br>
                       Este conceito de <strong>"humanidade comum"</strong> mostra-nos que as nossas dificuldades, fracassos e
-                      sofrimentos não são únicos ou isolados, mas fazem parte de uma experiência <strong>universal</strong>,
-                      querendo isto dizer que todos os seres humanos já sentiram ou vão sentir também dificuldades, fracassos
-                      ou sofrimentos.<br></br><br></br>
-                      Ao reconhecermos isso, podemos reconhecer o nosso sofrimento como algo que nos <strong>conecta aos outros</strong>,
-                      em vez de nos afastar.<br></br><br></br>
-                      Vais agora ouvir o que outras pessoas da tua idade têm a dizer sobre as suas próprias experiências
-                      com a ansiedade.
-
+                      sofrimento não são únicos ou isolados, mas fazem parte de uma experiência <strong>universal.</strong><br></br><br></br>
+                      Reconhecer que o nosso sofrimento é algo que nos <strong>conecta aos outros</strong>,
+                      e não algo que nos afasta.<br></br><br></br>
+                      No <strong>vídeo</strong> que se segue vais poder ouvir o que outras pessoas próximas da tua idade têm a dizer sobre as suas experiências com a <strong>ansiedade</strong>.<br></br>
+                    
                     </p>
                     <div className="text-center">
                       <button className="custom-btn-turquoise mt-3 px-4 py-2" onClick={avancarPagina}>
@@ -92,6 +93,7 @@ const UnindoExperiencias = () => {
               </div>
             )}
 
+            {/* Video */}
             {pagina === 1 && (
               <>
                 <div className="text-center mb-5">
@@ -126,20 +128,210 @@ const UnindoExperiencias = () => {
                   <button
                     className="custom-btn-turquoise" onClick={avancarPagina}
                   >
-                    Conclusão
+                    Refletir
                     <i className="bi bi-arrow-right ms-2"></i>
                   </button>
                 </div>
               </>
             )}
 
-            {/* CONCLUSÃO */}
+
+             {/* REFLEXÃO */}
             {pagina === 2 && (
               <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+               <div className="text-center"></div>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Vamos Refletir!</h4>
+
+                {inputError && (
+                  <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+                    <i className="bi bi-exclamation-triangle me-2"></i>
+                    Por favor, preenche todos os campos antes de avançar.
+                  </div>
+                )}
+                  
+                  <div className="row">
+                  <div className="col-md-12">
+                 <p className="lead mb-3">
+                 Os jovens que acabaste de ouvir partilharam que, apesar de viverem situações de ansiedade muito diferentes, <strong>os seus pensamentos, sensações e comportamentos eram bastante semelhantes.</strong><br></br>
+                  <strong>Observa agora a tabela abaixo</strong>, que resume o que eles disseram:
+                   </p>
+                  </div>
+
+                 <div className="table-responsive">
+                  <table className="table align-middle text-center" style={{ borderCollapse: "collapse" }}>
+                 <thead style={{ backgroundColor: "#99CBC8", color: "#234970" }}>
+                  <tr>
+                  <th style={{ border: "1px solid #dee2e6" }}>Pensamentos</th>
+                 <th style={{ border: "1px solid #dee2e6" }}>Sensações Físicas</th>
+                 <th style={{ border: "1px solid #dee2e6" }}>Comportamentos</th>
+                 </tr>
+                 </thead>
+                <tbody>
+                <tr>
+                  <td style={{ border: "1px solid #dee2e6" }}>Não vou conseguir fazer</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Borboletas na barriga</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Lembrar-me de todo o trabalho que já fiz</td>
+                </tr>
+                <tr>
+                  <td style={{ border: "1px solid #dee2e6" }}>Vou fazer as coisas mal</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Músculos presos</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Respirar fundo</td>
+                </tr>
+                <tr>
+                  <td style={{ border: "1px solid #dee2e6" }}>Não vou conseguir atingir os meus objetivos</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Dor no peito</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Prestar atenção ao que está ao meu redor</td>
+                </tr>
+                <tr>
+                  <td style={{ border: "1px solid #dee2e6" }}>Duvidar de mim mesmo/a</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Respiração mais acelerada</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Dar a mão a alguém</td>
+                </tr>
+                <tr>
+                  <td style={{ border: "1px solid #dee2e6" }}>Não vou ser capaz</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Dificuldade em movimentar-me</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Enfrentar a situação</td>
+                </tr>
+                <tr>
+                  <td style={{ border: "1px solid #dee2e6" }}>Pensar no que pode correr mal, em vez do que pode correr bem</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Coração acelerar</td>
+                  <td style={{ border: "1px solid #dee2e6" }}>Procurar conforto nos amigos/familiares</td>
+                </tr>
+                              <tr>
+                                <td style={{ border: "1px solid #dee2e6" }}></td>
+                                <td style={{ border: "1px solid #dee2e6" }}>Formigueiro nos joelhos</td>
+                                <td style={{ border: "1px solid #dee2e6" }}></td>
+                              </tr>
+                              <tr>
+                                <td style={{ border: "1px solid #dee2e6" }}></td>
+                                <td style={{ border: "1px solid #dee2e6" }}>Sensação de aperto no peito</td>
+                                <td style={{ border: "1px solid #dee2e6" }}></td>
+                              </tr>
+                              <tr>
+                                <td style={{ border: "1px solid #dee2e6" }}></td>
+                                <td style={{ border: "1px solid #dee2e6" }}>Ficar mais cansado/a</td>
+                                <td style={{ border: "1px solid #dee2e6" }}></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                                        <div className="col-md-12">
+                                      <p className="lead mb-3">
+                                      E tu? Já pensaste em como costumas <strong>reagir</strong> quando estás ansioso/a? <strong>Reflete sobre as tuas próprias experiências:</strong> o que costumas pensar, sentir fisicamente e como costumas agir nessas situações?  
+                                      <br /><br />
+                                      Escreve <strong> o pensamento, a sensação física e o comportamento </strong> que mais frequentemente tens quando estás <strong>numa situação de ansiedade </strong>. Escreve no espaço abaixo indicado.<br /><br />
+                                      </p>
+                                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="pensamento" className="form-label lead">
+                          <strong>O meu pensamento mais frequente numa situação de ansiedade é:</strong>
+                        </label>
+                        <input
+                          type="text"
+                          className={`form-control ${inputError && !pensamento.trim() ? 'is-invalid' : ''}`}
+                          id="pensamento"
+                          value={pensamento}
+                          onChange={(e) => setPensamento(e.target.value)}
+                          placeholder="Escreve aqui o teu pensamento"
+                          required
+                          aria-required="true"
+                          aria-invalid={inputError && !pensamento.trim()}
+                          aria-describedby={inputError && !pensamento.trim() ? "error-pensamento" : undefined}
+                        />
+                        {inputError && !pensamento.trim() && (
+                          <div id="error-pensamento" className="invalid-feedback" role="alert">
+                            Este campo é obrigatório.
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="mb-3">
+                        <label htmlFor="sensacao" className="form-label lead">
+                          <strong>A minha sensação física mais frequente numa situação de ansiedade é:</strong>
+                        </label>
+                        <input
+                          type="text"
+                          className={`form-control ${inputError && !sensacao.trim() ? 'is-invalid' : ''}`}
+                          id="sensacao"
+                          value={sensacao}
+                          onChange={(e) => setSensacao(e.target.value)}
+                          placeholder="Escreve aqui a tua sensação física"
+                          required
+                          aria-required="true"
+                          aria-invalid={inputError && !sensacao.trim()}
+                          aria-describedby={inputError && !sensacao.trim() ? "error-sensacao" : undefined}
+                        />
+                        {inputError && !sensacao.trim() && (
+                          <div id="error-sensacao" className="invalid-feedback" role="alert">
+                            Este campo é obrigatório.
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="mb-4">
+                        <label htmlFor="comportamento" className="form-label lead">
+                          <strong>O meu comportamento mais frequente numa situação de ansiedade é:</strong>
+                        </label>
+                        <input
+                          type="text"
+                          className={`form-control ${inputError && !comportamento.trim() ? 'is-invalid' : ''}`}
+                          id="comportamento"
+                          value={comportamento}
+                          onChange={(e) => setComportamento(e.target.value)}
+                          placeholder="Escreve aqui o teu comportamento"
+                          required
+                          aria-required="true"
+                          aria-invalid={inputError && !comportamento.trim()}
+                          aria-describedby={inputError && !comportamento.trim() ? "error-comportamento" : undefined}
+                        />
+                        {inputError && !comportamento.trim() && (
+                          <div id="error-comportamento" className="invalid-feedback" role="alert">
+                            Este campo é obrigatório.
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="d-flex justify-content-between mt-4">
+                        <button
+                          className="custom-btn-pink"
+                          onClick={retrocederPagina}
+                          aria-label="Voltar para o vídeo"
+                        >
+                          <i className="bi bi-arrow-left me-2"></i>Anterior
+                        </button>
+                        <button
+                          className="custom-btn-turquoise"
+                          onClick={() => {
+                            if (!pensamento.trim() || !sensacao.trim() || !comportamento.trim()) {
+                              setInputError(true);
+                              return;
+                            }
+                            setInputError(false);
+                            avancarPagina();
+                          }}
+                          aria-label="Avançar para a conclusão"
+                        >
+                          Conclusão
+                          <i className="bi bi-arrow-right ms-2"></i>
+                        </button>
+                           </div>
+                           </div>
+                          </>
+                         )}
+
+            {/* CONCLUSÃO */}
+            {pagina === 3 && (
+              <>
+                 <div className="text-center"></div>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
+                  Conclusão da Atividade
+                </h4>
                 <p className="lead">
                   <strong>Como viste neste vídeo, a ansiedade pode ser desafiadora, mas é importante lembrar-te que não estás
-                    sozinho nesta experiência.</strong><br></br><br></br>
+                    sozinho/a nesta experiência.</strong><br></br><br></br>
                   Todos enfrentamos momentos difíceis e, ao <strong>partilharmos as nossas histórias</strong>, percebemos que a <strong>ansiedade
                     é uma emoção comum a todos nós.</strong><br></br><br></br>
                   Este conceito de <strong>“humanidade comum”</strong> conecta-nos, mostrando que as nossas <strong>dificuldades e emoções</strong> fazem
