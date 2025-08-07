@@ -157,36 +157,59 @@ const [comportamento, setComportamento] = useState("");
                     </div>
                   </div>
 
-                  <div className="table-responsive">
-                  <table className="table text-center align-middle" style={{ borderCollapse: "collapse" }}>
-                    <thead style={{ backgroundColor: "#99CBC8" }}>
-                      <tr>
-                        <th style={{ border: "1px solid #dee2e6", color: "#234970", fontWeight: "600" }}>Pensamentos</th>
-                        <th style={{ border: "1px solid #dee2e6", color: "#234970", fontWeight: "600" }}>Sensações Físicas</th>
-                        <th style={{ border: "1px solid #dee2e6", color: "#234970", fontWeight: "600" }}>Comportamentos</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
-                        ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
-                        ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
-                        ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
-                        ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
-                        ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
-                        ["", "Formigueiro nos joelhos", ""],
-                        ["", "Sensação de aperto no peito", ""],
-                        ["", "Ficar mais cansado/a", ""],
-                      ].map((row, index) => (
-                        <tr key={index} style={{ backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#E0F2F1" }}>
-                          {row.map((cell, i) => (
-                            <td key={i} style={{ border: "1px solid #dee2e6", fontFamily: "'Poppins', sans-serif" }}>{cell}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                  <div className="table-responsive font-poppins">
+  <table className="table text-center align-middle" style={{ borderCollapse: "collapse" }}>
+    <thead style={{ backgroundColor: "#99CBC8" }}>
+      <tr>
+        <th style={{
+          border: "1px solid #dee2e6",
+          color: "#234970",
+          fontWeight: "bold",
+          fontFamily: "'Poppins', sans-serif"
+        }}>Pensamentos</th>
+        <th style={{
+          border: "1px solid #dee2e6",
+          color: "#234970",
+          fontWeight: "bold",
+          fontFamily: "'Poppins', sans-serif"
+        }}>Sensações Físicas</th>
+        <th style={{
+          border: "1px solid #dee2e6",
+          color: "#234970",
+          fontWeight: "bold",
+          fontFamily: "'Poppins', sans-serif"
+        }}>Comportamentos</th>
+      </tr>
+    </thead>
+    <tbody>
+      {[
+        ["Não vou conseguir fazer", "Borboletas na barriga", "Lembrar-me de todo o trabalho que já fiz"],
+        ["Vou fazer as coisas mal", "Músculos presos", "Respirar fundo"],
+        ["Não vou conseguir atingir os meus objetivos", "Dor no peito", "Prestar atenção ao que está ao meu redor"],
+        ["Duvidar de mim mesma/o", "Respiração mais acelerada", "Dar a mão a alguém"],
+        ["Não vou ser capaz", "Dificuldade em movimentar", "Enfrentar a situação"],
+        ["Pensar no que pode correr mal, em vez do que pode correr bem", "Coração acelerar", "Procurar conforto nos amigos/familiares"],
+        ["", "Formigueiro nos joelhos", ""],
+        ["", "Sensação de aperto no peito", ""],
+        ["", "Ficar mais cansado/a", ""],
+      ].map((row, index) => (
+        <tr
+          key={index}
+          style={{
+            backgroundColor: index % 2 === 0 ? "#FFFFFF" : "#E0F2F1"  // Alternância branco/verde claro
+          }}
+        >
+          {row.map((cell, i) => (
+            <td key={i} style={{
+              border: "1px solid #dee2e6",
+              fontFamily: "'Poppins', sans-serif"
+            }}>{cell}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
                   <div className="row">
                     <div className="col-md-12">
