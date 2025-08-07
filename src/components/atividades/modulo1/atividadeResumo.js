@@ -84,21 +84,18 @@ const AtividadeResumo = () => {
       options: [
         {
           text: "Aproximava-me do grupo e iniciava uma conversa, mesmo sentindo algum desconforto.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_1_1.png",
           feedback: "A Sara respira fundo e, com o coração acelerado, aproxima-se de um grupo que está a falar sobre o teatro. No início, a voz sai um pouco trémula, mas aos poucos vai-se sentindo mais confortável. Os outros colegas sorriem e fazem perguntas, o que a faz sentir-se mais integrada. A ansiedade começa a diminuir conforme vai participando na conversa.",
           summary: "Sara decide aproximar-se de um grupo e inicia uma conversa. Com o tempo, sente-se mais confortável.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_1.png"
         },
         {
           text: "Ficava próxima da porta, a observar os outros antes de decidir onde me sentar.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_1_2.png",
           feedback: "A Sara opta por não se apressar. Fica encostada à parede, observando e ouvindo as conversas, tentando perceber o ambiente antes de se juntar a alguém. Isso permite-lhe acalmar-se um pouco, mas também a faz sentir-se mais distante dos colegas que já estão a socializar.",
           summary: "Sara fica próxima da porta, observando. Sente-se mais calma, mas um pouco distante dos colegas.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_2.png"
         },
         {
           text: "Ficava num canto, a fingir que estava no telemóvel para parecer ocupada.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_1_3.png",
           feedback: "A Sara pega no telemóvel e finge estar a enviar mensagens, evitando olhar para os colegas. Isso diminui temporariamente a ansiedade, mas não a ajuda a integrar-se no grupo. Conforme os minutos passam, começa a sentir-se mais isolada, como se estivesse a perder a oportunidade de se relacionar com os outros.",
           summary: "Sara finge estar ocupada no telemóvel, o que diminui a ansiedade temporariamente, mas faz sentir-se mais isolada.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_3.png"
@@ -106,27 +103,24 @@ const AtividadeResumo = () => {
       ]
     },
     {
-      title: "Durante a primeira atividade",
+      title: "Durante a Primeira Atividade",
       description: "A primeira atividade do clube de teatro é uma improvisação no palco. A Sara é chamada para participar e sente o coração a bater ainda mais rápido.",
       questionImage: "/imgs/modulo1/resumo/resumo_2.png",
       options: [
         {
           text: "Aceitava o desafio e participava, mesmo com a voz um pouco trémula.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_2_1.png",
           feedback: "Com a respiração acelerada, a Sara decide tentar. Sobe ao palco com as mãos a tremer e começa a improvisar. No início, sente-se inquieta, mas à medida que continua, nota que os colegas estão a prestar atenção com curiosidade e não com julgamento. A ansiedade começa a diminuir à medida que se envolve mais com a atividade.",
           summary: "Sara aceita o desafio da improvisação. No início, está ansiosa, mas à medida que continua a ansiedade diminui.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_4.png"
         },
         {
           text: "Sugeria começar com uma parte mais pequena e deixava a improvisação completa para outra pessoa.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_2_2.png",
           feedback: "A Sara sente que não está preparada para fazer uma improvisação longa e decide sugerir que o papel seja dividido. Participa num pequeno segmento, o que reduz a ansiedade, mas também a impede que se envolva totalmente na atividade, deixando alguma ansiedade presente.",
           summary: "Sara sugere uma intervenção mais pequena. Participa um pouco, reduzindo a pressão, mas não se envolve totalmente, deixando alguma ansiedade presente.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_5.png"
         },
         {
           text: "Recusava educadamente, dizendo que preferia observar os outros por enquanto.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_2_3.png",
           feedback: "A Sara diz ao professor que não se sente pronta para participar e pede para observar. Sente um alívio momentâneo, mas à medida que vê os outros a participar, surge um sentimento de culpa por não ter tentado, o que faz com que a ansiedade e a frustração aumentem ligeiramente.",
           summary: "Sara recusa participar e prefere observar. Sente alívio momentâneo, mas depois sente culpa e frustração por não ter tentado.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_6.png"
@@ -134,27 +128,24 @@ const AtividadeResumo = () => {
       ]
     },
     {
-      title: "Após a atividade",
+      title: "Após a Primeira Atividade",
       description: "O encontro do clube termina, e alguns colegas sugerem ensaiar juntos fora do clube para se preparem para o próximo encontro. A Sara sente uma mistura de ansiedade, alívio, e vontade de se aproximar dos colegas.",
       questionImage: "/imgs/modulo1/resumo/resumo_3.png",
       options: [
         {
           text: "Aceitava e combinava ensaiar com eles." ,
-          feedbackImage: "/imgs/modulo1/resumo/resumo_3_1.png",
           feedback: "Apesar da ansiedade, a Sara decide aceitar o convite. Durante o ensaio, começa a sentir-se mais à vontade, fazendo novas amizades e percebendo que os outros também têm os seus momentos de ansiedade. A ansiedade diminui e sente-se mais integrada.",
           summary: "Sara aceita ensaiar com os colegas. Aos poucos, faz amizades e sente-se mais à vontade e integrada no grupo.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_7.png"
         },
         {
           text: "Dizia que estava com um pouco de pressa, mas que ia tentar aparecer no próximo ensaio.",
-          feedbackImage: "/imgs/modulo1/resumo/resumo_3_2.png",
           feedback: "A Sara agradece o convite, mas diz que tem de ficar para uma próxima porque agora precisa de ir para casa. Embora mantenha uma porta aberta para futuras interações, sente que perdeu uma oportunidade de se aproximar do grupo, e a ansiedade por não ter participado permanece.",
           summary: "Sara agradece, mas diz que está ocupada e promete tentar na próxima vez. Sente que perdeu uma oportunidade de aproximar dos colegas.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_8.png"
         },
         {
           text: "Recusava e ia para casa rapidamente." ,
-          feedbackImage: "/imgs/modulo1/resumo/resumo_3_3.png",
           feedback: "A Sara diz que não vai poder e sai rapidamente, sentindo um alívio imediato por não ter de interagir mais naquele dia. No entanto, ao chegar a casa, fica com a sensação de que se afastou ainda mais do grupo e teme que a próxima aula seja ainda mais desafiante.",
           summary: "Sara recusa e vai para casa rapidamente, sentindo alívio imediato. No entanto, depois, sente que se afastou ainda mais do grupo.",
           summaryImage: "/imgs/modulo1/resumo/resumo_4_9.png"
@@ -190,7 +181,7 @@ const AtividadeResumo = () => {
                       className="modal-title w-100 text-center"
                       style={{ fontWeight: "600" }}
                     >
-                      O que esta escolha mostra
+                     Impacto da tua escolha 
                     </h5>
                 <button
                   type="button"
@@ -380,76 +371,125 @@ const AtividadeResumo = () => {
 
             {pagina === 5 && (
               <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Tabela Resumo</h4>
-
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Tabela Resumo</h4>
                 <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead style={{ backgroundColor: "#99CBC8" }}>
-                      <tr>
-                        <th style={{ width: "20%", backgroundColor: "#99CBC8", textAlign: "center" }}>Cenário</th>
-                        <th style={{ width: "26.6%", backgroundColor: "#99CBC8", textAlign: "center" }}>Opção A</th>
-                        <th style={{ width: "26.6%", backgroundColor: "#99CBC8", textAlign: "center" }}>Opção B</th>
-                        <th style={{ width: "26.6%", backgroundColor: "#99CBC8", textAlign: "center" }}>Opção C</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {quizPages.map((page, idx) => (
-                        <tr key={idx}>
-                          <td
-                            style={{
-                              backgroundColor: "#99CBC8",
-                              fontWeight: "bold",
-                              verticalAlign: "middle",
-                              textAlign: "center",  // alinhamento à esquerda
-                            }}
-                          >
-                            {page.title}
-                          </td>
-                          {page.options.map((option, optIdx) => {
-                            const isSelected = userChoices[idx] && userChoices[idx].text === option.text;
-
-                            return (
+                  <table
+                      className="table align-middle text-center"
+                      style={{
+                        borderCollapse: "collapse",
+                        backgroundColor: "#fff"
+                      }}
+                    >
+                    <thead>
+                    <tr>
+                      <th style={{
+                        width: "20%",
+                        backgroundColor: "#E7C8C2",
+                        color: "#234970",
+                        fontWeight: "bold",
+                        border: "1px solid #99CBC8",
+                        textAlign: "center"
+                      }}>
+                        Cenário
+                      </th>
+                      <th style={{
+                        width: "26.6%",
+                        backgroundColor: "#E7C8C2",
+                        color: "#234970",
+                        fontWeight: "bold",
+                        border: "1px solid #99CBC8",
+                        textAlign: "center"
+                      }}>
+                        Opção A
+                      </th>
+                      <th style={{
+                        width: "26.6%",
+                        backgroundColor: "#E7C8C2",
+                        color: "#234970",
+                        fontWeight: "bold",
+                        border: "1px solid #99CBC8",
+                        textAlign: "center"
+                      }}>
+                        Opção B
+                      </th>
+                      <th style={{
+                        width: "26.6%",
+                        backgroundColor: "#E7C8C2",
+                        color: "#234970",
+                        fontWeight: "bold",
+                        border: "1px solid #99CBC8",
+                        textAlign: "center"
+                      }}>
+                        Opção C
+                      </th>
+                    </tr>
+                  </thead>
+                    
+                         <tbody>
+                          {quizPages.map((page, idx) => (
+                            <tr key={idx}>
                               <td
-                                key={optIdx}
                                 style={{
-                                  position: "relative",
+                                  backgroundColor: "white",
+                                  color: "#234970",
+                                  fontWeight: "bold",
+                                  border: "1px solid #99CBC8",
                                   verticalAlign: "middle",
-                                  textAlign: "left",  // alinhamento à esquerda
+                                  textAlign: "center",
                                 }}
                               >
-                                {isSelected && (
-                                  <div
+                                {page.title}
+                              </td>
+                              {page.options.map((option, optIdx) => {
+                                const isSelected = userChoices[idx] && userChoices[idx].text === option.text;
+
+                                return (
+                                  <td
+                                    key={optIdx}
                                     style={{
-                                      textDecoration: "underline",
-                                      fontWeight: "bold",
-                                      marginBottom: "5px",
-                                      textAlign: "center",
+                                      backgroundColor: "white",
+                                      color: "#234970",
+                                      border: "1px solid #99CBC8",
+                                      verticalAlign: "middle",
+                                      textAlign: "left",
+                                      padding: "8px",
                                     }}
                                   >
-                                    A tua escolha:
-                                  </div>
-                                )}
-                                {option.summaryImage && (
-                                  <img
-                                    src={option.summaryImage}
-                                    alt="Resultado da escolha"
-                                    style={{
-                                      width: "100px",
-                                      height: "100px",
-                                      objectFit: "cover",
-                                      marginBottom: "0px",
-                                      display: "block",
-                                      margin: "0 auto 00px auto",
-                                    }}
-                                  />
-                                )}
-                                {option.summary}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      ))}
-                    </tbody>
+                                    {isSelected && (
+                                      <div
+                                        style={{
+                                          textDecoration: "underline",
+                                          fontWeight: "bold",
+                                          marginBottom: "5px",
+                                          textAlign: "center",
+                                          color: "#234970",
+                                        }}
+                                      >
+                                        A tua escolha:
+                                      </div>
+                                    )}
+                                    {option.summaryImage && (
+                                      <img
+                                        src={option.summaryImage}
+                                        alt="Resultado da escolha"
+                                        style={{
+                                          width: "100px",
+                                          height: "100px",
+                                          objectFit: "cover",
+                                          marginBottom: "5px",
+                                          display: "block",
+                                          marginLeft: "auto",
+                                          marginRight: "auto",
+                                        }}
+                                      />
+                                    )}
+                                    {option.summary}
+                                  </td>
+                                );
+                              })}
+                            </tr>
+                          ))}
+                        </tbody>
 
                   </table>
                 </div>
@@ -471,11 +511,12 @@ const AtividadeResumo = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-12">
                     <p className="lead">
-                      <strong>Espero que esta atividade tenha sido útil</strong> e que te tenha permitido <strong>refletir</strong> sobre a tua própria forma delidar com a <strong>ansiedade</strong>. <br></br> <br></br>
-                      Assim como a Sara, todos nós tomamos <strong>decisões</strong> todos os dias que <strong>moldam</strong> as nossas experiências e as nossas interações com os outros. Mesmo quando estamos ansiosos, as <strong>escolhas</strong> que fazemos têm impacto na forma como vivemos e superamos esses momentos.<br></br> <br></br>
-                      Embora <strong>evitar situações</strong> possa trazer <strong>alívio temporário</strong>, isso pode tornar mais difícil lidar com elas no futuro. <strong>Enfrentar o desconforto</strong> pode não só ajudar-te a criar <strong>relações novas</strong>, mas também a <strong>reduzir a ansiedade</strong> ao longo do tempo. <br></br> <br></br>
-                      Lembra-te: a <strong>ansiedade é algo comum</strong> e todos nós a sentimos. Ao <strong>enfrentar os desafios</strong> e <strong>praticar novas formas de agir</strong>, poderás <strong>fortalecer as tuas relações</strong> e <strong>melhorar a forma como te vês e te sentes contigo mesmo(a)</strong>.
-                    </p>
+                      Espero que esta atividade tenha sido útil para refletires. Assim como a Sara, <strong>todos nós</strong> tomamos decisões todos os dias que <strong>moldam</strong> as nossas experiências e as nossas interações com os outros. <br /><br /> 
+                      Mesmo quando estamos ansiosos, as <strong>escolhas</strong> que fazemos têm impacto, tanto em nós como nos outros. <br /><br />
+                      <strong>Evitar</strong> uma situação pode aliviar momentaneamente, mas a longo prazo torna mais difícil enfrentá-la. <br /><br />
+                      <strong>Enfrentar</strong> o desconforto, embora seja difícil no momento, pode não só ajudar-nos a criar relações novas, como também a <strong>reduzir a ansiedade</strong> ao longo do tempo. <br /><br />
+                      Ao enfrentar os desafios e praticar novas formas de agir, poderás <strong>fortalecer</strong> as tuas relações e <strong>melhorar</strong> a forma como te vês e te sentes contigo mesmo/a. <br /><br />
+                      </p>
 
 
                     <div className="d-flex justify-content-between mt-4">
