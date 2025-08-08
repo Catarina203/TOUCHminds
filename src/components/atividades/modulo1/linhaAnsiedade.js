@@ -242,6 +242,13 @@ const LinhaAnsiedade = () => {
                        </video>
                        </div>
                          )}
+                   {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
                     
                     {mostrarAnsiedadeNormativa.durante && (
                     <div className="alert alert-info text-center">
@@ -256,6 +263,14 @@ const LinhaAnsiedade = () => {
                      </div>
                      )}
                     
+                {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
+
                     {mostrarAnsiedadeNormativa.depois && (
                      <div className="alert alert-info text-center">
                        <video
@@ -268,6 +283,14 @@ const LinhaAnsiedade = () => {
                     </video>
                    </div>
                  )}
+
+                {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
 
                     {mostrarAnsiedadeNormativa.conclusao && (
                      <div className="alert alert-info text-center">
@@ -282,6 +305,13 @@ const LinhaAnsiedade = () => {
                    </div>
                    )}    
              
+                   {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
@@ -374,6 +404,14 @@ const LinhaAnsiedade = () => {
                        </video>
                        </div>
                        )}
+
+                       {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
                     
                     {mostrarAnsiedadePatologica.durante && (
                       <div className="alert alert-danger text-center">
@@ -388,6 +426,14 @@ const LinhaAnsiedade = () => {
                     </div>
                     )}
                     
+                {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
+
                     {mostrarAnsiedadePatologica.depois && (
                       <div className="alert alert-danger text-center">
                      <video
@@ -401,6 +447,14 @@ const LinhaAnsiedade = () => {
                     </div>
                     )}
                     
+                {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
+                )}
+
                     {mostrarAnsiedadePatologica.conclusao && (
                       <div className="alert alert-danger text-center">
                     <video
@@ -412,6 +466,14 @@ const LinhaAnsiedade = () => {
                 O teu navegador não suporta o elemento de vídeo.
                 </video>
               </div>
+                )}
+
+                 {showVideoWarning && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ver o vídeo até ao fim para continuar.
+                  </div>
                 )}
                   </div>
 

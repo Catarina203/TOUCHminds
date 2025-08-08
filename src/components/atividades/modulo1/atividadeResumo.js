@@ -485,17 +485,15 @@ const AtividadeResumo = () => {
                                   </div>
                                 )}
                                 {option.summaryImage && (
-                                  <img
+                                   <img
                                     src={option.summaryImage}
                                     alt="Impacto da tua escolha!"
                                     style={{
-                                      width: "100px",
-                                      height: "100px",
-                                      objectFit: "cover",
-                                      marginBottom: "5px",
+                                      width: "280px",      
+                                      height: "auto",     
+                                      objectFit: "contain",
                                       display: "block",
-                                      marginLeft: "auto",
-                                      marginRight: "auto",
+                                      margin: "0 auto 8px",
                                     }}
                                   />
                                 )}

@@ -150,7 +150,7 @@ const Homepage = () => {
         <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
           <div className="container p-4 bg-white rounded shadow-sm">
             <h2 className="mb-3 fw-semibold" style={{ color: "#99CBC8" }}>
-              Bem vindo, <span>{userData.nome}!</span>
+              Bem vindo/a, <span>{userData.nome}!</span>
             </h2>
 
             <div className="mb-4" aria-label="Progresso dos módulos">
