@@ -105,6 +105,7 @@ const [comportamento, setComportamento] = useState("");
                       maxWidth: "900px",
                       height: "auto"
                     }}
+                    onPlay={() => setShowVideoWarning(false)}
                     onEnded={() => setVideoCompleted(true)}
                   >
                     <source src="/videos/modulo1/unindo/unindoexperiencias.mp4" type="video/mp4" />
@@ -246,7 +247,13 @@ const [comportamento, setComportamento] = useState("");
                         className={`form-control ${inputError && !pensamento.trim() ? 'is-invalid' : ''}`}
                         id="pensamento"
                         value={pensamento}
-                        onChange={(e) => setPensamento(e.target.value)}
+                        onChange={(e) => {
+                          const valor = e.target.value;
+                          setPensamento(valor);
+                          if (inputError && valor.trim() && sensacao.trim() && comportamento.trim()) {
+                            setInputError(false);
+                          }
+                        }}
                         placeholder="Escreve aqui o teu pensamento"
                         required
                         aria-required="true"
@@ -270,7 +277,13 @@ const [comportamento, setComportamento] = useState("");
                         className={`form-control ${inputError && !sensacao.trim() ? 'is-invalid' : ''}`}
                         id="sensacao"
                         value={sensacao}
-                        onChange={(e) => setSensacao(e.target.value)}
+                        onChange={(e) => {
+                          const valor = e.target.value;
+                          setSensacao(valor);
+                          if (inputError && valor.trim() && pensamento.trim() && comportamento.trim()) {
+                            setInputError(false);
+                          }
+                        }}
                         placeholder="Escreve aqui a tua sensação física"
                         required
                         aria-required="true"
@@ -294,7 +307,13 @@ const [comportamento, setComportamento] = useState("");
                         className={`form-control ${inputError && !comportamento.trim() ? 'is-invalid' : ''}`}
                         id="comportamento"
                         value={comportamento}
-                        onChange={(e) => setComportamento(e.target.value)}
+                        onChange={(e) => {
+                            const valor = e.target.value;
+                            setComportamento(valor);
+                            if (inputError && valor.trim() && pensamento.trim() && sensacao.trim()) {
+                              setInputError(false);
+                            }
+                          }}
                         placeholder="Escreve aqui o teu comportamento"
                         required
                         aria-required="true"

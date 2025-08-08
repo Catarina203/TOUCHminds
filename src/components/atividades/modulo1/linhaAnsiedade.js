@@ -86,7 +86,20 @@ const LinhaAnsiedade = () => {
         depois: false,
         conclusao: false
       };
-      
+      const handleFaseClick = (fase) => {
+      if (
+        (fase === 'durante' && !videoStatusPatologica.antes) ||
+        (fase === 'depois' && !videoStatusPatologica.durante) ||
+        (fase === 'conclusao' && !videoStatusPatologica.depois)
+      ) {
+        setShowVideoWarning(true); // Mostra a mensagem
+        return;
+      }
+
+      setShowVideoWarning(false); // Limpa mensagem
+      toggleAnsiedadePatologica(fase); // Abre a fase
+    };
+
       // Alternar o estado apenas do popup clicado
       newState[fase] = !prev[fase];
       
@@ -141,6 +154,7 @@ const LinhaAnsiedade = () => {
                       maxWidth: "900px",
                       height: "auto"
                     }}
+                    onPlay={() => setShowVideoWarning(false)}
                     onEnded={() => setVideoCompleted(true)}
                   >
                     <source src="/videos/modulo1/linha/linhasituacao.mp4" type="video/mp4" />
@@ -185,7 +199,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.antes ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadeNormativa('antes')}
+                            onClick={() => handleFaseClick('antes')}
                           >
                             <i className="bi bi-clock-history"></i>
                           </button>
@@ -196,8 +210,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.durante ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadeNormativa('durante')}
-                            disabled={!videoStatus.antes}
+                            onClick={() => handleFaseClick('durante')}
                           >
                             <i className="bi bi-hourglass-split"></i>
                           </button>
@@ -208,8 +221,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.depois ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadeNormativa('depois')}
-                            disabled={!videoStatus.durante} 
+                            onClick={() => handleFaseClick('depois')}
                           >
                             <i className="bi bi-check2-circle"></i>
                           </button>
@@ -220,8 +232,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.conclusao ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadeNormativa('conclusao')}
-                            disabled={!videoStatus.depois} 
+                            onClick={() => handleFaseClick('conclusao')}
                           >
                             <i className="bi bi-lightbulb"></i>
                           </button>
@@ -229,12 +240,21 @@ const LinhaAnsiedade = () => {
                         </div>
                       </div>
                     </div>
+
+                      {showVideoWarning && (
+                        <div className="alert mt-3 text-white"
+                          style={{ backgroundColor: '#99CBC8', border: 'none', textAlign: 'center' }}>
+                          <i className="bi bi-info-circle me-2"></i>
+                          É necessário ver o vídeo até ao fim para continuar.
+                        </div>
+                      )}
                     
                     {mostrarAnsiedadeNormativa.antes && (
                       <div className="alert alert-info text-center">
                        <video
                          controls
                          style={{ width: "100%", maxWidth: "800px" }}
+                         onPlay={() => setShowVideoWarning(false)}
                          onEnded={() => setVideoStatus(prev => ({ ...prev, antes: true }))}
                           >
                          <source src="/videos/modulo1/linha/linhanormativaantes.mp4" type="video/mp4" />
@@ -242,19 +262,13 @@ const LinhaAnsiedade = () => {
                        </video>
                        </div>
                          )}
-                   {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
                     
                     {mostrarAnsiedadeNormativa.durante && (
                     <div className="alert alert-info text-center">
                        <video
                        controls
                        style={{ width: "100%", maxWidth: "800px" }}
+                       onPlay={() => setShowVideoWarning(false)}
                        onEnded={() => setVideoStatus(prev => ({ ...prev, durante: true }))}
                     >
                       <source src="/videos/modulo1/linha/linhanormativadurante.mp4" type="video/mp4" />
@@ -262,20 +276,13 @@ const LinhaAnsiedade = () => {
                      </video>
                      </div>
                      )}
-                    
-                {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
 
                     {mostrarAnsiedadeNormativa.depois && (
                      <div className="alert alert-info text-center">
                        <video
                         controls
                        style={{ width: "100%", maxWidth: "800px" }}
+                       onPlay={() => setShowVideoWarning(false)}
                       onEnded={() => setVideoStatus(prev => ({ ...prev, depois: true }))}
                     >
                    <source src="/videos/modulo1/linha/linhanormativadepois.mp4" type="video/mp4" />
@@ -284,19 +291,12 @@ const LinhaAnsiedade = () => {
                    </div>
                  )}
 
-                {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
-
                     {mostrarAnsiedadeNormativa.conclusao && (
                      <div className="alert alert-info text-center">
                      <video
                      controls
                      style={{ width: "100%", maxWidth: "800px" }}
+                     onPlay={() => setShowVideoWarning(false)}
                      onEnded={() => setVideoStatus(prev => ({ ...prev, conclusao: true }))}
                    >
                    <source src="/videos/modulo1/linha/linhanormativaconclusao.mp4" type="video/mp4" />
@@ -304,14 +304,6 @@ const LinhaAnsiedade = () => {
                    </video>
                    </div>
                    )}    
-             
-                   {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
@@ -322,7 +314,6 @@ const LinhaAnsiedade = () => {
                     <button
                        className="custom-btn-turquoise"
                        onClick={avancarPagina}
-                        disabled={!videoStatus.conclusao} 
                        >
                        Próximo <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -347,7 +338,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadePatologica.antes ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadePatologica('antes')}
+                            onClick={() => handleFaseClick('antes')}
                           >
                             <i className="bi bi-clock-history"></i>
                           </button>
@@ -358,8 +349,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadePatologica.durante ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadePatologica('durante')}
-                            disabled={!videoStatusPatologica.antes}
+                            onClick={() => handleFaseClick('durante')}
                           >
                             <i className="bi bi-hourglass-split"></i>
                           </button>
@@ -370,8 +360,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadePatologica.depois ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadePatologica('depois')}
-                            disabled={!videoStatusPatologica.durante}
+                            onClick={() => handleFaseClick('depois')}
                           >
                             <i className="bi bi-check2-circle"></i>
                           </button>
@@ -382,8 +371,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadePatologica.conclusao ? 'btn-danger' : 'btn-outline-danger'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => toggleAnsiedadePatologica('conclusao')}
-                            disabled={!videoStatusPatologica.depois}
+                           onClick={() => handleFaseClick('conclusao')}
                           >
                             <i className="bi bi-lightbulb"></i>
                           </button>
@@ -391,12 +379,21 @@ const LinhaAnsiedade = () => {
                         </div>
                       </div>
                     </div>
+
+                    {showVideoWarning && (
+                    <div className="alert mt-3 text-white"
+                      style={{ backgroundColor: '#99CBC8', border: 'none', textAlign: 'center' }}>
+                      <i className="bi bi-info-circle me-2"></i>
+                      É necessário ver o vídeo até ao fim para continuar.
+                    </div>
+                  )}
                     
                     {mostrarAnsiedadePatologica.antes && (
                        <div className="alert alert-danger text-center">
                       <video
                         controls
                        style={{ width: "100%", maxWidth: "800px" }}
+                       onPlay={() => setShowVideoWarning(false)}
                        onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, antes: true }))}
                         >
                         <source src="/videos/modulo1/linha/linhapatologicaantes.mp4" type="video/mp4" />
@@ -404,20 +401,13 @@ const LinhaAnsiedade = () => {
                        </video>
                        </div>
                        )}
-
-                       {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
                     
                     {mostrarAnsiedadePatologica.durante && (
                       <div className="alert alert-danger text-center">
                       <video
                       controls
                       style={{ width: "100%", maxWidth: "800px" }}
+                      onPlay={() => setShowVideoWarning(false)}
                     onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, durante: true }))}
                      >
                      <source src="/videos/modulo1/linha/linhapatologicadurante.mp4" type="video/mp4" />
@@ -425,20 +415,13 @@ const LinhaAnsiedade = () => {
                     </video>
                     </div>
                     )}
-                    
-                {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
 
                     {mostrarAnsiedadePatologica.depois && (
                       <div className="alert alert-danger text-center">
                      <video
                       controls
                       style={{ width: "100%", maxWidth: "800px" }}
+                      onPlay={() => setShowVideoWarning(false)}
                     onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, depois: true }))}
                    >
                    <source src="/videos/modulo1/linha/linhapatologicadepois.mp4" type="video/mp4" />
@@ -446,34 +429,19 @@ const LinhaAnsiedade = () => {
                      </video>
                     </div>
                     )}
-                    
-                {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
-                )}
 
                     {mostrarAnsiedadePatologica.conclusao && (
                       <div className="alert alert-danger text-center">
                     <video
                     controls
                   style={{ width: "100%", maxWidth: "800px" }}
+                  onPlay={() => setShowVideoWarning(false)}
                 onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, conclusao: true }))}
                >
                 <source src="/videos/modulo1/linha/linhapatologicaconclusao.mp4" type="video/mp4" />
                 O teu navegador não suporta o elemento de vídeo.
                 </video>
               </div>
-                )}
-
-                 {showVideoWarning && (
-                  <div className="alert mt-3 text-white"
-                    style={{ backgroundColor: '#99CBC8', border: 'none',  textAlign: 'center' }}>
-                    <i className="bi bi-info-circle me-2"></i>
-                    É necessário ver o vídeo até ao fim para continuar.
-                  </div>
                 )}
                   </div>
 
@@ -485,7 +453,6 @@ const LinhaAnsiedade = () => {
                     <button
                    className="custom-btn-turquoise"
                    onClick={avancarPagina}
-                  disabled={!videoStatusPatologica.conclusao}
                   >
                   Conclusão <i className="bi bi-arrow-right ms-2"></i>
                  </button>

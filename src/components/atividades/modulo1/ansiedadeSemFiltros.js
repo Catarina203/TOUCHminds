@@ -138,7 +138,14 @@ const AnsiedadeSemFiltros = () => {
                       {descricoesImagem[pagina]}
                     </div>
                   </div>
-
+                  
+                      {/* Caixa vermelha de erro */}
+                      {inputError && (
+                        <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+                          <i className="bi bi-exclamation-triangle me-2"></i>
+                          Por favor, escreve um hashtag válido (sem espaços nem vírgulas) antes de avançar.
+                        </div>
+                      )}
 
                   <div className="input-group mx-auto" style={{ maxWidth: "500px" }}>
                     <span
@@ -174,11 +181,6 @@ const AnsiedadeSemFiltros = () => {
                       aria-describedby="hashtag-addon"
                       required
                     />
-                    {inputError && (
-                      <div className="invalid-feedback" role="alert">
-                        Usa apenas uma palavra, sem espaços nem vírgulas.
-                      </div>
-                    )}
                   </div>
                 </div>
 
