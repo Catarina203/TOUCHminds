@@ -8,15 +8,6 @@ import { useContext } from "react";
 
 const [mostrarAviso, setMostrarAviso] = useState(false);
 
-const avancarPagina = () => {
-  if (respostaSelecionada === null) {
-    setMostrarAviso(true);
-    return;
-  }
-  setRespostaSelecionada(null);
-  setMostrarPopup(false);
-  setPagina((prev) => prev + 1);
-};
 
 const afirmacoes = [
   {
@@ -101,9 +92,6 @@ const afirmacoes = [
   }
 ];
 
-
-
-
 const VerdadeOuMito = () => {
   const [pagina, setPagina] = useState(0);
   const [respostaSelecionada, setRespostaSelecionada] = useState(null);
@@ -111,7 +99,13 @@ const VerdadeOuMito = () => {
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
 
-  const avancarPagina = () => {
+ const avancarPagina = () => {
+    // Se estiver numa afirmação e ainda não escolheu nada, mostra aviso
+    if (estaNaAfimacao && respostaSelecionada === null) {
+      setMostrarAviso(true);
+      return;
+    }
+    setMostrarAviso(false);
     setRespostaSelecionada(null);
     setMostrarPopup(false);
     setPagina((prev) => prev + 1);
@@ -239,10 +233,9 @@ const VerdadeOuMito = () => {
                     >
                       <i className="bi bi-arrow-left me-2"></i> Anterior
                     </button>
-                    <button
+                   <button
                       className="custom-btn-turquoise"
                       onClick={avancarPagina}
-                      disabled={!mostrarPopup}
                     >
                       Próximo <i className="bi bi-arrow-right ms-2"></i>
                     </button>

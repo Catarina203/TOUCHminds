@@ -233,13 +233,13 @@ const AtividadeResumoModulo2 = () => {
                             </>
                         )}
                         
-                    {showWarning && (
+                        {showWarning && (
                         <div className="alert alert-warning mt-3 text-center" role="alert">
                             <i className="bi bi-exclamation-triangle-fill me-2"></i>
                             Por favor, seleciona uma opção antes de continuar.
                         </div>
-                    )}
-      
+                        )}
+
                          {pagina === cenarios.length + 1 && (
                             <>
                                  <h4 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>Conclusão da Atividade</h4>
