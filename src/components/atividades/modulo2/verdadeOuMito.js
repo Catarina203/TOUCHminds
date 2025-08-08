@@ -25,7 +25,7 @@ const afirmacoes = [
   },
   {
     texto: <p style={{color:'#234970'}}>Se eu admitir que fico ansioso, serei visto como fraco/a ou estranho/a.</p>,
-    resposta: "Mito",
+    resposta: "Verdade",
     explicacao:
       <p className="lead">
         <strong>Verdade!</strong> Sentir <strong>ansiedade</strong> não tem nada de <strong>estranho</strong> — é algo <strong>humano</strong>, que <strong>todos experimentamos</strong>. O <strong>medo</strong> de ser <strong>julgado</strong> pode levar muitas pessoas a hesitar em <strong>falar</strong> sobre o que sentem. No entanto, <strong>admitir</strong> que estamos <strong>ansiosos</strong> é um sinal de <strong>coragem</strong> e <strong>autoconhecimento</strong>. <strong>Falar</strong> sobre as nossas <strong>emoções</strong> pode trazer <strong>surpresas positivas</strong>: podemos encontrar a <strong>compreensão</strong> e o <strong>apoio</strong> que desejávamos, mas não esperávamos. Mostrar <strong>vulnerabilidade</strong> não só fortalece os <strong>laços de amizade</strong>, como também cria um <strong>ambiente</strong> mais <strong>acolhedor</strong> e <strong>seguro</strong>, onde todos se sentem mais à vontade para <strong>partilhar</strong> as suas <strong>experiências</strong>.
