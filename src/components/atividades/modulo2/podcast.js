@@ -64,18 +64,15 @@ const PodcastTouchminds = () => {
             {/* PÁGINA 0 - INTRODUÇÃO */}
             {pagina === 0 && (
 
-              <div className="text-center py-4">
-                <h2 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
+              <div className="text-center">
+                <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
                   Podcast TOUCHminds
                 </h2>
                 <p className="lead mb-3">
-                  <strong>Episódio: “O Peso Do Silêncio – Estigma, Ansiedade E Histórias Que Precisam De Ser Ouvidas”</strong>.
+                  <strong>Sê muito bem-vindo/a ao Podcast TOUCHminds!</strong>
                 </p>
                 <p className="lead mb-3">
-                  <strong>Sê muito bem-vindo ou bem-vinda ao Podcast TOUCHminds!</strong>
-                </p>
-                <p className="lead mb-3">
-                  Nesta atividade, vamos ouvir um episódio do podcast <strong>TOUCHminds</strong> (podcast criado para a intervenção <strong>TOUCHminds</strong>).
+                  Nesta atividade, vamos ouvir um episódio do podcast <strong>TOUCHminds</strong> (podcast criado para a intervenção TOUCHminds).
                 </p>
                 <p className="lead mb-4">
                   O episódio chama-se <strong>“O Peso do Silêncio”</strong> e traz <strong>cinco histórias reais</strong> de jovens e adultos que viveram de perto com a <strong>ansiedade</strong>.
@@ -95,16 +92,22 @@ const PodcastTouchminds = () => {
 
             {/* PÁGINA 1 */}
             {pagina === 1 && (
-              <div className="text-center py-4">
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
-                  Episódio: O Peso do Silêncio
+              <div className="text-center">
+                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                  Episódio: O Peso do Silêncio - Estigma, Ansiedade e Histórias que Precisam de Ser Ouvidas
                 </h4>
                 <p className="lead mb-3">
-                  Ouve com atenção as histórias reais sobre ansiedade, estigma e o silêncio que muitos vivem em silêncio.
+                  Ouve este episódio com atenção.
                 </p>
 
-                <audio controls style={{ width: "100%", maxWidth: "600px" }}>
-                  <source src="/audios/o-peso-do-silencio.mp3" type="audio/mpeg" />
+                <audio 
+                controls 
+                controlsList="nodownload"
+                style={{ width: "100%", maxWidth: "600px" }}
+                onPlay={() => setShowAudioWarning(false)}
+                onEnded={() => setAudioCompleted(true)}
+                >
+                  <source src="/audios/modulo2/podcast/o-peso-do-silencio.mp3" type="audio/mpeg" />
                   O teu navegador não suporta a reprodução de áudio.
                 </audio>
 
@@ -131,33 +134,28 @@ const PodcastTouchminds = () => {
             {/* PÁGINA 2 - CONCLUSÃO */}
             {pagina === 2 && (
               <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                <div className="text-center"></div>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
                   Conclusão da Atividade
                 </h4>
-                <p className="lead mb-3">
-                  <strong>Chegamos ao fim deste episódio</strong>, e fica uma reflexão importante.
-                </p>
-                <p className="lead mb-3">
-                  O <strong>estigma associado à ansiedade</strong> é uma realidade presente na vida de muitas pessoas, criando <strong>barreiras difíceis de superar</strong>,
-                  como o <strong>medo de ser julgado</strong> e a <strong>vergonha de pedir ajuda</strong>.
-                </p>
-                <p className="lead mb-3">
-                  Esse medo, muitas vezes, leva ao <strong>isolamento</strong>, intensificando a sensação de que é necessário enfrentar a ansiedade sozinho.
-                  Mas a verdade é que, quando <strong>não se fala sobre o que se sente</strong>, o <strong>sofrimento só tende a crescer</strong>.
-                </p>
-                <p className="lead mb-3">
-                  A <strong>ansiedade não é um sinal de fraqueza</strong>; é uma <strong>resposta natural do corpo</strong>, e todos passam por momentos em que ela se torna mais intensa.
-                </p>
-                <p className="lead mb-4">
-                  Ao <strong>falar abertamente sobre a ansiedade</strong>, <strong>desmistifica-se o tema</strong> e cria-se um ambiente onde as pessoas se sentem mais à vontade para <strong>partilhar as suas
-                    experiências sem medo de serem julgadas</strong>.
-                </p>
-                <p className="lead mb-3">
-                  Através da <strong>partilha de histórias e vivências</strong>, é possível <strong>quebrar preconceitos</strong>, promover <strong>empatia</strong> e cultivar uma comunidade mais <strong>solidária e acolhedora</strong>.
-                </p>
-                <p className="lead mb-3">
-                  <strong>Lembra-te</strong>: isso <strong>não só ajuda a diminuir o estigma</strong>, mas também <strong>contribui para o bem-estar de todos</strong>.
-                </p>
+                  <p className="lead mb-3">
+                    O estigma associado à <strong>ansiedade</strong> é uma realidade presente na vida de muitas pessoas, criando <strong>barreiras</strong> difíceis de superar,
+                    como o <strong>medo</strong> de ser julgado e a <strong>vergonha</strong> de pedir ajuda.
+                  </p>
+                  <p className="lead mb-3">
+                    Esse <strong>medo</strong>, muitas vezes, leva ao <strong>isolamento</strong>, intensificando a sensação de que é necessário enfrentar a ansiedade sozinho.
+                    Mas a verdade é que, quando <strong>não se fala</strong> sobre o que se sente, o <strong>sofrimento</strong> só tende a crescer.
+                  </p>
+                  <p className="lead mb-3">
+                    A <strong>ansiedade</strong> não é um sinal de <strong>fraqueza</strong>; é uma <strong>resposta</strong> natural do corpo, e todos passam por momentos em que ela se torna mais intensa.
+                  </p>
+                  <p className="lead mb-4">
+                    Ao <strong>falar</strong> abertamente sobre a ansiedade, <strong>desmistifica-se</strong> o tema e cria-se um ambiente onde as pessoas se sentem mais à vontade para <strong>partilhar</strong> as suas
+                    experiências sem medo de serem julgadas.
+                  </p>
+                  <p className="lead mb-3">
+                    Através da <strong>partilha</strong> de histórias e vivências, é possível <strong>quebrar</strong> preconceitos, promover <strong>empatia</strong> e cultivar uma comunidade mais <strong>solidária</strong> e <strong>acolhedora</strong>.
+                  </p>
 
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
