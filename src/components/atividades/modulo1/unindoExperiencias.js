@@ -99,6 +99,7 @@ const [comportamento, setComportamento] = useState("");
                 <div className="text-center mb-5">
                   <video
                     controls
+                    controlsList="nodownload"
                     className="rounded shadow"
                     style={{
                       width: "100%",

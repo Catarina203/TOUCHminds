@@ -44,14 +44,30 @@ const LinhaAnsiedade = () => {
   const [videoCompleted, setVideoCompleted] = useState(false);
   const [showVideoWarning, setShowVideoWarning] = useState(false);
   const videoRef = useRef(null);
+ 
   const avancarPagina = () => {
-    if (pagina === 1 && !videoCompleted) {
-      setShowVideoWarning(true); // Mostra aviso azul
-      return;
-    }
-    setShowVideoWarning(false);
-    setPagina(prev => prev + 1);
-  };
+  // Pág. 1 -> exige ver o vídeo inicial
+  if (pagina === 1 && !videoCompleted) {
+    setShowVideoWarning(true);
+    return;
+  }
+
+  // Pág. 2 -> exige ter visto a conclusão da linha normativa
+  if (pagina === 2 && !videoStatus.conclusao) {
+    setShowVideoWarning(true);
+    return;
+  }
+
+  // Pág. 3 -> exige ter visto a conclusão da linha patológica
+  if (pagina === 3 && !videoStatusPatologica.conclusao) {
+    setShowVideoWarning(true);
+    return;
+  }
+
+  // Se passou nas condições acima, avança
+  setShowVideoWarning(false);
+  setPagina(prev => prev + 1);
+};
 
   const retrocederPagina = () => setPagina((prev) => prev - 1);
 
@@ -94,7 +110,20 @@ const LinhaAnsiedade = () => {
     });
   };
 
+        const handleFaseClickNormativa = (fase) => {
+        
+          if (
+            (fase === 'durante' && !videoStatus.antes) ||
+            (fase === 'depois' && !videoStatus.durante) ||
+            (fase === 'conclusao' && !videoStatus.depois)
+          ) {
+            setShowVideoWarning(true);
+            return;
+          }
 
+          setShowVideoWarning(false);
+          toggleAnsiedadeNormativa(fase);
+        };
         const handleFaseClick = (fase) => {
       if (
         (fase === 'durante' && !videoStatusPatologica.antes) ||
@@ -150,6 +179,7 @@ const LinhaAnsiedade = () => {
                   <div className="text-center mb-5">
                   <video
                     controls
+                    controlsList="nodownload"
                     className="rounded shadow"
                     style={{
                       width: "100%",
@@ -255,6 +285,7 @@ const LinhaAnsiedade = () => {
                       <div className="alert alert-info text-center">
                        <video
                          controls
+                         controlsList="nodownload"
                          style={{ width: "100%", maxWidth: "800px" }}
                          onPlay={() => setShowVideoWarning(false)}
                          onEnded={() => setVideoStatus(prev => ({ ...prev, antes: true }))}
@@ -269,6 +300,7 @@ const LinhaAnsiedade = () => {
                     <div className="alert alert-info text-center">
                        <video
                        controls
+                       controlsList="nodownload"
                        style={{ width: "100%", maxWidth: "800px" }}
                        onPlay={() => setShowVideoWarning(false)}
                        onEnded={() => setVideoStatus(prev => ({ ...prev, durante: true }))}
@@ -283,6 +315,7 @@ const LinhaAnsiedade = () => {
                      <div className="alert alert-info text-center">
                        <video
                         controls
+                        controlsList="nodownload"
                        style={{ width: "100%", maxWidth: "800px" }}
                        onPlay={() => setShowVideoWarning(false)}
                       onEnded={() => setVideoStatus(prev => ({ ...prev, depois: true }))}
@@ -297,6 +330,7 @@ const LinhaAnsiedade = () => {
                      <div className="alert alert-info text-center">
                      <video
                      controls
+                     controlsList="nodownload"
                      style={{ width: "100%", maxWidth: "800px" }}
                      onPlay={() => setShowVideoWarning(false)}
                      onEnded={() => setVideoStatus(prev => ({ ...prev, conclusao: true }))}
@@ -394,6 +428,7 @@ const LinhaAnsiedade = () => {
                        <div className="alert alert-danger text-center">
                       <video
                         controls
+                        controlsList="nodownload"
                        style={{ width: "100%", maxWidth: "800px" }}
                        onPlay={() => setShowVideoWarning(false)}
                        onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, antes: true }))}
@@ -408,6 +443,7 @@ const LinhaAnsiedade = () => {
                       <div className="alert alert-danger text-center">
                       <video
                       controls
+                      controlsList="nodownload"
                       style={{ width: "100%", maxWidth: "800px" }}
                       onPlay={() => setShowVideoWarning(false)}
                     onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, durante: true }))}
@@ -422,6 +458,7 @@ const LinhaAnsiedade = () => {
                       <div className="alert alert-danger text-center">
                      <video
                       controls
+                      controlsList="nodownload"
                       style={{ width: "100%", maxWidth: "800px" }}
                       onPlay={() => setShowVideoWarning(false)}
                     onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, depois: true }))}
@@ -436,6 +473,7 @@ const LinhaAnsiedade = () => {
                       <div className="alert alert-danger text-center">
                     <video
                     controls
+                    controlsList="nodownload"
                   style={{ width: "100%", maxWidth: "800px" }}
                   onPlay={() => setShowVideoWarning(false)}
                 onEnded={() => setVideoStatusPatologica(prev => ({ ...prev, conclusao: true }))}
