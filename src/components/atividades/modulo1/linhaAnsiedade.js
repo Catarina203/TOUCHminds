@@ -86,7 +86,16 @@ const LinhaAnsiedade = () => {
         depois: false,
         conclusao: false
       };
-      const handleFaseClick = (fase) => {
+
+      // Alternar o estado apenas do popup clicado
+      newState[fase] = !prev[fase];
+      
+      return newState;
+    });
+  };
+
+
+        const handleFaseClick = (fase) => {
       if (
         (fase === 'durante' && !videoStatusPatologica.antes) ||
         (fase === 'depois' && !videoStatusPatologica.durante) ||
@@ -99,14 +108,7 @@ const LinhaAnsiedade = () => {
       setShowVideoWarning(false); // Limpa mensagem
       toggleAnsiedadePatologica(fase); // Abre a fase
     };
-
-      // Alternar o estado apenas do popup clicado
-      newState[fase] = !prev[fase];
-      
-      return newState;
-    });
-  };
-
+    
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
       <Navbar />
