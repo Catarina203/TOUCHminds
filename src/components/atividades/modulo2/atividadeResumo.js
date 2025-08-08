@@ -7,21 +7,6 @@ import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { Modal, Button } from 'react-bootstrap';
 
-const [showWarning, setShowWarning] = useState(false);
-
-const avancar = () => {
-    // se estiver numa página de cenários e não escolheu nada
-    if (pagina > 0 && pagina <= cenarios.length && opcaoSelecionada === null) {
-        setShowWarning(true);
-        setTimeout(() => setShowWarning(false), 3000);
-        return;
-    }
-
-    setPagina(prev => prev + 1);
-    setMostrarOpcoes(false);
-    setOpcaoSelecionada(null);
-};
-
 const AtividadeResumoModulo2 = () => {
     const { id: moduloId } = useParams();
     const { updateUserData } = useContext(UserContext);
@@ -31,8 +16,7 @@ const AtividadeResumoModulo2 = () => {
     const [modalShow, setModalShow] = useState(false);
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
-    
-
+    const [showWarning, setShowWarning] = useState(false);
     const modulo = modulos.find((m) => m.id === moduloId);
     const atividade = modulo?.atividades.find(a => a.url === "atividade-resumo");
 
@@ -92,11 +76,18 @@ const AtividadeResumoModulo2 = () => {
         }
     ];
 
-    const avancar = () => {
+   const avancar = () => {
+        // Bloqueia avanço se não tiver escolhido opção nas páginas de cenários
+        if (pagina > 0 && pagina <= cenarios.length && opcaoSelecionada === null) {
+            setShowWarning(true);
+            setTimeout(() => setShowWarning(false), 3000);
+            return;
+        }
+
         setPagina(prev => prev + 1);
         setMostrarOpcoes(false);
         setOpcaoSelecionada(null);
-    };
+        };
 
     const retroceder = () => {
         setPagina(prev => prev - 1);

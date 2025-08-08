@@ -6,6 +6,18 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../../App";
 import { useContext } from "react";
 
+const [mostrarAviso, setMostrarAviso] = useState(false);
+
+const avancarPagina = () => {
+  if (respostaSelecionada === null) {
+    setMostrarAviso(true);
+    return;
+  }
+  setRespostaSelecionada(null);
+  setMostrarPopup(false);
+  setPagina((prev) => prev + 1);
+};
+
 const afirmacoes = [
   {
     texto: <p style={{color:'#234970'}}>A ansiedade é algo comum e normal.</p>,
@@ -164,6 +176,17 @@ const VerdadeOuMito = () => {
 
               {estaNaAfimacao && (
                 <div className="text-center py-4">
+                  
+                    {/* Aviso se tentar avançar sem escolher */}
+                    {mostrarAviso && (
+                      <div
+                        className="alert alert-warning text-center"
+                        style={{ borderRadius: "8px" }}
+                      >
+                        Por favor, escolhe uma opção antes de continuar.
+                      </div>
+                    )}
+                  
                   {/* INSTRUÇÃO IGUAL PARA TODAS AS PÁGINAS */}
                   <p className="lead mb-3">
                     Lê a afirmação e decide se é “Verdade” ou “Mito”.
