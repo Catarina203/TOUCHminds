@@ -7,6 +7,20 @@ import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { Modal, Button } from 'react-bootstrap';
 
+const [showWarning, setShowWarning] = useState(false);
+
+const avancar = () => {
+    // se estiver numa página de cenários e não escolheu nada
+    if (pagina > 0 && pagina <= cenarios.length && opcaoSelecionada === null) {
+        setShowWarning(true);
+        setTimeout(() => setShowWarning(false), 3000);
+        return;
+    }
+
+    setPagina(prev => prev + 1);
+    setMostrarOpcoes(false);
+    setOpcaoSelecionada(null);
+};
 
 const AtividadeResumoModulo2 = () => {
     const { id: moduloId } = useParams();
@@ -17,6 +31,7 @@ const AtividadeResumoModulo2 = () => {
     const [modalShow, setModalShow] = useState(false);
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
+    
 
     const modulo = modulos.find((m) => m.id === moduloId);
     const atividade = modulo?.atividades.find(a => a.url === "atividade-resumo");
@@ -26,25 +41,25 @@ const AtividadeResumoModulo2 = () => {
             imagemBase: "/imgs/modulo2/resumo/resumo2_1.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_1_mao.png",
             opcoes: [
-                <><b>Reforçar o estigma:</b> Concordar com os comentários e afastar-se."</>,
-                <><b>Responder com empatia:</b> Defender o colega, contrariar o julgamento e mostrar compreensão.</>
+                <> Ignorava ou afastava-me da pessoa.</>,
+                <>Aproximava-me e oferecia companhia.</>
             ],
             explicacao: (
-                <><b>Olhares de julgamento</b> podem intensificar a sensação de <b>vergonha</b> nas pessoas que lidam com dificuldades resultantes da <b>ansiedade</b>.
-                    Responder com <b>empatia</b> e <b>compreensão</b> ajuda a reduzir o <b>estigma</b> e fortalece as <b>relações</b> com as outras pessoas.
-                </>
+            <>
+            O estigma pode levar as pessoas a isolarem-se, acreditando que não são capazes ou que não merecem receber amizade e apoio. É fundamental mostrarmos empatia e compreensão. Ao apoiar alguém que lida com dificuldades resultantes da ansiedade, estás a ajudar a combater o estigma e a criar um ambiente seguro e acolhedor
+            </>
             )
         },
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_2.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_2_mao.png",
             opcoes: [
-                <><b>Reforçar o estigma:</b> Ignorar ou afastar-se da pessoa.</>,
-                <><b>Responder com empatia:</b> Aproximar-se, perguntar se está bem, oferecer companhia.</>
+                <>Concordava com os comentários.</>,
+                <>Escutava, defendia e mostrava que entendia o lado do colega.</>
             ],
             explicacao: (
-                <><b>O estigma</b> pode levar as pessoas a <b>isolarem-se</b>, acreditando que não merecem ter <b>amizades</b> ou o <b>apoio</b> dos outros. É fundamental mostrarmos <b>empatia</b> e
-                    <b>compreensão</b>. Ao <b>apoiar</b> alguém que lida com dificuldades resultantes da <b>ansiedade</b>, estás a ajudar a <b>combater o estigma</b> e promover um <b>ambiente seguro</b>.
+                <>
+                Olhares de julgamento podem intensificar a sensação de vergonha nas pessoas que lida com dificuldades resultantes da ansiedade. Responder com empatia e compreensão ajuda a reduzir o estigma e fortalece as relações com as outras pessoas.
                 </>
             )
         },
@@ -52,27 +67,25 @@ const AtividadeResumoModulo2 = () => {
             imagemBase: "/imgs/modulo2/resumo/resumo2_3.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_3_mao.png",
             opcoes: [
-                <><b>Reforçar o estigma:</b> Rir, comentar com colegas, não levar a apresentação a sério.</>,
-                <><b>Responder com empatia:</b> Encorajar, sorrir de forma acolhedora, apoiar verbalmente.</>
+                <>Ria, comentava com colegas, não leva a apresentação a sério.</>,
+                <>Encorajava, sorria de forma acolhedora, apoiava verbalmente.</>
             ],
             explicacao: (
-                <>O <b>estigma</b> pode fazer com que situações que já são <b>desafiadoras</b> se tornem ainda mais <b>difíceis</b>. O <b>medo do julgamento</b> pode aumentar a <b>ansiedade</b>,
-                    fazendo com que a pessoa se sinta ainda mais <b>insegura</b>. Ao oferecer <b>empatia</b>, como palavras de <b>incentivo</b> ou <b>compreensão</b>, ajudamos a criar um<b> ambiente</b> onde todos
-                    se sintam <b>confortáveis</b> para se <b>expressar e participar</b>.
-                </>
+                <>
+                    O estigma pode fazer com que situações que já são desafiadoras se tornem ainda mais difíceis. O medo do julgamento pode aumentar a ansiedade, fazendo com que a pessoa se sinta ainda mais insegura. Ao oferecer empatia, com palavras de incentivo ou compreensão, ajudamos a criar um ambiente onde todos se sintam confortáveis para se expressar e participar.
+                    </>
             )
         },
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_4.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_4_mao.png",
             opcoes: [
-                <><b>Reforçar o estigma:</b> Ignorar o que está a acontecer, fazer scroll, ou até concordar com os comentários.</>,
-                <><b>Responder com empatia:</b> Denunciar os comentários, lembrar-lhe que não está sozinho.</>
+                <>Ignorava o que está a acontecer, fazia scroll, ou até concordava com os comentários.</>,
+                <>Denunciava os comentários e lembrava-lhe que não está sozinho e que há pessoas que se importam com ele.</>
             ],
             explicacao: (
-                <><b>O estigma nas redes sociais</b> pode amplificar o <b>isolamento</b>. Comentários <b>negativos</b> podem fazer com que uma pessoa se sinta ainda
-                    mais <b>sozinha</b> nas suas <b>dificuldades</b>. Todos nos devemos sentir <b>seguros</b> para <b>partilhar</b> as nossas <b>experiências</b> sem medo de sermos
-                    <b> julgados</b> ou <b>ridicularizados</b>.
+                <>
+                O estigma nas redes sociais pode amplificar o isolamento. Comentários negativos podem fazer com que uma pessoa se sinta ainda mais sozinha nas suas dificuldades. Todos devemos sentir-nos seguros para partilhar as nossas experiências, sem medo de sermos julgados ou ridicularizados — seja presencialmente ou através de um ecrã.
                 </>
             )
 
@@ -122,11 +135,11 @@ const AtividadeResumoModulo2 = () => {
 
                         {pagina === 0 && (
                             <>
-                                <h2 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
-                                    {atividade?.titulo || "Atividade Resumo – Desmistificar a Ansiedade"}
-                                </h2>
+                            <div className="text-center"></div>
+                            <h4 className="text-center fw-bold" style={{ color: "#234970" }}> {atividade?.titulo || "Atividade Resumo"}
+                            </h4>
                                 <p className="lead">
-                                    <strong>Sê muito bem-vindo ou bem-vinda à atividade resumo do Módulo 2</strong> – 'Desmistificar a Ansiedade!'
+                                    <strong>Sê muito bem-vindo/a à atividade resumo do Módulo 2 – 'Desmistificar a Ansiedade!'</strong>
                                     <br /><br />
                                     O objetivo desta atividade é <strong>consolidar os conteúdos que explorámos ao longo do módulo</strong>.
                                     <br /><br />
@@ -136,7 +149,8 @@ const AtividadeResumoModulo2 = () => {
                                     <br /><br />
                                     O teu desafio é clicar no ícone e escolher como reagir: <strong>reforçar o estigma</strong> ou <strong>responder com empatia</strong> a cada um dos cenários.
                                     <br /><br />
-                                    <strong>Estás pronto/a para fazer a diferença?</strong>
+                                    Cada escolha será seguida de uma explicação que te ajudará a refletir sobre o impacto das tuas escolhas.
+                                    <br /><br />
                                 </p>
                                 <button className="custom-btn-turquoise mt-3 px-4 py-2" onClick={() => setPagina(1)}>
                                     <i className="bi bi-play-fill me-2"></i>Vamos a isto?
@@ -146,8 +160,9 @@ const AtividadeResumoModulo2 = () => {
 
                         {pagina > 0 && pagina <= cenarios.length && (
                             <>
-                                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Cenário {pagina} de {cenarios.length}
+                                <div className="text-center"></div>
+                                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
+                                Vê a imagem com atenção e carrega no ícone. Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários?
                                 </h4>
 
                                 <div className="d-flex flex-column align-items-center mb-4" style={{ width: "100%" }}>
@@ -226,21 +241,25 @@ const AtividadeResumoModulo2 = () => {
                                 )}
                             </>
                         )}
-
-                        {pagina === cenarios.length + 1 && (
+                        
+                    {showWarning && (
+                        <div className="alert alert-warning mt-3 text-center" role="alert">
+                            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                            Por favor, seleciona uma opção antes de continuar.
+                        </div>
+                    )}
+      
+                         {pagina === cenarios.length + 1 && (
                             <>
-                                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                                 <h4 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                                 <div className="text-start lead">
-                                    <p><strong>Terminaste a visita pela Sala do Estigma!</strong> Durante esta atividade, exploraste diferentes situações do dia a dia em que o <strong>estigma</strong> em relação à <strong>ansiedade</strong> pode surgir.
-                                        Viste como <strong>palavras</strong>, <strong>olhares</strong> ou a <strong>ausência de apoio</strong> podem afetar profundamente quem vive com
+                                    <p>Durante esta atividade, exploraste diferentes situações do dia a dia em que o <strong>estigma</strong> em relação à <strong>ansiedade</strong> pode surgir.
+                                        Percebeste como <strong>palavras</strong>, <strong>olhares</strong> ou a <strong>ausência de apoio</strong> podem afetar profundamente quem vive com
                                         ansiedade — e também como um gesto de <strong>empatia</strong> pode transformar uma situação difícil num
                                         momento de <strong>acolhimento</strong> e <strong>compreensão</strong>.</p>
 
                                     <p><strong>A ansiedade não é uma falha, nem uma fraqueza</strong>. É uma resposta <strong>humana</strong>, <strong>natural</strong>, e todos merecem ser
                                         tratados com <strong>respeito</strong>, <strong>apoio</strong> e <strong>empatia</strong>.</p>
-
-                                    <p>Ao escolheres <strong>intervir de forma positiva</strong> em cada cenário, mostraste que tens o poder de contribuir para um ambiente mais
-                                        <strong>seguro</strong> e <strong>inclusivo</strong>, onde ninguém se sinta <strong>sozinho</strong> nas suas <strong>dificuldades</strong>.</p>
 
                                     <p><strong>Lembra-te:</strong> combater o estigma começa com <strong>pequenas ações</strong> — e começa <strong>contigo</strong>.</p>
                                 </div>
@@ -271,54 +290,80 @@ const AtividadeResumoModulo2 = () => {
                                     className="custom-btn-turquoise" onClick={avancar}
                                     disabled={opcaoSelecionada === null}
                                 >
-                                    {pagina === cenarios.length ? "Conclusão" : "Continuar"} <i className="bi bi-arrow-right ms-2"></i>
+                                    {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
+                <Modal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                centered
+                style={{
+                    borderRadius: "12px",
+                }}
+                >
                 <Modal.Header
                     closeButton
                     style={{
-                        backgroundColor: "#99CBC8",
-                        borderBottom: "none",
-                        color: "#fff",
+                    backgroundColor: "#99CBC8",
+                    borderBottom: "none",
+                    color: "#fff",
+                    padding: "1rem 1.5rem",
                     }}
                 >
-                    <Modal.Title style={{ fontWeight: "600" }}>
-                        Resultado da tua escolha
+                    <Modal.Title
+                    style={{
+                        fontWeight: "600",
+                        fontSize: "1.2rem",
+                        letterSpacing: "0.5px",
+                        width: "100%",
+                        textAlign: "center",
+                    }}
+                    >
+                    Resultado da tua escolha
                     </Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="text-start">
-                    {mensagemPopUp}
-                </Modal.Body>
-                <Modal.Footer
+
+                <Modal.Body
+                    className="text-start"
                     style={{
-                        borderTop: "none",
-                        backgroundColor: "#F5FDFC",
-                        textAlign: "center",
-                        justifyContent: "center",
+                    fontSize: "1.1rem",
+                    lineHeight: "1.6",
+                    color: "#234970",
+                    padding: "1.5rem",
                     }}
                 >
-                    <Button className="custom-btn-complete"
-                        onClick={() => {
-                            setModalShow(false);
-                        }}
-                        style={{
-                            backgroundColor: "#234970",
-                            borderColor: "#234970",
-                            borderRadius: "20px",
-                            padding: "0.5rem 1.5rem",
-                            fontWeight: "500",
-                        }}
+                    {mensagemPopUp}
+                </Modal.Body>
+
+                <Modal.Footer
+                    style={{
+                    borderTop: "none",
+                    backgroundColor: "#F5FDFC",
+                    justifyContent: "center",
+                    padding: "1rem",
+                    }}
+                >
+                    <Button
+                    onClick={() => setModalShow(false)}
+                    style={{
+                        backgroundColor: "#234970",
+                        borderColor: "#234970",
+                        borderRadius: "20px",
+                        padding: "0.5rem 1.5rem",
+                        fontWeight: "500",
+                        transition: "background-color 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => (e.target.style.backgroundColor = "#1b3a57")}
+                    onMouseLeave={(e) => (e.target.style.backgroundColor = "#234970")}
                     >
-                        Próximo
+                    Próximo
                     </Button>
                 </Modal.Footer>
-            </Modal>
+                </Modal>
         </div>
     );
 };
