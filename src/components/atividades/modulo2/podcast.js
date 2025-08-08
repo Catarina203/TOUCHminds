@@ -14,13 +14,13 @@ const PodcastTouchminds = () => {
 
 
   const avancarPagina = () => {
-    if (pagina >= 1 && pagina <= 4 && !audioCompleted[pagina - 1]) {
-      setShowAudioWarning(true); // mostra o aviso
+      if (pagina === 1 && !audioCompleted) {
+      setShowAudioWarning(true);
       return;
-    }
-    setShowAudioWarning(false); // limpa aviso se válido
-    setPagina((prev) => prev + 1);
-  };
+        }
+      setShowAudioWarning(false); // limpa o aviso se válido
+      setPagina((prev) => prev + 1);
+    };
   const retrocederPagina = () => {
     setPagina((prev) => prev - 1);
   };
