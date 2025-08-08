@@ -166,7 +166,7 @@ const VerdadeOuMito = () => {
                 <div className="text-center py-4">
                   {/* INSTRUÇÃO IGUAL PARA TODAS AS PÁGINAS */}
                   <p className="lead mb-3">
-                    Lê a afirmação e escolhe “Verdade” ou “Mito”.
+                    Lê a afirmação e decide se é “Verdade” ou “Mito”.
                   </p>
 
                   <h5 className="fw-bold mb-4">{afirmacaoAtual.texto}</h5>
@@ -194,10 +194,10 @@ const VerdadeOuMito = () => {
                           role="alert"
                           style={{
                             backgroundColor:
-                              respostaSelecionada === "Verdade" ? "#234970" : "#E7C8C2",
-                            color: "#fff", // texto a branco
+                              afirmacaoAtual.resposta === "Verdade" ? "#234970" : "#E7C8C2",
+                            color: "#fff", // texto branco
                             border:
-                              respostaSelecionada === "Verdade"
+                              afirmacaoAtual.resposta === "Verdade"
                                 ? "1px solid #234970"
                                 : "1px solid #E7C8C2",
                             padding: "20px",
@@ -233,7 +233,7 @@ const VerdadeOuMito = () => {
                 <div className="lead mb-3">
                   <p>
                     Ao longo desta atividade, percebeste que existem <strong>muitas ideias erradas sobre a ansiedade</strong> — os chamados <strong>mitos</strong> —
-                    que podem fazer-nos levar-nos a <strong>ssentir-nos piores</strong> e a ficar mais <strong>confusos</strong> sobre o que estamos a viver.
+                    que podem fazer-nos levar-nos a <strong>sentir-nos piores</strong> e a ficar mais <strong>confusos</strong> sobre o que estamos a viver.
                   </p>
                   <p>
                     A boa notícia é que, quando começamos a compreender melhor o que sentimos, tudo passa a fazer mais <strong>sentido</strong>.
