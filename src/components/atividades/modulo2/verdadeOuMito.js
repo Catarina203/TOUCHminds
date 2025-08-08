@@ -11,93 +11,81 @@ const afirmacoes = [
     texto: <p style={{color:'#234970'}}>A ansiedade é algo comum e normal.</p>,
     resposta: "Verdade",
     explicacao:
-      <p className="lead"><strong>Verdade!</strong> Sentir <strong>ansiedade</strong> é algo que <strong>todos nós experimentamos</strong> — é uma <strong>emoção natural</strong> do corpo para nos preparar para enfrentar <strong>desafios</strong>. Por exemplo,
-        se estás ansioso/a antes de um <strong>teste</strong>, é porque queres ter um <strong>bom desempenho!</strong> A ansiedade só se torna um <strong>problema</strong> quando é <strong>excessiva</strong> e começa a <strong>interferir</strong> com o
-        nosso <strong>dia-a-dia</strong>.</p>
+      <p className="lead">
+        <strong>Verdade!</strong> Sentir <strong>ansiedade</strong> é algo que <strong>todos nós experimentamos</strong> — é uma <strong>emoção natural</strong> do corpo para nos preparar para enfrentar <strong>desafios</strong>. Por exemplo, se estás ansioso/a antes de um <strong>teste</strong>, é porque queres ter um <strong>bom desempenho</strong>! A ansiedade só se torna um <strong>problema</strong> quando é <strong>intensa</strong>, <strong>persistente</strong> e começa a <strong>interferir</strong> com o nosso <strong>dia-a-dia</strong>.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>A medicação é a única solução para a ansiedade.</p>,
     resposta: "Mito",
     explicacao:
-      <p className="lead"><strong>Mito!</strong> A <strong>medicação</strong> pode ajudar, nos casos mais intensos, mas <strong>não é a única forma de lidar com a ansiedade</strong>. Muitas pessoas melhoram com <strong>psicoterapia</strong>,
-        especialmente com <strong>terapias que ensinam a reconhecer padrões de pensamento</strong> e a desenvolver formas mais <strong>equilibradas de lidar com eles</strong>, como a <strong>Terapia
-          Cognitivo-Comportamental (TCC)</strong>.</p>
+      <p className="lead">
+      <strong>Mito!</strong> A <strong>medicação</strong> pode ajudar nos casos mais <strong>intensos</strong>, mas não é a <strong>única forma</strong> de lidar com a <strong>ansiedade</strong>. Muitas pessoas melhoram com <strong>intervenção psicológica</strong>, que ensina a <strong>reconhecer padrões de pensamento</strong> e a <strong>desenvolver</strong> outras formas de lidar com eles, como a <strong>Terapia Cognitivo-Comportamental (TCC)</strong>.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>Se eu admitir que fico ansioso, serei visto como fraco/a ou estranho/a.</p>,
     resposta: "Mito",
     explicacao:
-      <p className="lead"><strong>Mito!</strong> Sentir <strong>ansiedade</strong> não tem nada de estranho — é algo <strong>humano</strong> e que todos sentimos. O <strong>medo de ser julgado</strong> pode fazer com que as
-        pessoas hesitem em falar sobre a sua ansiedade. No entanto, admitir que estamos ansiosos é um sinal de <strong>coragem</strong> e <strong>autoconhecimento</strong>. Falares sobre as
-        tuas <strong>emoções</strong> pode surpreender-te positivamente… Podes encontrar a <strong>compreensão</strong> e <strong>apoio</strong> que não estavas a esperar, mas também desejavas. Mostrar-nos
-        <strong>vulneráveis</strong> não só fortalece os <strong>laços de amizade</strong>, como também cria um ambiente mais <strong>acolhedor</strong> e <strong>seguro</strong>, permitindo que todos se sintam mais à vontade
-        para <strong>partilhar as suas experiências</strong>.</p>
+      <p className="lead">
+        <strong>Verdade!</strong> Sentir <strong>ansiedade</strong> não tem nada de <strong>estranho</strong> — é algo <strong>humano</strong>, que <strong>todos experimentamos</strong>. O <strong>medo</strong> de ser <strong>julgado</strong> pode levar muitas pessoas a hesitar em <strong>falar</strong> sobre o que sentem. No entanto, <strong>admitir</strong> que estamos <strong>ansiosos</strong> é um sinal de <strong>coragem</strong> e <strong>autoconhecimento</strong>. <strong>Falar</strong> sobre as nossas <strong>emoções</strong> pode trazer <strong>surpresas positivas</strong>: podemos encontrar a <strong>compreensão</strong> e o <strong>apoio</strong> que desejávamos, mas não esperávamos. Mostrar <strong>vulnerabilidade</strong> não só fortalece os <strong>laços de amizade</strong>, como também cria um <strong>ambiente</strong> mais <strong>acolhedor</strong> e <strong>seguro</strong>, onde todos se sentem mais à vontade para <strong>partilhar</strong> as suas <strong>experiências</strong>.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>A ansiedade manifesta-se de forma diferente nas pessoas.</p>,
     resposta: "Verdade",
     explicacao:
-      <p className="lead"><strong>Verdade!</strong> A ansiedade é uma <strong>experiência única</strong> e <strong>individualizada</strong>. Cada pessoa pode sentir e expressar a ansiedade de maneiras diferentes,
-        e os <strong>sintomas</strong> podem variar amplamente. Por exemplo, enquanto algumas pessoas podem experimentar <strong>sensações físicas</strong> como <strong>palpitações</strong> e <strong>suores</strong>,
-        outras podem ter <strong>preocupação constante</strong> ou <strong>agitação</strong>.<br></br>
-        Nem sempre é <strong>visível externamente</strong>; muitas pessoas lidam com a ansiedade em <strong>silêncio</strong>, apresentando uma aparência <strong>calma</strong> enquanto lutam internamente.
-        Isso pode levar à <strong>incompreensão</strong> por parte de amigos e familiares, que podem não perceber que também aquela pessoa está a lidar com uma experiência
-        de ansiedade <strong>difícil</strong>.</p>
+     <p className="lead">
+      <strong>Verdade!</strong> A <strong>ansiedade</strong> é uma <strong>experiência</strong> única e <strong>individualizada</strong>. Cada pessoa pode <strong>sentir</strong> e <strong>expressar</strong> de maneiras diferentes, com <strong>sintomas</strong> que variam amplamente. Enquanto algumas experimentam <strong>sensações físicas</strong> como <strong>palpitações</strong> e <strong>suores</strong>, outras podem ter <strong>preocupação constante</strong> ou <strong>agitação</strong>. Nem sempre é <strong>visível</strong>: muitas pessoas lidam com a <strong>ansiedade</strong> em <strong>silêncio</strong>, apresentando uma <strong>aparência calma</strong> enquanto <strong>lutam internamente</strong>. Isso pode levar à <strong>incompreensão</strong> por parte de <strong>amigos</strong> e <strong>familiares</strong>, que podem não perceber que aquela pessoa está a lidar com uma <strong>experiência</strong> de <strong>ansiedade difícil</strong>.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>Ter ansiedade não é o mesmo que sentir medo.</p>,
     resposta: "Verdade",
     explicacao:
-      <p className="lead"><strong>Verdade!</strong> A ansiedade é uma <strong>emoção mais ampla</strong> do que o medo. Embora o <strong>medo</strong> seja uma resposta a um <strong>perigo específico e imediato</strong>, a algo que está mesmo a
-        acontecer (como ver um cão a correr na tua direção), a ansiedade é mais sobre o que poderá acontecer no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja provável.<br></br>
-        A ansiedade é mais no <strong>futuro</strong>, enquanto o medo é uma resposta ao <strong>agora</strong>.
-      </p>
+      <p className="lead">
+      <strong>Verdade!</strong> A <strong>ansiedade</strong> engloba mais do que apenas o <strong>medo</strong>. O <strong>medo</strong> é uma <strong>resposta</strong> a um <strong>perigo específico</strong> e <strong>imediato</strong>, a algo que está mesmo a <strong>acontecer</strong> (como ver um <strong>cão</strong> a correr na tua <strong>direção</strong>). Já a <strong>ansiedade</strong> é mais sobre o que <strong>poderá acontecer</strong> no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja <strong>provável</strong>. A <strong>ansiedade</strong> é <strong>preocupação</strong> com o que pode estar para <strong>vir</strong>, enquanto o <strong>medo</strong> é uma <strong>resposta</strong> ao <strong>agora</strong>.
+     </p>
   },
   {
     texto: <p style={{color:'#234970'}}>Eu devia ser capaz de lidar com a minha ansiedade sozinho/a.</p>,
     resposta: "Mito",
     explicacao:
-      <p className="lead"><strong>Mito!</strong> A ansiedade não é um <strong>“defeito”</strong> que se resolve com <strong>força de vontade</strong>. É normal sentires-te <strong>isolado/a</strong> e achar que mais ninguém entende o que estás a
-        viver. Mas a verdade é que a ansiedade é algo que é <strong>comum a todos nós</strong>.<br></br>
-        Às vezes, é preciso <strong>ajuda</strong> para perceber o que está a acontecer e aprender a lidar com isso. O <strong>estigma associado à ansiedade</strong> pode criar uma <strong>barreira significativa</strong>
-        para aqueles que precisam de ajuda, levando muitos a sentirem <strong>vergonha</strong> e <strong>medo de serem julgados</strong>.<br></br>
-        Este medo faz com que se <strong>isolem</strong> e <strong>escondam as suas emoções</strong>, o que intensifica a ansiedade e reforça a ideia de que devem lidar com ela sozinhos,
-        aumentando a sensação de <strong>incompreensão</strong>.<br></br>
-        <strong>Falar sobre as tuas experiências</strong> não só te ajuda a ti, mas também encoraja os outros a <strong>partilharem as suas próprias experiências</strong>.
+      <p className="lead">
+      <strong>Mito!</strong> A <strong>ansiedade</strong> não é um <strong>“defeito”</strong> ou uma <strong>“fraqueza”</strong> que se resolve apenas com <strong>força de vontade</strong>. É normal sentires-te <strong>isolado/a</strong> e achar que mais ninguém entende o que estás a viver, mas a verdade é que a <strong>ansiedade</strong> é <strong>comum</strong> a <strong>todos nós</strong>. Muitas vezes, é preciso <strong>ajuda</strong> para <strong>compreender</strong> o que está a acontecer e <strong>aprender</strong> a lidar com isso. O <strong>estigma</strong> associado à <strong>ansiedade</strong> pode criar uma grande <strong>barreira</strong> para quem precisa de <strong>ajuda</strong>, levando muitos a sentirem <strong>vergonha</strong> e <strong>medo</strong> de serem <strong>julgados</strong>. Este <strong>medo</strong> faz com que se <strong>isolem</strong> e <strong>escondam</strong> as suas <strong>emoções</strong>, o que <strong>intensifica</strong> a <strong>ansiedade</strong> e reforça a ideia de que devem lidar com ela <strong>sozinhos</strong>, aumentando a sensação de <strong>incompreensão</strong>. <strong>Falar</strong> sobre as tuas <strong>experiências</strong> não só te ajuda, como também <strong>encoraja</strong> outras pessoas a <strong>partilharem</strong> as suas.
       </p>
   },
   {
-    texto: <p style={{color:'#234970'}}> com ansiedade devem evitar situações desafiadoras.</p>,
+    texto: <p style={{color:'#234970'}}> Pessoas com ansiedade devem evitar situações desafiadoras.</p>,
     resposta: "Mito",
     explicacao:
-      <p className="lead"><strong>Mito!</strong> Quando evitamos o que nos <strong>assusta</strong>, a ansiedade parece <strong>desaparecer</strong> — mas é um <strong>alívio temporário</strong>, aumentando a ansiedade a <strong>longo prazo</strong>.<br></br>
-        <strong>Enfrentar os desafios</strong>, mesmo com <strong>medo</strong>, com <strong>apoio</strong>, mostra-nos que <strong>conseguimos</strong> e diminui gradualmente o <strong>desconforto associado aos sintomas de ansiedade</strong>.
-        </p>
+      <p className="lead">
+      <strong>Mito!</strong> <strong>Evitar</strong> o que nos <strong>assusta</strong> pode trazer <strong>alívio</strong> no momento, mas é apenas <strong>temporário</strong> — a longo prazo, aumenta a <strong>ansiedade</strong>. <strong>Enfrentar</strong> os <strong>desafios</strong>, mesmo com <strong>medo</strong> e com <strong>apoio</strong>, ajuda-nos a perceber que somos <strong>capazes</strong> e reduz, gradualmente, o <strong>desconforto</strong> associado aos <strong>sintomas</strong> de <strong>ansiedade</strong>.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>Pessoas ansiosas são sempre tímidas ou introvertidas.</p>,
     resposta: "Mito",
     explicacao:
-      <p className="lead"><strong>Mito!</strong> Há pessoas <strong>super extrovertidas</strong>, <strong>faladoras e sociáveis</strong> que também têm ansiedade — às vezes <strong>escondem isso muito bem</strong>.<br></br>
-        Ter ansiedade não depende de seres <strong>tímido ou não</strong>, mas sim de como <strong>percebes o mundo</strong> e os <strong>desafios à tua volta</strong>.
-        </p>
+      <p className="lead">
+        <strong>Mito!</strong> Há pessoas <strong>super extrovertidas</strong>, <strong>faladoras</strong> e <strong>sociáveis</strong> que também têm <strong>ansiedade</strong> — e, por vezes, <strong>escondem-na</strong> muito bem. Ter <strong>ansiedade</strong> não depende de seres <strong>tímido/a</strong> ou não, mas sim da forma como <strong>percebes</strong> o <strong>mundo</strong> e os <strong>desafios</strong> à tua volta.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>A ansiedade não aparece do nada.</p>,
     resposta: "Verdade",
     explicacao:
-      <p className="lead"><strong>Verdade!</strong> A ansiedade <strong>não aparece do nada</strong>, há sempre um <strong>“gatilho”</strong>, isto é, um <strong>estímulo que origina</strong> — pode ser um <strong>pensamento</strong>, uma <strong>memória</strong>, um <strong>som</strong>, um <strong>lugar</strong>... <br></br>
-        Nem sempre conseguimos <strong>identificar logo</strong> o que foi, mas isso <strong>não quer dizer que surja do nada</strong>. A <strong>psicoterapia</strong> pode ajudar a <strong>descobrir estes gatilhos</strong>.
-        </p>
+      <p className="lead">
+      <strong>Verdade!</strong> A <strong>ansiedade</strong> não aparece do nada — há sempre um <strong>“gatilho”</strong>, ou seja, um <strong>estímulo</strong> que a origina. Pode ser um <strong>pensamento</strong>, uma <strong>memória</strong>, um <strong>som</strong>, um <strong>lugar</strong>… Nem sempre conseguimos <strong>identificar</strong> de imediato qual foi esse <strong>gatilho</strong>, e por isso pode parecer que veio do nada. A <strong>intervenção psicológica </strong> pode ajudar a <strong>reconhecê-los</strong> e a <strong>compreender</strong> melhor como atuam.
+      </p>
   },
   {
     texto: <p style={{color:'#234970'}}>Se controlo tudo à minha volta, não vou sentir ansiedade.</p>,
     resposta: "Mito",
     explicacao:
-      <p className="lead"> <strong>Mito!</strong> Muitas pessoas <strong>ansiosas</strong> tentam <strong>controlar tudo</strong> para se sentirem <strong>seguras</strong>. Mas a verdade é que a vida é cheia de coisas que <strong>não conseguimos controlar</strong>, e tentar
-        controlar tudo pode deixar-te mais <strong>cansado</strong>, mais <strong>tenso</strong>… e mais <strong>ansioso</strong>.<br></br>
-        <strong>Aprender a aceitar</strong> o que não controlas é um <strong>passo importante</strong> para te sentires <strong>melhor</strong>.
-        </p>
+      <p className="lead">
+      <strong>Mito!</strong> Muitas <strong>pessoas ansiosas</strong> tentam <strong>controlar tudo</strong> para se sentirem <strong>seguras</strong>. Mas a verdade é que a <strong>vida</strong> está cheia de coisas que <strong>não conseguimos controlar</strong> — e tentar fazê-lo pode deixar-nos <strong>cansados</strong>, <strong>tensos</strong>… e ainda mais <strong>ansiosos</strong>. <strong>Aceitar</strong> o que <strong>não é possível controlar</strong> é um <strong>passo importante</strong> para nos sentirmos melhor.
+      </p>
   }
 ];
 
@@ -155,12 +143,12 @@ const VerdadeOuMito = () => {
               </div>
             </div>
             {estaNaIntroducao && (
-              <div className="text-center py-4">
-                <h2 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
+             <div className="text-center">
+                <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
                   Verdade ou Mito?
                 </h2>
                 <p className="lead mb-3">
-                  <strong>Sê muito bem-vindo ou bem-vinda ao Verdade ou Mito?!</strong> <br></br><br></br>
+                  <strong>Sê muito bem-vindo/a ao Verdade ou Mito?!</strong> <br></br><br></br>
 
                   Nesta atividade, terás a oportunidade de explorar <strong>diversas afirmações sobre a ansiedade</strong>. <br></br><br></br>
 
@@ -174,73 +162,84 @@ const VerdadeOuMito = () => {
               </div>
             )}
 
-            {estaNaAfimacao && (
-              <div className="text-center py-4">
-                <h5 className="fw-bold mb-4">{afirmacaoAtual.texto}</h5>
-                <div className="d-flex justify-content-center gap-4 mb-4">
-                  <button
-                    className="custom-btn-complete"
-                    disabled={respostaSelecionada !== null}
-                    onClick={() => selecionarResposta("Verdade")}
-                  >
-                    Verdade
-                  </button>
-                  <button
-                    className="custom-btn-pink"
-                    disabled={respostaSelecionada !== null}
-                    onClick={() => selecionarResposta("Mito")}
-                  >
-                    Mito
-                  </button>
-                </div>
+              {estaNaAfimacao && (
+                <div className="text-center py-4">
+                  {/* INSTRUÇÃO IGUAL PARA TODAS AS PÁGINAS */}
+                  <p className="lead mb-3">
+                    Lê a afirmação e escolhe “Verdade” ou “Mito”.
+                  </p>
 
-                {mostrarPopup && (
-                  <div className="mt-3 text-start" role="alert"
-                    style={{
-                      backgroundColor: "#fbf9f9",
-                      color: "#000", // Opcional: para garantir boa legibilidade
-                      border: "1px solid #E7C8C2",
-                      padding: "20px", // espaço interno para respirar
-                      borderRadius: "8px" // opcional: suaviza os cantos
-                    }}>
-                    {afirmacaoAtual.explicacao}
+                  <h5 className="fw-bold mb-4">{afirmacaoAtual.texto}</h5>
+
+                  <div className="d-flex justify-content-center gap-4 mb-4">
+                    <button
+                      className="custom-btn-complete"
+                      disabled={respostaSelecionada !== null}
+                      onClick={() => selecionarResposta("Verdade")}
+                    >
+                      Verdade
+                    </button>
+                    <button
+                      className="custom-btn-pink"
+                      disabled={respostaSelecionada !== null}
+                      onClick={() => selecionarResposta("Mito")}
+                    >
+                      Mito
+                    </button>
                   </div>
-                )}
 
-                <div className="d-flex justify-content-between mt-4">
-                  <button
-                    className="custom-btn-pink" onClick={retrocederPagina}
-                    disabled={pagina === 0}
-                  >
-                    <i className="bi bi-arrow-left me-2"></i> Anterior
-                  </button>
-                  <button
-                    className="custom-btn-turquoise" onClick={avancarPagina}
-                    disabled={!mostrarPopup}
-                  >
-                    Próximo <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
+                      {mostrarPopup && (
+                        <div
+                          className="mt-3 text-start"
+                          role="alert"
+                          style={{
+                            backgroundColor:
+                              respostaSelecionada === "Verdade" ? "#234970" : "#E7C8C2",
+                            color: "#fff", // texto a branco
+                            border:
+                              respostaSelecionada === "Verdade"
+                                ? "1px solid #234970"
+                                : "1px solid #E7C8C2",
+                            padding: "20px",
+                            borderRadius: "8px"
+                          }}
+                        >
+                          {afirmacaoAtual.explicacao}
+                        </div>
+                      )}
+
+                  <div className="d-flex justify-content-between mt-4">
+                    <button
+                      className="custom-btn-pink"
+                      onClick={retrocederPagina}
+                      disabled={pagina === 0}
+                    >
+                      <i className="bi bi-arrow-left me-2"></i> Anterior
+                    </button>
+                    <button
+                      className="custom-btn-turquoise"
+                      onClick={avancarPagina}
+                      disabled={!mostrarPopup}
+                    >
+                      Próximo <i className="bi bi-arrow-right ms-2"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {estaNaConclusao && (
-              <div className="text-center py-4">
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+              <div className="text-center">
+                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <div className="lead mb-3">
                   <p>
-                    <strong>Boa!</strong> Chegaste ao fim desta atividade — e isso já é <strong>um passo muito importante!</strong>
+                    Ao longo desta atividade, percebeste que existem <strong>muitas ideias erradas sobre a ansiedade</strong> — os chamados <strong>mitos</strong> —
+                    que podem fazer-nos levar-nos a <strong>ssentir-nos piores</strong> e a ficar mais <strong>confusos</strong> sobre o que estamos a viver.
                   </p>
                   <p>
-                    Ao longo desta atividade, percebemos que há muitas <strong>ideias erradas sobre a ansiedade</strong>, e que essas ideias — os chamados <strong>mitos</strong> —
-                    podem fazer-nos sentir <strong>piores</strong> e mais <strong>confusos</strong> sobre o que estamos a viver.
-
+                    A boa notícia é que, quando começamos a compreender melhor o que sentimos, tudo passa a fazer mais <strong>sentido</strong>.
                   </p>
                   <p>
-                    A boa notícia é que, quando começamos a perceber melhor o que sentimos, tudo começa a fazer mais <strong>sentido</strong>.
-                  </p>
-                  <p>
-                    Ao perceberes melhor o que é a <strong>ansiedade</strong> e ao deixares de acreditar nos <strong>mitos que a alimentam</strong>, dás um passo essencial para promover o teu <strong>bem-estar!</strong></p>
+                    Ao entenderes melhor o que é a <strong>ansiedade</strong> e deixares de acreditar nos <strong>mitos que a alimentam</strong>, dás um passo essencial para promover o teu <strong>bem-estar.</strong></p>
                 </div>
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink"
