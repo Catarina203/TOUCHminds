@@ -6,9 +6,6 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../../App";
 import { useContext } from "react";
 
-const [mostrarAviso, setMostrarAviso] = useState(false);
-
-
 const afirmacoes = [
   {
     texto: <p style={{color:'#234970'}}>A ansiedade é algo comum e normal.</p>,
@@ -98,6 +95,7 @@ const VerdadeOuMito = () => {
   const [mostrarPopup, setMostrarPopup] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+  const [mostrarAviso, setMostrarAviso] = useState(false);
 
  const avancarPagina = () => {
     // Se estiver numa afirmação e ainda não escolheu nada, mostra aviso
