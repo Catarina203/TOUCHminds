@@ -171,14 +171,12 @@ const VerdadeOuMito = () => {
                   
                     {/* Aviso se tentar avançar sem escolher */}
                     {mostrarAviso && (
-                      <div
-                        className="alert alert-warning text-center"
-                        style={{ borderRadius: "8px" }}
-                      >
-                        Por favor, escolhe uma opção antes de continuar.
-                      </div>
-                    )}
-                  
+                    <div className="alert alert-warning mt-3 text-center" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                      Por favor, seleciona uma opção antes de continuar.
+                    </div>
+                  )}
+
                   {/* INSTRUÇÃO IGUAL PARA TODAS AS PÁGINAS */}
                   <p className="lead mb-3">
                     Lê a afirmação e decide se é “Verdade” ou “Mito”.

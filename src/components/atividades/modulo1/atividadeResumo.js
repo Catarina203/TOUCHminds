@@ -345,12 +345,11 @@ const AtividadeResumo = () => {
                         <div
                           key={index}
                           onClick={() => handleOptionClick(option, pagina - 2)}
-                          className="p-3 rounded border"
+                          className="p-3 rounded"
                           style={{
                             backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
                             color: isSelected ? 'white' : '#234970',
-                            borderColor: '#99CBC8',
-                            borderWidth: '2px',
+                            border: '2px solid #99CBC8',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
                           }}
