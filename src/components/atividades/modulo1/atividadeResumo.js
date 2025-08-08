@@ -349,7 +349,7 @@ const AtividadeResumo = () => {
                           style={{
                             backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
                             color: isSelected ? 'white' : '#234970',
-                            border: '2px solid #99CBC8',
+                            border: '1px solid #99CBC8',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
                           }}

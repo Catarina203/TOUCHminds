@@ -96,12 +96,12 @@ const AtividadeResumoModulo2 = () => {
     };
 
     const escolherOpcao = (index) => {
-        const explicacao = cenarios[pagina - 1].explicacao;
-        setMensagemPopUp(explicacao);
-        setOpcaoSelecionada(index);
-        setModalShow(true);
-    };
-
+    const explicacao = cenarios[pagina - 1].explicacao;
+    setMensagemPopUp(explicacao);
+    setOpcaoSelecionada(index);
+    setShowWarning(false); // limpa o aviso quando escolhe
+    setModalShow(true);
+};
 
 
     const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
@@ -150,11 +150,15 @@ const AtividadeResumoModulo2 = () => {
                         )}
 
                         {pagina > 0 && pagina <= cenarios.length && (
-                            <>
-                                <div className="text-center"></div>
-                                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
-                                Vê a imagem com atenção e carrega no ícone. Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários?
-                                </h4>
+
+                    <>
+                  <p className="lead mb-4">
+                  Vê a imagem com atenção e carrega no ícone. 
+                  </p>
+
+                    <p className="fw-semibold mb-4" style={{ color: "#234970" }}>
+                      Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
+                    </p>
 
                                 <div className="d-flex flex-column align-items-center mb-4" style={{ width: "100%" }}>
                                     {/* Imagem principal (topo) */}
@@ -212,7 +216,7 @@ const AtividadeResumoModulo2 = () => {
                                                             ? 'white'
                                                             : isHovered
                                                                 ? 'white'
-                                                                : '#000000',
+                                                                : '#234970',
                                                         border: isSelected
                                                             ? '1px solid #99CBC8'
                                                             : isHovered
@@ -279,7 +283,6 @@ const AtividadeResumoModulo2 = () => {
                             {pagina > 0 && pagina <= cenarios.length && (
                                 <button
                                     className="custom-btn-turquoise" onClick={avancar}
-                                    disabled={opcaoSelecionada === null}
                                 >
                                     {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>
@@ -307,14 +310,14 @@ const AtividadeResumoModulo2 = () => {
                 >
                     <Modal.Title
                     style={{
-                        fontWeight: "600",
-                        fontSize: "1.2rem",
-                        letterSpacing: "0.5px",
-                        width: "100%",
-                        textAlign: "center",
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    marginBottom: "5px",
+                    textAlign: "center",
+                    color: "#234970",
                     }}
                     >
-                    Resultado da tua escolha
+                    Impacto da tua escolha!
                     </Modal.Title>
                 </Modal.Header>
 
