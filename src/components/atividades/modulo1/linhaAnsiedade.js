@@ -231,7 +231,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.antes ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => handleFaseClick('antes')}
+                            onClick={() => handleFaseClickNormativa('antes')}
                           >
                             <i className="bi bi-clock-history"></i>
                           </button>
@@ -242,7 +242,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.durante ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => handleFaseClick('durante')}
+                            onClick={() => handleFaseClickNormativa('durante')}
                           >
                             <i className="bi bi-hourglass-split"></i>
                           </button>
@@ -253,7 +253,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.depois ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => handleFaseClick('depois')}
+                            onClick={() => handleFaseClickNormativa('depois')}
                           >
                             <i className="bi bi-check2-circle"></i>
                           </button>
@@ -264,7 +264,7 @@ const LinhaAnsiedade = () => {
                           <button 
                             className={`btn ${mostrarAnsiedadeNormativa.conclusao ? 'btn-info' : 'btn-outline-info'} rounded-circle mb-2`}
                             style={{ width: "60px", height: "60px" }}
-                            onClick={() => handleFaseClick('conclusao')}
+                            onClick={() => handleFaseClickNormativa('conclusao')}
                           >
                             <i className="bi bi-lightbulb"></i>
                           </button>
