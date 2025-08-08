@@ -117,6 +117,7 @@ const VerdadeOuMito = () => {
 
   const selecionarResposta = (resposta) => {
     setRespostaSelecionada(resposta);
+    setMostrarAviso(false); // <- limpa o aviso logo ao selecionar
     setMostrarPopup(true);
   };
 

@@ -5,19 +5,18 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
-import { Modal, Button } from 'react-bootstrap';
 
 const AtividadeResumoModulo2 = () => {
     const { id: moduloId } = useParams();
     const { updateUserData } = useContext(UserContext);
     const [pagina, setPagina] = useState(0);
-    const [mensagemPopUp, setMensagemPopUp] = useState("");
     const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
-    const [modalShow, setModalShow] = useState(false);
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
     const [showWarning, setShowWarning] = useState(false);
     const modulo = modulos.find((m) => m.id === moduloId);
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState("");
     const atividade = modulo?.atividades.find(a => a.url === "atividade-resumo");
 
     const cenarios = [
@@ -25,8 +24,8 @@ const AtividadeResumoModulo2 = () => {
             imagemBase: "/imgs/modulo2/resumo/resumo2_1.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_1_mao.png",
             opcoes: [
-                <> Ignorava ou afastava-me da pessoa.</>,
-                <>Aproximava-me e oferecia companhia.</>
+                <> <strong>Ignorava ou afastava-me da pessoa. </strong></>,
+                <> <strong> Aproximava-me e oferecia companhia.</strong></>
             ],
             explicacao: (
             <>
@@ -38,8 +37,8 @@ const AtividadeResumoModulo2 = () => {
             imagemBase: "/imgs/modulo2/resumo/resumo2_2.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_2_mao.png",
             opcoes: [
-                <>Concordava com os comentários.</>,
-                <>Escutava, defendia e mostrava que entendia o lado do colega.</>
+                <> <strong>Concordava com os comentários. </strong></>,
+                <> <strong>Escutava, defendia e mostrava que entendia o lado do colega. </strong></>
             ],
             explicacao: (
                 <>
@@ -51,8 +50,8 @@ const AtividadeResumoModulo2 = () => {
             imagemBase: "/imgs/modulo2/resumo/resumo2_3.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_3_mao.png",
             opcoes: [
-                <>Ria, comentava com colegas, não leva a apresentação a sério.</>,
-                <>Encorajava, sorria de forma acolhedora, apoiava verbalmente.</>
+                <> <strong>Ria, comentava com colegas, não leva a apresentação a sério.</strong></>,
+                <><strong>Encorajava, sorria de forma acolhedora, apoiava verbalmente. </strong></>
             ],
             explicacao: (
                 <>
@@ -64,8 +63,8 @@ const AtividadeResumoModulo2 = () => {
             imagemBase: "/imgs/modulo2/resumo/resumo2_4.png",
             imagemMao: "/imgs/modulo2/resumo/resumo2_4_mao.png",
             opcoes: [
-                <>Ignorava o que está a acontecer, fazia scroll, ou até concordava com os comentários.</>,
-                <>Denunciava os comentários e lembrava-lhe que não está sozinho e que há pessoas que se importam com ele.</>
+                <><strong>Ignorava o que está a acontecer, fazia scroll, ou até concordava com os comentários.</strong></>,
+                <><strong>Denunciava os comentários e lembrava-lhe que não está sozinho e que há pessoas que se importam com ele.</strong></>
             ],
             explicacao: (
                 <>
@@ -95,16 +94,88 @@ const AtividadeResumoModulo2 = () => {
         setOpcaoSelecionada(null);
     };
 
-    const escolherOpcao = (index) => {
-    const explicacao = cenarios[pagina - 1].explicacao;
-    setMensagemPopUp(explicacao);
-    setOpcaoSelecionada(index);
-    setShowWarning(false); // limpa o aviso quando escolhe
-    setModalShow(true);
+            const escolherOpcao = (index) => {
+            const explicacao = cenarios[pagina - 1].explicacao;
+            setModalContent(explicacao);
+            setOpcaoSelecionada(index);
+            setShowWarning(false);
+            setShowModal(true);
+            };
+
+const ModalCustom = ({ show, onClose, content }) => {
+  if (!show) return null;
+
+  return (
+    <div
+      className="modal fade show"
+      style={{
+        display: "block",
+        backgroundColor: "rgba(0,0,0,0.5)",
+      }}
+    >
+      <div className="modal-dialog modal-dialog-centered modal-lg">
+        <div className="modal-content">
+
+          <div
+            className="modal-header"
+            style={{
+              backgroundColor: "#99CBC8",
+              borderBottom: "none",
+              color: "#fff",
+            }}
+          >
+            <h5
+              className="modal-title w-100 text-center"
+              style={{ fontWeight: "600" }}
+            >
+              Impacto da tua escolha!
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              style={{ filter: "invert(1)" }}
+              aria-label="Close"
+              onClick={onClose}
+            ></button>
+          </div>
+
+          <div className="modal-body pt-4 ps-4 pe-4">
+            <p className="lead text-start">{content}</p>
+          </div>
+
+          <div
+            className="modal-footer"
+            style={{
+              borderTop: "none",
+              backgroundColor: "#F5FDFC",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                backgroundColor: "#234970",
+                border: "none",
+                color: "white",
+                borderRadius: "20px",
+                padding: "0.5rem 1.5rem",
+                fontWeight: "500",
+                boxShadow: "none",
+                outline: "none"
+              }}
+            >
+              Próximo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-
-    const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
+const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
+    
 
     return (
         <div className="container-fluid vh-100 p-0 font-poppins">
@@ -287,77 +358,15 @@ const AtividadeResumoModulo2 = () => {
                                     {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>
                             )}
+                            <ModalCustom
+                                show={showModal}
+                                onClose={() => setShowModal(false)}
+                                content={modalContent}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-                <Modal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                centered
-                style={{
-                    borderRadius: "12px",
-                }}
-                >
-                <Modal.Header
-                    closeButton
-                    style={{
-                    backgroundColor: "#99CBC8",
-                    borderBottom: "none",
-                    color: "#fff",
-                    padding: "1rem 1.5rem",
-                    }}
-                >
-                    <Modal.Title
-                    style={{
-                    textDecoration: "underline",
-                    fontWeight: "bold",
-                    marginBottom: "5px",
-                    textAlign: "center",
-                    color: "#234970",
-                    }}
-                    >
-                    Impacto da tua escolha!
-                    </Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body
-                    className="text-start"
-                    style={{
-                    fontSize: "1.1rem",
-                    lineHeight: "1.6",
-                    color: "#234970",
-                    padding: "1.5rem",
-                    }}
-                >
-                    {mensagemPopUp}
-                </Modal.Body>
-
-                <Modal.Footer
-                    style={{
-                    borderTop: "none",
-                    backgroundColor: "#F5FDFC",
-                    justifyContent: "center",
-                    padding: "1rem",
-                    }}
-                >
-                    <Button
-                    onClick={() => setModalShow(false)}
-                    style={{
-                        backgroundColor: "#234970",
-                        borderColor: "#234970",
-                        borderRadius: "20px",
-                        padding: "0.5rem 1.5rem",
-                        fontWeight: "500",
-                        transition: "background-color 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => (e.target.style.backgroundColor = "#1b3a57")}
-                    onMouseLeave={(e) => (e.target.style.backgroundColor = "#234970")}
-                    >
-                    Próximo
-                    </Button>
-                </Modal.Footer>
-                </Modal>
         </div>
     );
 };
