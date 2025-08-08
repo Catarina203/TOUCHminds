@@ -157,7 +157,7 @@ const VerdadeOuMito = () => {
                   Após a tua escolha, aparecerá uma <strong>explicação</strong> que te ajudará a entender melhor o que está por trás de cada afirmação.
                 </p>
                 <button className="custom-btn-turquoise px-4 py-2" onClick={avancarPagina}>
-                 <i className="bi bi-play-fill me-2"></i> Vamos começar?
+                 <i className="bi bi-play-fill me-2"></i> Vamos a isto?
                 </button>
               </div>
             )}

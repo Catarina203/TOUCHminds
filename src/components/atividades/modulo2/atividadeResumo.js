@@ -139,7 +139,7 @@ const AtividadeResumoModulo2 = () => {
                                     <strong>Estás pronto/a para fazer a diferença?</strong>
                                 </p>
                                 <button className="custom-btn-turquoise mt-3 px-4 py-2" onClick={() => setPagina(1)}>
-                                    <i className="bi bi-play-fill me-2"></i>Vamos começar!
+                                    <i className="bi bi-play-fill me-2"></i>Vamos a isto?
                                 </button>
                             </>
                         )}
