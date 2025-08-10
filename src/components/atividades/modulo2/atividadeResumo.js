@@ -242,13 +242,11 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 alt="Ícone da mão"
                                 onClick={() => setMostrarOpcoes(true)}
                                 style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 0,
-                                    height: "100%",
-                                    maxWidth: "500px",
+                                    width: "100%",
+                                    height: "auto",
                                     objectFit: "cover",
-                                    cursor: "pointer"
+                                    display: "block",
+                                    cursor: "pointer",
                                 }}
                                 />
                             </div>
