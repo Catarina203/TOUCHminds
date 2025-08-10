@@ -256,52 +256,34 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                             }}
                             >
                             {/* Imagem base */}
-                            <img
-                                src={cenarios[pagina - 1].imagemBase}
-                                alt={`Cenário ${pagina}`}
-                                onLoad={(e) =>
-                                setNat((n) => ({
-                                    ...n,
-                                    baseW: e.currentTarget.naturalWidth,
-                                    baseH: e.currentTarget.naturalHeight,
-                                }))
-                                }
-                                style={{
-                                display: "block",
-                                width: "100%",
-                                height: "auto",
-                                objectFit: "cover",
-                                }}
-                            />
+                                    <img
+                                    src={cenarios[pagina - 1].imagemBase}
+                                    alt={`Cenário ${pagina}`}
+                                    style={{
+                                        display: "block",
+                                        width: "100%",
+                                        maxWidth: "500px",
+                                        height: "auto",
+                                        objectFit: "cover",
+                                    }}
+                                    />
 
-                            {/* Tira da direita (mão) – largura calculada em % */}
-                           {nat.baseW > 0 && maoWidthPct > 0 && (
-                                <img
+                                    <img
                                     src={cenarios[pagina - 1].imagemMao}
                                     alt="Ícone da mão"
                                     onClick={() => setMostrarOpcoes(true)}
-                                    onLoad={(e) => {
-                                    const maoW = e.currentTarget.naturalWidth;
-                                    const maoH = e.currentTarget.naturalHeight;
-                                    setTimeout(() => {
-                                        setNat((n) => ({
-                                        ...n,
-                                        maoW,
-                                        maoH,
-                                        }));
-                                    }, 50); // pequeno delay para garantir que a base já foi medida
-                                    }}
                                     style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 0,
-                                    height: "auto",
-                                    width: `${maoWidthPct}%`,
-                                    objectFit: "cover",
-                                    cursor: "pointer",
+                                        position: "absolute",
+                                        top: 0,
+                                        right: 0,
+                                        width: "100%",
+                                        maxWidth: "500px",
+                                        height: "auto",
+                                        objectFit: "cover",
+                                        cursor: "pointer",
                                     }}
-                                />
-                                )}
+                                    />
+                             
                             </div>
 
                                 {mostrarOpcoes && (
