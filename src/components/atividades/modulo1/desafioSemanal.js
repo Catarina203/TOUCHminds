@@ -19,10 +19,15 @@ const DesafioSemanal = ({ id }) => {
   };
 
   const handleAdd = async () => {
-    if (Object.values(form).some(val => val.trim() === '')) {
-      setFeedback('Por favor, preenche todos os campos.');
+      if (Object.values(form).some(val => val.trim() === '')) {
+      setFeedback(
+        <>
+          <i className="bi bi-exclamation-triangle me-2"></i>
+          Por favor, preenche todos os campos.
+        </>
+      );
       return;
-    }
+}
 
     const novoRegisto = {
       ...form,
