@@ -31,7 +31,8 @@ const DesafioSemanal = ({ id }) => {
   
       try {
         setLoading(true);
-        setFeedback('');
+          setFeedbackMessage('');
+          setFeedbackType('');
   
        const chaveModulo = `modulo${String(id)}`;
       const modulosSafe = userData?.modulos ?? {};
@@ -152,11 +153,11 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
                       aria-invalid={feedbackType === 'error' && form[name].trim() === '' ? 'true' : 'false'}
                       placeholder={placeholder}
                     />
-                    {feedback && !feedback.includes('sucesso') && form[name].trim() === '' && (
-                    <div id={`error-${name}`} className="invalid-feedback d-block" role="alert">
-                      Por favor, preenche este campo.
-                    </div>
-                  )}
+                    {feedbackType === 'error' && form[name].trim() === '' && (
+                      <div id={`error-${name}`} className="invalid-feedback d-block" role="alert">
+                        Por favor, preenche este campo.
+                      </div>
+                    )}
                   </td>
                 ))}
               </tr>
