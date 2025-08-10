@@ -243,6 +243,7 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 onClick={() => setMostrarOpcoes(true)}
                                 style={{
                                     width: "100%",
+                                    maxWidth: "500px",
                                     height: "auto",
                                     objectFit: "cover",
                                     display: "block",
