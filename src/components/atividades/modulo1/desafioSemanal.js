@@ -171,16 +171,12 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
                       rows={3}
                       style={{ resize: 'vertical' }}
                       aria-required="true"
-                      aria-describedby={feedback && form[name].trim() === '' ? `error-${name}` : undefined}
-                      aria-invalid={feedback && form[name].trim() === '' ? 'true' : 'false'}
+                      aria-describedby={feedback && !feedback.includes('sucesso') && form[name].trim() === '' ? `error-${name}` : undefined}
+                      aria-invalid={feedback && !feedback.includes('sucesso') && form[name].trim() === '' ? 'true' : 'false'}
                       placeholder={placeholder}
                     />
-                    {feedback && form[name].trim() === '' && (
-                      <div
-                        id={`error-${name}`}
-                        className="invalid-feedback d-block"
-                        role="alert"
-                      >
+                    {feedback && !feedback.includes('sucesso') && form[name].trim() === '' && (
+                      <div id={`error-${name}`} className="invalid-feedback d-block" role="alert">
                         Por favor, preenche este campo.
                       </div>
                     )}

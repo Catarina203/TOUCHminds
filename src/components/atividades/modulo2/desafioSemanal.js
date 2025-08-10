@@ -144,19 +144,15 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
                       rows={3}
                       style={{ resize: 'vertical' }}
                       aria-required="true"
-                      aria-describedby={feedback && form[name].trim() === '' ? `error-${name}` : undefined}
-                      aria-invalid={feedback && form[name].trim() === '' ? 'true' : 'false'}
+                      ria-describedby={feedback && !feedback.includes('sucesso') && form[name].trim() === '' ? `error-${name}` : undefined}
+                      aria-invalid={feedback && !feedback.includes('sucesso') && form[name].trim() === '' ? 'true' : 'false'}
                       placeholder={placeholder}
                     />
-                    {feedback && form[name].trim() === '' && (
-                      <div
-                        id={`error-${name}`}
-                        className="invalid-feedback d-block"
-                        role="alert"
-                      >
-                        Por favor, preenche este campo.
-                      </div>
-                    )}
+                    {feedback && !feedback.includes('sucesso') && form[name].trim() === '' && (
+                    <div id={`error-${name}`} className="invalid-feedback d-block" role="alert">
+                      Por favor, preenche este campo.
+                    </div>
+                  )}
                   </td>
                 ))}
               </tr>
@@ -165,7 +161,7 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
 
         <div className="mt-3 lead">
           Ao <b>tirares estes minutos para refletires</b> sobre o que aprendeste e o qual pode ser o <b>papel</b> nestas situações estarás a mudar a <b>tua perceção</b> sobre a ansiedade e a <b> diminuir o poder do estigma</b> associado a ela.<br /><br /> 
-          <b>Espero que esta semana te ajude a </b> aprender mais sobre ti e sobre o estigma <b> relacionado com a ansiedade!</b><br /><br /> 
+          Espero que esta semana te ajude a <b> aprender mais sobre ti e sobre o estigma </b> relacionado com a ansiedade!<br /><br /> 
           <b><b>Vamos em frente! #DesmistificarAnsiedade</b></b>
            <p>Até para a semana!</p>
         </div>
