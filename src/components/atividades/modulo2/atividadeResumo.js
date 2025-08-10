@@ -29,7 +29,7 @@ useEffect(() => {
 
 // Percentagem correta da largura da “tira” em relação à base
 const maoWidthPct =
-  nat.baseW && nat.maoW ? (nat.maoW / nat.baseW) * 100 : null;
+  nat.baseW > 0 && nat.maoW > 0 ? (nat.maoW / nat.baseW) * 100 : 0;
 
     const cenarios = [
         {
@@ -288,14 +288,14 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 }))
                                 }
                                 style={{
-                                position: "absolute",
-                                top: 0,
-                                right: 0,
-                                height: "100%",
-                                width: maoWidthPct ? `${maoWidthPct}%` : "auto",
-                                objectFit: "cover",
-                                cursor: "pointer",
-                                }}
+                                    position: "absolute",
+                                    top: 0,
+                                    right: 0,
+                                    height: "auto",
+                                    width: `${maoWidthPct}%`,
+                                    objectFit: "cover",
+                                    cursor: "pointer",
+                                    }}
                             />
                             )}
                             </div>

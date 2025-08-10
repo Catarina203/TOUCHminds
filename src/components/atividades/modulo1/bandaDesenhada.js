@@ -158,7 +158,7 @@ const BandaDesenhada = () => {
                   <div className="row">
                   <div className="col-md-12">
                  <p className="lead mb-3">
-                 Agora, vou pedir-te que <strong>refletas</strong> sobre o que compreendeste acerca da <strong>ansiedade comum</strong> e da <strong>ansiedade SOS</strong>.
+                 Agora, vou pedir-te que <strong>reflitas</strong> sobre o que compreendeste acerca da <strong>ansiedade comum</strong> e da <strong>ansiedade SOS</strong>.
                  <br /><br />
                  Escreve uma expressão curta ou uma palavra sobre o que compreendeste ser a <strong>ansiedade comum</strong> e outra expressão curta ou palavra sobre o que compreendeste ser a <strong>ansiedade SOS</strong>. Escreve no espaço abaixo indicado.<br /><br />
                  <strong>Não há respostas certas ou erradas</strong> — o importante é o que <strong>tu compreendeste</strong>!
