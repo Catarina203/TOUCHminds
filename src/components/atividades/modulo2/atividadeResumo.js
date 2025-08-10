@@ -22,7 +22,6 @@ const AtividadeResumoModulo2 = () => {
     const cenarios = [
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_1.png",
-            imagemMao: "/imgs/modulo2/resumo/resumo2_1_mao.png",
             opcoes: [
                 <> Ignorava ou afastava-me da pessoa. </>,
                 <> Aproximava-me e oferecia companhia.</>
@@ -35,7 +34,6 @@ const AtividadeResumoModulo2 = () => {
         },
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_2.png",
-            imagemMao: "/imgs/modulo2/resumo/resumo2_2_mao.png",
             opcoes: [
                 <>Concordava com os comentários.</>,
                 <>Escutava, defendia e mostrava que entendia o lado do colega.</>
@@ -48,7 +46,6 @@ const AtividadeResumoModulo2 = () => {
         },
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_3.png",
-            imagemMao: "/imgs/modulo2/resumo/resumo2_3_mao.png",
             opcoes: [
                 <>Ria, comentava com colegas, não leva a apresentação a sério.</>,
                 <>Encorajava, sorria de forma acolhedora, apoiava verbalmente.</>
@@ -61,7 +58,6 @@ const AtividadeResumoModulo2 = () => {
         },
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_4.png",
-            imagemMao: "/imgs/modulo2/resumo/resumo2_4_mao.png",
             opcoes: [
                 <>Ignorava o que está a acontecer, fazia scroll, ou até concordava com os comentários.</>,
                 <>Denunciava os comentários e lembrava-lhe que não está sozinho e que há pessoas que se importam com ele.</>
@@ -241,22 +237,8 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 overflow: "hidden",   // bordas arredondadas iguais nas duas imagens
                             }}
                             >
-                            {/* Imagem base (parte esquerda) */}
-                            <img
-                                src={cenarios[pagina - 1].imagemBase}
-                                alt={`Cenário ${pagina}`}
-                                style={{
-                                    width: "100%",
-                                    maxWidth: "500px",
-                                    height: "auto",
-                                    objectFit: "cover",
-                                    display: "block",
-                                    margin: "0 auto" // centralizar
-                                }}
-                                />
-
                                 <img
-                                src={cenarios[pagina - 1].imagemMao}
+                                src={cenarios[pagina - 1].imagemBase}
                                 alt="Ícone da mão"
                                 onClick={() => setMostrarOpcoes(true)}
                                 style={{
