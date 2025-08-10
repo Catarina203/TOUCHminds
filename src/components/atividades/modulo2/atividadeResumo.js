@@ -275,19 +275,23 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                             />
 
                             {/* Tira da direita (mão) – largura calculada em % */}
-                            {nat.baseW > 0 && (
-                            <img
-                                src={cenarios[pagina - 1].imagemMao}
-                                alt="Ícone da mão"
-                                onClick={() => setMostrarOpcoes(true)}
-                                onLoad={(e) =>
-                                setNat((n) => ({
-                                    ...n,
-                                    maoW: e.currentTarget.naturalWidth,
-                                    maoH: e.currentTarget.naturalHeight,
-                                }))
-                                }
-                                style={{
+                           {nat.baseW > 0 && maoWidthPct > 0 && (
+                                <img
+                                    src={cenarios[pagina - 1].imagemMao}
+                                    alt="Ícone da mão"
+                                    onClick={() => setMostrarOpcoes(true)}
+                                    onLoad={(e) => {
+                                    const maoW = e.currentTarget.naturalWidth;
+                                    const maoH = e.currentTarget.naturalHeight;
+                                    setTimeout(() => {
+                                        setNat((n) => ({
+                                        ...n,
+                                        maoW,
+                                        maoH,
+                                        }));
+                                    }, 50); // pequeno delay para garantir que a base já foi medida
+                                    }}
+                                    style={{
                                     position: "absolute",
                                     top: 0,
                                     right: 0,
@@ -296,8 +300,8 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                     objectFit: "cover",
                                     cursor: "pointer",
                                     }}
-                            />
-                            )}
+                                />
+                                )}
                             </div>
 
                                 {mostrarOpcoes && (
