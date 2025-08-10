@@ -277,29 +277,15 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                                     onMouseEnter={() => setHoverIndex(index)}
                                                     onMouseLeave={() => setHoverIndex(null)}
                                                     className="p-3 text-start"
-                                                    style={{
-                                                        backgroundColor: isSelected
-                                                            ? '#99CBC8'
-                                                            : isHovered
-                                                                ? '#5AAAA5'
-                                                                : '#ffffff',
-                                                        color: isSelected
-                                                            ? 'white'
-                                                            : isHovered
-                                                                ? 'white'
-                                                                : '#234970',
-                                                        border: isSelected
-                                                            ? '1px solid #99CBC8'
-                                                            : isHovered
-                                                                ? '1px solid #5AAAA5'
-                                                                : '1px solid #99CBC8',
-                                                        borderRadius: '10px',
-                                                        cursor: 'pointer',
-                                                        fontWeight: isSelected ? '500' : 'normal',
-                                                        transition: 'all 0.3s ease',
-                                                    }}
+                                                   style={{
+                                                    backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
+                                                    color: isSelected ? 'white' : '#234970',
+                                                    border: '1px solid #99CBC8',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.3s ease',
+                                                }}
                                                 >
-                                                    {opcao}
+                                                <p className="mb-0 fw-medium">{opcao}</p>
                                                 </div>
                                             );
                                         })}
