@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react"; // <— acrescenta useRef
 import { useParams } from "react-router-dom";
 import Navbar from "../../navbar";
 import Sidebar from "../../sidebar";
@@ -19,17 +19,27 @@ const AtividadeResumoModulo2 = () => {
     const [modalContent, setModalContent] = useState("");
     const atividade = modulo?.atividades.find(a => a.url === "atividade-resumo");
     
-    // Guarda as dimensões originais das imagens
 const [nat, setNat] = useState({ baseW: 0, baseH: 0, maoW: 0, maoH: 0 });
+const wrapRef = useRef(null);
+const [wrapW, setWrapW] = useState(0);
 
-// Sempre que muda a página, limpa as dimensões para recalcular
 useEffect(() => {
   setNat({ baseW: 0, baseH: 0, maoW: 0, maoH: 0 });
 }, [pagina]);
 
-// Percentagem correta da largura da “tira” em relação à base
-const maoWidthPct =
-  nat.baseW > 0 && nat.maoW > 0 ? (nat.maoW / nat.baseW) * 100 : 0;
+useEffect(() => {
+  const updateWrap = () => {
+    if (wrapRef.current) setWrapW(wrapRef.current.getBoundingClientRect().width);
+  };
+  updateWrap();
+  window.addEventListener("resize", updateWrap);
+  return () => window.removeEventListener("resize", updateWrap);
+}, []);
+
+const maoWidthPct = nat.baseW > 0 && nat.maoW > 0 ? nat.maoW / nat.baseW : 0;
+const maoWidthPx = wrapW > 0 && maoWidthPct > 0 ? wrapW * maoWidthPct : 0;
+const maoLeftPx  = wrapW > 0 && maoWidthPx > 0 ? wrapW - maoWidthPx : 0; // cola à direita
+
 
     const cenarios = [
         {
@@ -243,8 +253,8 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                       Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
                     </p>
 
-                        {/* Wrapper centralizado, cantos arredondados, limite 500px */}
-                            <div
+                             <div
+                            ref={wrapRef}
                             style={{
                                 position: "relative",
                                 width: "100%",
@@ -254,10 +264,17 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 overflow: "hidden",
                             }}
                             >
-                            {/* Imagem base — ocupa toda a largura */}
+                            {/* Imagem base (esquerda) */}
                             <img
                                 src={cenarios[pagina - 1].imagemBase}
                                 alt={`Cenário ${pagina}`}
+                                onLoad={(e) =>
+                                setNat((n) => ({
+                                    ...n,
+                                    baseW: e.currentTarget.naturalWidth,
+                                    baseH: e.currentTarget.naturalHeight,
+                                }))
+                                }
                                 style={{
                                 display: "block",
                                 width: "100%",
@@ -266,33 +283,36 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 }}
                             />
 
-                            {/* Faixa da direita: só mostramos uma coluna estreita da imagem da mão */}
-                            <div
-                                onClick={() => setMostrarOpcoes(true)}
-                                style={{
-                                position: "absolute",
-                                top: 0,
-                                right: 0,
-                                height: "100%",
-                                width: "32%",        // <-- ajusta esta percentagem (ex.: 28–38%) até ficar perfeito
-                                overflow: "hidden",
-                                cursor: "pointer",
-                                pointerEvents: "auto",
-                                }}
-                            >
+                           {/* Tira da direita (mão), colada ao lado direito */}
+                                {nat.baseW > 0 && (
                                 <img
-                                src={cenarios[pagina - 1].imagemMao}
-                                alt="Ícone da mão"
-                                style={{
-                                    height: "100%",    // a imagem preenche a altura do wrapper
-                                    width: "auto",     // mantém proporção
+                                    src={cenarios[pagina - 1].imagemMao}
+                                    alt="Ícone da mão"
+                                    onClick={() => setMostrarOpcoes(true)}
+                                    onLoad={(e) =>
+                                    setNat((n) => ({
+                                        ...n,
+                                        maoW: e.currentTarget.naturalWidth,
+                                        maoH: e.currentTarget.naturalHeight,
+                                    }))
+                                    }
+                                    style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    // enquanto não sabemos a largura natural da tira, encosta à direita;
+                                    // depois de medir, usamos 'left' calculado para evitar qualquer gap
+                                    ...(nat.maoW > 0
+                                        ? { left: `${Math.max(maoLeftPx - 0.5, 0)}px` } // -0.5 corrige linhas finas
+                                        : { right: 0 }),
+                                    height: "100%",
+                                    width: "auto",
                                     objectFit: "cover",
-                                    display: "block",
-                                }}
+                                    cursor: "pointer",
+                                    pointerEvents: "auto",
+                                    }}
                                 />
+                                )}
                             </div>
-                            </div>
-
                                 {mostrarOpcoes && (
                                     <div className="d-flex flex-column gap-3">
                                         {cenarios[pagina - 1].opcoes.map((opcao, index) => {
