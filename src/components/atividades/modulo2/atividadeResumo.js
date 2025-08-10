@@ -231,39 +231,45 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                       Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
                     </p>
 
-                                <div className="d-flex flex-column align-items-center mb-4" style={{ width: "100%" }}>
-                                    {/* Imagem principal (topo) */}
-                                    <img
-                                        src={cenarios[pagina - 1].imagemBase}
-                                        alt={`Cenário ${pagina}`}
-                                        className="img-fluid"
-                                        style={{
-                                            maxWidth: "100%",
-                                            objectFit: "contain",
-                                            borderTopLeftRadius: "1rem",
-                                            borderTopRightRadius: "1rem",
-                                            borderBottomLeftRadius: 0,
-                                            borderBottomRightRadius: 0,
-                                        }}
-                                    />
+                                {/* Wrapper com cantos e recorte */}
+                            <div
+                            style={{
+                                position: "relative",
+                                width: "100%",
+                                display: "inline-block",
+                                borderRadius: "1rem",
+                                overflow: "hidden",   // bordas arredondadas iguais nas duas imagens
+                            }}
+                            >
+                            {/* Imagem base (parte esquerda) */}
+                            <img
+                                src={cenarios[pagina - 1].imagemBase}
+                                alt={`Cenário ${pagina}`}
+                                style={{
+                                display: "block",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                                }}
+                            />
 
-                                    {/* Imagem da mão (base) */}
-                                    <img
-                                        src={cenarios[pagina - 1].imagemMao}
-                                        alt="Ícone da mão"
-                                        onClick={() => setMostrarOpcoes(true)}
-                                        className="img-fluid"
-                                        style={{
-                                            maxWidth: "100%",
-                                            objectFit: "contain",
-                                            borderTopLeftRadius: 0,
-                                            borderTopRightRadius: 0,
-                                            borderBottomLeftRadius: "1rem",
-                                            borderBottomRightRadius: "1rem",
-                                            cursor: "pointer"
-                                        }}
-                                    />
-                                </div>
+                            {/* Imagem da direita (tira com a mão) colada ao lado direito */}
+                            <img
+                                src={cenarios[pagina - 1].imagemMao}
+                                alt="Ícone da mão"
+                                onClick={() => setMostrarOpcoes(true)}
+                                style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,
+                                height: "100%",   // ocupa toda a altura para alinhar
+                                width: "auto",
+                                cursor: "pointer",
+                                pointerEvents: "auto",
+                                }}
+                            />
+                            </div>
+                                    
 
                                 {mostrarOpcoes && (
                                     <div className="d-flex flex-column gap-3">

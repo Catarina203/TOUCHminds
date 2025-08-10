@@ -10,7 +10,8 @@ const DesafioSemanal = ({ id }) => {
   });
 
   const [loading, setLoading] = useState(false);
-    const [feedback, setFeedback] = useState('');
+    const [feedbackMessage, setFeedbackMessage] = useState('');
+    const [feedbackType, setFeedbackType] = useState(''); // 'success' ou 'error'
   
     const handleChange = (e) => {
       setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,12 +19,8 @@ const DesafioSemanal = ({ id }) => {
   
     const handleAdd = async () => {
       if (Object.values(form).some(val => val.trim() === '')) {
-      setFeedback(
-        <>
-          <i className="bi bi-exclamation-triangle me-2"></i>
-          Por favor, preenche todos os campos.
-        </>
-      );
+      setFeedbackMessage('Por favor, preenche todos os campos.');
+      setFeedbackType('error');
       return;
       }       
   
@@ -52,14 +49,16 @@ const DesafioSemanal = ({ id }) => {
 };
 
 await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
-      setFeedback('Registo adicionado com sucesso!');
+      setFeedbackMessage('Registo adicionado com sucesso!');
+      setFeedbackType('success');
       setForm({
         dia: '',
         situacaoobservada: '',
         reflexaoResposta: '',
       });
     } catch (error) {
-      setFeedback('Erro ao guardar. Tenta novamente.');
+      setFeedbackMessage('Erro ao guardar. Tenta novamente.');
+      setFeedbackType('error');
     } finally {
       setLoading(false);
     }
@@ -149,8 +148,8 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
                       rows={3}
                       style={{ resize: 'vertical' }}
                       aria-required="true"
-                      ria-describedby={feedback && !feedback.includes('sucesso') && form[name].trim() === '' ? `error-${name}` : undefined}
-                      aria-invalid={feedback && !feedback.includes('sucesso') && form[name].trim() === '' ? 'true' : 'false'}
+                      aria-describedby={feedbackType === 'error' && form[name].trim() === '' ? `error-${name}` : undefined}
+                      aria-invalid={feedbackType === 'error' && form[name].trim() === '' ? 'true' : 'false'}
                       placeholder={placeholder}
                     />
                     {feedback && !feedback.includes('sucesso') && form[name].trim() === '' && (
@@ -200,15 +199,17 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
         </button>
       </div>
 
-      {feedback && (
+      {feedbackMessage && (
         <div
-          className={`alert ${feedback.includes("sucesso") ? "alert-success" : "alert-danger"} mt-3`}
+          className={`alert ${feedbackType === 'success' ? 'alert-success' : 'alert-danger'} mt-3`}
           role="alert"
           aria-live="assertive"
         >
-          {feedback}
+          {feedbackType === 'error' && <i className="bi bi-exclamation-triangle me-2"></i>}
+          {feedbackMessage}
         </div>
       )}
+
 
       {registos.length > 0 && (
         <>
