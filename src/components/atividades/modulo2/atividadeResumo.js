@@ -276,11 +276,11 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                         position: "absolute",
                                         top: 0,
                                         right: 0,
-                                        width: "100%",
-                                        maxWidth: "500px",
-                                        height: "auto",
-                                        objectFit: "cover",
+                                        height: "100%",     // mesma altura da imagem base
+                                        width: "auto",      // mantém a largura natural
+                                        objectFit: "contain", // evita distorção
                                         cursor: "pointer",
+                                        pointerEvents: "auto",
                                     }}
                                     />
                              
