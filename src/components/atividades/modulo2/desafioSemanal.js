@@ -1,111 +1,69 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../../App';
 
-const AtividadeSemanal2 = () => {
+const DesafioSemanal = ({ id }) => {
   const { userData, updateUserData } = useContext(UserContext);
+  const [form, setForm] = useState({
+    dia: '',
+    situacaoobservada: '',
+    reflexaoResposta: '',
+  });
 
-  const modulos = userData?.modulos || {};
-  const modulo2 = modulos.modulo2 || {};
-  const desafioSemanal = Array.isArray(modulo2.desafioSemanal) ? modulo2.desafioSemanal : [];
-
-  const migrateOldShapeToArray = (entry) => {
-    if (!entry) return [];
-    if (Array.isArray(entry.situacoes)) return entry.situacoes;
-
-    const pares = [];
-    for (let i = 1; i <= 50; i++) {
-      const d = entry[`dia_${i}`];
-      const s = entry[`situacao_${i}`];
-      const r = entry[`reflexao_${i}`];
-      if ((d && d.trim() !== '') || (s && s.trim() !== '') || (r && r.trim() !== '')) {
-        pares.push({ dia: d || '', situacao: s || '', reflexao: r || '' });
-      }
-    }
-    return pares;
-  };
-
-  const initialSituacoes = useMemo(() => {
-    const ultimo = desafioSemanal.slice(-1)[0];
-    const arr = migrateOldShapeToArray(ultimo);
-    return arr.length > 0 ? arr : [{ dia: '', situacao: '', reflexao: '' }];
-  }, [desafioSemanal]);
-
-  const [situacoes, setSituacoes] = useState(initialSituacoes);
   const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState('');
-
-  useEffect(() => {
-    setSituacoes(initialSituacoes);
-  }, [initialSituacoes]);
-
-  const handleChange = (index, field, value) => {
-    setSituacoes((prev) => {
-      const next = [...prev];
-      next[index] = { ...next[index], [field]: value };
-      return next;
-    });
-  };
-
-  const addLinha = () => {
-    setSituacoes((prev) => [...prev, { dia: '', situacao: '', reflexao: '' }]);
-  };
-
-  const removeLinha = (index) => {
-    setSituacoes((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSave = async () => {
-    const hasContent = situacoes.some(
-      (s) =>
-        (s.dia && s.dia.trim() !== '') ||
-        (s.situacao && s.situacao.trim() !== '') ||
-        (s.reflexao && s.reflexao.trim() !== '')
-    );
-
-    if (!hasContent) {
-      setFeedback('Por favor, preenche pelo menos uma situação.');
-      return;
-    }
-
-    const situacoesFiltradas = situacoes.filter(
-      (s) =>
-        (s.dia && s.dia.trim() !== '') ||
-        (s.situacao && s.situacao.trim() !== '') ||
-        (s.reflexao && s.reflexao.trim() !== '')
-    );
-
-    const entradaExistente = desafioSemanal[0];
-    const dataCriacao = entradaExistente?.dataCriacao || new Date().toLocaleString('pt-PT');
-
-    const novoRegisto = {
-      situacoes: situacoesFiltradas,
-      dataCriacao,
-      ultimaAtualizacao: new Date().toLocaleString('pt-PT'),
+    const [feedback, setFeedback] = useState('');
+  
+    const handleChange = (e) => {
+      setForm({ ...form, [e.target.name]: e.target.value });
     };
-
-    try {
-      setLoading(true);
-      setFeedback('');
+  
+    const handleAdd = async () => {
+      if (Object.values(form).some(val => val.trim() === '')) {
+        setFeedback('Por favor, preenche todos os campos.');
+        return;
+      }
+  
+      const novoRegisto = {
+        ...form,
+        dataCriacao: new Date().toLocaleString('pt-PT'),
+      };
+  
+      try {
+        setLoading(true);
+        setFeedback('');
+  
+       const chaveModulo = `modulo${String(id)}`;
+      const modulosSafe = userData?.modulos ?? {};
+      const atual = modulosSafe[chaveModulo] ?? {};
 
       const modulosAtualizados = {
-        ...modulos,
-        modulo2: {
-          ...modulo2,
-          desafioSemanal: [novoRegisto],
-        },
-      };
+        ...modulosSafe,
+        [chaveModulo]: {
+          ...atual,
+          desafioSemanal: [
+            ...(atual.desafioSemanal ?? []),
+            novoRegisto,
+    ],
+  },
+};
 
-      await updateUserData({ ...userData, modulos: modulosAtualizados });
+await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
       setFeedback('Registo adicionado com sucesso!');
-    } catch (e) {
+      setForm({
+        dia: '',
+        situacaoobservada: '',
+        reflexaoResposta: '',
+      });
+    } catch (error) {
       setFeedback('Erro ao guardar. Tenta novamente.');
     } finally {
       setLoading(false);
     }
   };
 
-  const entradaAtual = desafioSemanal[0] || null;
-  const temRegisto = !!entradaAtual;
+  // Obtém os registos guardados
+  const chaveModulo = `modulo${String(id)}`;
+  const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
+
 
   return (
     <div className="bg-white">
@@ -122,95 +80,100 @@ const AtividadeSemanal2 = () => {
       </h4>
 
       <div className="mb-4 lead">
-        <b className="fw-bold">Queria lançar-te um desafio para esta semana!</b><br /><br />
-        Ao longo dos próximos dias, fica <b>atento/a</b> a <b>conversas, comentários ou atitudes</b> em que percebes o <b>estigma</b> relacionado à ansiedade.<br /><br />
-        Pode ser algo que ouças em <b>conversas</b>, vejas nas <b>redes sociais</b> ou observes em situações do teu <b>dia-a-dia</b>.<br /><br />
-        Depois de <b>notares</b> o que está a acontecer, convido-te a <b>refletir</b> sobre como poderias <b>intervir</b> ou <b>apoiar</b> a pessoa envolvida.<br /><br />
-        Podes usar esta <b>tabela</b> para registares:
-        <ul>
-          <li><b>Dia:</b> Escreve aqui o dia da semana.</li>
-          <li><b>Situação Observada:</b> Descrição breve da situação.</li>
-          <li><b>Reflexão/Resposta Empática:</b> Como poderias responder ou agir de forma empática.</li>
+        <b className='fw-bold'>Queria lançar-te um desafio para esta semana!</b><br /> <br /> 
+        Ao longo dos próximos dias, fica <b>atento/a</b> a <b>conversas, comentários ou atitudes</b> em que percebes o <b>estigma</b> relacionado à ansiedade.<br /><br /> 
+        Pode ser algo que ouças em <b>conversas</b>, vejas nas <b>redes sociais</b> ou observes em situações do teu <b>dia-a-dia</b>.<br /><br /> 
+        Depois de a <b>notares</b> o que está a acontecer, convido-te a <b>refletir</b> sobre como poderias <b>intervir</b> ou <b>apoiar</b> a pessoa envolvida.<br /><br /> 
+        Podes usar esta <b>tabela</b> para registares:<br /> <br /> 
+        <ul style={{ marginTop: "0px" }}>
+          <li><b>Situação Observada:</b> Descrição breve da situação (por exemplo , uma conversa ou um comentário feito por alguém).</li>
+          <li><b>Reflexão/Resposta Empática:</b> Reflexão de como poderias responder ou agir de forma empática.</li>
         </ul>
       </div>
 
-      <div className="table-responsive mb-2">
-        <table className="table table-bordered text-center align-middle">
+      <div className="table-responsive mb-4">
+        <table className="table table-bordered text-center align-middle" aria-label="Formulário para registar reflexão semanal sobre ansiedade">
+          <caption className="visually-hidden">Formulário para registar reflexão semanal sobre ansiedade</caption>
           <thead>
             <tr>
-              <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Dia</th>
-              <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Situação Observada</th>
-              <th style={{ backgroundColor: "#E7C8C2", color: "#234970" }}>Reflexão/Resposta Empática</th>
-              <th style={{ backgroundColor: "#E7C8C2", color: "#234970", width: 120 }}>Ações</th>
+              {[
+                "Dia",
+                "Situação Observada",
+                "Reflexão/Resposta Empática",
+              ].map((title) => (
+                <th
+                  key={title}
+                  className="text-center align-middle"
+                  style={{ backgroundColor: "#E7C8C2", color: "#234970" }}
+                  scope="col"
+                >
+                  {title}
+                </th>
+              ))}
             </tr>
           </thead>
-          <tbody>
-            {situacoes.map((item, idx) => (
-              <tr key={idx}>
-                <td>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Escreve aqui o dia da semana"
-                    value={item.dia}
-                    onChange={(e) => handleChange(idx, 'dia', e.target.value)}
-                  />
-                </td>
-                <td>
-                  <textarea
-                    className="form-control"
-                    placeholder="Descreve aqui brevemente a situação"
-                    rows={2}
-                    style={{ resize: 'vertical' }}
-                    value={item.situacao}
-                    onChange={(e) => handleChange(idx, 'situacao', e.target.value)}
-                  />
-                </td>
-                <td>
-                  <textarea
-                    className="form-control"
-                    placeholder="Escreve aqui a tua reflexão de como poderias responder ou agir nessa situação"
-                    rows={2}
-                    style={{ resize: 'vertical' }}
-                    value={item.reflexao}
-                    onChange={(e) => handleChange(idx, 'reflexao', e.target.value)}
-                  />
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger btn-sm"
-                    onClick={() => removeLinha(idx)}
-                    disabled={situacoes.length === 1}
-                  >
-                    Remover
-                  </button>
-                </td>
+            <tbody>
+              <tr>
+                {[
+                  {
+                    name: "dia",
+                    label: "Dia",
+                    placeholder: "Escreve aqui o dia da semana",
+                  },
+                  {
+                    name: "situacaoobservada",
+                    label: "Situação Observada",
+                    placeholder: "Descreve aqui brevemente a situação",
+                  },
+                  {
+                    name: "reflexaoResposta",
+                    label: "Reflexão/Resposta Empática",
+                    placeholder: "Escreve aqui a tua reflexão de como poderias responder ou agir nessa situação",
+                  },
+                ].map(({ name, label, placeholder }) => (
+                  <td key={name}>
+                    <label htmlFor={`input-${name}`} className="visually-hidden">
+                      {label}
+                    </label>
+                    <textarea
+                      id={`input-${name}`}
+                      name={name}
+                      value={form[name]}
+                      onChange={handleChange}
+                      className="form-control"
+                      rows={3}
+                      style={{ resize: 'vertical' }}
+                      aria-required="true"
+                      aria-describedby={feedback && form[name].trim() === '' ? `error-${name}` : undefined}
+                      aria-invalid={feedback && form[name].trim() === '' ? 'true' : 'false'}
+                      placeholder={placeholder}
+                    />
+                    {feedback && form[name].trim() === '' && (
+                      <div
+                        id={`error-${name}`}
+                        className="invalid-feedback d-block"
+                        role="alert"
+                      >
+                        Por favor, preenche este campo.
+                      </div>
+                    )}
+                  </td>
+                ))}
               </tr>
-            ))}
-          </tbody>
+            </tbody>
         </table>
 
-        <div className="d-flex gap-2">
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={addLinha}
-          >
-            + Adicionar situação
-          </button>
-        </div>
-
         <div className="mt-3 lead">
-          Ao <b>tirares estes minutos para refletires</b> sobre o que aprendeste e qual pode ser o teu <b>papel</b> nestas situações, estarás a reduzir o <b>estigma</b> e a fortalecer a <b>empatia</b>.<br /><br />
-          <b>Vamos em frente! #DesmistificarAnsiedade</b>
-          <p>Até para a semana!</p>
+          Ao <b>tirares estes minutos para refletires</b> sobre o que aprendeste e o qual pode ser o <b>papel</b> nestas situações estarás a mudar a <b>tua perceção</b> sobre a ansiedade e a <b> diminuir o poder do estigma</b> associado a ela.<br /><br /> 
+          <b>Espero que esta semana te ajude a </b> aprender mais sobre ti e sobre o estigma <b> relacionado com a ansiedade!</b><br /><br /> 
+          <b><b>Vamos em frente! #DesmistificarAnsiedade</b></b>
+           <p>Até para a semana!</p>
         </div>
       </div>
 
       <div className="mt-3 text-start">
         <button
-          onClick={handleSave}
+          onClick={handleAdd}
           className="btn"
           style={{
             backgroundColor: "#66BFBF",
@@ -220,6 +183,8 @@ const AtividadeSemanal2 = () => {
             fontSize: "1.05rem",
           }}
           disabled={loading}
+          aria-busy={loading}
+          aria-live="polite"
         >
           {loading ? (
             <div className="d-flex align-items-center justify-content-center">
@@ -235,32 +200,39 @@ const AtividadeSemanal2 = () => {
       </div>
 
       {feedback && (
-        <div className={`alert ${feedback.includes("sucesso") ? "alert-success" : "alert-danger"} mt-3`}>
+        <div
+          className={`alert ${feedback.includes("sucesso") ? "alert-success" : "alert-danger"} mt-3`}
+          role="alert"
+          aria-live="assertive"
+        >
           {feedback}
         </div>
       )}
 
-      {temRegisto && Array.isArray(entradaAtual.situacoes) && entradaAtual.situacoes.length > 0 && (
+      {registos.length > 0 && (
         <>
-          <h5 className="mt-5">Registo atual (único):</h5>
-          <p className="text-muted mb-2">
-            Criado em: {entradaAtual.dataCriacao} {entradaAtual.ultimaAtualizacao ? `• Última atualização: ${entradaAtual.ultimaAtualizacao}` : ''}
-          </p>
+          <h5 className="mt-5">Registos anteriores:</h5>
           <div className="table-responsive">
-            <table className="table table-bordered text-center align-middle">
+            <table
+              className="table table-bordered text-center align-middle"
+              aria-label="Registos anteriores do desafio semanal"
+            >
+              <caption className="visually-hidden">Tabela de registos anteriores do desafio semanal</caption>
               <thead>
                 <tr>
-                  <th>Dia</th>
-                  <th>Situação Observada</th>
-                  <th>Reflexão/Resposta Empática</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Dia</th>
+                  <th scope="col">Situação Observada</th>
+                  <th scope="col">Reflexão/Resposta Empática</th>
                 </tr>
               </thead>
               <tbody>
-                {entradaAtual.situacoes.map((s, i) => (
-                  <tr key={i}>
-                    <td>{s.dia}</td>
-                    <td>{s.situacao}</td>
-                    <td>{s.reflexao}</td>
+                {registos.map((item, idx) => (
+                  <tr key={idx}>
+                    <td>{item.dataCriacao}</td>
+                    <td>{item.dia}</td>
+                    <td>{item.situacaoobservada}</td>
+                    <td>{item.reflexaoResposta}</td>
                   </tr>
                 ))}
               </tbody>
@@ -271,5 +243,4 @@ const AtividadeSemanal2 = () => {
     </div>
   );
 };
-
-export default AtividadeSemanal2;
+export default DesafioSemanal;

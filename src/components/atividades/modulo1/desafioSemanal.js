@@ -29,23 +29,26 @@ const DesafioSemanal = ({ id }) => {
       dataCriacao: new Date().toLocaleString('pt-PT'),
     };
 
-    try {
-      setLoading(true);
-      setFeedback('');
+          try {
+          setLoading(true);
+          setFeedback('');
 
-      const chaveModulo = `modulo${id}`;
-      const modulosAtualizados = {
-        ...userData.modulos,
-        [chaveModulo]: {
-          ...userData.modulos[chaveModulo],
-          desafioSemanal: [
-            ...(userData.modulos[chaveModulo]?.desafioSemanal || []),
-            novoRegisto,
-          ],
-        },
-      };
+          const chaveModulo = `modulo${String(id)}`;
+          const modulosSafe = userData?.modulos ?? {};
+          const atual = modulosSafe[chaveModulo] ?? {};
 
-      await updateUserData({ ...userData, modulos: modulosAtualizados });
+          const modulosAtualizados = {
+            ...modulosSafe,
+            [chaveModulo]: {
+              ...atual,
+              desafioSemanal: [
+                ...(atual.desafioSemanal ?? []),
+                novoRegisto,
+              ],
+            },
+          };
+
+await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
       setFeedback('Registo adicionado com sucesso!');
       setForm({
         dia: '',
@@ -63,7 +66,8 @@ const DesafioSemanal = ({ id }) => {
   };
 
   // Obtém os registos guardados
-  const registos = userData.modulos?.[`modulo${id}`]?.desafioSemanal || [];
+const chaveModulo = `modulo${String(id)}`;
+const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
 
   return (
     <div className="bg-white">
