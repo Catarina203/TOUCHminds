@@ -131,27 +131,27 @@ const DesafioSemanal = ({ id }) => {
                   {
                     name: "situacao",
                     label: "Situação",
-                    placeholder: "Descreve brevemente a situação",
+                    placeholder: "Descreve aqui brevemente a situação",
                   },
                   {
                     name: "comoMeSenti",
                     label: "Como me senti?",
-                    placeholder: "Escreve que sensações físicas sentiste naquele momento",
+                    placeholder: "Escreve aqui que sensações físicas sentiste naquele momento",
                   },
                   {
                     name: "pensamentos",
                     label: "Que pensamentos surgiram?",
-                    placeholder: "Escreve o que pensaste naquele momento",
+                    placeholder: "Escreve aqui o que pensaste naquele momento",
                   },
                   {
                     name: "comoLidei",
                     label: "Como lidei com a situação?",
-                    placeholder: "Escreve o que fizeste naquele momento",
+                    placeholder: "Escreve aqui o que fizeste naquele momento",
                   },
                   {
                     name: "funcionou",
                     label: "O que funcionou?",
-                    placeholder: "Escreve se aquilo que fizeste te aproximou ou afastou dos teus objetivos",
+                    placeholder: "Escreve aqui se aquilo que fizeste te aproximou ou afastou dos teus objetivos",
                   },
                 ].map(({ name, label, placeholder }) => (
                   <td key={name}>
