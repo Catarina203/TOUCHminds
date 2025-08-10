@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../navbar";
 import Sidebar from "../../sidebar";
@@ -18,6 +18,18 @@ const AtividadeResumoModulo2 = () => {
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const atividade = modulo?.atividades.find(a => a.url === "atividade-resumo");
+    
+    // Guarda as dimensões originais das imagens
+const [nat, setNat] = useState({ baseW: 0, baseH: 0, maoW: 0, maoH: 0 });
+
+// Sempre que muda a página, limpa as dimensões para recalcular
+useEffect(() => {
+  setNat({ baseW: 0, baseH: 0, maoW: 0, maoH: 0 });
+}, [pagina]);
+
+// Percentagem correta da largura da “tira” em relação à base
+const maoWidthPct =
+  nat.baseW && nat.maoW ? (nat.maoW / nat.baseW) * 100 : null;
 
     const cenarios = [
         {
@@ -231,46 +243,61 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                       Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
                     </p>
 
-                                {/* Wrapper com cantos e recorte */}
+                         {/* Wrapper com cantos, centralizado e limite de 500px */}
+                            {/* Wrapper com cantos, centralizado e limite de 500px */}
                             <div
                             style={{
                                 position: "relative",
                                 width: "100%",
-                                display: "inline-block",
+                                maxWidth: "500px",
+                                margin: "0 auto",
                                 borderRadius: "1rem",
-                                overflow: "hidden",   // bordas arredondadas iguais nas duas imagens
+                                overflow: "hidden",
                             }}
                             >
-                            {/* Imagem base (parte esquerda) */}
+                            {/* Imagem base */}
                             <img
                                 src={cenarios[pagina - 1].imagemBase}
                                 alt={`Cenário ${pagina}`}
+                                onLoad={(e) =>
+                                setNat((n) => ({
+                                    ...n,
+                                    baseW: e.currentTarget.naturalWidth,
+                                    baseH: e.currentTarget.naturalHeight,
+                                }))
+                                }
                                 style={{
-                                    width: "100%",
-                                    maxWidth: "500px",
-                                    height: "auto",
-                                    objectFit: "cover",
-                                    display: "block",
-                                    margin: "0 auto" // centralizar
+                                display: "block",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "cover",
                                 }}
-                                />
+                            />
 
-                                <img
+                            {/* Tira da direita (mão) – largura calculada em % */}
+                            <img
                                 src={cenarios[pagina - 1].imagemMao}
                                 alt="Ícone da mão"
                                 onClick={() => setMostrarOpcoes(true)}
+                                onLoad={(e) =>
+                                setNat((n) => ({
+                                    ...n,
+                                    maoW: e.currentTarget.naturalWidth,
+                                    maoH: e.currentTarget.naturalHeight,
+                                }))
+                                }
                                 style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 0,
-                                    height: "100%",
-                                    maxWidth: "500px",
-                                    objectFit: "cover",
-                                    cursor: "pointer"
+                                position: "absolute",
+                                top: 0,
+                                right: "-0.5px",                 // evita linha fina entre imagens
+                                height: "100%",
+                                width: maoWidthPct ? `${maoWidthPct}%` : "auto",
+                                objectFit: "cover",
+                                cursor: "pointer",
+                                pointerEvents: "auto",
                                 }}
-                                />
+                            />
                             </div>
-                                    
 
                                 {mostrarOpcoes && (
                                     <div className="d-flex flex-column gap-3">
