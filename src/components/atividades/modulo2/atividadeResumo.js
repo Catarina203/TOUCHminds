@@ -280,23 +280,23 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 alt="Ícone da mão"
                                 onClick={() => setMostrarOpcoes(true)}
                                 onLoad={(e) =>
-                                setNat((n) => ({
+                                    setNat((n) => ({
                                     ...n,
                                     maoW: e.currentTarget.naturalWidth,
                                     maoH: e.currentTarget.naturalHeight,
-                                }))
+                                    }))
                                 }
                                 style={{
-                                position: "absolute",
-                                top: 0,
-                                right: "-0.5px",                 // evita linha fina entre imagens
-                                height: "100%",
-                                width: maoWidthPct ? `${maoWidthPct}%` : "auto",
-                                objectFit: "cover",
-                                cursor: "pointer",
-                                pointerEvents: "auto",
+                                    position: "absolute",
+                                    top: 0,
+                                    right: "-0.5px",
+                                    height: "100%",
+                                    width: maoWidthPct ? `${maoWidthPct}%` : "auto",
+                                    objectFit: "cover",
+                                    cursor: "pointer",
+                                    pointerEvents: "auto",
                                 }}
-                            />
+                                />
                             </div>
 
                                 {mostrarOpcoes && (
