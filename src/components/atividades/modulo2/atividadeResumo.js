@@ -226,7 +226,7 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                     <p className="fw-semibold mb-4" style={{ color: "#234970" }}>
                       Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
                     </p>
-
+                            <div style={{ textAlign: "center" }}>
                                 {/* Wrapper com cantos e recorte */}
                             <div
                             style={{
@@ -250,7 +250,7 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                     cursor: "pointer",
                                 }}
                                 />
-                            </div>
+                            </div></div>
                                     
 
                                 {mostrarOpcoes && (
