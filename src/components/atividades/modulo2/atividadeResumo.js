@@ -243,8 +243,7 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                       Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
                     </p>
 
-                         {/* Wrapper com cantos, centralizado e limite de 500px */}
-                            {/* Wrapper com cantos, centralizado e limite de 500px */}
+                        {/* Wrapper centralizado, cantos arredondados, limite 500px */}
                             <div
                             style={{
                                 position: "relative",
@@ -255,35 +254,43 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 overflow: "hidden",
                             }}
                             >
-                            {/* Imagem base */}
-                                    <img
-                                    src={cenarios[pagina - 1].imagemBase}
-                                    alt={`Cenário ${pagina}`}
-                                    style={{
-                                        display: "block",
-                                        width: "100%",
-                                        maxWidth: "500px",
-                                        height: "auto",
-                                        objectFit: "cover",
-                                    }}
-                                    />
+                            {/* Imagem base — ocupa toda a largura */}
+                            <img
+                                src={cenarios[pagina - 1].imagemBase}
+                                alt={`Cenário ${pagina}`}
+                                style={{
+                                display: "block",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "cover",
+                                }}
+                            />
 
-                                    <img
-                                    src={cenarios[pagina - 1].imagemMao}
-                                    alt="Ícone da mão"
-                                    onClick={() => setMostrarOpcoes(true)}
-                                    style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        right: 0,
-                                        height: "100%",     // mesma altura da imagem base
-                                        width: "auto",      // mantém a largura natural
-                                        objectFit: "contain", // evita distorção
-                                        cursor: "pointer",
-                                        pointerEvents: "auto",
-                                    }}
-                                    />
-                             
+                            {/* Faixa da direita: só mostramos uma coluna estreita da imagem da mão */}
+                            <div
+                                onClick={() => setMostrarOpcoes(true)}
+                                style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,
+                                height: "100%",
+                                width: "32%",        // <-- ajusta esta percentagem (ex.: 28–38%) até ficar perfeito
+                                overflow: "hidden",
+                                cursor: "pointer",
+                                pointerEvents: "auto",
+                                }}
+                            >
+                                <img
+                                src={cenarios[pagina - 1].imagemMao}
+                                alt="Ícone da mão"
+                                style={{
+                                    height: "100%",    // a imagem preenche a altura do wrapper
+                                    width: "auto",     // mantém proporção
+                                    objectFit: "cover",
+                                    display: "block",
+                                }}
+                                />
+                            </div>
                             </div>
 
                                 {mostrarOpcoes && (
