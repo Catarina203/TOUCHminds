@@ -226,24 +226,31 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                     <p className="fw-semibold mb-4" style={{ color: "#234970" }}>
                       Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
                     </p>
-                            <div
-                            style={{ textAlign: "center" }}
-                            >
-                                <img
-                                src={cenarios[pagina - 1].imagemBase}
-                                alt="Ícone da mão"
-                                onClick={() => setMostrarOpcoes(true)}
+                            <div className="d-flex justify-content-center">
+                                {/* Wrapper com cantos e recorte */}
+                                <div
                                 style={{
-                                    width: "100%",
+                                    position: "relative",
                                     maxWidth: "500px",
-                                    height: "auto",
-                                    objectFit: "cover",
-                                    display: "block",
-                                    cursor: "pointer",
+                                    display: "inline-block",
+                                    borderRadius: "1rem",
+                                    overflow: "hidden",   // bordas arredondadas iguais nas duas imagens
                                 }}
-                                />
+                                >
+                                    <img
+                                    src={cenarios[pagina - 1].imagemBase}
+                                    alt="Ícone da mão"
+                                    onClick={() => setMostrarOpcoes(true)}
+                                    style={{
+                                        width: "100%",
+                                        maxWidth: "500px",
+                                        height: "auto",
+                                        objectFit: "cover",
+                                        cursor: "pointer",
+                                    }}
+                                    />
+                                </div>
                             </div>
-                                    
 
                                 {mostrarOpcoes && (
                                     <div className="d-flex flex-column gap-3">
