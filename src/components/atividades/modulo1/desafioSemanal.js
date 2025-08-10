@@ -16,8 +16,15 @@ const DesafioSemanal = ({ id }) => {
   const [feedbackType, setFeedbackType] = useState(''); // 'success' ou 'error'
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const { name, value } = e.target;
+  setForm({ ...form, [name]: value });
+
+  // Se havia erro e o campo deixou de estar vazio, apaga a mensagem
+  if (feedbackType === 'error' && value.trim() !== '') {
+    setFeedbackMessage('');
+    setFeedbackType('');
+  }
+};
 
   const handleAdd = async () => {
       if (Object.values(form).some(val => val.trim() === '')) {

@@ -246,28 +246,29 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                 src={cenarios[pagina - 1].imagemBase}
                                 alt={`Cenário ${pagina}`}
                                 style={{
-                                display: "block",
-                                width: "100%",
-                                height: "auto",
-                                objectFit: "contain",
+                                    width: "100%",
+                                    maxWidth: "500px",
+                                    height: "auto",
+                                    objectFit: "cover",
+                                    display: "block",
+                                    margin: "0 auto" // centralizar
                                 }}
-                            />
+                                />
 
-                            {/* Imagem da direita (tira com a mão) colada ao lado direito */}
-                            <img
+                                <img
                                 src={cenarios[pagina - 1].imagemMao}
                                 alt="Ícone da mão"
                                 onClick={() => setMostrarOpcoes(true)}
                                 style={{
-                                position: "absolute",
-                                top: 0,
-                                right: 0,
-                                height: "100%",   // ocupa toda a altura para alinhar
-                                width: "auto",
-                                cursor: "pointer",
-                                pointerEvents: "auto",
+                                    position: "absolute",
+                                    top: 0,
+                                    right: 0,
+                                    height: "100%",
+                                    maxWidth: "500px",
+                                    objectFit: "cover",
+                                    cursor: "pointer"
                                 }}
-                            />
+                                />
                             </div>
                                     
 
