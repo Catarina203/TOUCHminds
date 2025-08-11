@@ -59,6 +59,17 @@ const BandaDesenhada = () => {
         <Sidebar />
         <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
           <div className="container p-5 bg-white rounded shadow-sm">
+            <style>{`
+              .font-poppins, 
+              .font-poppins * {
+                font-family: 'Poppins', sans-serif !important;
+              }
+
+              .font-poppins input::placeholder,
+              .font-poppins textarea::placeholder {
+                font-family: 'Poppins', sans-serif !important;
+              }
+            `}</style>
             {/* Barra de progresso com aria-label */}
             <div
               className="progress mb-4"

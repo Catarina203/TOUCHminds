@@ -52,7 +52,18 @@ const [comportamento, setComportamento] = useState("");
       <div className="row h-100 m-0">
         <Sidebar />
         <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
-          <div className="container p-5 bg-white rounded shadow-sm">
+          <div className="container-fluid vh-100 p-0 font-poppins">
+            <style>
+              {`
+                .font-poppins, .font-poppins * {
+                  font-family: 'Poppins', sans-serif !important;
+                }
+                .font-poppins ::placeholder {
+                  font-family: 'Poppins', sans-serif !important;
+                }
+              `}
+            </style>
+            <Navbar />
             <div className="progress mb-4" style={{ height: "8px" }}>
               <div
                 className="progress-bar"

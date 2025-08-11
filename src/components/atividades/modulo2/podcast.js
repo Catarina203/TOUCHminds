@@ -34,6 +34,12 @@ const PodcastTouchminds = () => {
 
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
+    <style>{`
+      .font-poppins, .font-poppins * {
+        font-family: 'Poppins', sans-serif !important;
+      }
+    `}</style>
+    <Navbar />
       <Navbar />
       <div className="row h-100 m-0">
         <Sidebar />
