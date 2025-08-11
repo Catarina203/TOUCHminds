@@ -111,6 +111,16 @@ const baseInputStyle = {
         <Sidebar />
         <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
           <div className="container p-5 bg-white rounded shadow-sm">
+            <style>{`
+              .font-poppins input,
+              .font-poppins textarea,
+              .font-poppins select {
+                font-family: inherit !important;
+              }
+              .font-poppins input::placeholder {
+                font-family: inherit !important;
+              }
+            `}</style>
             <div className="progress mb-4" style={{ height: "8px" }}>
               <div className="progress-bar" style={{ width: `${progresso}%`, backgroundColor: "#99CBC8" }}></div>
             </div>
@@ -134,7 +144,9 @@ const baseInputStyle = {
 
             {pagina === 1 && (
               <div>
-                <h5 className="text-center fw-bold">Escreve a tua Carta style={{ color: "#234970" }} </h5> 
+                <h5 className="text-center fw-bold" style={{ color: "#234970" }}>
+                  Escreve a tua Carta
+                </h5>
                 <p className="lead mb-4">
                   Completa <strong>pelo menos 3</strong> das frases abaixo (à tua escolha) e cria a tua carta personalizada:
                 </p>
