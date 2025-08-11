@@ -48,12 +48,12 @@ const AtividadeVozCritica = () => {
   const textos = [
     // Página 0: Introdução
     <>
+      <div className="text-center"></div>
       <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>A Voz Crítica E A Voz Compassiva</h2>
-      <p className="mb-3 lead"><strong>Sê muito bem-vindo ou bem-vinda à Banda Desenhada da Voz Crítica e da Voz Compassiva!</strong></p>
+      <p className="mb-3 lead"><strong>Sê muito bem-vindo/a à Banda Desenhada da Voz Crítica e da Voz Compassiva!</strong></p>
       <p className="mb-3 lead">Nesta <strong>banda desenhada</strong>, vais acompanhar duas personagens e perceber como a <strong>voz crítica</strong> pode afetar negativamente o nosso <strong>bem-estar</strong>, as nossas <strong>relações com os outros</strong> e a nossa <strong>capacidade de pedir ajuda</strong>.</p>
       <p className="mb-3 lead">Por outro lado, vais ver como a <strong>voz compassiva</strong> pode transformar essa experiência, trazendo <strong>compreensão</strong>, <strong>cuidado</strong> e <strong>aceitação</strong>.</p>
       <p className="mb-3 lead">Para isso, lê com <strong>atenção</strong> os quadros da banda desenhada e a sua <strong>descrição</strong>.</p>
-      <p className="mb-3 lead">No final da atividade, vais <strong>refletir</strong> sobre a tua própria <strong>voz crítica</strong> e <strong>voz compassiva</strong>. Vais ser convidado/a a pensar no que a tua voz crítica costuma dizer-te nos <strong>momentos difíceis</strong> e em como poderias <strong>responder a ela com mais gentileza e compreensão</strong>.</p>
       <div className="text-center">
         <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={avancarPagina}>
          <i className="bi bi-play-fill me-2"></i> Vamos a isto?
@@ -101,41 +101,56 @@ const AtividadeVozCritica = () => {
     <>A <strong>voz crítica</strong> pode sempre estar por perto, mas <strong>não define quem somos</strong>. <br></br>
     Ela <strong>faz parte de nós</strong>, mas <strong>não é a nossa verdade</strong>. <br></br>
     Quando começamos a <strong>reconhecê-la</strong> e a perceber <strong>de onde vem</strong>, podemos começar a construir uma <strong>relação mais saudável connosco</strong> — uma relação baseada na <strong>aceitação</strong>, no <strong>cuidado</strong> e no <strong>respeito por quem somos</strong>.</>,
-    // Página 10 - Reflexão
-    <>
-      <h4 className="fw-bold mb-3 text-start" style={{ color: "#234970" }}>Vamos refletir!</h4>
-      <p className="mb-3 lead">Pensa no <strong>pensamento mais comum</strong> que a tua <strong>voz crítica</strong> te diz e escreve uma <strong>resposta mais gentil e acolhedora</strong>.</p>
-      {mostrarErro && (
-        <div className="alert alert-danger" role="alert">
-          <i className="bi bi-exclamation-triangle-fill me-2"></i>
-          Por favor, preenche ambos os campos antes de avançar.
+   
+   // Página 10 - Reflexão
+        <>
+         <div className="text-center"></div>
+         <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Vamos Refletir!</h4>
+
+         {mostrarErro && (
+        <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+          <i className="bi bi-exclamation-triangle me-2"></i>
+          Por favor, preenche os dois campos antes de avançar.
         </div>
       )}
-      <label className="lead"><strong><strong>O que é que a tua voz crítica te costuma dizer nos momentos difíceis?</strong></strong></label>
+
+   <div className="row">
+                <div className="col-md-12">
+                 <p className="lead mb-3">
+                 Agora, vou pedir-te que <strong>reflitas</strong> sobre como <strong>a tua voz critica e a tua voz compassiva </strong> podem moldar a forma <strong>como te sentes, como te relacionas com os outros e como lidas com os desafios</strong>.
+                 <br /><br />
+                 Identifica o <strong>pensamento mais comum </strong>que a tua voz crítica te diz e escreve <strong>uma frase compassiva</strong> que possas usar como alternativa sempre que esse pensamento surgir. Escreve no espaço abaixo indicado.<br /><br />
+                 </p>
+                 </div>
+      
+      <div className="mb-3"></div>
+      <label className="lead"><strong><strong>O meu pensamento crítico é:</strong></strong></label>
       <textarea
         required
         className="form-control mb-3"
-        placeholder="Exemplo: Nunca faço nada de jeito"
+        placeholder="Escreve aqui o teu pensamento crítico"
         value={vozCritica}
         onChange={(e) => {
           setVozCritica(e.target.value);
           if (mostrarErro) setMostrarErro(false);
         }}
       ></textarea>
-      <label className="lead"><strong><strong>Como poderias responder a essa voz com mais gentileza e compreensão?</strong></strong></label>
+      <label className="lead"><strong><strong>A minha frase compassiva é:</strong></strong></label>
       <textarea
         required
         className="form-control mb-3"
-        placeholder="Exemplo: Eu sei que te sentes desapontado..."
+        placeholder="Escreve aqui a tua frase compassiva"
         value={vozCompassiva}
         onChange={(e) => {
           setVozCompassiva(e.target.value);
           if (mostrarErro) setMostrarErro(false);
         }}
       ></textarea>
+      </div>
     </>,
     // Página 11 - Conclusão
     <>
+    <div className="text-center"></div>
       <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
       <p className="mb-3 lead">Ao longo desta atividade, tiveste a oportunidade de <strong>refletir</strong> sobre como as nossas <strong>vozes internas</strong> podem impactar o nosso <strong>bem-estar</strong>, as nossas <strong>relações com os outros</strong> e a nossa <strong>capacidade de pedir ajuda</strong>.</p>
       <p className="mb-3 lead">A <strong>voz crítica</strong>, muitas vezes, pode ser muito <strong>severa</strong>, levando-nos a <strong>duvidar de nós mesmos</strong> e a sentir que <strong>não somos bons o suficiente</strong>.</p>
