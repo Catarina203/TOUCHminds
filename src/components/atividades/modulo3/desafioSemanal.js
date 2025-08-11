@@ -24,19 +24,19 @@ const DesafioSemanal3 = () => {
         </p>
         <p className="mb-3">
           Depois, <strong>vai ao calendário do teu telemóvel</strong> e cria um lembrete com
-          a frase escolhida. Define a hora e os dias em que queres que o
-          lembrete apareça, escolhendo momentos em que sabes que a tua voz
+          a frase escolhida. Define <strong> a hora e os dias em que queres que o
+          lembrete apareça </strong>, escolhendo momentos em que sabes que a tua voz
           crítica costuma surgir, como antes de um teste ou de uma
           apresentação.
         </p>
         <p className="mb-3">
           Estes lembretes vão ser uma ajuda para te lembrares de ser <strong>mais
-          gentil contigo mesmo</strong>, especialmente nos momentos difíceis, e vão
+          gentil contigo mesmo/a</strong>, especialmente nos momentos difíceis, e vão
           ajudar-te a <strong>lidar melhor com as tuas emoções</strong>.
         </p>
         <p className="mb-4">
-          <strong>Espero que esta semana te ajude a aprofundar a tua prática de
-          autocompaixão e a compreender melhor como ela pode transformar a
+         Espero que esta semana te ajude a aprofundar a <strong> tua prática de
+          autocompaixão </strong>e a compreender melhor como ela pode  <strong> transformar a
           tua relação contigo mesmo/a.</strong>
         </p>
 
