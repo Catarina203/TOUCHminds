@@ -100,7 +100,7 @@ const MaiorInimigo = () => {
                       <button className="custom-btn-pink" onClick={retrocederPagina}>
                         <i className="bi bi-arrow-left me-2"></i>Anterior
                       </button>
-                      <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                      <button className="custom-btn-turquoise" onClick={handleAvancarComVerificacao}>
                         Conclusão
                         <i className="bi bi-arrow-right ms-2"></i>
                       </button>

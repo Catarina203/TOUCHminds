@@ -80,7 +80,7 @@ const AbracarMe = () => {
                     controlsList="nodownload"
                     style={{ width: "100%", maxWidth: "600px" }}
                     onPlay={() => setShowAudioWarning(false)}
-                    onEnded={() => setAudioCompleted(true)}
+                    onEnded={handleAudioEnd}
                   >
                     <source src="/audios/modulo3/abracar/abracar.mp3" type="audio/mpeg" />
                     O teu navegador não suporta a reprodução de áudio.
@@ -98,13 +98,14 @@ const AbracarMe = () => {
                     <button className="custom-btn-pink" onClick={retrocederPagina}>
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
-                    <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                    <button className="custom-btn-turquoise" onClick={handleAvancarComVerificacao}>
                       Conclusão
                       <i className="bi bi-arrow-right ms-2"></i>
                     </button>
                   </div>
                 </>
               )}
+
                 {pagina === 2 && (
                 <>
                   <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
