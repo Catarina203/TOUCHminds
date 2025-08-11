@@ -152,11 +152,11 @@ const baseInputStyle = {
                 </p>
                 
             {erroCampos && (
-                  <div className="alert alert-warning py-2 d-flex align-items-center" role="alert" aria-live="polite">
-                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                    Preenche pelo menos 3 campos para continuar. ({camposPreenchidos}/3)
-                  </div>
-                )}
+              <div className="alert alert-danger py-2 d-flex align-items-center" role="alert" aria-live="polite">
+                <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                Preenche pelo menos 3 campos para continuar.
+              </div>
+            )}
 
                 <div className="card p-4 mb-4" style={{ backgroundColor: '#f8f9fa' }}>
                   <h6 className="fw-bold mb-3 lead">Querido/a eu,</h6>
@@ -297,7 +297,7 @@ const baseInputStyle = {
                 <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 
                 <p className="mb-4 lead">
-                  A tua carta está pronta para download. Podes guardá-la e relê-la sempre que precisares.
+                <strong>A tua carta está pronta para download. Podes guardá-la e relê-la sempre que precisares </strong>.
                 </p>
 
                 <p className="mb-3 lead"><strong>Ao escreveres esta carta para ti próprio/a</strong>, estás a cultivar uma prática de <strong>autocompaixão</strong> que te permitirá lidar com os <strong>momentos difíceis</strong> de forma <strong>gentil</strong>.</p>
@@ -307,7 +307,7 @@ const baseInputStyle = {
                 
                 <div className="mb-4">
                   <button className="custom-btn-complete" onClick={gerarCarta}>
-                    <i className="bi bi-download me-2"></i>Download da Carta Final
+                    <i className="bi bi-download me-2"></i>Download da Carta
                   </button>
                 </div>
 
