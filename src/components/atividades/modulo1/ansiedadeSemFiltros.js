@@ -68,20 +68,6 @@ const AnsiedadeSemFiltros = () => {
         <Sidebar />
         <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
           <div className="container p-5 bg-white rounded shadow-sm">
-            <style>{`
-              .font-poppins, 
-              .font-poppins input,
-              .font-poppins textarea,
-              .font-poppins select,
-              .font-poppins button,
-              .font-poppins .alert {
-                font-family: 'Poppins', sans-serif !important;
-              }
-
-              .font-poppins input::placeholder {
-                font-family: 'Poppins', sans-serif !important;
-              }
-            `}</style>
             <div
               className="progress mb-4"
               style={{ height: "8px" }}

@@ -82,17 +82,7 @@ const chaveModulo = `modulo${String(id)}`;
 const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
 
   return (
-  <div className="bg-white font-poppins">
-    <style>
-      {`
-        .font-poppins, .font-poppins * {
-          font-family: 'Poppins', sans-serif !important;
-        }
-        .font-poppins ::placeholder {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}
-    </style>
+    <div className="bg-white">
       <h4 className="mb-4" style={{ color: "#99CBC8" }}>
         <span
           style={{

@@ -1,16 +1,7 @@
 
 const DesafioSemanal3 = () => {
   return (
-   <div className="bg-white font-poppins">
-      <style>{`
-        .font-poppins, .font-poppins * {
-          font-family: 'Poppins', sans-serif !important;
-        }
-        .font-poppins input::placeholder,
-        .font-poppins textarea::placeholder {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}</style>
+    <div className="bg-white">
 
      <h4 className="mb-4" style={{ color: "#99CBC8" }}>
           <span
