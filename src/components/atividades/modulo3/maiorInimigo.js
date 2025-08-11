@@ -75,7 +75,7 @@ const MaiorInimigo = () => {
                 {pagina === 1 && (
                  <>
                     <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
-                     Áudio: O Nosso Maior Inimigo
+                    O Nosso Maior Inimigo
                     </h4>
                     <p className="lead mb-3">
                       Ouve o áudio abaixo que te irá guiar pela atividade.
@@ -95,10 +95,14 @@ const MaiorInimigo = () => {
                       </div>
 
                     {showAudioWarning && (
-                      <div className="alert mb-4 text-white"
-                        style={{ backgroundColor: '#99CBC8', border: 'none' }}>
-                        <i className="bi bi-info-circle me-2"></i>
-                        É necessário ouvir o áudio até ao fim para continuar.
+                      <div className="text-center">
+                        <div 
+                          className="alert d-inline-block mb-4 text-white"
+                          style={{ backgroundColor: '#99CBC8', border: 'none' }}
+                        >
+                          <i className="bi bi-info-circle me-2"></i>
+                          É necessário ouvir o áudio até ao fim para continuar.
+                        </div>
                       </div>
                     )}
 

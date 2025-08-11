@@ -62,7 +62,7 @@ const AtividadeVozCritica = () => {
     // Página 0: Introdução
     <>
       <div className="text-center"></div>
-      <h2 className="text-center fw-bold"  style={{ color: "#234970" }}>A Voz Crítica E A Voz Compassiva</h2>
+      <h2 className="text-center fw-bold"  style={{ color: "#234970" }}>A Voz Crítica e a Voz Compassiva</h2>
       <p className="mb-3 lead"><strong>Sê muito bem-vindo/a à Banda Desenhada da Voz Crítica e da Voz Compassiva!</strong></p>
       <p className="mb-3 lead">Nesta <strong>banda desenhada</strong>, vais acompanhar duas personagens e perceber como a <strong>voz crítica</strong> pode afetar negativamente o nosso <strong>bem-estar</strong>, as nossas <strong>relações com os outros</strong> e a nossa <strong>capacidade de pedir ajuda</strong>.</p>
       <p className="mb-3 lead">Por outro lado, vais ver como a <strong>voz compassiva</strong> pode transformar essa experiência, trazendo <strong>compreensão</strong>, <strong>cuidado</strong> e <strong>aceitação</strong>.</p>

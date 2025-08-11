@@ -72,7 +72,7 @@ const AbracarMe = () => {
               {pagina === 1 && (
                 <>
                 <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
-                     Áudio: Abraçar-me a Mim Mesmo/a
+                    Abraçar-me a Mim Mesmo/a
                     </h4>
                   <p className="lead mb-3">
                     Ouve o áudio abaixo que te irá guiar pela atividade.
@@ -90,13 +90,17 @@ const AbracarMe = () => {
                           O teu navegador não suporta a reprodução de áudio.
                         </audio>
                       </div>    
-                  {showAudioWarning && (
-                    <div className="alert mb-4 text-white"
-                      style={{ backgroundColor: '#99CBC8', border: 'none' }}>
-                      <i className="bi bi-info-circle me-2"></i>
-                      É necessário ouvir o áudio até ao fim para continuar.
-                    </div>
-                  )}
+                        {showAudioWarning && (
+                          <div className="text-center">
+                            <div 
+                              className="alert d-inline-block mb-4 text-white"
+                              style={{ backgroundColor: '#99CBC8', border: 'none' }}
+                            >
+                              <i className="bi bi-info-circle me-2"></i>
+                              É necessário ouvir o áudio até ao fim para continuar.
+                            </div>
+                          </div>
+                        )}
 
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink" onClick={retrocederPagina}>
