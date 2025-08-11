@@ -289,14 +289,20 @@ const AtividadeVozCritica = () => {
                   <i className="bi bi-arrow-left me-2"></i>Anterior
                 </button>
               )}
-            {pagina < 11 && pagina > 0 ? (
-              <button
-                className="custom-btn-turquoise"
-                onClick={avancarPagina}
-              >
-                {pagina === 9 ? "Refletir" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
-              </button>
-            ) : pagina === 11 ? (
+           {pagina < 11 && pagina > 0 ? (
+            <button
+              className="custom-btn-turquoise"
+              onClick={avancarPagina}
+            >
+              {pagina === 9
+                ? "Refletir"
+                : pagina === 10
+                ? "Conclusão"
+                : "Próximo"}{" "}
+              <i className="bi bi-arrow-right ms-2"></i>
+            </button>
+                    
+        ) : pagina === 11 ? (
                   <AtividadeProgressao
                     moduloId={moduloId}
                     atividadeIndex={0}
