@@ -97,7 +97,7 @@ const MaiorInimigo = () => {
                     {showAudioWarning && (
                       <div className="text-center">
                         <div 
-                          className="alert d-inline-block mb-4 text-white"
+                          className="alert mb-4 text-white"
                           style={{ backgroundColor: '#99CBC8', border: 'none' }}
                         >
                           <i className="bi bi-info-circle me-2"></i>
