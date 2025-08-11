@@ -71,21 +71,25 @@ const AbracarMe = () => {
 
               {pagina === 1 && (
                 <>
+                <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
+                     Áudio: Abraçar-me a Mim Mesmo/a
+                    </h4>
                   <p className="lead mb-3">
                     Ouve o áudio abaixo que te irá guiar pela atividade.
                   </p>
                               
-                  <audio 
-                    controls 
-                    controlsList="nodownload"
-                    style={{ width: "100%", maxWidth: "600px" }}
-                    onPlay={() => setShowAudioWarning(false)}
-                    onEnded={handleAudioEnd}
-                  >
-                    <source src="/audios/modulo3/abracar/abracar.mp3" type="audio/mpeg" />
-                    O teu navegador não suporta a reprodução de áudio.
-                  </audio>
-
+                     <div className="text-center">
+                        <audio 
+                          controls 
+                          controlsList="nodownload"
+                          style={{ width: "100%", maxWidth: "600px" }}
+                          onPlay={() => setShowAudioWarning(false)}
+                          onEnded={handleAudioEnd}
+                        >
+                          <source src="/audios/modulo3/abracar/abracar.mp3" type="audio/mpeg" />
+                          O teu navegador não suporta a reprodução de áudio.
+                        </audio>
+                      </div>    
                   {showAudioWarning && (
                     <div className="alert mb-4 text-white"
                       style={{ backgroundColor: '#99CBC8', border: 'none' }}>
