@@ -98,7 +98,8 @@ const baseInputStyle = {
   padding: '2px 6px',
   fontSize: '16px',
   minWidth: '200px',
-  outline: 'none'
+  outline: 'none',
+  fontFamily: 'inherit'  // <— add isto
 };
 
   const progresso = Math.round((pagina / 2) * 100);
@@ -133,12 +134,12 @@ const baseInputStyle = {
 
             {pagina === 1 && (
               <div>
-                <h5 className="text-center fw-bold">Escreve a tua Carta</h5>
-                <p className="mb-4 text-muted">
+                <h5 className="text-center fw-bold">Escreve a tua Carta style={{ color: "#234970" }} </h5> 
+                <p className="lead mb-4">
                   Completa <strong>pelo menos 3</strong> das frases abaixo (à tua escolha) e cria a tua carta personalizada:
                 </p>
                 
-                {erroCampos && (
+            {erroCampos && (
                   <div className="alert alert-warning py-2 d-flex align-items-center" role="alert" aria-live="polite">
                     <i className="bi bi-exclamation-triangle-fill me-2"></i>
                     Preenche pelo menos 3 campos para continuar. ({camposPreenchidos}/3)
@@ -146,9 +147,9 @@ const baseInputStyle = {
                 )}
 
                 <div className="card p-4 mb-4" style={{ backgroundColor: '#f8f9fa' }}>
-                  <h6 className="fw-bold mb-3">Querido/a eu,</h6>
+                  <h6 className="fw-bold mb-3 lead">Querido/a eu,</h6>
                   
-                  <div className="carta-content" style={{ fontSize: '16px', lineHeight: '2' }}>
+                  <div className="carta-content lead" style={{ lineHeight: 2 }}>
                     
                     <div className="mb-3">
                       Sei que estás a passar por um momento difícil, e quero que saibas que{" "}
@@ -263,24 +264,18 @@ const baseInputStyle = {
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <button className="custom-btn-complete me-3" onClick={gerarCarta}>
-                    <i className="bi bi-download me-2"></i>Download da Carta
-                  </button>
-                </div>
-
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={() => setPagina(0)}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
-                   </button>
+                  </button>
                   <button
-                  className="custom-btn-turquoise"
-                  onClick={validarCampos}
-                  disabled={camposPreenchidos < 3}
-                  title={camposPreenchidos < 3 ? "Preenche pelo menos 3 campos" : undefined}
-                >
-                  Conclusão
-                </button>
+                    className="custom-btn-turquoise"
+                    onClick={validarCampos}
+                    aria-label="Avançar para a conclusão"
+                  >
+                    Conclusão
+                    <i className="bi bi-arrow-right ms-2"></i>
+                  </button>
                 </div>
               </div>
             )}
@@ -289,17 +284,14 @@ const baseInputStyle = {
               <div>
                 <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 
-                <div className="alert border mb-4" style={{ backgroundColor: '#f8f9fa', borderColor: '#ddd' }}>
-                  <h6 className="fw-bold mb-3">A tua Carta Final:</h6>
-                  <div style={{ whiteSpace: 'pre-wrap', fontSize: '15px', lineHeight: '1.6' }}>
-                    {gerarConteudoCarta()}
-                  </div>
-                </div>
+                <p className="mb-4 lead">
+                  A tua carta está pronta para download. Podes guardá-la e relê-la sempre que precisares.
+                </p>
 
                 <p className="mb-3 lead"><strong>Ao escreveres esta carta para ti próprio/a</strong>, estás a cultivar uma prática de <strong>autocompaixão</strong> que te permitirá lidar com os <strong>momentos difíceis</strong> de forma <strong>gentil</strong>.</p>
                 <p className="mb-3 lead">Lembra-te de que <strong>todos os seres humanos enfrentam desafios</strong> e que os <strong>erros fazem parte da condição humana</strong>.</p>
                 <p className="mb-3 lead">Ao tratares-te com <strong>bondade</strong> e <strong>compreensão</strong>, estás a reforçar a tua <strong>capacidade de cuidar de ti mesmo</strong> nas situações mais complicadas.</p>
-                <p className="mb-4 lead">Sempre que precisares de um <strong>lembrete</strong>, recorre a esta carta e lembra-te de que és <strong>digno/a de compaixão</strong> e de ajuda, de ti próprios e dos outros, e que <strong>mereces tratar-te com bondade e de forma gentil</strong>.</p>
+                <p className="mb-4 lead">Sempre que precisares de um <strong>lembrete</strong>, recorre a esta carta e lembra-te de que és digno/a de <strong> compaixão e de ajuda </strong>, de ti próprio/a e dos outros, e que mereces tratar-te <strong> com bondade e de forma gentil</strong>.</p>
                 
                 <div className="mb-4">
                   <button className="custom-btn-complete" onClick={gerarCarta}>
