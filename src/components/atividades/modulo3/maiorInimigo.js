@@ -11,6 +11,7 @@ const MaiorInimigo = () => {
   const [showAudioWarning, setShowAudioWarning] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+  
 
   const avancarPagina = () => setPagina((prev) => prev + 1);
   const retrocederPagina = () => setPagina((prev) => prev - 1);
@@ -82,7 +83,7 @@ const MaiorInimigo = () => {
                       controlsList="nodownload"
                       style={{ width: "100%", maxWidth: "600px" }}
                       onPlay={() => setShowAudioWarning(false)}
-                      onEnded={() => setAudioCompleted(true)}
+                      onEnded={handleAudioEnd}
                     >
                       <source src="/audios/modulo3/maiorinimigo/maiorinimigo.mp3" type="audio/mpeg" />
                       O teu navegador não suporta a reprodução de áudio.
