@@ -45,6 +45,19 @@ const AtividadeVozCritica = () => {
     null  // Conclusão
   ];
 
+  const titulos = [
+  null, // 0 - intro, sem título aqui
+  "O Autocriticismo",
+  "Autocriticismo: Impacto no Bem-Estar",
+  "Autocriticismo: Impacto nas Relações",
+  "Autocriticismo: Pedir Ajuda",
+  "A Autocompaixão",
+  "Autocompaixão: Impacto no Bem-Estar",
+  "Autocompaixão: Impacto nas Relações",
+  "Autocompaixão: Pedir Ajuda",
+  "Autocriticismo e Autocompaixão",
+];
+
   const textos = [
     // Página 0: Introdução
     <>
@@ -64,9 +77,6 @@ const AtividadeVozCritica = () => {
               // Página 1
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  O Autocriticismo
-                </h4>
                 <p className="lead">
                   Vamos falar sobre algo que nos afeta a todos: aquilo a que chamamos de <strong>autocriticismo</strong>. Muitas vezes, sem perceber, tornamo-nos os nossos <strong>piores inimigos</strong>. O autocriticismo é aquela <strong>voz interna</strong> que só vê os nossos <strong>erros</strong> e <strong>falhas</strong>, sem olhar para o que <strong>fazemos bem</strong>. Isso pode afetar profundamente a forma como nos sentimos e como nos relacionamos com os outros.
                 </p>
@@ -76,9 +86,6 @@ const AtividadeVozCritica = () => {
             // Página 2
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocriticismo: Impacto no Bem-Estar
-                </h4>
                 <p className="lead">
                   Quando ouvimos esta <strong>voz crítica</strong>, começamos a acreditar que as nossas <strong>falhas</strong> nos definem. O <strong>autocriticismo</strong> pode criar uma sensação constante de <strong>insuficiência</strong>, como se <strong>não fôssemos bons o suficiente</strong>. Ele pode trazer <strong>vergonha</strong>, <strong>ansiedade</strong>, <strong>tristeza</strong> e <strong>insegurança</strong>, fazendo-nos sentir <strong>distantes dos outros</strong>, como se mais ninguém passasse pelas mesmas situações ou tivesse as mesmas emoções. Esses <strong>pensamentos</strong> podem fazer-nos <strong>duvidar de nós mesmos</strong>, criando uma <strong>barreira</strong> entre o que sentimos e o que realmente somos.
                 </p>
@@ -88,9 +95,6 @@ const AtividadeVozCritica = () => {
             // Página 3
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocriticismo: Impacto nas Relações
-                </h4>
                 <p className="lead">
                   O <strong>autocriticismo</strong> pode afetar também as nossas <strong>relações com os outros</strong>. Podemos sentir-nos em <strong>desvantagem</strong> em relação aos outros, como se estivéssemos sempre a <strong>falhar</strong> ou a <strong>dececioná-los</strong>. Começamos a acreditar que <strong>ninguém vai gostar de nós</strong> ou que estamos constantemente a ser <strong>rejeitados</strong>. Isso cria uma sensação de <strong>isolamento</strong>, onde evitamos <strong>situações sociais</strong>, pensando que <strong>não temos valor</strong>.
                 </p>
@@ -100,9 +104,6 @@ const AtividadeVozCritica = () => {
             // Página 4
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocriticismo: Pedir Ajuda
-                </h4>
                 <p className="lead">
                   Quando estamos <strong>afundados no autocriticismo</strong>, acreditamos que devemos <strong>enfrentar tudo sozinhos</strong>. Pensamos que mostrar as nossas <strong>preocupações</strong> e <strong>vulnerabilidades</strong> é sinal de <strong>fraqueza</strong> ou que <strong>não somos dignos de cuidado</strong>, o que nos impede de <strong>pedir ajuda</strong>. Quando sentimos que <strong>não somos bons o suficiente</strong>, é mais fácil <strong>isolarmo-nos</strong>, porque acreditamos que os outros vão acabar por <strong>se afastar</strong>. Isso cria um <strong>ciclo de solidão</strong>, onde nos sentimos <strong>rejeitados</strong> e não damos aos outros a oportunidade de <strong>fazerem parte das nossas vidas</strong>.
                 </p>
@@ -112,9 +113,6 @@ const AtividadeVozCritica = () => {
             // Página 5
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  A Autocompaixão
-                </h4>
                 <p className="lead">
                   Uma alternativa ao <strong>autocriticismo</strong> é a <strong>autocompaixão</strong>. A autocompaixão é a capacidade de sermos <strong>gentis</strong> e <strong>compreensivos connosco mesmos</strong> nos <strong>momentos difíceis</strong>. Em vez de <strong>nos criticarmos</strong>, é sermos capazes de <strong>reconhecer o nosso sofrimento</strong> e, perante ele, adotarmos uma atitude de <strong>cuidado</strong> e <strong>bondade</strong>, reconhecendo que <strong>todos temos falhas</strong> e que isso <strong>não nos torna menos merecedores de compreensão e apoio</strong>.
                 </p>
@@ -124,9 +122,6 @@ const AtividadeVozCritica = () => {
             // Página 6
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocompaixão: Impacto no Bem-Estar
-                </h4>
                 <p className="lead">
                   A <strong>autocompaixão</strong> não significa <strong>ignorar os nossos erros</strong>, mas sim <strong>olharmos para eles com compreensão</strong> e <strong>vontade de melhorar</strong>. Ao <strong>praticá-la</strong>, criamos um <strong>ambiente interno seguro e positivo</strong>, onde podemos <strong>aprender</strong>, em vez de nos criticarmos. Esta nova forma de <strong>nos tratarmos a nós mesmos</strong> é essencial para o nosso <strong>bem-estar</strong>. Cada vez que enfrentamos uma <strong>situação difícil</strong>, temos a <strong>oportunidade de escolher</strong> a forma como <strong>falamos connosco</strong>.
                 </p>
@@ -136,9 +131,6 @@ const AtividadeVozCritica = () => {
             // Página 7
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocompaixão: Impacto nas Relações
-                </h4>
                 <p className="lead">
                   Quando <strong>praticamos a autocompaixão</strong>, as nossas <strong>relações com os outros</strong> também melhoram. Ao sermos mais <strong>gentis connosco</strong>, podemos ser mais <strong>genuínos</strong> nas nossas interações. Isso faz com que as nossas <strong>amizades</strong> e <strong>conexões</strong> se tornem mais <strong>autênticas</strong>, porque <strong>não estamos a tentar esconder as nossas imperfeições</strong>. A <strong>autocompaixão</strong> não só nos faz mais <strong>compreensivos connosco</strong>, como também nos ajuda a <strong>receber o carinho e apoio que merecemos</strong> dos outros à nossa volta.
                 </p>
@@ -148,9 +140,6 @@ const AtividadeVozCritica = () => {
             // Página 8
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocompaixão: Pedir Ajuda
-                </h4>
                 <p className="lead">
                   A <strong>autocompaixão</strong> também significa saber <strong>pedir ajuda</strong> quando necessário. Quando <strong>reconhecemos o nosso sofrimento</strong> e aceitamos que <strong>precisamos de ajuda</strong>, estamos a dar o <strong>primeiro passo para o nosso bem-estar</strong>. Todos <strong>merecemos cuidar de nós mesmos</strong> e <strong>procurar ajuda</strong> quando precisamos.
                 </p>
@@ -160,9 +149,6 @@ const AtividadeVozCritica = () => {
             // Página 9
             <>
               <div className="text-center">
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                  Autocriticismo e Autocompaixão
-                </h4>
                 <p className="lead">
                   A <strong>voz crítica</strong> pode sempre estar por perto, mas <strong>não define quem somos</strong>. Ela <strong>faz parte de nós</strong>, mas <strong>não é a nossa verdade</strong>. Quando começamos a <strong>reconhecê-la</strong> e a <strong>perceber de onde vem</strong>, podemos começar a <strong>construir uma relação mais saudável connosco</strong> — uma relação baseada na <strong>aceitação</strong>, no <strong>cuidado</strong> e no <strong>respeito por quem somos</strong>.
                 </p>
@@ -207,6 +193,7 @@ const AtividadeVozCritica = () => {
                 aria-required="true"
                 aria-invalid={mostrarErro && !vozCritica.trim()}
                 aria-describedby={mostrarErro && !vozCritica.trim() ? "error-vozCritica" : undefined}
+              
               ></textarea>
               {mostrarErro && !vozCritica.trim() && (
                 <div id="error-vozCritica" className="invalid-feedback" role="alert">
@@ -273,6 +260,13 @@ const AtividadeVozCritica = () => {
                 aria-valuemax="100"
               ></div>
             </div>
+            
+            {pagina >= 1 && pagina <= 9 && titulos[pagina] && (
+                <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
+                  {titulos[pagina]}
+                </h4>
+              )}     
+            
             {imagens[pagina] && (
               <div className="text-center mb-4">
                 <img
@@ -295,17 +289,14 @@ const AtividadeVozCritica = () => {
                   <i className="bi bi-arrow-left me-2"></i>Anterior
                 </button>
               )}
-              {pagina < 11 && pagina > 0 ? (
-                  <button
-                    className="custom-btn-turquoise"
-                    onClick={avancarPagina}
-                    disabled={pagina === 10 && (!vozCritica.trim() || !vozCompassiva.trim())}
-                    aria-disabled={pagina === 10 && (!vozCritica.trim() || !vozCompassiva.trim())}
-                    title={pagina === 10 && (!vozCritica.trim() || !vozCompassiva.trim()) ? "Preenche os dois campos" : undefined}
-                  >
-                    Próximo <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
-                ) : pagina === 11 ? (
+            {pagina < 11 && pagina > 0 ? (
+              <button
+                className="custom-btn-turquoise"
+                onClick={avancarPagina}
+              >
+                {pagina === 9 ? "Refletir" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
+              </button>
+            ) : pagina === 11 ? (
                   <AtividadeProgressao
                     moduloId={moduloId}
                     atividadeIndex={0}
