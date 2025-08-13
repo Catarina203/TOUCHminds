@@ -19,33 +19,28 @@ const DesafioSemanal = () => {
         Queria lançar-te um desafio para esta semana!
       </p>
       <p className="mb-3">
-        Ao longo dos próximos dias, observa a tua própria <strong>mudança a acontecer</strong>. Tal como quem está no
-        mar, <strong>não é preciso nadar sempre com força</strong> nem tomar decisões rápidas — às vezes, o mais importante é simplesmente <strong>estar presente</strong> e <strong>reparar no que está a acontecer contigo</strong>.
+        Ao longo dos próximos dias, quando te encontrares perante <strong>uma decisão ou dilema </strong>— seja algo pequeno ou mais importante — faz uma pausa antes de agir. 
+        Este é o momento para <strong> observar, sem pressa e sem te julgares.</strong>
       </p>
+
       <p className="mb-3">
-        Durante os próximos dias, convida-te a fazer o seguinte: <br></br><br></br>
+        Quando isso acontecer, convida-te a fazer o seguinte: <br></br><br></br>
+        <strong>1.	Balanço decisional:</strong><br></br><br></br>
         <ul style={{ marginTop: "0px" }}>
-          <li><strong>Repara</strong> como te sentes em relação ao <strong>comportamento ou situação</strong> que decidiste mudar.</li>
-          <li>Nota se há momentos em que a “onda” parece mais calma ou mais agitada.</li>
+          <li> Se continuar como estou, quais são os <strong> prós? </strong> E quais são os <strong>contras?</strong></li>
+          <li> Se fizer algo novo ou diferente, quais são os <strong> prós? </strong> E quais são os <strong>contras?</strong></li>
         </ul>
 
-        <strong>Pergunta-te, sem julgar:</strong><br></br><br></br>
+        <strong>2.	Quando eu já fui capaz:</strong><br></br><br></br>
         <ul style={{ marginTop: "0px" }}>
-          <li><strong>Hoje, como está o mar dentro de mim?</strong></li>
-          <li><strong>Sinto que estou mais perto ou mais longe do meu objetivo?</strong></li>
-          <li><strong>O que noto quando olho para este processo com atenção?</strong></li>
+          <li>Lembra-te de uma vez em que enfrentaste algo <strong>semelhante e conseguiste</strong>.</li>
+          <li>Que<strong> estratégias </strong>usaste nessa altura?</li>
+          <li>O que <strong> fizeste </strong>dessa vez que podes aplicar agora?</li>
         </ul>
 
       </p>
       <p className="mb-3">
-        Não precisas de <strong>mudar nada</strong>. Não precisas de <strong>ter respostas</strong>. Este é apenas um tempo para <strong>escutar-te com curiosidade e paciência</strong>.
-      </p>
-      <p className="mb-4">
-        Ao <strong>observar</strong>, estás a dar <strong>espaço à mudança</strong> para continuar a acontecer — no teu tempo, à tua maneira.
-
-        <strong>Lembra-te</strong>: Nem sempre conseguimos <strong>controlar a onda</strong>, mas podemos aprender a <strong>ouvir o mar</strong>.
-      </p>
-
+        Não é preciso chegar sempre à <strong>“decisão perfeita”. </strong> O objetivo é treinar o  <strong>olhar para ti próprio/a, reconhecer que já tens recursos e abrir espaço para escolhas mais conscientes. </strong>.</p>
       <p className="fw-bold">Vamos em frente! #OPoderdaMudança</p>
       <p>Até para a Semana!</p>
           </div>
