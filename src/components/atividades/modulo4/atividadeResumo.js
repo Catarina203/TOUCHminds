@@ -10,8 +10,6 @@ const AtividadeResumoMudanca = () => {
   const [pagina, setPagina] = useState(0);
   const [faseEscolhida, setFaseEscolhida] = useState("");
   const [faseDetalhes, setFaseDetalhes] = useState("");
-  const [pros, setPros] = useState("");
-  const [contras, setContras] = useState("");
   const [confianca, setConfianca] = useState("");
   const [confiancaDetalhes, setConfiancaDetalhes] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -29,11 +27,12 @@ const AtividadeResumoMudanca = () => {
     setModalShow(true);
   };
 
-  // New function to handle phase button clicks (show modal with info)
-  const handlePhaseInfoClick = (faseKey) => {
-    setSelectedPhaseData(fases[faseKey]);
-    setPhaseModalShow(true);
-  };
+ const handlePhaseInfoClick = (faseKey) => {
+  const data = fases[faseKey];
+  setSelectedPhaseData(data);
+  setFaseDetalhes(data.descricao);
+  setPhaseModalShow(true);
+};
 
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
@@ -46,33 +45,28 @@ const AtividadeResumoMudanca = () => {
     setPagina((prev) => prev - 1);
   };
 
-  const progresso = Math.round((pagina / 5) * 100);
+  const progresso = Math.round((pagina / 4) * 100);
 
   const fases = {
     calmaria: {
       titulo: "Calmaria",
-      imagem: "/imgs/modulo4/resumo/image034.png",
-      descricao: "Nesta fase, ainda não sentes uma necessidade urgente de mudar. É como estar no mar calmo, onde tudo parece estar bem como está. Pode ser que ainda não tenhas identificado claramente o que queres mudar ou que não sintas que é o momento certo."
+      descricao: "O mar está calmo e, à primeira vista, nada parece urgente. Talvez haja sinais de que algo não está bem, mas ainda não são claros ou são facilmente postos de lado. Nesta fase, tal como quando olhamos para o mar sem pensar em surfar, ainda não estás totalmente decidido/a a entrar na água."
     },
     preparacao: {
       titulo: "Preparação",
-      imagem: "/imgs/modulo4/resumo/image036.png",
-      descricao: "Aqui já identificaste o que queres mudar e estás a preparar-te mentalmente. É como quando vês as ondas a formar-se ao longe e começas a ajustar a tua posição na prancha, preparando-te para remar."
+      descricao: "Ao longe, começa a formar-se uma onda e percebes que talvez seja o momento de agir. Já tens consciência de que algo precisa de mudar, mas ainda ponderas se deves ou não avançar agora. É como segurar a prancha e avaliar se esta é a melhor altura para entrar no mar."
     },
     remada: {
       titulo: "Remada",
-      imagem: "/imgs/modulo4/resumo/image038.png",
-      descricao: "Esta é a fase da ação! Começaste a fazer pequenas mudanças e estás ativamente a trabalhar em direção ao teu objetivo. É como remar com força para apanhar a onda - exige energia e determinação."
+      descricao: "Decidiste entrar na água e começas a remar. Estás a dar os primeiros passos concretos para a mudança, mesmo que sejam pequenos. Tal como o surfista que avança em direção à onda, estás a ganhar impulso para aproveitar o momento certo."
     },
     surfar: {
       titulo: "Surfar a Onda",
-      imagem: "/imgs/modulo4/resumo/image040.png",
-      descricao: "Estás no meio da mudança e sentes que tens controlo sobre o processo. É como quando consegues apanhar a onda perfeitamente e sentes a adrenalina de estar em equilíbrio, a deslizar sobre a água."
+      descricao: "Agora já estás na onda — a mudança está em movimento. Estás a aplicar novas estratégias e hábitos de forma consistente, tal como o surfista que aproveita a força da onda para avançar. É um momento activo e entusiasmante, em que cada movimento conta."
     },
     desafios: {
       titulo: "Desafios no Surf",
-      imagem: "/imgs/modulo4/resumo/image042.png",
-      descricao: "Às vezes a mudança traz dificuldades inesperadas ou sentes que estás a perder o controlo. É como quando a onda te derruba e tens de decidir se voltas a tentar ou se sais da água por um momento."
+      descricao: "Continuas a surfar, mas o mar pode mudar — ondas mais fortes ou correntes inesperadas podem surgir. Esta fase é sobre manter as mudanças que já conquistaste, mesmo quando aparecem desafios. Tal como no surf, é preciso adaptar-te e manter o rumo para seguir em frente."
     }
   };
 
@@ -111,10 +105,8 @@ const AtividadeResumoMudanca = () => {
   const canAdvanceFromPage = (currentPage) => {
     switch (currentPage) {
       case 2:
-        return faseEscolhida !== "";
+        return faseEscolhida !== "";;
       case 3:
-        return pros.trim() !== "" && contras.trim() !== "";
-      case 4:
         return confianca !== "";
       default:
         return true;
@@ -141,27 +133,27 @@ const AtividadeResumoMudanca = () => {
 
             {/* PÁGINA 0 - INTRODUÇÃO */}
             {pagina === 0 && (
-              <div className="text-start py-4">
+              <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
                   Atividade Resumo
                 </h2>
                 <p className="lead mb-3">
-                  Sê muito <strong>bem-vindo</strong> ou <strong>bem-vinda</strong> à atividade <strong>resumo do Módulo 4 – O Poder da Mudança</strong>!
+                 <strong> Sê muito bem-vindo/a à atividade resumo do Módulo 4 – O Poder da Mudança</strong>!
                 </p>
                 <p className="mb-3 lead">
-                  O <strong>objetivo</strong> desta atividade é <strong>consolidar</strong> os <strong>conteúdos</strong> que explorámos ao longo do <strong>módulo</strong>.
+                  O objetivo desta atividade é <strong>consolidar os conteúdos</strong> que explorámos ao longo do módulo.
                 </p>
                 <p className="mb-3 lead">
-                  A <strong>mudança</strong> é como <strong>surfar uma onda</strong>: há momentos de <strong>calmaria</strong>, mas também há <strong>desafios</strong>.
+                  A mudança é como <strong>surfar uma onda</strong>: há momentos de <strong>calmaria</strong>, mas também há <strong>desafios</strong>.
                 </p>
                 <p className="mb-3 lead">
-                  Às vezes estamos <strong>prontos</strong> para apanhar a <strong>onda</strong> e, noutras, ela acaba por nos <strong>derrubar</strong>.
+                  Às vezes estamos prontos para apanhar a onda e, noutras, ela acaba por nos derrubar.
                 </p>
                 <p className="mb-3 lead">
                   Usando esta <strong>metáfora</strong>, vais criar o teu próprio <strong>percurso de mudança</strong>.
                 </p>
                 <p className="mb-4 lead">
-                  Pensa na <strong>mudança</strong> que gostarias de fazer e como a <strong>metáfora da onda</strong> pode ajudar-te a <strong>refletir</strong> sobre este <strong>processo</strong>.
+                  Pensa na <strong>mudança</strong> que gostarias de fazer e como a <strong>metáfora da onda</strong> pode ajudar-te a <strong>refletir</strong> sobre este processo.
                 </p>
                 <div className="text-center">
                   <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={avancarPagina}>
@@ -173,19 +165,28 @@ const AtividadeResumoMudanca = () => {
 
             {/* PÁGINA 1 - IMAGEM */}
             {pagina === 1 && (
-              <div className="text-center py-4">
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                <div className="text-center"> 
+                <h4 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>
                   A Metáfora da Onda
-                </h4>
-                <div className="mb-4">
+                   </h4>
+
+                   <p className="lead">
+               <strong>Qual é a mudança que queres surfar?</strong>
+               Pensa de forma simples num <strong>comportamento ou situação </strong>que desejas mudar.
+              </p>
+            
                   <img
                     src="/imgs/modulo4/resumo/resumo1.png"
                     alt="Metáfora da onda da mudança"
-                    className="img-fluid rounded shadow-sm"
-                    style={{ maxHeight: "400px", objectFit: "cover" }}
-                  />
-                </div>
-
+                    className="img-fluid mb-4"
+                   style={{
+                      width: "100%",        
+                      maxWidth: "500px",    
+                      height: "auto",       
+                      objectFit: "cover",   
+                    }}
+                    />
+          
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
@@ -200,12 +201,15 @@ const AtividadeResumoMudanca = () => {
 
             {/* PÁGINA 2 - ESCOLHA DA FASE */}
             {pagina === 2 && (
-              <div className="py-4">
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+              <div className="text-center">
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                   Em que fase da onda te encontras?
                 </h4>
                 <p className="mb-4">
-                  A <strong>mudança é como surfar uma onda</strong>, e cada fase é um <strong>momento específico</strong> no processo de mudança. Lembra-te que o ciclo de mudança tem <strong>cinco fases</strong> e tu já deste um grande passo, porque já identificaste o que queres mudar. Em que fase da <strong>onda da mudança te encontras</strong>? Carrega nas <strong>áreas da imagem</strong> para saber mais <strong>sobre cada fase</strong> e no final <strong>seleciona a fase que achas que te encontras</strong>.
+                A mudança é como <strong> surfar uma onda</strong>: cada fase representa um momento diferente neste processo. 
+                O ciclo de mudança tem cinco fases e tu já deste um passo importante — <strong>identificar o que queres mudar.</strong> 
+                Agora, <strong>observa </strong>as fases da onda e <strong> identifica </strong> qual delas descreve melhor o ponto em que estás.
+                Carrega nos círculos para saber mais sobre cada fase e, no final, <strong> seleciona </strong> aquela em que sentes que te encontras:
                 </p>
 
                 <div className="text-center mb-4">
@@ -213,12 +217,12 @@ const AtividadeResumoMudanca = () => {
                     <img 
                       src="/imgs/modulo4/resumo/fases.png" 
                       alt="Fases da Onda da Mudança" 
-                      style={{ 
-                        maxWidth: "600px", 
-                        width: "100%", 
-                        height: "auto",
-                        display: 'block'
-                      }}
+                       style={{
+                      width: "100%",        
+                      maxWidth: "500px",    
+                      height: "auto",       
+                      objectFit: "cover",   
+                    }}
                     />
                     
                     {/* Modified invisible clickable buttons - now open modals */}
@@ -320,14 +324,9 @@ const AtividadeResumoMudanca = () => {
                       {selectedPhaseData?.titulo}
                     </Modal.Title>
                   </Modal.Header>
-                  <Modal.Body className="text-center">
-                    <img
-                      src={selectedPhaseData?.imagem}
-                      alt={selectedPhaseData?.titulo}
-                      className="img-fluid mb-3"
-                      style={{ maxHeight: '400px', objectFit: 'contain' }}
-                    />
-                  </Modal.Body>
+                  <Modal.Body className="text-start">
+                      <p className="mb-0 lead">{selectedPhaseData?.descricao}</p>
+                    </Modal.Body>
                   <Modal.Footer
                     style={{
                       borderTop: "none",
@@ -362,10 +361,10 @@ const AtividadeResumoMudanca = () => {
                   </Modal.Footer>
                 </Modal>
 
-                {faseDetalhes && (
+               {faseDetalhes && (
                   <div className="alert alert-info" style={{ backgroundColor: '#e8f4f3', borderColor: '#99CBC8' }}>
                     <h6 className="fw-bold mb-2" style={{ color: "#234970" }}>
-                      {Object.entries(fases).find(([key]) => faseDetalhes === fases[key].descricao)?.[1]?.titulo}
+                      {selectedPhaseData?.titulo}
                     </h6>
                     <p className="mb-0">{faseDetalhes}</p>
                   </div>
@@ -394,71 +393,8 @@ const AtividadeResumoMudanca = () => {
               </div>
             )}
 
-            {/* Rest of your pages remain the same... */}
-            {/* PÁGINA 3 - PRÓS E CONTRAS */}
+            {/* PÁGINA 3 - NÍVEL DE CONFIANÇA */}
             {pagina === 3 && (
-              <div className="py-4">
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                  Prós e Contras da Mudança
-                </h4>
-                <p className="mb-4">
-                  Agora, vamos olhar para o que te <strong>atrai na ideia de mudar</strong> e o que te <strong>deixa mais receoso</strong>. A metáfora da onda pode ajudar-te a visualizar esses prós e contras. <strong>Escreve nos espaços abaixo</strong>:
-                </p>
-
-                <div className="row">
-                  <div className="col-md-6 mb-4">
-                    <label className="form-label fw-bold">
-                      <i className="bi bi-plus-circle text-success me-2"></i>
-                      Prós (o que te atrai na mudança) *
-                    </label>
-                    <textarea
-                      className="form-control"
-                      rows="6"
-                      placeholder="Escreve os teus prós aqui"
-                      value={pros}
-                      onChange={(e) => setPros(e.target.value)}
-                    ></textarea>
-                  </div>
-                  <div className="col-md-6 mb-4">
-                    <label className="form-label fw-bold">
-                      <i className="bi bi-dash-circle text-warning me-2"></i>
-                      Contras (o que te deixa receoso sobre a mudança) *
-                    </label>
-                    <textarea
-                      className="form-control"
-                      rows="6"
-                      placeholder="Escreve os teus contras aqui"
-                      value={contras}
-                      onChange={(e) => setContras(e.target.value)}
-                    ></textarea>
-                  </div>
-                </div>
-
-                {!canAdvanceFromPage(3) && (
-                  <div className="alert alert-warning">
-                    <i className="bi bi-exclamation-triangle me-2"></i>
-                    É obrigatório preencher ambos os campos para continuar.
-                  </div>
-                )}
-
-                <div className="d-flex justify-content-between mt-4">
-                  <button className="custom-btn-pink" onClick={retrocederPagina}>
-                    <i className="bi bi-arrow-left me-2"></i>Anterior
-                  </button>
-                  <button
-                    className="custom-btn-turquoise"
-                    onClick={avancarPagina}
-                    disabled={!canAdvanceFromPage(3)}
-                  >
-                    Próximo
-                    <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* PÁGINA 4 - NÍVEL DE CONFIANÇA */}
-            {pagina === 4 && (
               <div className="py-4">
                 <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
                   O teu nível de confiança
@@ -571,7 +507,7 @@ const AtividadeResumoMudanca = () => {
                   </div>
                 )}
 
-                {!canAdvanceFromPage(4) && (
+                {!canAdvanceFromPage(3) && (
                   <div className="alert alert-warning">
                     <i className="bi bi-exclamation-triangle me-2"></i>
                     É obrigatório selecionar um nível de confiança para continuar.
@@ -585,7 +521,7 @@ const AtividadeResumoMudanca = () => {
                   <button
                     className="custom-btn-turquoise"
                     onClick={avancarPagina}
-                    disabled={!canAdvanceFromPage(4)}
+                    disabled={!canAdvanceFromPage(3)}
                   >
                     Conclusão
                     <i className="bi bi-arrow-right ms-2"></i>
@@ -594,8 +530,8 @@ const AtividadeResumoMudanca = () => {
               </div>
             )}
 
-            {/* PÁGINA 5 - CONCLUSÃO */}
-            {pagina === 5 && (
+            {/* PÁGINA 4 - CONCLUSÃO */}
+            {pagina === 4 && (
               <>
                 <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="mb-3 lead">

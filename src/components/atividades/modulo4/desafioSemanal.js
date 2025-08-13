@@ -25,15 +25,13 @@ const DesafioSemanal = () => {
 
       <p className="mb-3">
         Quando isso acontecer, convida-te a fazer o seguinte: <br></br><br></br>
-        <strong>1.	Balanço decisional:</strong><br></br><br></br>
+        <strong>Pergunta-te, sem julgar:</strong><br></br><br></br>
         <ul style={{ marginTop: "0px" }}>
           <li> Se continuar como estou, quais são os <strong> prós? </strong> E quais são os <strong>contras?</strong></li>
           <li> Se fizer algo novo ou diferente, quais são os <strong> prós? </strong> E quais são os <strong>contras?</strong></li>
-        </ul>
-
-        <strong>2.	Quando eu já fui capaz:</strong><br></br><br></br>
-        <ul style={{ marginTop: "0px" }}>
-          <li>Lembra-te de uma vez em que enfrentaste algo <strong>semelhante e conseguiste</strong>.</li>
+          </ul>
+         <p className="mb-3"> <strong>Lembra-te de uma vez em que enfrentaste algo semelhante e conseguiste</strong>.</p> 
+           <ul>
           <li>Que<strong> estratégias </strong>usaste nessa altura?</li>
           <li>O que <strong> fizeste </strong>dessa vez que podes aplicar agora?</li>
         </ul>
