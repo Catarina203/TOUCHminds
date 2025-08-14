@@ -14,6 +14,7 @@ const AtividadeResumoMudanca = () => {
   const [msgModalShow, setMsgModalShow] = useState(false);
   const [faseParaMensagem, setFaseParaMensagem] = useState("");
   const [avisoFase, setAvisoFase] = useState(false);
+  const [avisoConfianca, setAvisoConfianca] = useState(false);
   
 
  const handlePhaseInfoClick = (faseKey) => {
@@ -146,6 +147,8 @@ const imagemFase = {
  const handleFaseSelect = (fase) => {
   setFaseEscolhida(fase);
   setFaseParaMensagem(fase);
+  setMsgModalShow(true);   
+  setAvisoFase(false);     
 };
 
   const handleConfiancaSelect = (nivel) => {
@@ -256,7 +259,7 @@ const canAdvanceFromPage = (currentPage) => {
                 A mudança é como <strong> surfar uma onda</strong>: cada fase representa um momento diferente neste processo. 
                 O ciclo de mudança tem cinco fases e tu já deste um passo importante — <strong>identificar o que queres mudar</strong>. 
                 Agora, <strong>observa </strong>as fases da onda e <strong> identifica </strong> qual delas descreve melhor o ponto em que estás. 
-                <strong>Carrega nos círculos</strong> para saber mais sobre cada fase e, no final, <strong> seleciona </strong> aquela em que sentes que te encontras:
+                <strong> Carrega nos círculos</strong> para saber mais sobre cada fase e, no final, <strong> seleciona </strong> aquela em que sentes que te encontras:
                 </p>
 
                 <div className="text-center mb-4">
@@ -366,7 +369,7 @@ const canAdvanceFromPage = (currentPage) => {
                       >
                         <div className="d-flex justify-content-between align-items-start">
                           <div>
-                            <h6 className="lead" style={{ color: "#234970" }}>
+                            <h6 className="fw-bold mb-4" style={{ color: "#234970" }}>
                               {fases[key].titulo}
                             </h6>
                             <p className="lead">{fases[key].descricao}</p>
@@ -390,22 +393,18 @@ const canAdvanceFromPage = (currentPage) => {
                 )}
 
                   <Modal
-                    show={msgModalShow}
-                    onHide={() => {
-                      setMsgModalShow(false);
-                      avancarPagina();
-                    }}
-                    centered
-                    size="lg"
-                  >
-                    <Modal.Header
-                      closeButton
-                      style={{ backgroundColor: "#99CBC8", borderBottom: "none", color: "#fff" }}
-                    >
-                      <Modal.Title className="text-center mb-4" style={{ fontWeight: 600 }}>
-                        {faseParaMensagem ? mensagemPosSelecao[faseParaMensagem].titulo : ""}
-                      </Modal.Title>
-                    </Modal.Header>
+                        show={msgModalShow}
+                        onHide={() => {
+                          setMsgModalShow(false);
+                        }}
+                        centered
+                        size="lg"
+                      >
+                        <Modal.Header closeButton style={{ backgroundColor: "#99CBC8", borderBottom: "none", color: "#fff" }}>
+                          <Modal.Title className="w-100 text-center" style={{ fontWeight: 600 }}>
+                            {faseParaMensagem ? mensagemPosSelecao[faseParaMensagem].titulo : ""}
+                          </Modal.Title>
+                        </Modal.Header>
 
                     <Modal.Body className="text-center">
                       {faseParaMensagem && (
@@ -423,35 +422,34 @@ const canAdvanceFromPage = (currentPage) => {
                       )}
                     </Modal.Body>
 
-                    <Modal.Footer
-                      style={{ borderTop: "none", backgroundColor: "#F5FDFC", justifyContent: "center" }}
-                    >
-                 <Button
-                      onClick={() => {
-                        setMsgModalShow(false);
-                        avancarPagina();
-                      }}
-                      style={{
-                        backgroundColor: "#234970",
-                        borderColor: "#234970",
-                        borderRadius: "8px",
-                        padding: "0.5rem 1.5rem",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Próximo
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                    <Modal.Footer style={{ borderTop: "none", backgroundColor: "#F5FDFC", justifyContent: "center" }}>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          setMsgModalShow(false); // fecha a modal
+                          avancarPagina();        // e AVANÇA para a página 3
+                        }}
+                        style={{
+                          backgroundColor: "#234970",
+                          borderColor: "#234970",
+                          borderRadius: "8px",
+                          padding: "0.5rem 1.5rem",
+                          fontWeight: 500,
+                        }}
+                      >
+                        Próximo
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
 
 
-                <div className="mt-3 text-start">
-                  <h6 className="fw-bold mb-2" style={{ color: "#234970" }}>
+                <div className="lead">
+                  <h6 className="fw-bold mb-4" style={{ color: "#234970" }}>
                     Seleciona a tua fase
                   </h6>
                   <div className="row">
                     {Object.entries(fases).map(([key, f]) => (
-                      <div key={key} className="col-12 mb-2">
+                      <div key={key} className="lead">
                         <div className="form-check">
                           <input
                             className="form-check-input"
@@ -470,73 +468,8 @@ const canAdvanceFromPage = (currentPage) => {
                   </div>
                   </div>
 
-                {!canAdvanceFromPage(2) && (
-                  <div className="alert alert-warning">
-                    <i className="bi bi-exclamation-triangle me-2"></i>
-                     Por favor, seleciona uma fase antes de continuar.
-                  </div>
-                )}
-
-                <div className="d-flex justify-content-between mt-4">
-                  <button className="custom-btn-pink" onClick={retrocederPagina}>
-                    <i className="bi bi-arrow-left me-2"></i>Anterior
-                  </button>
-              <button
-                className="custom-btn-turquoise"
-                onClick={() => {
-                  if (!faseEscolhida) {
-                    setAvisoFase(true);   // mostra alerta
-                    return;
-                  }
-                  setAvisoFase(false);     // esconde alerta
-                  setMsgModalShow(true);   // abre modal só aqui
-                }}
-              >
-                Próximo
-                <i className="bi bi-arrow-right ms-2"></i>
-              </button>
-                </div>
-              </div>
-            )}
-
-           {pagina === 3 && (
-              <div className="py-4">
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                  O teu nível de confiança {fases[faseEscolhida] ? `— ${fases[faseEscolhida].titulo}` : ""}
-                </h4>
-
-                <p className="mb-4">
-                  {configuracaoConfianca[faseEscolhida]?.instrucao ||
-                    "Como está a tua confiança para lidar com esta mudança? Escolhe a frase que melhor te representa."}
-                </p>
-
-                {/* Frases (sem rótulos) */}
-                <div className="d-flex flex-column gap-3 mb-4">
-                  {Object.entries(configuracaoConfianca[faseEscolhida]?.niveis || {}).map(([key, frase]) => {
-                    const isSelected = confianca === key;
-                    return (
-                      <div
-                        key={key}
-                        onClick={() => handleConfiancaSelect(key)}
-                        className="p-3 rounded"
-                        style={{
-                          backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
-                          color: isSelected ? 'white' : '#234970',
-                          border: '1px solid #99CBC8',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                        }}
-                        aria-label={`Selecionar: ${frase}`}
-                        role="button"
-                      >
-                        <p className="mb-0">{frase}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-
-               {avisoFase && (
-                  <div className="alert alert-warning">
+              {avisoFase && (
+                  <div className="alert alert-warning mt-3">
                     <i className="bi bi-exclamation-triangle me-2"></i>
                     Por favor, seleciona uma fase antes de continuar.
                   </div>
@@ -546,17 +479,93 @@ const canAdvanceFromPage = (currentPage) => {
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
-                  <button
+            <button
                     className="custom-btn-turquoise"
-                    onClick={avancarPagina}
-                    disabled={!canAdvanceFromPage(3)}
+                    type="button"
+                    onClick={() => {
+                      if (!faseEscolhida) {
+                        setAvisoFase(true); // mostra alerta
+                        return;
+                      }
+                      setAvisoFase(false);
+                      setMsgModalShow(true); // (re)abre a modal se necessário
+                    }}
                   >
-                    Conclusão
+                    Próximo
                     <i className="bi bi-arrow-right ms-2"></i>
                   </button>
                 </div>
               </div>
             )}
+
+           {pagina === 3 && (
+                <div className="text-center">
+                  <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                    O teu nível de confiança
+                  </h4>
+
+                  <p className="lead">
+                    {configuracaoConfianca[faseEscolhida]?.instrucao ||
+                      "Como está a tua confiança para lidar com esta mudança? Escolhe a frase que melhor te representa."}
+                  </p>
+
+                  {avisoConfianca && (
+                      <div className="alert alert-warning mt-3">
+                        <i className="bi bi-exclamation-triangle me-2"></i>
+                        Por favor, seleciona a frase que melhor te representa para continuar.
+                      </div>
+                    )}
+
+
+                {/* Frases */}
+                      <div className="d-flex flex-column gap-3 mb-4">
+                        {Object.entries(configuracaoConfianca[faseEscolhida]?.niveis || {}).map(([key, frase]) => {
+                          const isSelected = confianca === key;
+                          return (
+                            <div
+                              key={key}
+                              onClick={() => {
+                                setConfianca(key);
+                                setAvisoConfianca(false); // limpa o alerta ao selecionar
+                              }}
+                              className="p-3 rounded"
+                              style={{
+                                backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
+                                color: isSelected ? 'white' : '#234970',
+                                border: '1px solid #99CBC8',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease',
+                              }}
+                              role="button"
+                              aria-label={`Selecionar: ${frase}`}
+                            >
+                              <p className="mb-0">{frase}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div className="d-flex justify-content-between mt-4">
+                        <button className="custom-btn-pink" onClick={retrocederPagina}>
+                          <i className="bi bi-arrow-left me-2"></i>Anterior
+                        </button>
+                        <button
+                          className="custom-btn-turquoise"
+                          onClick={() => {
+                            if (!confianca) {
+                              setAvisoConfianca(true);   // mostra o alerta só ao tentar avançar
+                              return;
+                            }
+                            setAvisoConfianca(false);
+                            avancarPagina();             // avança para a conclusão
+                          }}
+                        >
+                          Conclusão
+                          <i className="bi bi-arrow-right ms-2"></i>
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
             {/* PÁGINA 4 - CONCLUSÃO */}
             {pagina === 4 && (
