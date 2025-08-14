@@ -18,6 +18,7 @@ const AtividadeResumoMudanca = () => {
   const [msgModalShow, setMsgModalShow] = useState(false);
   const [faseParaMensagem, setFaseParaMensagem] = useState("");
   const [mensagemVista, setMensagemVista] = useState(false);
+  const [avisoFase, setAvisoFase] = useState(false);
   
 
   const handleConfiancaClick = (key) => {
@@ -106,29 +107,58 @@ const imagemFase = {
   desafios: "/imgs/modulo4/resumo/desafios.png",
 };
 
-  const niveisConfianca = {
-    alta: {
-      titulo: "Confiança Alta",
-      imagem: "/imgs/modulo4/resumo/image044.png",
-      descricao: "Sentes-te preparado(a) e confiante para enfrentar os desafios da mudança. Como um surfista experiente, acreditas que tens as competências necessárias para navegar pelas ondas que vêm aí."
-    },
-    moderada: {
-      titulo: "Confiança Moderada",
-      imagem: "/imgs/modulo4/resumo/image046.png",
-      descricao: "Tens alguma confiança, mas também algumas dúvidas. É como um surfista que já apanhou algumas ondas, mas ainda sente um friozinho na barriga antes de entrar na água."
-    },
-    baixa: {
-      titulo: "Confiança Baixa",
-      imagem: "/imgs/modulo4/resumo/image048.png",
-      descricao: "Sentes-te inseguro(a) sobre a tua capacidade de lidar com a mudança. É como um surfista iniciante que olha para as ondas grandes e se pergunta se conseguirá mesmo fazê-lo."
+  const configuracaoConfianca = {
+  calmaria: {
+    instrucao:
+      "Como está a tua confiança para enfrentares esta fase de calmaria antes da mudança? Como te sentes em relação à tua capacidade de agir quando for o momento?",
+    niveis: {
+      alta: "Estou confiante de que existe algo que tem mesmo de ser mudado.",
+      moderada: "Sinto que algo tem de ser mudado, mas ainda não sei bem o quê nem como.",
+      baixa: "Talvez haja algo a mudar, mas nem saberia como começar."
     }
-  };
+  },
+  preparacao: {
+    instrucao:
+      "Como está a tua confiança para te preparares para a mudança, agora que a onda se começa a formar? Como te sentes em relação à tua capacidade de dar os primeiros passos?",
+    niveis: {
+      alta: "Sei exatamente o que preciso mudar e já estou a dar pequenos passos para começar.",
+      moderada: "Já começo a perceber o que preciso mudar e tenho algumas ideias de como agir.",
+      baixa: "Acho que já sei o que preciso mudar, mas ainda não tenho a certeza do que fazer primeiro."
+    }
+  },
+  remada: {
+    instrucao:
+      "Como está a tua confiança para continuares a remar em direção à onda? Como te sentes em relação à tua capacidade de manter o esforço necessário para chegar lá?",
+    niveis: {
+      alta: "Estou totalmente dedicado/a e a trabalhar de forma consistente para alcançar a mudança.",
+      moderada: "Já estou a agir e a sentir algum progresso, mesmo que ainda haja muito a fazer.",
+      baixa: "Comecei a tentar, mas ainda sinto que não estou a fazer o suficiente para mudar."
+    }
+  },
+  surfar: {
+    instrucao:
+      "Como está a tua confiança para surfares esta fase ativa da mudança? Como te sentes em relação à tua capacidade de a viver e acompanhar o seu ritmo?",
+    niveis: {
+      alta: "Estou a viver a mudança com confiança e a aproveitar plenamente esta fase.",
+      moderada: "Estou a acompanhar o ritmo da mudança e a agir conforme as situações surgem.",
+      baixa: "Estou a passar pela mudança, mas ainda não me sinto totalmente seguro/a nela."
+    }
+  },
+  desafios: {
+    instrucao:
+      "Como está a tua confiança para ultrapassares os desafios que surgem enquanto continuas a surfar? Como te sentes em relação à tua capacidade de lidar com as dificuldades e seguir em frente?",
+    niveis: {
+      alta: "Mesmo com os desafios, estou determinado/a a avançar e a superar cada obstáculo.",
+      moderada: "Os desafios estão presentes, mas estou a encontrar formas de me adaptar.",
+      baixa: "As dificuldades estão a abalar-me e sinto que posso não conseguir continuar."
+    }
+  }
+};
 
-  const handleFaseSelect = (fase) => {
+ const handleFaseSelect = (fase) => {
   setFaseEscolhida(fase);
   setFaseParaMensagem(fase);
-  setMensagemVista(false); 
-  setMsgModalShow(true);
+  setMensagemVista(false);
 };
 
   const handleConfiancaSelect = (nivel) => {
@@ -241,7 +271,7 @@ const imagemFase = {
                 <p className="lead">
                 A mudança é como <strong> surfar uma onda</strong>: cada fase representa um momento diferente neste processo. 
                 O ciclo de mudança tem cinco fases e tu já deste um passo importante — <strong>identificar o que queres mudar</strong>. 
-                Agora, <strong>observa </strong>as fases da onda e <strong> identifica </strong> qual delas descreve melhor o ponto em que estás.
+                Agora, <strong>observa </strong>as fases da onda e <strong> identifica </strong> qual delas descreve melhor o ponto em que estás. 
                 <strong>Carrega nos círculos</strong> para saber mais sobre cada fase e, no final, <strong> seleciona </strong> aquela em que sentes que te encontras:
                 </p>
 
@@ -352,7 +382,7 @@ const imagemFase = {
                       >
                         <div className="d-flex justify-content-between align-items-start">
                           <div>
-                            <h6 className="text-center mb-4" style={{ color: "#234970" }}>
+                            <h6 className="lead" style={{ color: "#234970" }}>
                               {fases[key].titulo}
                             </h6>
                             <p className="lead">{fases[key].descricao}</p>
@@ -377,10 +407,10 @@ const imagemFase = {
 
                   <Modal
                     show={msgModalShow}
-                    onHide={() => { 
-                      setMsgModalShow(false); 
-                      setMensagemVista(true); 
-                      avancarPagina();         // <- avança ao fechar pelo X
+                    onHide={() => {
+                      setMsgModalShow(false);
+                      setMensagemVista(true);
+                      avancarPagina();   // avança ao fechar pelo X
                     }}
                     centered
                     size="lg"
@@ -414,10 +444,10 @@ const imagemFase = {
                       style={{ borderTop: "none", backgroundColor: "#F5FDFC", justifyContent: "center" }}
                     >
                  <Button
-                      onClick={() => { 
-                        setMsgModalShow(false); 
-                        setMensagemVista(true); 
-                        avancarPagina();         // <- avança ao clicar no botão
+                      onClick={() => {
+                        setMsgModalShow(false);
+                        setMensagemVista(true);
+                        avancarPagina(); // avança ao clicar no botão
                       }}
                       style={{
                         backgroundColor: "#234970",
@@ -429,8 +459,8 @@ const imagemFase = {
                     >
                       Próximo
                     </Button>
-                    </Modal.Footer>
-                  </Modal>
+                  </Modal.Footer>
+                </Modal>
 
 
                 <div className="mt-3 text-start">
@@ -461,7 +491,7 @@ const imagemFase = {
                 {!canAdvanceFromPage(2) && (
                   <div className="alert alert-warning">
                     <i className="bi bi-exclamation-triangle me-2"></i>
-                    Seleciona uma fase e fecha a mensagem para continuar.
+                     Por favor, seleciona uma fase antes de continuar.
                   </div>
                 )}
 
@@ -469,138 +499,66 @@ const imagemFase = {
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
-                  <button
-                    className="custom-btn-turquoise"
-                    onClick={avancarPagina}
-                    disabled={!canAdvanceFromPage(2)}
-                  >
-                    Próximo
-                    <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
+              <button
+                className="custom-btn-turquoise"
+                onClick={() => {
+                  if (!faseEscolhida) {
+                    setAvisoFase(true);   // mostra alerta
+                    return;
+                  }
+                  setAvisoFase(false);     // esconde alerta
+                  setMsgModalShow(true);   // abre modal só aqui
+                }}
+              >
+                Próximo
+                <i className="bi bi-arrow-right ms-2"></i>
+              </button>
                 </div>
               </div>
             )}
 
-            {/* PÁGINA 3 - NÍVEL DE CONFIANÇA */}
-            {pagina === 3 && (
+           {pagina === 3 && (
               <div className="py-4">
                 <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                  O teu nível de confiança
+                  O teu nível de confiança {fases[faseEscolhida] ? `— ${fases[faseEscolhida].titulo}` : ""}
                 </h4>
+
                 <p className="mb-4">
-                  Como está <strong>a tua confiança na capacidade</strong> de surfares a onda da mudança? Como te <strong>sentes em relação à tua confiança</strong> para lidar com ela? Escolhe uma das seguintes opções:
+                  {configuracaoConfianca[faseEscolhida]?.instrucao ||
+                    "Como está a tua confiança para lidar com esta mudança? Escolhe a frase que melhor te representa."}
                 </p>
 
-                <div className="row mb-4">
-                  {Object.entries(niveisConfianca).map(([key, nivel]) => {
+                {/* Frases (sem rótulos) */}
+                <div className="d-flex flex-column gap-3 mb-4">
+                  {Object.entries(configuracaoConfianca[faseEscolhida]?.niveis || {}).map(([key, frase]) => {
                     const isSelected = confianca === key;
-
                     return (
-                      <div key={key} className="col-12 mb-3">
-                        <div
-                          className={`card`}
-                          style={{
-                            border: `1px solid #99CBC8`,
-                            boxShadow: isSelected ? '0 0 8px rgba(153,203,200,0.7)' : 'none',
-                          }}
-                        >
-                          <div className="card-body d-flex align-items-center justify-content-between flex-wrap">
-                            <div className="d-flex align-items-center flex-grow-1 me-3">
-                              <button
-                                className="btn btn-outline-info me-3 info-btn"
-                                onClick={() => handleConfiancaClick(key)}
-                                aria-label={`Informação sobre ${nivel.titulo}`}
-                                type="button"
-                                style={{ borderColor: '#99CBC8', color: '#99CBC8' }}
-                              >
-                                <i className="bi bi-info-circle"></i>
-                              </button>
-                              <h6 className="fw-bold mb-0">{nivel.titulo}</h6>
-                            </div>
-
-                            <div className="form-check mb-0">
-                              <input
-                                className="form-check-input custom-radio"
-                                type="radio"
-                                name="confianca"
-                                id={`confianca-${key}`}
-                                checked={isSelected}
-                                onChange={() => handleConfiancaSelect(key)}
-                                style={{ cursor: 'pointer' }}
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor={`confianca-${key}`}
-                                style={{ color: 'black', cursor: 'pointer' }}
-                              >
-                                Selecionar
-                              </label>
-                            </div>
-                          </div>
-                        </div>
+                      <div
+                        key={key}
+                        onClick={() => handleConfiancaSelect(key)}
+                        className="p-3 rounded"
+                        style={{
+                          backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
+                          color: isSelected ? 'white' : '#234970',
+                          border: '1px solid #99CBC8',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                        }}
+                        aria-label={`Selecionar: ${frase}`}
+                        role="button"
+                      >
+                        <p className="mb-0">{frase}</p>
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Confidence Modal */}
-                <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
-                  <Modal.Header
-                    closeButton
-                    style={{
-                      backgroundColor: "#99CBC8",
-                      borderBottom: "none",
-                      color: "#fff",
-                    }}
-                  >
-                    <Modal.Title style={{ fontWeight: "600" }}>
-                      {tituloModal}
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body className="text-center">
-                    <img
-                      src={imagemModal}
-                      alt={tituloModal}
-                      className="img-fluid"
-                      style={{ maxHeight: '300px', objectFit: 'contain' }}
-                    />
-                  </Modal.Body>
-                  <Modal.Footer
-                    style={{
-                      borderTop: "none",
-                      backgroundColor: "#F5FDFC",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Button className="custom-btn-complete"
-                      onClick={() => {
-                        setModalShow(false);
-                      }}
-                      style={{
-                        backgroundColor: "#234970",
-                        borderColor: "#234970",
-                        borderRadius: "8px",
-                        padding: "0.5rem 1.5rem",
-                        fontWeight: "500",
-                      }}
-                    >
-                      Fechar
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-
-                {confiancaDetalhes && (
-                  <div className="alert alert-info" style={{ backgroundColor: '#fbf9f9', border: '1px solid #dee2e6' }}>
-                    <p className="mb-0" style={{ color: 'black' }}>{confiancaDetalhes}</p>
-                  </div>
-                )}
-
-                {!canAdvanceFromPage(3) && (
-                  <div className="alert alert-warning">
-                    <i className="bi bi-exclamation-triangle me-2"></i>
-                    É obrigatório selecionar um nível de confiança para continuar.
-                  </div>
-                )}
+                {avisoFase && (
+                      <div className="alert alert-warning">
+                        <i className="bi bi-exclamation-triangle me-2"></i>
+                        Por favor, seleciona uma fase antes de continuar.
+                      </div>
+                    )}
 
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
