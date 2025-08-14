@@ -154,7 +154,7 @@ const baseInputStyle = {
             {erroCampos && (
               <div className="alert alert-danger py-2 d-flex align-items-center" role="alert" aria-live="polite">
                 <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                Preenche pelo menos 3 campos para continuar.
+                Por favor, preenche pelo menos 3 campos para continuar.
               </div>
             )}
 

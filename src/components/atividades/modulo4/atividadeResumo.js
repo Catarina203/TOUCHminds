@@ -10,23 +10,11 @@ const AtividadeResumoMudanca = () => {
   const [pagina, setPagina] = useState(0);
   const [faseEscolhida, setFaseEscolhida] = useState("");
   const [confianca, setConfianca] = useState("");
-  const [confiancaDetalhes, setConfiancaDetalhes] = useState("");
-  const [modalShow, setModalShow] = useState(false);
-  const [imagemModal, setImagemModal] = useState(null);
-  const [tituloModal, setTituloModal] = useState('');
   const [fasesAbertas, setFasesAbertas] = useState([]);
   const [msgModalShow, setMsgModalShow] = useState(false);
   const [faseParaMensagem, setFaseParaMensagem] = useState("");
-  const [mensagemVista, setMensagemVista] = useState(false);
   const [avisoFase, setAvisoFase] = useState(false);
   
-
-  const handleConfiancaClick = (key) => {
-    const nivel = niveisConfianca[key];
-    setImagemModal(nivel.imagem);
-    setTituloModal(nivel.titulo);
-    setModalShow(true);
-  };
 
  const handlePhaseInfoClick = (faseKey) => {
   setFasesAbertas((prev) =>
@@ -158,24 +146,20 @@ const imagemFase = {
  const handleFaseSelect = (fase) => {
   setFaseEscolhida(fase);
   setFaseParaMensagem(fase);
-  setMensagemVista(false);
 };
 
   const handleConfiancaSelect = (nivel) => {
     setConfianca(nivel);
-    setConfiancaDetalhes("");
   };
 
-  const canAdvanceFromPage = (currentPage) => {
-    switch (currentPage) {
-      case 2:
-      return faseEscolhida !== "" && mensagemVista;
-      case 3:
-        return confianca !== "";
-      default:
-        return true;
-    }
-  };
+const canAdvanceFromPage = (currentPage) => {
+  switch (currentPage) {
+    case 3:
+      return confianca !== "";
+    default:
+      return true;
+  }
+};
 
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
@@ -409,8 +393,7 @@ const imagemFase = {
                     show={msgModalShow}
                     onHide={() => {
                       setMsgModalShow(false);
-                      setMensagemVista(true);
-                      avancarPagina();   // avança ao fechar pelo X
+                      avancarPagina();
                     }}
                     centered
                     size="lg"
@@ -446,8 +429,7 @@ const imagemFase = {
                  <Button
                       onClick={() => {
                         setMsgModalShow(false);
-                        setMensagemVista(true);
-                        avancarPagina(); // avança ao clicar no botão
+                        avancarPagina();
                       }}
                       style={{
                         backgroundColor: "#234970",
@@ -553,12 +535,12 @@ const imagemFase = {
                   })}
                 </div>
 
-                {avisoFase && (
-                      <div className="alert alert-warning">
-                        <i className="bi bi-exclamation-triangle me-2"></i>
-                        Por favor, seleciona uma fase antes de continuar.
-                      </div>
-                    )}
+               {avisoFase && (
+                  <div className="alert alert-warning">
+                    <i className="bi bi-exclamation-triangle me-2"></i>
+                    Por favor, seleciona uma fase antes de continuar.
+                  </div>
+                )}
 
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
