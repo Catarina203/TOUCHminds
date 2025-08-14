@@ -517,7 +517,7 @@ const canAdvanceFromPage = (currentPage) => {
 
 
                 {/* Frases */}
-                      <div className="d-flex flex-column gap-3">
+                      <div className="d-flex flex-column gap-3 text-start">
                         {Object.entries(configuracaoConfianca[faseEscolhida]?.niveis || {}).map(([key, frase]) => {
                           const isSelected = confianca === key;
                           return (
