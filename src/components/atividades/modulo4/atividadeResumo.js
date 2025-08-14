@@ -484,11 +484,10 @@ const canAdvanceFromPage = (currentPage) => {
                     type="button"
                     onClick={() => {
                       if (!faseEscolhida) {
-                        setAvisoFase(true); // mostra alerta
-                        return;
+                        setAvisoFase(true); 
                       }
                       setAvisoFase(false);
-                      setMsgModalShow(true); // (re)abre a modal se necessário
+                      setMsgModalShow(true); 
                     }}
                   >
                     Próximo
@@ -512,13 +511,13 @@ const canAdvanceFromPage = (currentPage) => {
                   {avisoConfianca && (
                       <div className="alert alert-warning mt-3">
                         <i className="bi bi-exclamation-triangle me-2"></i>
-                        Por favor, seleciona a frase que melhor te representa para continuar.
+                        Por favor, seleciona a frase que melhor representa o teu nível de confiança para continuar.
                       </div>
                     )}
 
 
                 {/* Frases */}
-                      <div className="d-flex flex-column gap-3 mb-4">
+                      <div className="d-flex flex-column gap-3">
                         {Object.entries(configuracaoConfianca[faseEscolhida]?.niveis || {}).map(([key, frase]) => {
                           const isSelected = confianca === key;
                           return (
@@ -526,7 +525,7 @@ const canAdvanceFromPage = (currentPage) => {
                               key={key}
                               onClick={() => {
                                 setConfianca(key);
-                                setAvisoConfianca(false); // limpa o alerta ao selecionar
+                                setAvisoConfianca(false); 
                               }}
                               className="p-3 rounded"
                               style={{
@@ -534,12 +533,10 @@ const canAdvanceFromPage = (currentPage) => {
                                 color: isSelected ? 'white' : '#234970',
                                 border: '1px solid #99CBC8',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s ease',
+                                transition: 'all 0.3s ease',
                               }}
-                              role="button"
-                              aria-label={`Selecionar: ${frase}`}
                             >
-                              <p className="mb-0">{frase}</p>
+                              <p className="mb-0 fw-medium">{frase}</p>
                             </div>
                           );
                         })}
@@ -553,11 +550,11 @@ const canAdvanceFromPage = (currentPage) => {
                           className="custom-btn-turquoise"
                           onClick={() => {
                             if (!confianca) {
-                              setAvisoConfianca(true);   // mostra o alerta só ao tentar avançar
+                              setAvisoConfianca(true);  
                               return;
                             }
                             setAvisoConfianca(false);
-                            avancarPagina();             // avança para a conclusão
+                            avancarPagina();            
                           }}
                         >
                           Conclusão
@@ -570,27 +567,27 @@ const canAdvanceFromPage = (currentPage) => {
             {/* PÁGINA 4 - CONCLUSÃO */}
             {pagina === 4 && (
               <>
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="mb-3 lead">
-                  <strong>Refletir sobre o teu percurso de mudança</strong> é um passo importante – é como <strong>parar por um momento em cima da prancha</strong> e <strong>olhar para o mar à tua volta</strong>.
+                  <strong>Refletir sobre o teu percurso de mudança</strong> mudança é como parar por um instante em cima da prancha e observar o mar à tua volta. 
                 </p>
                 <p className="mb-3 lead">
-                  A <strong>mudança</strong>, tal como <strong>surfar uma onda</strong>, exige <strong>equilíbrio</strong>, <strong>prática</strong>, <strong>paciência</strong> e <strong>coragem</strong>.
+                  Tal como no surf, a mudança pede <strong> prática, paciência, coragem e determinação </strong>. 
                 </p>
                 <p className="mb-3 lead">
-                  Houve momentos em que <strong>identificaste o que queres mudar</strong>, <strong>pensaste nos desafios</strong> e <strong>reconheceste o teu próprio nível de confiança</strong>.
+                  Ao longo deste caminho, identificaste o que queres <strong>mudar, pensaste nos desafios e reconheceste o teu próprio nível de confiança. </strong> 
                 </p>
                 <p className="mb-3 lead">
-                  Lembraste-te que, mesmo quando o <strong>mar está agitado</strong>, tens a capacidade de <strong>ajustar a tua posição</strong> e <strong>continuar</strong>.
+                  E lembraste-te que, mesmo quando o mar fica agitado, podes ajustar a tua posição e seguir em frente. 
                 </p>
                 <p className="mb-3 lead">
-                  O importante <strong>não é nunca cair</strong>, mas <strong>saber levantar-te e remar de novo</strong>.
+                 No surf — e na vida — o mais importante não é <strong> nunca cair</strong>, mas sim voltar a <strong>levantar e remar de novo</strong> em direção à próxima onda. 
                 </p>
                 <p className="mb-3 lead">
                   Guarda esta <strong>metáfora contigo</strong> e lembra-te: <strong>estás sempre em movimento</strong>, e <strong>cada tentativa é uma oportunidade para aprender</strong>.
                 </p>
-                <p className="mb-4 text-center fw-bold" style={{ color: "#234970" }}>
-                  Continua a surfar a tua onda, ao teu ritmo – ela é só tua.
+                <p className="mb-3 lead">
+                  <strong>Continua a surfar a tua onda, ao teu ritmo – porque ela é só tua.</strong>
                 </p>
 
                 <div className="d-flex justify-content-between mt-4">
