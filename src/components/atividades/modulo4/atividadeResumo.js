@@ -17,6 +17,7 @@ const AtividadeResumoMudanca = () => {
   const [fasesAbertas, setFasesAbertas] = useState([]);
   const [msgModalShow, setMsgModalShow] = useState(false);
   const [faseParaMensagem, setFaseParaMensagem] = useState("");
+  const [mensagemVista, setMensagemVista] = useState(false);
   
 
   const handleConfiancaClick = (key) => {
@@ -34,12 +35,6 @@ const AtividadeResumoMudanca = () => {
 
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
-
-  const abrirMensagemDaFase = () => {
-  if (!faseEscolhida) return;
-  setFaseParaMensagem(faseEscolhida);
-  setMsgModalShow(true);
-};
 
 
   const avancarPagina = () => {
@@ -130,8 +125,11 @@ const imagemFase = {
   };
 
   const handleFaseSelect = (fase) => {
-    setFaseEscolhida(fase);
-  };
+  setFaseEscolhida(fase);
+  setFaseParaMensagem(fase);
+  setMensagemVista(false); 
+  setMsgModalShow(true);
+};
 
   const handleConfiancaSelect = (nivel) => {
     setConfianca(nivel);
@@ -141,7 +139,7 @@ const imagemFase = {
   const canAdvanceFromPage = (currentPage) => {
     switch (currentPage) {
       case 2:
-        return faseEscolhida !== "";
+      return faseEscolhida !== "" && mensagemVista;
       case 3:
         return confianca !== "";
       default:
@@ -207,7 +205,7 @@ const imagemFase = {
                    </h4>
 
                    <p className="lead">
-               <strong>Qual é a mudança que queres surfar?</strong> Pensa de forma simples num <strong>comportamento ou situação </strong>que desejas mudar.
+               <strong>Qual é a mudança que queres surfar?</strong> Pensa num <strong>comportamento ou situação </strong>que desejas mudar.
               </p>
             
                   <img
@@ -242,9 +240,9 @@ const imagemFase = {
                 </h4>
                 <p className="lead">
                 A mudança é como <strong> surfar uma onda</strong>: cada fase representa um momento diferente neste processo. 
-                O ciclo de mudança tem cinco fases e tu já deste um passo importante — <strong>identificar o que queres mudar.</strong> 
+                O ciclo de mudança tem cinco fases e tu já deste um passo importante — <strong>identificar o que queres mudar</strong>. 
                 Agora, <strong>observa </strong>as fases da onda e <strong> identifica </strong> qual delas descreve melhor o ponto em que estás.
-                Carrega nos círculos para saber mais sobre cada fase e, no final, <strong> seleciona </strong> aquela em que sentes que te encontras:
+                <strong>Carrega nos círculos</strong> para saber mais sobre cada fase e, no final, <strong> seleciona </strong> aquela em que sentes que te encontras:
                 </p>
 
                 <div className="text-center mb-4">
@@ -354,31 +352,44 @@ const imagemFase = {
                       >
                         <div className="d-flex justify-content-between align-items-start">
                           <div>
-                            <h6 className="fw-bold mb-2" style={{ color: "#234970" }}>
+                            <h6 className="text-center mb-4" style={{ color: "#234970" }}>
                               {fases[key].titulo}
                             </h6>
-                            <p className="mb-0">{fases[key].descricao}</p>
+                            <p className="lead">{fases[key].descricao}</p>
                           </div>
                           <button
-                            type="button"
-                            className="btn btn-sm btn-outline-secondary"
-                            onClick={() => setFasesAbertas((prev) => prev.filter((k) => k !== key))}
-                            aria-label={`Fechar texto de ${fases[key].titulo}`}
-                          >
-                            Fechar
-                          </button>
+                              type="button"
+                              className="btn btn-sm btn-primary"
+                              style={{
+                                backgroundColor: "#234970", // azul personalizado
+                                borderColor: "#234970"
+                              }}
+                              onClick={() => setFasesAbertas((prev) => prev.filter((k) => k !== key))}
+                              aria-label={`Fechar texto de ${fases[key].titulo}`}
+                            >
+                              Fechar
+                            </button>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
 
-                  <Modal show={msgModalShow} onHide={() => setMsgModalShow(false)} centered size="lg">
+                  <Modal
+                    show={msgModalShow}
+                    onHide={() => { 
+                      setMsgModalShow(false); 
+                      setMensagemVista(true); 
+                      avancarPagina();         // <- avança ao fechar pelo X
+                    }}
+                    centered
+                    size="lg"
+                  >
                     <Modal.Header
                       closeButton
                       style={{ backgroundColor: "#99CBC8", borderBottom: "none", color: "#fff" }}
                     >
-                      <Modal.Title style={{ fontWeight: 600 }}>
+                      <Modal.Title className="text-center mb-4" style={{ fontWeight: 600 }}>
                         {faseParaMensagem ? mensagemPosSelecao[faseParaMensagem].titulo : ""}
                       </Modal.Title>
                     </Modal.Header>
@@ -392,7 +403,7 @@ const imagemFase = {
                             className="img-fluid mb-3"
                             style={{ maxHeight: "320px", objectFit: "contain" }}
                           />
-                          <p className="lead text-start mb-0">
+                          <p className="lead">
                             {mensagemPosSelecao[faseParaMensagem].texto}
                           </p>
                         </>
@@ -402,18 +413,22 @@ const imagemFase = {
                     <Modal.Footer
                       style={{ borderTop: "none", backgroundColor: "#F5FDFC", justifyContent: "center" }}
                     >
-                      <Button
-                        onClick={() => setMsgModalShow(false)}
-                        style={{
-                          backgroundColor: "#234970",
-                          borderColor: "#234970",
-                          borderRadius: "8px",
-                          padding: "0.5rem 1.5rem",
-                          fontWeight: 500,
-                        }}
-                      >
-                        Fechar
-                      </Button>
+                 <Button
+                      onClick={() => { 
+                        setMsgModalShow(false); 
+                        setMensagemVista(true); 
+                        avancarPagina();         // <- avança ao clicar no botão
+                      }}
+                      style={{
+                        backgroundColor: "#234970",
+                        borderColor: "#234970",
+                        borderRadius: "8px",
+                        padding: "0.5rem 1.5rem",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Próximo
+                    </Button>
                     </Modal.Footer>
                   </Modal>
 
@@ -441,28 +456,12 @@ const imagemFase = {
                       </div>
                     ))}
                   </div>
-                </div>
-                  <div className="text-start mt-2">
-                    <Button
-                      onClick={abrirMensagemDaFase}
-                      disabled={!faseEscolhida}
-                      style={{
-                        backgroundColor: "#234970",
-                        borderColor: "#234970",
-                        borderRadius: "8px",
-                        padding: "0.5rem 1rem",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Ver mensagem para esta fase
-                    </Button>
                   </div>
-
 
                 {!canAdvanceFromPage(2) && (
                   <div className="alert alert-warning">
                     <i className="bi bi-exclamation-triangle me-2"></i>
-                    É obrigatório selecionar uma fase para continuar.
+                    Seleciona uma fase e fecha a mensagem para continuar.
                   </div>
                 )}
 
