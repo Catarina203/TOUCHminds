@@ -38,7 +38,7 @@ const comportamentos = {
   redesSociais: {
     nome: "Uso excessivo de redes sociais",
     descricao:
-      "Passo horas no Instagram, TikTok ou outras plataformas, adiando compromissos ou evitando situações que me causam desconforto, ccomo interagir com outras pessoas face a face. ",
+      "Passo horas no Instagram, TikTok ou outras plataformas, adiando compromissos ou evitando situações que me causam desconforto, como interagir com outras pessoas face a face. ",
     frases: {
       mudar: [
         "Mais tempo para atividades produtivas e para a estar com amigos e familiares.",
@@ -234,7 +234,7 @@ const BalancaVirtual = () => {
                 <p className="mb-3 lead"><strong>Sê muito bem-vindo/a à atividade da Balança Virtual!</strong></p>
                 <p className="mb-3 lead">Esta atividade vai ajudar-te a <strong>refletir</strong> de forma interativasobre os <strong>prós e contras de mudar comportamentos</strong>.</p>
                 <p className="mb-3 lead">Seleciona um <strong>comportamento </strong> dos exemplos a seguir, aquele que mais se <strong> aproxima da tua experiência </strong> e que faz mais sentido para ti neste <strong> momento da tua vida</strong> , e que <strong> gostarias de mudar</strong>. </p>
-                <p className="mb-3 lead">Lembra-te de que a <strong>escolha é tua</strong>, e o objetivo é <strong>entender melhor as implicações de mudar ou de não mudar esse comportamento</strong>. </p>
+                <p className="mb-3 lead">Lembra-te de que a <strong>escolha é tua</strong>, e o objetivo é entender melhor as implicações de <strong>mudar ou de não mudar esse comportamento</strong>. </p>
                 <div className="text-center">
                   <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={() => setPagina(1)}>
                     <i className="bi bi-play-fill me-2"></i>Vamos a isto?</button>
@@ -274,7 +274,9 @@ const BalancaVirtual = () => {
                           }}
                         >
                           <p className="mb-1 fw-bold">{obj.nome}</p>
-                          <p className="mb-0 text-muted small">{obj.descricao}</p>
+                          <p className="mb-0 small" style={{ color: "#000000" }}>
+                              {obj.descricao}
+                            </p>
                         </div>
                       );
                     })}
@@ -313,87 +315,77 @@ const BalancaVirtual = () => {
             {pagina === 2 && (
                   <DragDropContext onDragEnd={handleDragEnd}>
                     <>
+                    <div className="text-center"></div>
+                     <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Vamos Refletir!</h4>
                       {/* INSTRUÇÕES */}
-                      <div className="mb-3">
+                    
                         <p className="lead">
                           Agora que escolheste o <strong>comportamento</strong> que queres mudar, reflete sobre os <strong>prós</strong> e os <strong>contras</strong> dessa mudança.
                           A tabela está dividida em quatro <strong>quadrantes</strong>, e o teu objetivo é arrastares as <strong>frases</strong> que achas que se aplicam a cada um:
                         </p>
-                        <ul className="mb-2">
+                        <ul className="lead">
                           <li><strong>Prós de mudar:</strong> Benefícios que podes ganhar ao mudar este comportamento, como melhorar o teu bem-estar, facilitar as tuas relações ou alcançar os teus objetivos.</li>
                           <li><strong>Contras de mudar:</strong> Desafios ou dificuldades que podes enfrentar ao tentar mudar, como o esforço necessário ou o desconforto inicial.</li>
                           <li><strong>Prós de não mudar:</strong> Vantagens de continuar como estás, como sentir-te confortável ou evitar situações difíceis.</li>
                           <li><strong>Contras de não mudar:</strong> Desvantagens de manter este comportamento, como sentimentos de frustração, impacto nas relações ou perda de oportunidades.</li>
                         </ul>
-                        <p className="mb-0">
+                        <p className="lead">
                           Explora a lista de opções apresentada e seleciona as frases que mais se aplicam a ti em cada quadrante. Podes escolher quantas frases quiseres e atribuí-las ao lado da tabela que achas mais adequado.
                         </p>
-                      </div>
+                     
 
-                      {/* ALERTA (igual ao da página 1) */}
-                      {showValidationError && (
-                        <div className="alert alert-warning mt-3 text-center" role="alert">
-                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                          Por favor, coloca pelo menos uma frase em cada quadrante antes de continuar.
-                          {getEmptyQuadrantes().length > 0 && (
-                            <div className="mt-2">
-                              <small>Quadrantes em falta: {getEmptyQuadrantes().map(q => q.titulo).join(", ")}</small>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {/* FRASES DISPONÍVEIS */}
-                      <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                            className="d-flex flex-wrap gap-2 mb-4"
-                          >
-                            {frasesDisponiveis.map((frase, index) => (
-                              <Draggable key={frase} draggableId={frase} index={index}>
-                                {(provided) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className="badge bg-secondary p-2"
-                                    title="Arrasta esta frase para um quadrante"
-                                  >
-                                    {frase}
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
+                     {/* ALERTA (igual ao da página 1, simplificado) */}
+                        {showValidationError && (
+                          <div className="alert alert-warning mt-3 text-center" role="alert">
+                            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                            Por favor, coloca pelo menos uma frase em cada quadrante antes de continuar.
                           </div>
                         )}
-                      </Droppable>
 
-                      {/* QUADRANTES — estilo de “caixa” igual à página anterior */}
-                      <div className="row">
-                        {quadrantes.map((q) => {
-                          const hasError = showValidationError && respostas[q.id].length === 0;
-                          return (
+                        {/* FRASES DISPONÍVEIS */}
+                            <Droppable droppableId="frasesDisponiveis" direction="horizontal">
+                              {(provided) => (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.droppableProps}
+                                  className="d-flex flex-wrap gap-2 mb-4"
+                                >
+                                  {frasesDisponiveis.map((frase, index) => (
+                                    <Draggable key={frase} draggableId={frase} index={index}>
+                                      {(provided) => (
+                                        <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          className="badge text-white p-2"
+                                          style={{ backgroundColor: "#99CBC8" }}   // 🔹 verde
+                                          title="Arrasta esta frase para um quadrante"
+                                        >
+                                          {frase}
+                                        </div>
+                                      )}
+                                    </Draggable>
+                                  ))}
+                                  {provided.placeholder}
+                                </div>
+                              )}
+                            </Droppable>
+
+
+                       {/* QUADRANTES */}
+                        <div className="row">
+                          {quadrantes.map((q) => (
                             <div className="col-md-6 mb-3" key={q.id}>
                               <div
                                 className="p-3 rounded h-100"
                                 style={{
                                   backgroundColor: "#ffffff",
                                   color: "#234970",
-                                  border: `1px solid ${hasError ? "#ffc107" : "#99CBC8"}`,
+                                  border: "1px solid #99CBC8",
                                   transition: "all 0.3s ease",
                                 }}
                               >
-                                <h6 className={`mb-3 ${hasError ? "text-warning" : ""}`}>
-                                  {q.titulo}
-                                  {hasError && (
-                                    <small className="text-warning ms-2">
-                                      ⚠️ Precisa de pelo menos uma frase
-                                    </small>
-                                  )}
-                                </h6>
+                                <h6 className="mb-3 fw-bold text-center">{q.titulo}</h6>
 
                                 <Droppable droppableId={q.id}>
                                   {(provided) => (
@@ -404,7 +396,7 @@ const BalancaVirtual = () => {
                                       style={{
                                         minHeight: "120px",
                                         backgroundColor: "#fbf9f9",
-                                        borderColor: hasError ? "#ffc107" : "#e9ecef",
+                                        borderColor: "#e9ecef",
                                       }}
                                     >
                                       {respostas[q.id].map((frase, index) => (
@@ -428,9 +420,8 @@ const BalancaVirtual = () => {
                                 </Droppable>
                               </div>
                             </div>
-                          );
-                        })}
-                      </div>
+                          ))}
+                        </div>
 
                       {/* BOTÕES */}
                       <div className="d-flex justify-content-between mt-4">
@@ -438,7 +429,7 @@ const BalancaVirtual = () => {
                           <i className="bi bi-arrow-left me-2"></i>Anterior
                         </button>
                         <button className="custom-btn-turquoise" onClick={handleProceedToReflection}>
-                          Próximo<i className="bi bi-arrow-right ms-2"></i>
+                          Refletir<i className="bi bi-arrow-right ms-2"></i>
                         </button>
                       </div>
                     </>
@@ -459,25 +450,51 @@ const BalancaVirtual = () => {
 
                   {/* IMAGEM MAIOR */}
                   <div className="text-center mb-4">
-                    <div style={{ maxHeight: "300px" }}>
+                    <div style={{ maxHeight: "500px" }}>
                       {renderImage()}
                     </div>
                   </div>
-
-                  {/* FEEDBACK NUMA CAIXA ESTILIZADA */}
-                  <div
-                    className="p-4 rounded shadow-sm mt-4"
-                    style={{
-                      backgroundColor: "#99CBC8",
-                      color: "#234970",
-                      fontSize: "1.1rem",
-                      fontWeight: "500",
-                      lineHeight: "1.6",
-                    }}
-                  >
-                    {renderFeedback()}
-                  </div>
-
+                    {/* FEEDBACK NUMA CAIXA ESTILIZADA COM BOTÃO FECHAR */}
+                    {renderFeedback() && (
+                      <div
+                        className="alert mb-4"
+                        style={{
+                          backgroundColor: "#e8f4f3",   // fundo suave
+                          borderColor: "#99CBC8",       // borda verde água
+                        }}
+                      >
+                        <div className="d-flex justify-content-between align-items-start">
+                          <div>
+                            <h6 className="fw-bold mb-3" style={{ color: "#234970" }}>
+                              Feedback
+                            </h6>
+                            <p
+                              className="lead mb-0"
+                              style={{
+                                color: "#234970",
+                                fontSize: "1.1rem",
+                                fontWeight: "500",
+                                lineHeight: "1.6",
+                              }}
+                            >
+                              {renderFeedback()}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-primary"
+                            style={{
+                              backgroundColor: "#234970", // azul personalizado
+                              borderColor: "#234970",
+                            }}
+                            onClick={() => setMostrarFeedback(false)} // 🔹 precisa de um state para esconder
+                            aria-label="Fechar feedback"
+                          >
+                            Fechar
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   {/* BOTÕES */}
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink" onClick={() => setPagina(2)}>
