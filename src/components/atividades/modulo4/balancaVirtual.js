@@ -235,7 +235,7 @@ const BalancaVirtual = () => {
                 <p className="mb-3 lead"><strong>Sê muito bem-vindo/a à atividade da Balança Virtual!</strong></p>
                 <p className="mb-3 lead">Esta atividade vai ajudar-te a <strong>refletir</strong> de forma interativasobre os <strong>prós e contras de mudar comportamentos</strong>.</p>
                 <p className="mb-3 lead">Seleciona um <strong>comportamento </strong> dos exemplos a seguir, aquele que mais se <strong> aproxima da tua experiência </strong> e que faz mais sentido para ti neste <strong> momento da tua vida</strong> , e que <strong> gostarias de mudar</strong>. </p>
-                <p className="mb-3 lead">Lembra-te de que a <strong>escolha é tua</strong>, e o objetivo é entender melhor as implicações de <strong>mudar ou de não mudar esse comportamento</strong>. </p>
+                <p className="mb-3 lead">Lembra-te de que a <strong>escolha é tua</strong>, e o objetivo é entender melhor as implicações de <strong>mudar ou de não mudar </strong>esse comportamento. </p>
                 <div className="text-center">
                   <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={() => setPagina(1)}>
                     <i className="bi bi-play-fill me-2"></i>Vamos a isto?</button>
@@ -259,25 +259,32 @@ const BalancaVirtual = () => {
                     {Object.entries(comportamentos).map(([key, obj]) => {
                       const isSelected = comportamento === key;
                       return (
-                        <div
+                       <div
                           key={key}
                           onClick={() => {
                             setComportamento(key);
-                            if (showValidationError) setShowValidationError(false); // 🔹 limpar erro
+                            if (showValidationError) setShowValidationError(false);
                           }}
                           className="p-3 rounded"
                           style={{
                             backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
-                            color: isSelected ? "white" : "#234970",
                             border: "1px solid #99CBC8",
                             cursor: "pointer",
                             transition: "all 0.3s ease",
                           }}
                         >
-                          <p className="mb-1 fw-bold">{obj.nome}</p>
+                          {/* Título muda de cor */}
+                          <p
+                            className="mb-1 fw-bold"
+                            style={{ color: isSelected ? "white" : "#234970" }}
+                          >
+                            {obj.nome}
+                          </p>
+
+                          {/* Descrição fica sempre preta */}
                           <p className="mb-0 small" style={{ color: "#000000" }}>
-                              {obj.descricao}
-                            </p>
+                            {obj.descricao}
+                          </p>
                         </div>
                       );
                     })}
@@ -331,7 +338,7 @@ const BalancaVirtual = () => {
                           <li><strong>Contras de não mudar:</strong> Desvantagens de manter este comportamento, como sentimentos de frustração, impacto nas relações ou perda de oportunidades.</li>
                         </ul>
                         <p className="lead">
-                          Explora a lista de opções apresentada e seleciona as frases que mais se aplicam a ti em cada quadrante. Podes escolher quantas frases quiseres e atribuí-las ao lado da tabela que achas mais adequado.
+                          Explora a lista de opções apresentada a seguir e <strong>seleciona as frases</strong> que mais se aplicam a ti em cada quadrante. Podes <strong>escolher quantas frases</strong> quiseres e atribuí-las ao quadrante que achas mais adequado.
                         </p>
                      
 
@@ -359,7 +366,11 @@ const BalancaVirtual = () => {
                                           {...provided.draggableProps}
                                           {...provided.dragHandleProps}
                                           className="badge text-white p-2"
-                                          style={{ backgroundColor: "#99CBC8" }}   // 🔹 verde
+                                          style={{
+                                            backgroundColor: "#99CBC8",
+                                            userSelect: "none",       // 🔹 evita highlight
+                                            ...provided.draggableProps.style, // 🔹 MUITO IMPORTANTE
+                                          }}
                                           title="Arrasta esta frase para um quadrante"
                                         >
                                           {frase}
@@ -449,53 +460,40 @@ const BalancaVirtual = () => {
                     Lê o <strong>feedback</strong> que recebeste e <strong>reflete</strong> sobre a tua <strong>situação atual</strong>.
                   </p>
 
-                  {/* IMAGEM MAIOR */}
-                  <div className="text-center mb-4">
-                    <div style={{ maxHeight: "500px" }}>
-                      {renderImage()}
-                    </div>
+              {/* IMAGEM MAIOR */}
+                <div className="text-center mb-4">
+                  <div
+                    style={{
+                      width: "100%",       // ocupa toda a largura disponível
+                      maxWidth: "500px",   // limite máximo de largura
+                      margin: "0 auto",    // centraliza horizontalmente
+                    }}
+                  >
+                    {renderImage()}
                   </div>
-                    {/* FEEDBACK NUMA CAIXA ESTILIZADA COM BOTÃO FECHAR */}
-                    {renderFeedback() && (
-                      <div
-                        className="alert mb-4"
+                </div>
+                 {/* FEEDBACK NUMA CAIXA ESTILIZADA (sem botão, sem título) */}
+                  {renderFeedback() && (
+                    <div
+                      className="alert mb-4"
+                      style={{
+                        backgroundColor: "#e8f4f3",   // fundo suave
+                        borderColor: "#99CBC8",       // borda verde água
+                      }}
+                    >
+                      <p
+                        className="lead mb-0"
                         style={{
-                          backgroundColor: "#e8f4f3",   // fundo suave
-                          borderColor: "#99CBC8",       // borda verde água
+                          color: "#234970",
+                          fontSize: "1.1rem",
+                          fontWeight: "500",
+                          lineHeight: "1.6",
                         }}
                       >
-                        <div className="d-flex justify-content-between align-items-start">
-                          <div>
-                            <h6 className="fw-bold mb-3" style={{ color: "#234970" }}>
-                              Feedback
-                            </h6>
-                            <p
-                              className="lead mb-0"
-                              style={{
-                                color: "#234970",
-                                fontSize: "1.1rem",
-                                fontWeight: "500",
-                                lineHeight: "1.6",
-                              }}
-                            >
-                              {renderFeedback()}
-                            </p>
-                          </div>
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-primary"
-                            style={{
-                              backgroundColor: "#234970", // azul personalizado
-                              borderColor: "#234970",
-                            }}
-                            onClick={() => setMostrarFeedback(false)} // 🔹 precisa de um state para esconder
-                            aria-label="Fechar feedback"
-                          >
-                            Fechar
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                        {renderFeedback()}
+                      </p>
+                    </div>
+                  )}
                   {/* BOTÕES */}
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink" onClick={() => setPagina(2)}>
