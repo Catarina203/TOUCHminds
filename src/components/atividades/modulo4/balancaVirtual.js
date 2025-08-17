@@ -14,69 +14,78 @@ const comportamentos = {
       "Deixo para depois trabalhos escolares, como estudar para um teste ou preparar as apresentações orais, com receio de falhar ou de ser criticado.",
     frases: {
       mudar: [
-        "Melhorar meu desempenho escolar.",
-        "Reduzir o estresse antes das provas.",
-        "Sentir-me mais confiante nas apresentações.",
+        "Maior produtividade e sensação de realização.",
+        "Redução da ansiedade relacionado a prazos apertados.",
+        "Mais tempo livre para lazer e outras atividades.",
       ],
       contraMudar: [
-        "Exige mais esforço e organização.",
-        "Posso sentir-me sobrecarregado no início.",
+        "Esforço necessário para criar uma rotina e disciplina.",
+        "Dificuldade em começar a tarefa.",
+        "Possível frustração se demorar a ver os resultados da mudança.",
       ],
       naoMudar: [
-        "Tenho mais tempo livre imediato.",
-        "Evito o desconforto de enfrentar tarefas difíceis.",
+        "Evitar o desconforto de ter de mudar hábitos",
+        "Manter o conforto de continuar com a rotina atual.",
+        "Tempo para fazer as coisas ao próprio ritmo, mesmo que isso signifique adiar tarefas.",
       ],
       contraNaoMudar: [
-        "Notas baixas podem afetar meu futuro.",
-        "Sinto culpa por não cumprir minhas responsabilidades.",
+        "Culpa e ansiedade constante por não cumprir prazos.",
+        "Possíveis impactos negativos na escola.",
+        "Perda de oportunidades e impacto na autoestima.",
       ],
     },
   },
   redesSociais: {
     nome: "Uso excessivo de redes sociais",
     descricao:
-      "Passo horas no Instagram, TikTok ou outras plataformas, adiando compromissos ou evitando situações que me causam desconforto, como interações presenciais.",
+      "Passo horas no Instagram, TikTok ou outras plataformas, adiando compromissos ou evitando situações que me causam desconforto, ccomo interagir com outras pessoas face a face. ",
     frases: {
       mudar: [
-        "Ter mais tempo para atividades produtivas.",
-        "Melhorar minha saúde mental.",
-        "Fortalecer relacionamentos reais.",
+        "Mais tempo para atividades produtivas e para a estar com amigos e familiares.",
+        "Redução da ansiedade e da comparação com outros.",
+        "Melhor qualidade do sono e maior foco nos estudos.",
       ],
       contraMudar: [
-        "Perder atualizações dos amigos.",
-        "Sentir-me desconectado das tendências.",
+        "Dificuldade em resistir à tentação de usar as redes sociais.",
+        "Sensação de isolamento social, caso os amigos usem redes sociais para se comunicar.",
+        "Perda de entretenimento e de momentos de descontração.",
       ],
       naoMudar: [
-        "Entretenimento fácil e acessível.",
-        "Ajuda a passar o tempo quando estou entediado.",
+        "Continuação do contacto fácil e constante com amigos e novidades.",
+        "Acesso a conteúdos que interessam e a entretenimento rápido.",
+        "Sensação de pertencer a um grupo social online.",
       ],
       contraNaoMudar: [
-        "Diminuição da produtividade.",
-        "Aumento da ansiedade e comparação social.",
+        "Redução da produtividade e tempo mal aproveitado.",
+        "Comparações negativas com outros e sentimento de não ser tão bom como eles.",
+        "Impacto no bem-estar e possíveis problemas de sono.",
       ],
     },
   },
   isolamento: {
     nome: "Isolamento social",
     descricao:
-      "Recuso convites para sair com amigos, evito festas ou encontros por receio de ser julgado ou de não saber o que dizer, preferindo ficar sozinho/a.",
+      "Recuso convites para sair com amigos, evito festas ou encontros por receio de ser julgado ou de não saber o que dizer.",
     frases: {
       mudar: [
-        "Desenvolver habilidades sociais.",
-        "Criar memórias positivas com amigos.",
-        "Sentir-me mais conectado e apoiado.",
+        "Maior desenvolvimento de competências sociais e autoconfiança.",
+        "Novas oportunidades de fazer amigos e participar em atividades.",
+        "Melhoria no bem-estar e diminuição da sensação de isolamento.",
       ],
       contraMudar: [
-        "Enfrentar situações desconfortáveis.",
-        "Possibilidade de rejeição ou julgamento.",
+        "Medo de situações sociais e de sair da zona de conforto.",
+        "Possível ansiedade em interações novas.",
+        "Esforço necessário para iniciar e manter novas amizades.",
       ],
       naoMudar: [
-        "Evito situações estressantes.",
-        "Tenho mais tempo para mim mesmo.",
+        "Evitar o desconforto de situações sociais.",
+        "Sentir-se seguro na zona de conforto.",
+       "Menos ansiedade relacionada com encontros e interações.",
       ],
       contraNaoMudar: [
-        "Sentimento de solidão aumenta.",
-        "Perco oportunidades de crescimento pessoal.",
+        "Sensação de solidão e isolamento social.",
+        "Perda de experiências enriquecedoras e momentos divertidos.",
+        "Impacto no bem-estar a longo prazo.",
       ],
     },
   },
@@ -175,9 +184,9 @@ const BalancaVirtual = () => {
   const renderFeedback = () => {
     const resultado = avaliar();
     if (resultado > 0) {
-      return "Os benefícios de mudar o comportamento que escolheste superam os desafios iniciais. Implementar essa mudança pode trazer uma melhoria significativa para o teu bem-estar. Com um plano bem estruturado e o teu empenho, estás no caminho certo para alcançar resultados positivos e duradouros.";
+      return "Os benefícios de mudar o comportamento que escolheste superam os desafios iniciais. Implementar essa mudança pode trazer uma melhoria significativa para o teu bem-estar. Com um plano bem estruturado e o teu empenho, estás no caminho certo para alcançar resultados positivos e duradouros."; 
     } else if (resultado < 0) {
-      return "Embora a mudança de comportamento tenha muitos benefícios, os desafios, como a resistência inicial e a necessidade de adaptação, podem ser significativos. Considera trabalhar em pequenos passos e encontrar estratégias que tornem a mudança mais fácil. Isso significa que, se decidires avançar, pode ser útil abordar a mudança de forma gradual e planeada.";
+      return "Embora a mudança de comportamento tenha muitos benefícios, os desafios, como a resistência inicial e a necessidade de adaptação, podem ser significativos. Considera trabalhar em pequenos passos e encontrar estratégias que tornem a mudança mais fácil. Isso significa que, se decidires avançar, pode ser útil abordar a mudança de forma gradual e planeada"; 
     } else {
       return "Os prós e contras estão equilibrados, o que significa que mudar o comportamento pode ser uma boa opção, mas é fundamental ter um plano para lidar com os desafios que podem surgir. Pensa em estratégias específicas para enfrentar os obstáculos e tornar a mudança mais viável e vantajosa.";
     }
@@ -221,10 +230,10 @@ const BalancaVirtual = () => {
             </div>
             {pagina === 0 && (
               <>
-                <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>Balança Virtual</h2>
-                <p className="mb-3 lead"><strong>Sê muito bem-vindo ou bem-vinda à atividade da Balança Virtual!</strong></p>
-                <p className="mb-3 lead">Esta atividade vai ajudar-te a <strong>refletir de forma interativa</strong> sobre os <strong>prós e contras de mudar comportamentos</strong>.</p>
-                <p className="mb-3 lead">Para começar, seleciona um <strong>comportamento</strong> dos exemplos a seguir que gostarias de <strong>mudar</strong>. Escolhe aquele que mais se aproxima da tua <strong>experiência</strong> e que faz mais <strong>sentido para ti neste momento da tua vida</strong>.</p>
+                <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Balança Virtual</h2>
+                <p className="mb-3 lead"><strong>Sê muito bem-vindo/a à atividade da Balança Virtual!</strong></p>
+                <p className="mb-3 lead">Esta atividade vai ajudar-te a <strong>refletir</strong> de forma interativasobre os <strong>prós e contras de mudar comportamentos</strong>.</p>
+                <p className="mb-3 lead">Seleciona um <strong>comportamento </strong> dos exemplos a seguir, aquele que mais se <strong> aproxima da tua experiência </strong> e que faz mais sentido para ti neste <strong> momento da tua vida</strong> , e que <strong> gostarias de mudar</strong>. </p>
                 <p className="mb-3 lead">Lembra-te de que a <strong>escolha é tua</strong>, e o objetivo é <strong>entender melhor as implicações de mudar ou de não mudar esse comportamento</strong>. </p>
                 <div className="text-center">
                   <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={() => setPagina(1)}>
@@ -234,132 +243,256 @@ const BalancaVirtual = () => {
             )}
 
             {pagina === 1 && (
-              <>
-                <p className="lead"><strong>Começa por escolher um comportamento</strong> dos exemplos apresentados em seguida que queiras <strong>mudar</strong>.
-                  Escolhe o comportamento que se aproxima mais da tua <strong>experiência</strong>, ou seja, aquele que <strong>faça mais sentido para ti</strong>.
-                </p>
-                {Object.entries(comportamentos).map(([key, obj]) => (
-                  <div key={key} className="mb-3">
-                    <button
-                      className="btn w-100 text-start"
-                      onClick={() => iniciarFrases(key)}
-                      style={{
-                        border: '1px solid #99CBC8',
-                        color: '#000000',
-                        backgroundColor: 'transparent',
-                        borderRadius: '12px',
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#5AAAA5'; e.currentTarget.style.color = 'white'; }}
-                      onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'black'; }}
-                    >
-                      <strong>{obj.nome}</strong>
-                      <div className="text-muted small">{obj.descricao}</div>
-                    </button>
-                  </div>
-                ))}
-                <button className="custom-btn-pink mt-3" onClick={() => setPagina(0)}>
-                  <i className="bi bi-arrow-left me-2"></i>Anterior
-                </button>
-              </>
-            )}
-
-            {pagina === 2 && (
-              <DragDropContext onDragEnd={handleDragEnd}>
                 <>
-                  <p className="lead">Agora que escolheste o <strong>comportamento</strong> que queres mudar, reflete sobre os <strong>prós</strong> e os <strong>contras</strong> dessa mudança.
-                    A <strong>balança</strong> está dividida em quatro <strong>quadrantes</strong>, e o teu objetivo é arrastares as <strong>frases</strong> que achas que se aplicam a cada um</p>
-                  <p className="text-muted small mb-3">
-                    Para prosseguir, deves colocar pelo menos uma frase em cada um dos quatro quadrantes.
+                  <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
+                    Qual o comportamento que queres mudar?
+                  </h4>
+                  <p className="lead">
+                    <strong>Começa por escolher um comportamento</strong> dos exemplos
+                    apresentados em seguida que queiras <strong>mudar</strong>. Escolhe o
+                    comportamento que se aproxima mais da tua <strong>experiência</strong>,
+                    ou seja, aquele que <strong>faça mais sentido para ti</strong>.
                   </p>
 
-                  {showValidationError && (
-                    <div className="alert alert-warning mb-3">
-                      <strong>Atenção!</strong> Precisas de colocar pelo menos uma frase em cada quadrante antes de prosseguir.
-                      {getEmptyQuadrantes().length > 0 && (
-                        <div className="mt-2">
-                          <small>Quadrantes em falta: {getEmptyQuadrantes().map(q => q.titulo).join(", ")}</small>
+                  <div className="d-flex flex-column gap-3">
+                    {Object.entries(comportamentos).map(([key, obj]) => {
+                      const isSelected = comportamento === key;
+                      return (
+                        <div
+                          key={key}
+                          onClick={() => {
+                            setComportamento(key);
+                            if (showValidationError) setShowValidationError(false); // 🔹 limpar erro
+                          }}
+                          className="p-3 rounded"
+                          style={{
+                            backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                            color: isSelected ? "white" : "#234970",
+                            border: "1px solid #99CBC8",
+                            cursor: "pointer",
+                            transition: "all 0.3s ease",
+                          }}
+                        >
+                          <p className="mb-1 fw-bold">{obj.nome}</p>
+                          <p className="mb-0 text-muted small">{obj.descricao}</p>
                         </div>
-                      )}
+                      );
+                    })}
+                  </div>
+
+                  {/* ALERTA */}
+                  {showValidationError && (
+                    <div className="alert alert-warning mt-3 text-center" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                      Por favor, seleciona um comportamento antes de continuar.
                     </div>
                   )}
 
-                  <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                    {(provided) => (
-                      <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
-                        {frasesDisponiveis.map((frase, index) => (
-                          <Draggable key={frase} draggableId={frase} index={index}>
-                            {(provided) => (
-                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="badge bg-secondary p-2">
-                                {frase}
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                  <div className="row">
-                    {quadrantes.map((q) => (
-                      <div className="col-md-6 mb-3" key={q.id}>
-                        <h6 className={showValidationError && respostas[q.id].length === 0 ? "text-warning" : ""}>
-                          {q.titulo}
-                          {showValidationError && respostas[q.id].length === 0 && (
-                            <small className="text-warning ms-2">⚠️ Precisa de pelo menos uma frase</small>
-                          )}
-                        </h6>
-                        <Droppable droppableId={q.id}>
-                          {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.droppableProps}
-                              className={`min-vh-25 border rounded p-2 ${showValidationError && respostas[q.id].length === 0 ? "border-warning" : "" }`} style={{ backgroundColor: '#fbf9f9'}}
-                            >
-                              {respostas[q.id].map((frase, index) => (
-                                <Draggable key={frase} draggableId={frase} index={index}>
-                                  {(provided) => (
-                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="badge  text-white p-2 mb-2" style={{backgroundColor:'#99cbc8'}}>
-                                      {frase}
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                      </div>
-                    ))}
-                  </div>
+                  {/* BOTÕES */}
                   <div className="d-flex justify-content-between mt-4">
-                    <button className="custom-btn-pink" onClick={() => setPagina(1)}><i className="bi bi-arrow-left me-2"></i>Anterior</button>
-                    <button className="custom-btn-turquoise" onClick={handleProceedToReflection}>Refletir<i className="bi bi-arrow-right ms-2"></i></button>
+                    <button className="custom-btn-pink" onClick={() => setPagina(0)}>
+                      <i className="bi bi-arrow-left me-2"></i>Anterior
+                    </button>
+                    <button
+                      className="custom-btn-turquoise"
+                      onClick={() => {
+                        if (comportamento) {
+                          iniciarFrases(comportamento);
+                        } else {
+                          setShowValidationError(true);
+                        }
+                      }}
+                    >
+                      Próximo<i className="bi bi-arrow-right ms-2"></i>
+                    </button>
                   </div>
                 </>
-              </DragDropContext>
-            )}
+              )}
 
-            {pagina === 3 && (
-              <>
-                <h5 className="fw-bold mb-3 text-start" style={{ color: "#234970" }}>Vamos refletir!</h5>
-                <p className="lead">
-                  <strong>Agora</strong> que adicionaste os <strong>prós</strong> e <strong>contras</strong> de <strong>mudar</strong> e de <strong>não mudar</strong> o comportamento, podes ver os <strong>resultados</strong> na <strong>balança</strong>.
-                  O <strong>sistema</strong> calculou automaticamente a <strong>soma das frases</strong> que colocaste de cada lado e gerou-te um <strong>feedback personalizado</strong> baseado no que escolheste.
-                  Podes observar qual lado da balança está mais <strong>pesado</strong>: se o lado de <strong>mudar</strong>; se o <strong>lado de não mudar</strong>.
-                  Lê o <strong>feedback</strong> que recebeste e <strong>reflete</strong> sobre a tua <strong>situação atual</strong>.
-                </p>
-                {renderImage()}
-                <p className="mt-4 fw-semibold">{renderFeedback()}</p>
-                <div className="d-flex justify-content-between mt-4">
-                  <button className="custom-btn-pink" onClick={() => setPagina(2)}><i className="bi bi-arrow-left me-2"></i>Anterior</button>
-                  <button className="custom-btn-turquoise" onClick={() => setPagina(4)}>Conclusão<i className="bi bi-arrow-right ms-2"></i></button>
-                </div>
-              </>
-            )}
+
+            {pagina === 2 && (
+                  <DragDropContext onDragEnd={handleDragEnd}>
+                    <>
+                      {/* INSTRUÇÕES */}
+                      <div className="mb-3">
+                        <p className="lead">
+                          Agora que escolheste o <strong>comportamento</strong> que queres mudar, reflete sobre os <strong>prós</strong> e os <strong>contras</strong> dessa mudança.
+                          A tabela está dividida em quatro <strong>quadrantes</strong>, e o teu objetivo é arrastares as <strong>frases</strong> que achas que se aplicam a cada um:
+                        </p>
+                        <ul className="mb-2">
+                          <li><strong>Prós de mudar:</strong> Benefícios que podes ganhar ao mudar este comportamento, como melhorar o teu bem-estar, facilitar as tuas relações ou alcançar os teus objetivos.</li>
+                          <li><strong>Contras de mudar:</strong> Desafios ou dificuldades que podes enfrentar ao tentar mudar, como o esforço necessário ou o desconforto inicial.</li>
+                          <li><strong>Prós de não mudar:</strong> Vantagens de continuar como estás, como sentir-te confortável ou evitar situações difíceis.</li>
+                          <li><strong>Contras de não mudar:</strong> Desvantagens de manter este comportamento, como sentimentos de frustração, impacto nas relações ou perda de oportunidades.</li>
+                        </ul>
+                        <p className="mb-0">
+                          Explora a lista de opções apresentada e seleciona as frases que mais se aplicam a ti em cada quadrante. Podes escolher quantas frases quiseres e atribuí-las ao lado da tabela que achas mais adequado.
+                        </p>
+                      </div>
+
+                      {/* ALERTA (igual ao da página 1) */}
+                      {showValidationError && (
+                        <div className="alert alert-warning mt-3 text-center" role="alert">
+                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                          Por favor, coloca pelo menos uma frase em cada quadrante antes de continuar.
+                          {getEmptyQuadrantes().length > 0 && (
+                            <div className="mt-2">
+                              <small>Quadrantes em falta: {getEmptyQuadrantes().map(q => q.titulo).join(", ")}</small>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* FRASES DISPONÍVEIS */}
+                      <Droppable droppableId="frasesDisponiveis" direction="horizontal">
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            className="d-flex flex-wrap gap-2 mb-4"
+                          >
+                            {frasesDisponiveis.map((frase, index) => (
+                              <Draggable key={frase} draggableId={frase} index={index}>
+                                {(provided) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    className="badge bg-secondary p-2"
+                                    title="Arrasta esta frase para um quadrante"
+                                  >
+                                    {frase}
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+
+                      {/* QUADRANTES — estilo de “caixa” igual à página anterior */}
+                      <div className="row">
+                        {quadrantes.map((q) => {
+                          const hasError = showValidationError && respostas[q.id].length === 0;
+                          return (
+                            <div className="col-md-6 mb-3" key={q.id}>
+                              <div
+                                className="p-3 rounded h-100"
+                                style={{
+                                  backgroundColor: "#ffffff",
+                                  color: "#234970",
+                                  border: `1px solid ${hasError ? "#ffc107" : "#99CBC8"}`,
+                                  transition: "all 0.3s ease",
+                                }}
+                              >
+                                <h6 className={`mb-3 ${hasError ? "text-warning" : ""}`}>
+                                  {q.titulo}
+                                  {hasError && (
+                                    <small className="text-warning ms-2">
+                                      ⚠️ Precisa de pelo menos uma frase
+                                    </small>
+                                  )}
+                                </h6>
+
+                                <Droppable droppableId={q.id}>
+                                  {(provided) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.droppableProps}
+                                      className="border rounded p-2"
+                                      style={{
+                                        minHeight: "120px",
+                                        backgroundColor: "#fbf9f9",
+                                        borderColor: hasError ? "#ffc107" : "#e9ecef",
+                                      }}
+                                    >
+                                      {respostas[q.id].map((frase, index) => (
+                                        <Draggable key={frase} draggableId={frase} index={index}>
+                                          {(provided) => (
+                                            <div
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              className="badge text-white p-2 mb-2"
+                                              style={{ backgroundColor: "#99cbc8" }}
+                                            >
+                                              {frase}
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      ))}
+                                      {provided.placeholder}
+                                    </div>
+                                  )}
+                                </Droppable>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* BOTÕES */}
+                      <div className="d-flex justify-content-between mt-4">
+                        <button className="custom-btn-pink" onClick={() => setPagina(1)}>
+                          <i className="bi bi-arrow-left me-2"></i>Anterior
+                        </button>
+                        <button className="custom-btn-turquoise" onClick={handleProceedToReflection}>
+                          Próximo<i className="bi bi-arrow-right ms-2"></i>
+                        </button>
+                      </div>
+                    </>
+                  </DragDropContext>
+                )}
+
+           {pagina === 3 && (
+                <>
+                  <h5 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
+                    Vamos refletir!
+                  </h5>
+                  <p className="lead">
+                    <strong>Agora</strong> que adicionaste os <strong>prós</strong> e <strong>contras</strong> de <strong>mudar</strong> e de <strong>não mudar</strong> o comportamento, podes ver os <strong>resultados</strong> na <strong>balança</strong>.
+                    O <strong>sistema</strong> calculou automaticamente a <strong>soma das frases</strong> que colocaste de cada lado e gerou-te um <strong>feedback personalizado</strong> baseado no que escolheste.
+                    Podes observar qual lado da balança está mais <strong>pesado</strong>: se o lado de <strong>mudar</strong>; se o <strong>lado de não mudar</strong>.
+                    Lê o <strong>feedback</strong> que recebeste e <strong>reflete</strong> sobre a tua <strong>situação atual</strong>.
+                  </p>
+
+                  {/* IMAGEM MAIOR */}
+                  <div className="text-center mb-4">
+                    <div style={{ maxHeight: "300px" }}>
+                      {renderImage()}
+                    </div>
+                  </div>
+
+                  {/* FEEDBACK NUMA CAIXA ESTILIZADA */}
+                  <div
+                    className="p-4 rounded shadow-sm mt-4"
+                    style={{
+                      backgroundColor: "#99CBC8",
+                      color: "#234970",
+                      fontSize: "1.1rem",
+                      fontWeight: "500",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    {renderFeedback()}
+                  </div>
+
+                  {/* BOTÕES */}
+                  <div className="d-flex justify-content-between mt-4">
+                    <button className="custom-btn-pink" onClick={() => setPagina(2)}>
+                      <i className="bi bi-arrow-left me-2"></i>Anterior
+                    </button>
+                    <button className="custom-btn-turquoise" onClick={() => setPagina(4)}>
+                      Conclusão<i className="bi bi-arrow-right ms-2"></i>
+                    </button>
+                  </div>
+                </>
+              )}
 
             {pagina === 4 && (
               <>
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="mb-3 lead">Ao longo desta <strong>atividade</strong>, exploraste formas de pensar sobre a <strong>mudança de comportamento</strong>.</p>
                 <p className="mb-3 lead">
                   Lembra-te da importância de usar a <strong>estratégia</strong> de pensar nos <strong>prós e contras</strong>,
