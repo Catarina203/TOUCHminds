@@ -64,20 +64,8 @@ const todasFrases = Object.entries(respostasEsperadas).flatMap(
       colunaCorreta: corretos.includes(frase) ? coluna : null,
     }))
 );
-const totalCorretas = Object.values(respostasEsperadas)
-  .reduce((sum, g) => sum + g.corretos.length, 0);
 
-const placedCorrectCount = Object.entries(frasesEmColunas)
-  .reduce((sum, [coluna, frases]) =>
-    sum + frases.filter(f => f.colunaCorreta === coluna).length, 0
-  );
 
-const hasWrongPlaced = Object.entries(frasesEmColunas)
-  .some(([coluna, frases]) =>
-    frases.some(f =>
-      f.colunaCorreta === null || (f.colunaCorreta && f.colunaCorreta !== coluna)
-    )
-  );
 
 // Estado inicial das colunas
 const colunasIniciais = {
@@ -89,7 +77,25 @@ const colunasIniciais = {
 const [frasesEmColunas, setFrasesEmColunas] = useState(colunasIniciais);
 const [frasesDisponiveis, setFrasesDisponiveis] = useState(todasFrases);
 const [showValidationError, setShowValidationError] = useState(false);
+const totalCorretas = Object.values(respostasEsperadas)
+  .reduce((sum, g) => sum + g.corretos.length, 0);
 
+const placedCorrectCount = Object.entries(frasesEmColunas)
+  .reduce(
+    (sum, [coluna, frases]) =>
+      sum + frases.filter((f) => f.colunaCorreta === coluna).length,
+    0
+  );
+
+const hasWrongPlaced = Object.entries(frasesEmColunas).some(([coluna, frases]) =>
+  frases.some(
+    (f) =>
+      f.colunaCorreta === null ||
+      (f.colunaCorreta && f.colunaCorreta !== coluna)
+  )
+);
+
+const todasCorretas = placedCorrectCount === totalCorretas && !hasWrongPlaced;
 const onDragEnd = (result) => {
   const { source, destination } = result;
   if (!destination) return;
@@ -140,8 +146,6 @@ if (showValidationError) setShowValidationError(false);
     }));
   }
 };
-
-const todasCorretas = placedCorrectCount === totalCorretas && !hasWrongPlaced;
 
   // Função para resetar a atividade
   const resetarAtividade = () => {
@@ -337,7 +341,7 @@ const todasCorretas = placedCorrectCount === totalCorretas && !hasWrongPlaced;
                   Pode não ser fácil, mas agora <strong>sabes que há um caminho</strong>. E que ele começa com o simples <strong>gesto de pedir ajuda</strong>.<br></br><br></br>
                 </p>
                 <div className="d-flex justify-content-between mt-4">
-                  <button className="custom-btn-pink" onClick={() => setPagina(2)}>
+                  <button className="custom-btn-pink" onClick={() => setPagina(1)}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
                   <AtividadeProgressao
