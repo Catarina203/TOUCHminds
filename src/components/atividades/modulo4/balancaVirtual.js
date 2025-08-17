@@ -111,6 +111,7 @@ const BalancaVirtual = () => {
     contraNaoMudar: [],
   });
   const [showValidationError, setShowValidationError] = useState(false);
+  const [mostrarFeedback, setMostrarFeedback] = useState(true);
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
