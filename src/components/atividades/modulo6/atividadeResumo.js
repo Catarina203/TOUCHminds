@@ -64,6 +64,20 @@ const todasFrases = Object.entries(respostasEsperadas).flatMap(
       colunaCorreta: corretos.includes(frase) ? coluna : null,
     }))
 );
+const totalCorretas = Object.values(respostasEsperadas)
+  .reduce((sum, g) => sum + g.corretos.length, 0);
+
+const placedCorrectCount = Object.entries(frasesEmColunas)
+  .reduce((sum, [coluna, frases]) =>
+    sum + frases.filter(f => f.colunaCorreta === coluna).length, 0
+  );
+
+const hasWrongPlaced = Object.entries(frasesEmColunas)
+  .some(([coluna, frases]) =>
+    frases.some(f =>
+      f.colunaCorreta === null || (f.colunaCorreta && f.colunaCorreta !== coluna)
+    )
+  );
 
 // Estado inicial das colunas
 const colunasIniciais = {
