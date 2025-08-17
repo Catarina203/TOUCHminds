@@ -74,19 +74,22 @@ const colunasIniciais = {
 
 const [frasesEmColunas, setFrasesEmColunas] = useState(colunasIniciais);
 const [frasesDisponiveis, setFrasesDisponiveis] = useState(todasFrases);
+const [showValidationError, setShowValidationError] = useState(false);
 
 const onDragEnd = (result) => {
   const { source, destination } = result;
   if (!destination) return;
-
+if (showValidationError) setShowValidationError(false);
   // Mesma posição → nada a fazer
-  if (
-    source.droppableId === destination.droppableId &&
-    source.index === destination.index
-  ) return;
+  if (source.droppableId === destination.droppableId &&
+      source.index === destination.index) {
+    return;
+  }
 
-  // De "disponíveis" → para uma coluna
-  if (source.droppableId === "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
+  // 1) De "disponíveis" → para uma coluna
+  if (source.droppableId === "frasesDisponiveis" &&
+      destination.droppableId !== "frasesDisponiveis") {
+
     const fraseMovida = frasesDisponiveis[source.index];
     setFrasesEmColunas(prev => ({
       ...prev,
@@ -96,41 +99,33 @@ const onDragEnd = (result) => {
     return;
   }
 
-  // De uma coluna → para "disponíveis"
-  if (source.droppableId !== "frasesDisponiveis" && destination.droppableId === "frasesDisponiveis") {
+  // 2) De uma coluna → para "disponíveis"
+  if (source.droppableId !== "frasesDisponiveis" &&
+      destination.droppableId === "frasesDisponiveis") {
+
     const fraseMovida = frasesEmColunas[source.droppableId][source.index];
     setFrasesDisponiveis(prev => [...prev, fraseMovida]);
     setFrasesEmColunas(prev => ({
       ...prev,
-      [source.droppableId]: prev[source.droppableId].filter((_, i) => i !== source.index),
+      [source.droppableId]:
+        prev[source.droppableId].filter((_, i) => i !== source.index),
     }));
     return;
   }
 
-  // Entre colunas
-  if (source.droppableId !== "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
+  // 3) Entre colunas
+  if (source.droppableId !== "frasesDisponiveis" &&
+      destination.droppableId !== "frasesDisponiveis") {
+
     const fraseMovida = frasesEmColunas[source.droppableId][source.index];
     setFrasesEmColunas(prev => ({
       ...prev,
-      [source.droppableId]: prev[source.droppableId].filter((_, i) => i !== source.index),
+      [source.droppableId]:
+        prev[source.droppableId].filter((_, i) => i !== source.index),
       [destination.droppableId]: [...prev[destination.droppableId], fraseMovida],
     }));
   }
 };
-
- const totalCorretas = Object.values(respostasEsperadas)
-  .reduce((sum, g) => sum + g.corretos.length, 0);
-
-const placedCorrectCount = Object.entries(frasesEmColunas)
-  .reduce((sum, [coluna, frases]) => sum + frases.filter(f => f.colunaCorreta === coluna).length, 0);
-
-const hasWrongPlaced = Object.entries(frasesEmColunas)
-  .some(([coluna, frases]) =>
-    frases.some(f =>
-      // distrator colocado (colunaCorreta === null) OU correto na coluna errada
-      f.colunaCorreta === null || (f.colunaCorreta && f.colunaCorreta !== coluna)
-    )
-  );
 
 const todasCorretas = placedCorrectCount === totalCorretas && !hasWrongPlaced;
 
@@ -174,130 +169,155 @@ const todasCorretas = placedCorrectCount === totalCorretas && !hasWrongPlaced;
               </div>
             )}
 
-            {pagina === 1 && (
-                    <div className="text-center">
-                    <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
-                     Caminho de Pedir Ajuda
-                      </h2>
-                      <p className="lead">
-                      Arrasta as frases para a coluna correta. <strong>Algumas são distratores</strong> — se as arrastares, aparecerão a vermelho.
-                      </p>
+           {pagina === 1 && (
+  <DragDropContext onDragEnd={onDragEnd}>
+    <>
+      <div className="text-center">
+        <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
+          Caminho de Pedir Ajuda
+        </h2>
+        <p className="lead">
+          Arrasta para cada coluna as frases que achas que dizem respeito a cada uma delas.{" "}
+          <strong>Existem algumas frases que não estão corretas</strong> e que não encaixam em nenhuma das colunas.{" "}
+          <strong>Descobre quais são</strong> e não as arrastes para nenhuma coluna.
+        </p>
+      </div>
 
-                          <DragDropContext onDragEnd={onDragEnd}>
-                            <div className="row g-3">
-                              {/* Área de frases disponíveis */}
-                              <div className="col-12 mb-3">
-                                <div className="border rounded p-3" style={{ backgroundColor: "#FBF9F9" }}>
-                                  <h5 className="mb-3 text-center">Frases para organizar</h5>
-                                  <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                                    {(provided) => (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.droppableProps}
-                                        className="d-flex flex-wrap gap-2"
-                                      >
-                                        {frasesDisponiveis.map((frase, index) => (
-                                          <Draggable key={frase.id} draggableId={frase.id} index={index}>
-                                            {(provided) => (
-                                              <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                className="badge text-white p-2"
-                                                style={{
-                                                  backgroundColor: "#99CBC8",
-                                                  userSelect: "none",
-                                                  ...provided.draggableProps.style,
-                                                }}
-                                                title="Arrasta esta frase para uma coluna"
-                                              >
-                                                {frase.frase}
-                                              </div>
-                                            )}
-                                          </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                      </div>
-                                    )}
-                                  </Droppable>
-                                </div>
-                              </div>
+     {showValidationError && (
+  <div className="alert alert-warning mt-3 text-center" role="alert">
+    <i className="bi bi-exclamation-triangle-fill me-2"></i>
+    Por favor, coloca todas as frases corretamente antes de continuar.
+  </div>
+)}
 
-                              {/* Colunas de destino */}
-                              {Object.entries(frasesEmColunas).map(([colunaNome, frases]) => (
-                                <div className="col-md-4" key={colunaNome}>
-                                  <div className="border rounded p-3 h-100" style={{ backgroundColor: "#FBF9F9" }}>
-                                    <h5 className="text-center mb-3 fw-bold">{colunaNome}</h5>
-                                    <Droppable droppableId={colunaNome}>
-                                      {(provided) => (
-                                        <div
-                                          ref={provided.innerRef}
-                                          {...provided.droppableProps}
-                                          className="min-h-200px"
-                                        >
-                                          {frases.map((frase, index) => {
-                                            const isCorrect = frase.colunaCorreta === colunaNome;           // correto na coluna certa
-                                            const isWrong =
-                                              (frase.colunaCorreta && frase.colunaCorreta !== colunaNome) || // correto na coluna errada
-                                              frase.colunaCorreta === null;                                  // distrator colocado
 
-                                            return (
-                                              <Draggable key={frase.id} draggableId={frase.id} index={index}>
-                                                {(provided) => (
-                                                  <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    className="p-2 mb-2 rounded text-white"
-                                                    style={{
-                                                      backgroundColor: isCorrect ? "#28a745" : isWrong ? "#dc3545" : "#99CBC8",
-                                                      userSelect: "none",
-                                                      ...provided.draggableProps.style,
-                                                    }}
-                                                  >
-                                                    {frase.frase}
-                                                  </div>
-                                                )}
-                                              </Draggable>
-                                            );
-                                          })}
-                                          {provided.placeholder}
-                                        </div>
-                                      )}
-                                    </Droppable>
-                                  </div>
-                                </div>
-                              ))}
+      {/* FRASES DISPONÍVEIS */}
+      <Droppable droppableId="frasesDisponiveis" direction="horizontal">
+        {(provided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className="d-flex flex-wrap gap-2 mb-4"
+          >
+            {frasesDisponiveis.map((frase, index) => (
+              <Draggable key={frase.id} draggableId={frase.id} index={index}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className="badge text-white p-2"
+                    style={{
+                      backgroundColor: "#99CBC8",
+                      userSelect: "none",
+                      ...provided.draggableProps.style,
+                    }}
+                    title="Arrasta esta frase para uma coluna"
+                  >
+                    {frase.frase}
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+
+      {/* TABELA DE COLUNAS */}
+      <div className="row">
+        {Object.entries(frasesEmColunas).map(([colunaNome, frases]) => (
+          <div className="col-md-4 mb-3" key={colunaNome}>
+            <div
+              className="p-3 rounded h-100"
+              style={{
+                backgroundColor: "#ffffff",
+                color: "#234970",
+                border: "1px solid #99CBC8",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <h6 className="mb-3 fw-bold text-center">{colunaNome}</h6>
+
+              <Droppable droppableId={colunaNome}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className="border rounded p-2"
+                    style={{
+                      minHeight: "120px",
+                      backgroundColor: "#fbf9f9",
+                      borderColor: "#e9ecef",
+                    }}
+                  >
+                    {frases.map((frase, index) => {
+                      const isCorrect = frase.colunaCorreta === colunaNome;
+                      const isWrong =
+                        (frase.colunaCorreta && frase.colunaCorreta !== colunaNome) ||
+                        frase.colunaCorreta === null;
+
+                      return (
+                        <Draggable key={frase.id} draggableId={frase.id} index={index}>
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              className="p-2 mb-2 rounded text-white"
+                              style={{
+                                backgroundColor: isCorrect
+                                  ? "#28a745"
+                                  : isWrong
+                                  ? "#dc3545"
+                                  : "#99CBC8",
+                                userSelect: "none",
+                                ...provided.draggableProps.style,
+                              }}
+                            >
+                              {frase.frase}
                             </div>
-                          </DragDropContext>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </div>
+        ))}
+      </div>
 
-                          {/* Botões */}
-                          <div className="d-flex justify-content-between mt-4">
-                                        <button className="custom-btn-pink" onClick={() => setPagina(1)}>
-                                          <i className="bi bi-arrow-left me-2"></i>Anterior
-                                        </button>
-
-                            {/* Conclusão: só aparece quando está tudo certo */}
-                            {todasCorretas ? (
-                              <AtividadeProgressao
-                                moduloId={moduloId}
-                                atividadeIndex={3}
-                                updateUserData={updateUserData}
-                              />
-                            ) : (
-                              <button className="custom-btn-turquoise" disabled>
-                                Concluir<i className="bi bi-arrow-right ms-2"></i>
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      )}
+      {/* BOTÕES */}
+      <div className="d-flex justify-content-between mt-4">
+        <button className="custom-btn-pink" onClick={() => setPagina(0)}>
+          <i className="bi bi-arrow-left me-2"></i>Anterior
+        </button>
+      {todasCorretas ? (
+  <AtividadeProgressao
+    moduloId={moduloId}
+    atividadeIndex={3}
+    updateUserData={updateUserData}
+  />
+) : (
+  <button
+    className="custom-btn-turquoise"
+    onClick={() => setShowValidationError(true)}  // 👉 ativa alerta se não está certo
+  >
+    Concluir<i className="bi bi-arrow-right ms-2"></i>
+  </button>
+)}
+      </div>
+    </>
+  </DragDropContext>
+)}
 
             {pagina === 2 && (
-              <div className="text-center py-4">
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
-                <p className="lead">Nesta atividade, resumiste o que aprendeste neste módulo sobre o caminho de pedir ajuda.<br></br><br></br>
-                  Descobriste <strong>que o psicólogo não traz respostas feitas</strong>, mas pode ajudar-te a compreender melhor o que estás a sentir e a encontrar, contigo, o caminho mais certo.<br></br><br></br>
+              <div className="text-center">
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                <p className="lead">Nesta atividade, descobriste <strong>que o psicólogo não traz respostas feitas</strong>, mas pode ajudar-te a compreender melhor o que estás a sentir e a encontrar, contigo, o caminho mais certo. <br></br><br></br>
                   Percebeste <strong>que o processo terapêutico tem etapas</strong> — começa com confiança, passa por desafios, estratégias e pequenas conquistas que fazem a diferença.<br></br><br></br>
                   E aprendeste também <strong>que não estás sozinho/a</strong>: há lugares, pessoas e profissionais disponíveis quando precisamos de ajuda. Lembra-te: procurar ajuda não é sinal de fraqueza — é um passo corajoso.<br></br><br></br>
                   Pode não ser fácil, mas agora <strong>sabes que há um caminho</strong>. E que ele começa com o simples <strong>gesto de pedir ajuda</strong>.<br></br><br></br>
