@@ -48,26 +48,26 @@ const NaoEstasSozinho = () => {
 
             {/* Página 0 - Introdução */}
             {pagina === 0 && (
-              <div className="text-start py-4 ps-2">
-                <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
+              <div className="text-center">
+                <h2 className="text-center fw-bold mb-4"  style={{ color: "#234970" }}>
                   Não Estás Sozinho/a
                 </h2>
                 <div className="">
                   <div className="">
-                    <p className="lead mb-3">
-                      <b>Sê muito bem-vindo ou bem-vinda</b> à atividade <b>“Não Estás Sozinho/a”!</b><br></br><br></br>
+                    <p className="lead">
+                      <b>Sê muito bem-vindo/a à atividade “Não Estás Sozinho/a”!</b><br></br><br></br>
                       Lembra-te que, quando estás a passar por momentos difíceis, <b>falar com alguém pode mesmo ajudar</b>. Pode
                       ser um <b>amigo</b>, um <b>familiar</b>, um <b>professor</b> — pessoas que estão por perto e que se <b>preocupam contigo</b>.
                     </p>
-                    <p className="lead mb-3">
+                    <p className="lead">
                       Mas se sentires que a <b>ansiedade</b> está a afetar o teu dia a dia de forma intensa — como no caso da <b>ansiedade SOS</b> —
                       é importante considerar também <b>falar com um psicólogo</b>. <b>Ele ou ela é a pessoa certa para te ajudar</b> a entender
                       melhor o que estás a sentir e encontrar <b>estratégias para lidar com isso</b>.
                     </p>
-                    <p className="lead mb-3">
+                    <p className="lead">
                       Sabemos que dar esse primeiro passo pode parecer <b>difícil</b>. Por isso, existem <b>linhas de apoio gratuitas</b>, <b>anónimas e sempre disponíveis</b> para te ouvir e orientar.
                     </p>
-                    <p className="lead mb-3">
+                    <p className="lead">
                       <b>Descarrega o flyer</b> com essa informação, <b>guarda-o no teu telemóvel</b> e <b>partilha com quem possa precisar</b>. Às vezes, <b>uma simples partilha pode fazer toda a diferença</b>.
                     </p>
                     <div className="text-center">
@@ -83,33 +83,31 @@ const NaoEstasSozinho = () => {
             {/* Página 1 - Flyer */}
             {pagina === 1 && (
               <>
-                <div className="text-start">
-                  <h3 className="fw-bold mb-4 text-center" style={{ color: "#234970" }}>
+                <div className="text-center">
+                  <h3 className="text-center fw-bold mb-4"  style={{ color: "#234970" }}>
                     Precisas de Ajuda? Não Estás Sozinho/a!
                   </h3>
-                  <p className="lead mb-4 fs-5">
-                    A ansiedade pode ser difícil, mas há sempre uma solução. Se precisares de ajuda, fala com alguém em que confies - um amigo, um familiar, um
-                    professor ou procura a ajuda de um psicólogo. E se for difícil dar esse primeiro passo, existem linhas de apoio prontas para te ouvir e que te
-                    podem ajudar a dar o primeiro passo.
+                  <p className="lead">
+                    A ansiedade pode ser difícil, mas não temos de nos render a ela. Se precisas de ajuda, fala com alguém em quem confies – um amigo, um familiar, um professor ou procura a ajuda de um psicólogo. E se for difícil dar esse primeiro passo, existem linhas de apoio prontas para te ouvir e que te podem ajudar a dar esse primeiro passo.
                   </p>
-                  <div className="p-4 rounded mb-4 border" style={{ backgroundColor: "#FBF9F9" }} >
-                    <h4 className="fw-bold text-center font-lato" style={{ color: "#234970" }}>LINHAS DE APOIO DISPONÍVEIS:</h4>
+                  <div className="text-center" style={{ backgroundColor: "#FBF9F9" }} >
+                    <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>LINHAS DE APOIO DISPONÍVEIS:</h4>
 
                     <div className="container">
                       <div className="row mt-4">
                         {/* Coluna da Esquerda */}
                         <div className="col-12 col-md-6">
-                          <p className="mb-4">
-                            <strong style={{ color: "#99cbc8" }}>📞 Linha de Aconselhamento Psicologico SNS 24</strong><br />
+                          <p className="lead">
+                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'} Linha de Aconselhamento Psicologico SNS 24</strong><br/>
                             808 24 24 24 (Opção 4)
                           </p>
-                          <p className="mb-4">
-                            <strong style={{ color: "#99cbc8" }}>📞 SOS Voz Amiga</strong><br />
+                          <p className="lead">
+                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'}  SOS Voz Amiga</strong><br />
                             213 544 545 - 912 802 669 - 963 524 660<br />
                             Atendimento: 15h30 - 00h30
                           </p>
-                          <p className="mb-4">
-                            <strong style={{ color: "#99cbc8" }}>📞 Conversa Amiga</strong><br />
+                          <p className="lead">
+                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'}  Conversa Amiga</strong><br />
                             210 027 159<br />
                             Atendimento: 15h30 - 22h00
                           </p>
@@ -117,13 +115,13 @@ const NaoEstasSozinho = () => {
 
                         {/* Coluna da Direita */}
                         <div className="col-12 col-md-6">
-                          <p className="mb-4">
-                            <strong style={{ color: "#99cbc8" }}>📞 Telefone da Amizade</strong><br />
+                          <p className="lead">
+                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'}  Telefone da Amizade</strong><br />
                             222 080 707<br />
                             Atendimento: 16h00 - 23h00
                           </p>
-                          <p className="mb-4">
-                            <strong style={{ color: "#99cbc8" }}>📞 Voz de Apoio</strong><br />
+                          <p className="lead">
+                            <strong style={{ color: "#99cbc8" }}> {'\u{1F4DE}'} Voz de Apoio</strong><br />
                             225 506 070<br />
                             Atendimento: 21h00 - 24h00
                           </p>
