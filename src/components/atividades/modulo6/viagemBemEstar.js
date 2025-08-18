@@ -483,10 +483,10 @@ const handleOpcaoToggle = (index) => {
                                 >
                                   {respostas[q.id].map((frase, index) => (
                                         <Draggable
-                                          key={`${q.id}-${index}`}
-                                          draggableId={`${q.id}-${index}`}  
-                                          index={index}
-                                        >
+                                            key={`${q.id}-${frase}-${index}`}
+                                            draggableId={frase}
+                                            index={index}
+                                          >
                                           {(provided, snapshot) => (
                                             <div
                                               ref={provided.innerRef}
@@ -542,7 +542,7 @@ const handleOpcaoToggle = (index) => {
                   </p>
 
                   <p className="lead text-center"><strong>Que cadeira é que escolhias neste momento para te sentares?</strong></p>
-                  <p className="lead"><strong>Escolhe uma</strong> das imagens em baixo.</p>
+                  <p className="lead"><strong>Escolhe uma</strong> das cadeiras em baixo.</p>
 
                   <div className="row text-center">
                     {[1, 2, 3, 4].map((num) => (
@@ -864,11 +864,11 @@ const handleOpcaoToggle = (index) => {
                         {(provided) => (
                           <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
                             {frasesDisponiveis.map((frase, index) => (
-                              <Draggable
-                                      key={`${q.id}-${frase}-${index}`} 
-                                      draggableId={frase}              
-                                      index={index}
-                                    >
+                                <Draggable
+                                  key={`disp-${frase}-${index}`}
+                                  draggableId={frase}
+                                  index={index}
+                                >
                                 {(provided, snapshot) => (
                                   <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                     <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
