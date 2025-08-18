@@ -56,7 +56,8 @@ const ViagemBemEstar = () => {
   const [comportamento, setComportamento] = useState(null);
   const [frasesDisponiveis, setFrasesDisponiveis] = useState([]);
   const [frasesDisponiveis2, setFrasesDisponiveis2] = useState([]);
-  const [currentBehavior, setCurrentBehavior] = useState('mochila'); // MOVED INSIDE COMPONENT
+  const [currentBehavior, setCurrentBehavior] = useState('mochila'); 
+  const [cordaError, setCordaError] = useState(false);
   const [respostas, setRespostas] = useState({
   mochila: [],
   pote: [],  // Add this line
@@ -141,6 +142,9 @@ useEffect(() => {
     const handleDragEnd = (result) => {
       if (!result.destination) return;
       const { source, destination, draggableId } = result;
+  if (destination && destination.droppableId !== "frasesDisponiveis") {
+    if (showValidationError) setShowValidationError(false);
+  }
 
       // Clear validation error when user interacts
       if (showValidationError) {
@@ -403,13 +407,13 @@ const handleOpcaoToggle = (index) => {
                   <p className="lead text-center"><strong>O que colocarias na tua mochila?</strong></p>
 
                   <p className="lead">
-                    <strong>Arrasta os itens</strong> que te fazem sentido para dentro da tua mochila. 
-                    <strong>Podes personalizar</strong> alguns itens que queiras colocar na tua mochila que melhor representam a tua experiência.
+                    <strong>Arrasta as frases</strong> que te fazem sentido para dentro da tua mochila.  
+                    <strong>Podes personalizar</strong> algumas frases que queiras colocar na tua mochila que melhor representam a tua experiência.
                   </p>
                   
                   <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9", border: "1px solid #99cbc8" }}>
                     <i className="bi bi-info-circle me-2"></i>
-                    <strong>Dica:</strong> Clica nos itens com ícone de lápis para personalizares com a tua própria experiência!
+                    <strong>Dica:</strong> Clica nas frases com ícone de lápis para personalizares com a tua própria experiência!
                   </div>
                 </div>
 
@@ -424,21 +428,35 @@ const handleOpcaoToggle = (index) => {
 
                     {/* Lista horizontal de frases disponíveis */}
                     <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                        {(provided) => (
-                          <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
-                            {frasesDisponiveis.map((frase, index) => (
-                              <Draggable key={frase} draggableId={frase} index={index}>
-                                {(provided, snapshot) => (
-                                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                    <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.droppableProps}
+                              className="d-flex flex-wrap gap-2 mb-4"
+                            >
+                              {frasesDisponiveis.map((frase, index) => (
+                                <Draggable key={frase} draggableId={frase} index={index}>
+                                  {(provided, snapshot) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className="badge text-white p-2"
+                                      style={{
+                                        backgroundColor: "#99cbc8", 
+                                        userSelect: "none",
+                                        ...provided.draggableProps.style,
+                                      }}
+                                    >
+                                      {frase}
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
 
                     {/* Mochila(s) */}
                     <div className="row">
@@ -542,7 +560,7 @@ const handleOpcaoToggle = (index) => {
                   </p>
 
                   <p className="lead text-center"><strong>Que cadeira é que escolhias neste momento para te sentares?</strong></p>
-                  <p className="lead"><strong>Escolhe uma</strong> das cadeiras em baixo.</p>
+                  <p className="lead text-center"><strong>Escolhe uma</strong> das cadeiras em baixo.</p>
 
                   <div className="row text-center">
                     {[1, 2, 3, 4].map((num) => (
@@ -587,23 +605,23 @@ const handleOpcaoToggle = (index) => {
               {/* PAGE 3 - Espelho (Mirror) */}
               {pagina === 3 && (
                 <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Objetos
+                <h4 className="text-center fw-bold mb-4"  style={{ color: "#234970" }}>
+                                    Espelho
                                 </h4>
-                  <p className="mb-3 lead">
-                    O <strong>espelho</strong> é o <strong>terceiro objeto</strong> desta viagem. Representa o momento em que a pessoa começa a 
+                  <p className="lead">
+                    O <strong>espelho</strong> é o <strong>terceiro objeto</strong> desta viagem. Representa o momento em que a pessoa começa a  
                     <strong>olhar para dentro de si</strong> e a <strong>refletir sobre o que sente</strong>. 
-                    Neste ponto do percurso, as <strong>emoções</strong> ganham espaço para ser reconhecidas e compreendidas. 
-                    Muitas vezes, elas podem parecer <strong>confusas</strong>, intensas ou difíceis de nomear — mas, com o apoio do psicólogo, 
+                    Neste ponto do percurso, as <strong>emoções</strong> ganham espaço para ser reconhecidas, partilhadas e compreendidas.  
+                    Muitas vezes, elas podem parecer <strong>confusas</strong>, intensas ou difíceis de nomear — mas, com o apoio do psicólogo,  
                     torna-se possível <strong>ver com mais clareza</strong> o que se passa no interior. 
                     O espelho simboliza o processo de <strong>autoconhecimento</strong>: uma oportunidade para 
                     <strong>observar sem julgamentos, aceitar o que se sente e dar sentido à experiência emocional</strong>. 
-                    É como se, ao olhar para esse espelho simbólico, a pessoa começasse a ver-se com 
+                    É como se, ao olhar para esse espelho simbólico, a pessoa começasse a ver-se com  
                     <strong>mais empatia, mais entendimento e mais verdade</strong>. 
                     É mais um passo importante nesta viagem: <strong>reconhecer quem se é e o que se sente</strong>, sem medo do reflexo.
                   </p>
 
-                  <p className="mb-3 lead text-center">
+                  <p className="lead text-center">
                     <strong>Se estivesses a olhar para este espelho agora, que emoção está mais presente na tua vida e gostarias de compreender melhor?</strong>
                   </p>
 
@@ -640,22 +658,25 @@ const handleOpcaoToggle = (index) => {
                         required
                       />
                       {inputError && (
-                        <div className="text-danger mt-2">
-                          <small>Por favor, escreve uma emoção para continuar.</small>
-                        </div>
-                      )}
+                          <div className="alert alert-warning mt-3 text-center" role="alert">
+                            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                            Por favor, escreve uma emoção para continuar.
+                          </div>
+                        )}
                     </div>
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
-                    <button className="custom-btn-pink" onClick={() => setPagina(2)}>
-                      <i className="bi bi-arrow-left me-2"></i>Anterior
-                    </button>
-                    <button 
-                      className={`custom-btn-turquoise ${!emocaoInput.trim() ? 'opacity-50' : ''}`}
-                      onClick={handleProceedToReflection}
-                      disabled={!emocaoInput.trim()}
-                      style={{ cursor: emocaoInput.trim() ? 'pointer' : 'not-allowed' }}
+                      <button 
+                      className="custom-btn-turquoise"
+                      onClick={() => {
+                        if (!emocaoInput.trim()) {
+                          setInputError(true); 
+                        } else {
+                          handleProceedToReflection(); 
+                        }
+                      }}
+                      style={{ cursor: 'pointer' }}
                     >
                       Próximo<i className="bi bi-arrow-right ms-2"></i>
                     </button>
@@ -666,17 +687,17 @@ const handleOpcaoToggle = (index) => {
               {/* PAGE 4 - Caixa de Ferramentas (Toolbox) - NEW PAGE */}
               {pagina === 4 && (
                 <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Objetos
+                <h4 className="text-center fw-bold mb-4"  style={{ color: "#234970" }}>
+                                    Lâmpada
                                 </h4>
-                  <p className="mb-3 lead">
-                    A <strong>lâmpada</strong> é o <strong>quarto objeto</strong> desta viagem. Representa o momento em que a pessoa começa a 
+                  <p className="lead">
+                    A <strong>lâmpada</strong> é o <strong>quarto objeto</strong> desta viagem. Representa o momento em que a pessoa começa a  
                     <strong>ganhar clareza sobre os seus desafios</strong> e a <strong>compreender melhor o que sente</strong>. 
-                    À medida que o processo terapêutico avança, começam a surgir <strong>novas perspetivas</strong> e 
+                    À medida que o processo terapêutico avança, começam a surgir <strong>novas perspetivas</strong> e  
                     <strong>formas de lidar com as emoções</strong>. A lâmpada simboliza essa <strong>luz</strong> que se vai acendendo pouco a pouco, 
                     iluminando partes que antes pareciam confusas ou difíceis de entender. 
-                    É como se, ao acender essa lâmpada simbólica, a pessoa começasse a 
-                    <strong>ver com mais nitidez o caminho que está a percorrer</strong>, percebendo quais são as 
+                    É como se, ao acender essa lâmpada simbólica, a pessoa começasse a  
+                    <strong>ver com mais nitidez o caminho que está a percorrer</strong>, percebendo quais são as  
                     <strong>estratégias que pode usar</strong> para enfrentar os desafios do dia a dia. 
                     Este é um momento de <strong>clareza</strong>, de <strong>aprendizagem</strong> e de <strong>esperança</strong>. 
                     Um passo importante na viagem ao bem-estar, onde começa a fazer-se 
@@ -704,7 +725,7 @@ const handleOpcaoToggle = (index) => {
                           padding: '12px 20px',
                           fontSize: '16px'
                         }}
-                        placeholder="Escreve aqui algo que agora compreendes melhor do que à um tempo a atrás, pode ser uma emoção, medo, dificuldade"
+                        placeholder="Escreve aqui algo que agora compreendes melhor do que à um tempo a atrás"
                         value={ferramenta}
                         onChange={(e) => {
                           setFerramenta(e.target.value);
@@ -713,9 +734,10 @@ const handleOpcaoToggle = (index) => {
                         aria-label="Ferramenta ou estratégia"
                         required
                       />
-                      {ferramentaError && (
-                        <div className="text-danger mt-2">
-                          <small>Por favor, escreve algo para continuar.</small>
+                       {ferramentaError && (
+                        <div className="alert alert-warning mt-3 text-center" role="alert">
+                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                          Por favor, escreve algo para continuar.
                         </div>
                       )}
                     </div>
@@ -725,44 +747,56 @@ const handleOpcaoToggle = (index) => {
                     <button className="custom-btn-pink" onClick={() => setPagina(3)}>
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
-                    <button 
-                      className={`custom-btn-turquoise ${!ferramenta.trim() ? 'opacity-50' : ''}`}
-                      onClick={handleProceedToReflection}
-                      disabled={!ferramenta.trim()}
-                      style={{ cursor: ferramenta.trim() ? 'pointer' : 'not-allowed' }}
-                    >
-                      Próximo<i className="bi bi-arrow-right ms-2"></i>
-                    </button>
+                    <button
+                        className="custom-btn-turquoise"
+                        onClick={() => {
+                          if (!ferramenta.trim()) {
+                            setFerramentaError(true); 
+                            return;
+                          }
+                          handleProceedToReflection(); 
+                        }}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        Próximo<i className="bi bi-arrow-right ms-2"></i>
+                      </button>
                   </div>
                 </>
               )}
+             
               {/* PAGE 5 - Caixa de Ferramentas (Toolbox) - NEW PAGE */}
               {pagina === 5 && (
                 <>
-                                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Objetos
+                                <h4 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>
+                                   Corda
                                 </h4>
 
                               
-                                <p className="mb-3 lead">
+                                <p className="lead">
                                   A <strong>corda</strong> é o <strong>quinto objeto</strong> desta viagem. Representa a <strong>ligação de confiança</strong> que se vai construindo 
                                   ao longo do caminho entre a pessoa e o psicólogo. Nesta etapa da viagem, a pessoa já percorreu algum trajeto e começa a perceber 
                                   que não o faz sozinha. A corda simboliza esse <strong>apoio contínuo</strong>, que está presente mesmo quando surgem obstáculos ou dúvidas. 
-                                  É como se essa corda unisse a pessoa ao psicólogo e a tudo aquilo que foi aprendendo ao longo do percurso — uma forma de se 
-                                  <strong>manter ligada</strong> às estratégias, às descobertas e ao espaço seguro que foi sendo criado. 
+                                  É como se essa corda unisse a pessoa ao psicólogo e a tudo aquilo que foi aprendendo ao longo do percurso. 
                                   À medida que a viagem continua, essa ligação torna-se mais forte. 
                                   A corda mostra que, mesmo quando o caminho é difícil, 
                                   <strong>há sempre algo (ou alguém) que segura, apoia e dá confiança para continuar</strong>.
                                 </p>
 
-                                <p className="mb-3 lead text-center">
+                                <p className="lead text-center">
                                   <strong>Imagina que esta corda representa aquilo que te segura quando te sentes que vais cair. O que te ajudaria a continuar?</strong>
                                 </p>
 
-                                <p className="mb-3 lead text-center">
-                                  Escolhe <strong>as opções</strong> que achas que te ajudariam a continuares.
+                                <p className="lead text-center">
+                                  Escolhe <strong>as frases</strong> que achas que te ajudariam a continuares. Podes escolher mais que uma.
                                 </p>
-
+                                    
+                                    {cordaError && (
+                                      <div className="alert alert-warning mt-3 text-center" role="alert">
+                                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                                        Por favor, escolhe pelo menos uma frase para continuar.
+                                      </div>
+                                    )}
+                               
                                 <div className="text-center my-4">
                                   <img 
                                     src="/imgs/modulo6/viagem/corda.png" 
@@ -779,19 +813,21 @@ const handleOpcaoToggle = (index) => {
                                     return (
                                       <div
                                         key={index}
-                                        onClick={() => handleOpcaoToggle(index)}
-                                        className={`btn ${isSelected ? 'btn-primary' : 'btn-outline-secondary'} text-start p-3`}
+                                        onClick={() => {
+                                            handleOpcaoToggle(index);
+                                            if (cordaError) setCordaError(false); 
+                                          }}
+                                        className="p-3 rounded"
                                         style={{
                                           backgroundColor: isSelected ? '#99CBC8' : '#fff',
                                           color: isSelected ? 'white' : '#234970',
                                           border: `1px solid #99CBC8`,
-                                          borderRadius: '12px',
                                           transition: 'all 0.3s ease',
                                           cursor: 'pointer'
                                         }}
                                       >
                                         {/* Optional: Add a checkmark or indicator for selected items */}
-                                        {isSelected && <i className="bi bi-check-circle me-2"></i>}
+                                        {isSelected && <i className="mb-0 fw-medium"></i>}
                                         {opcao}
                                       </div>
                                     );
@@ -802,11 +838,16 @@ const handleOpcaoToggle = (index) => {
                                   <button className="custom-btn-pink" onClick={() => setPagina(3)}>
                                     <i className="bi bi-arrow-left me-2"></i>Anterior
                                   </button>
-                                  <button 
-                                    className={`custom-btn-turquoise ${opcoesSelecionadas.length === 0 ? 'opacity-50' : ''}`}
-                                    onClick={handleProceedToReflection}
-                                    disabled={opcoesSelecionadas.length === 0}
-                                    style={{ cursor: opcoesSelecionadas.length > 0 ? 'pointer' : 'not-allowed' }}
+                                 <button
+                                    className="custom-btn-turquoise"
+                                    onClick={() => {
+                                      if (opcoesSelecionadas.length === 0) {
+                                        setCordaError(true); 
+                                        return;
+                                      }
+                                      handleProceedToReflection(); 
+                                    }}
+                                    style={{ cursor: 'pointer' }}
                                   >
                                     Próximo<i className="bi bi-arrow-right ms-2"></i>
                                   </button>
@@ -814,15 +855,16 @@ const handleOpcaoToggle = (index) => {
                   
                             </>
               )}
+          
             {/* PAGE 6 - Caixa de Ferramentas (Toolbox) - NEW PAGE */}
             {pagina === 6 && (
               <>
-              <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Objetos
+              <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
+                                    Pote
                                 </h4>
                 
                   <div>
-                    <p className="mb-3 lead">
+                    <p className="lead">
                       O <strong>pote</strong> é o <strong>sexto objeto</strong> desta viagem. Representa a <strong>resiliência</strong> e o valor de 
                       <strong>tudo aquilo que foi sendo aprendido e conquistado ao longo do caminho</strong>. 
                       Nesta fase da viagem, a pessoa já passou por momentos de descoberta, desafio e crescimento. 
@@ -838,48 +880,63 @@ const handleOpcaoToggle = (index) => {
                       <strong>o caminho percorrido tem frutos</strong>, e que <strong>cada passo importa</strong>.
                     </p>
 
-                    <p className="mb-3 lead text-center">
+                    <p className="lead text-center">
                       <strong>O que aprendeste sobre ti que merecia ser guardado num pote especial?</strong>
                     </p>
 
-                    <p className="mb-3 lead text-center">
-                      <strong>Arrasta os itens</strong> que te fazem sentido para dentro do pote. 
-                      <strong>Podes personalizar</strong> se achares que faz mais sentido de acordo com a tua experiência.
+                    <p className="lead text-center">
+                      <strong>Arrasta as frases</strong> que te fazem sentido para dentro do pote. 
+                      <strong>Podes personalizar</strong> algumas frases que queiras colocar no teu pote que melhor representam a tua experiência”.
                     </p>
                     
-                    <div className="alert alert-info mb-3"  style={{ backgroundColor: "#FBF9F9" , border: "1px solid #99cbc8" }}>
-                      <i className="bi bi-info-circle me-2"></i>
-                      <strong>Dica:</strong> Clica nas opções com ícone de lápis para as personalizar com as tuas próprias palavras!
-                    </div>
+                    <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9", border: "1px solid #99cbc8" }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    <strong>Dica:</strong> Clica nas frases com ícone de lápis para personalizares com a tua própria experiência!
+                  </div>
                   </div>
                   <DragDropContext onDragEnd={handleDragEnd}>
                     <>
                       {showValidationError && (
-                        <div className="alert alert-warning mb-3">
-                          <strong>Atenção!</strong> Precisas de colocar pelo menos um recurso no pote antes de prosseguir.
-                        </div>
-                      )}
+                            <div className="alert alert-warning mt-3 text-center" role="alert">
+                              <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                              Por favor, coloca pelo menos uma frase no pote antes de continuar.
+                            </div>
+                          )}
                       
                       <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                        {(provided) => (
-                          <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
-                            {frasesDisponiveis.map((frase, index) => (
-                                <Draggable
-                                  key={`disp-${frase}-${index}`}
-                                  draggableId={frase}
-                                  index={index}
-                                >
-                                {(provided, snapshot) => (
-                                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                    <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
+                            {(provided) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                className="d-flex flex-wrap gap-2 mb-4"
+                              >
+                                {frasesDisponiveis.map((frase, index) => (
+                                  <Draggable
+                                    key={`disp-${frase}-${index}`}
+                                    draggableId={frase}
+                                    index={index}
+                                  >
+                                    {(provided, snapshot) => (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className="badge text-white p-2"
+                                        style={{
+                                          backgroundColor: "#99cbc8", 
+                                          userSelect: "none",
+                                          ...provided.draggableProps.style,
+                                        }}
+                                      >
+                                        {frase}
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
                       
                       <div className="row">
                         {quadrantes.map((q) => (
@@ -963,32 +1020,46 @@ const handleOpcaoToggle = (index) => {
                       
                       <div className="d-flex justify-content-between mt-4">
                         <button className="custom-btn-pink" onClick={() => setPagina(5)}><i className="bi bi-arrow-left me-2"></i>Anterior</button>
-                        <button className="custom-btn-turquoise" onClick={handleProceedToReflection}>Próximo<i className="bi bi-arrow-right ms-2"></i></button>
+                        <button
+                          className="custom-btn-turquoise"
+                          onClick={() => {
+                            const hasAny = Object.values(respostas).some((arr) => (arr?.length || 0) > 0);
+                            if (!hasAny) {
+                              setShowValidationError(true);  
+                              return;
+                            }
+                            handleProceedToReflection();    
+                          }}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          Próximo<i className="bi bi-arrow-right ms-2"></i>
+                        </button>
                       </div>
                     </>
                   </DragDropContext>
                 
               </>
             )}
+
+
 {/* PAGE 7 - Caixa de Ferramentas (Toolbox) - NEW PAGE */}
             {pagina === 7 && (
               <>
-                <p className="mb-3 lead">
-                  A <strong>lâmpaada</strong> é o <strong>quarto objeto</strong> desta viagem. Representa o momento em que a pessoa começa a 
-                  <strong>ganhar clareza sobre os seus desafios</strong> e a <strong>compreender melhor o que sente</strong>. 
-                  À medida que o processo terapêutico avança, começam a surgir <strong>novas perspetivas</strong> e 
-                  <strong>formas de lidar com as emoções</strong>. A lâmpada simboliza essa <strong>luz</strong> que se vai acendendo pouco a pouco, 
-                  iluminando partes que antes pareciam confusas ou difíceis de entender. 
-                  É como se, ao acender essa lâmpada simbólica, a pessoa começasse a 
-                  <strong>ver com mais nitidez o caminho que está a percorrer</strong>, percebendo quais são as 
-                  <strong>estratégias que pode usar</strong> para enfrentar os desafios do dia a dia. 
-                  Este é um momento de <strong>clareza</strong>, de <strong>aprendizagem</strong> e de <strong>esperança</strong>. 
-                  Um passo importante na viagem ao bem-estar, onde começa a fazer-se 
-                  <strong>luz sobre o que antes estava às escuras</strong>.
+              <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>  
+                                    Chave
+                                </h4>
+                    <p className="lead">
+                  A <strong>chave</strong> é o <strong>sétimo objeto</strong> e último objeto desta viagem. Representa a liberdade e a autonomia que começam a surgir quando a pessoa
+                  se sente mais <strong>preparada para lidar </strong>com as suas emoções e os seus desafios. Depois de todo o caminho percorrido, esta chave simbólica é aquilo que <strong>abre novas portas
+                  </strong> — portas para o futuro, para escolhas mais conscientes. É como se, ao segurar essa chave nas mãos, a pessoa percebesse que agora tem acesso a  <strong>ferramentas, estratégias e recursos internos </strong>que 
+                  lhe permitem enfrentar o que vier pela frente com mais segurança e confiança.  
+                  A chave simboliza a  <strong>continuidade da viagem</strong>, mesmo depois das consultas: um sinal de que o que foi aprendido permanece,
+                   e que cada um pode seguir o seu caminho com maior clareza e capacidade de escolha. 
+                  Este objeto marca um momento especial: <strong>o de sentir que é possível seguir em frente</strong>, com tudo o que foi guardado ao longo do caminho.
                 </p>
 
-                <p className="mb-3 lead text-center">
-                  <strong>Há algo que começa a fazer mais sentido para ti?</strong>
+                <p className="lead text-center">
+                  <strong>Que portas ou escolhas na tua vida gostavas que fossem abertas com essa chave?</strong>
                 </p>
 
                 <div className="text-center my-4">
@@ -1018,84 +1089,51 @@ const handleOpcaoToggle = (index) => {
                       required
                     />
                     {chaveError && (
-                      <div className="text-danger mt-2">
-                        <small>Por favor, escreve algo para continuar.</small>
-                      </div>
-                    )}
-                  </div>
+                        <div className="alert alert-warning mt-3 text-center" role="alert">
+                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                          Por favor, escreve algo para continuar.
+                        </div>
+                      )}
+                </div>
                 </div>
 
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={() => setPagina(6)}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
-                  <button 
-                    className={`custom-btn-turquoise ${!chave.trim() ? 'opacity-50' : ''}`}
-                    onClick={handleProceedToReflection}
-                    disabled={!chave.trim()}
-                    style={{ cursor: chave.trim() ? 'pointer' : 'not-allowed' }}
-                  >
-                    Próximo<i className="bi bi-arrow-right ms-2"></i>
-                  </button>
+                  <button
+                      className="custom-btn-turquoise"
+                      onClick={() => {
+                        if (!chave.trim()) {
+                          setChaveError(true); 
+                          return;
+                        }
+                        handleProceedToReflection(); 
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Conclusão<i className="bi bi-arrow-right ms-2"></i>
+                    </button>
                 </div>
               </>
             )}
             {/* PAGE 5 - Final Page */}
             {pagina === 8 && (
               <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                                     Conclusão
                                 </h4>                
                 <div>
-              <p className="mb-3 lead">
-                Ao longo desta atividade, foram apresentados <strong>sete objetos simbólicos</strong>, cada um representando uma <strong>etapa da viagem ao bem-estar</strong> – uma caminhada que reflete o percurso de quem passa pelo processo terapêutico.
-              </p>
-
-             <ul className="mb-3 lead list-disc list-inside">
-              <li>
-                <strong>Mochila</strong> – O espaço seguro onde são colocadas <strong>preocupações e dificuldades</strong>, reconhecendo que, numa relação terapêutica, é possível <strong>ser genuíno/a e vulnerável sem julgamento</strong>.
-              </li>
-              <br></br>
-              <li>
-                <strong>Cadeira</strong> – O lugar da <strong>escuta empática</strong>, onde se constrói <strong>confiança</strong> e se encontra <strong>acolhimento para partilhar o que se sente</strong>.
-              </li>
-                            <br></br>
-
-              <li>
-                <strong>Espelho</strong> – O símbolo da <strong>autorreflexão</strong>, que permite olhar para as emoções com mais <strong>clareza e compreensão</strong>.
-              </li>
-                            <br></br>
-
-              <li>
-                <strong>Lâmpada</strong> – A luz que ilumina os <strong>desafios</strong>, revelando <strong>novas estratégias e caminhos</strong>.
-              </li>
-                            <br></br>
-
-              <li>
-                <strong>Corda</strong> – A <strong>ligação de apoio contínuo</strong> entre a pessoa e o psicólogo, que oferece <strong>suporte e segurança</strong> ao longo do caminho.
-              </li>
-                            <br></br>
-
-              <li>
-                <strong>Pote</strong> – A <strong>reserva de resiliência</strong>, onde se guardam conquistas, estratégias e vitórias, mesmo perante novos obstáculos.
-              </li>
-                            <br></br>
-
-              <li>
-                <strong>Chave</strong> – A <strong>liberdade e autonomia</strong> que se ganham ao longo da viagem, abrindo portas para um <strong>futuro mais confiante e preparado</strong>.
-              </li>
-            </ul>
-
-
-              <p className="mb-3 lead">
+              <p className="lead">
+                Ao longo desta atividade, foram apresentados <strong>sete objetos simbólicos</strong>.
+                </p>
+              <p className="lead">
                 Cada símbolo representa um <strong>passo essencial</strong> na viagem terapêutica: desde <strong>acolher e partilhar</strong>, passando por <strong>refletir</strong>, <strong>compreender e fortalecer</strong>, até chegar à <strong>autonomia</strong>.
               </p>
-
-              <p className="mb-3 lead">
+              <p className="lead">
                 O processo terapêutico é um <strong>caminho de descoberta interior</strong>, onde, com o <strong>apoio de um psicólogo</strong>, se aprende a compreender melhor as emoções e a <strong>transformar os desafios em oportunidades de crescimento</strong>.
               </p>
-
-              <p className="mb-3 lead">
+              <p className="lead">
                 No final desta viagem, percebe-se que <strong>pedir ajuda é um ato de coragem</strong>, e que, com o tempo, é possível <strong>avançar com mais clareza, confiança e equilíbrio</strong> para enfrentar o que vier pela frente.
               </p>
             </div>
