@@ -88,6 +88,16 @@ const [quadrantes, setQuadrantes] = useState([
 
   const [chave, setChave] = useState("");
   const [chaveError, setChaveError] = useState(false);
+  const [cadeiraError, setCadeiraError] = useState(false);
+
+  const handleAdvanceFromCadeira = () => {
+  if (!cadeiraSelecionada) {
+    setCadeiraError(true);
+    return;
+  }
+  setCadeiraError(false);
+  setPagina(3);
+};
 
   const initializePhrases = (behaviorKey = 'mochila') => { // Changed default from 'procrastinacao' to 'mochila'
     const selectedBehavior = comportamentos[behaviorKey];
@@ -97,9 +107,10 @@ const [quadrantes, setQuadrantes] = useState([
       setCurrentBehavior(behaviorKey); // Update current behavior
     }
     
-    setRespostas({
-      mochila: [],
-    });
+    setRespostas(prev => ({
+  ...prev,
+  mochila: [],
+}));
     setShowValidationError(false);
   };
 
@@ -380,13 +391,13 @@ const handleOpcaoToggle = (index) => {
                   <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Mochila</h2>
                   <p className="lead">
                     A <strong>mochila</strong> é o <strong>primeiro objeto</strong> desta viagem. Representa o momento em que a pessoa 
-                    <strong>reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
+                     <strong>reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
                     É nela que são colocadas as <strong>preocupações, emoções, medos e dúvidas</strong>. 
                     Nesta fase inicial, começa a construir-se um <strong>espaço seguro</strong>, onde é possível 
-                    <strong>partilhar o que se sente sem medo de julgamento</strong>. 
+                     <strong>partilhar o que se sente sem medo de julgamento</strong>. 
                     A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: 
                     o reconhecimento de que há experiências que merecem ser cuidadas — e que 
-                    <strong>não precisam de ser carregadas sozinho/a</strong>.
+                     <strong>não precisam de ser carregadas sozinho/a</strong>.
                   </p>
 
                   <p className="lead text-center"><strong>O que colocarias na tua mochila?</strong></p>
@@ -413,36 +424,21 @@ const handleOpcaoToggle = (index) => {
 
                     {/* Lista horizontal de frases disponíveis */}
                     <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.droppableProps}
-                          className="d-flex flex-wrap gap-2 mb-4"
-                        >
-                          {frasesDisponiveis.map((frase, index) => (
-                            <Draggable key={frase} draggableId={`disp-${frase}`} index={index}>
-                                  {(provided) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className="badge text-white p-2"
-                                      style={{
-                                        backgroundColor: "#99CBC8",
-                                        userSelect: "none",
-                                        ...provided.draggableProps.style,
-                                      }}
-                                      title="Arrasta esta frase para a mochila"
-                                    >
-                                      {frase}
-                                    </div>
-                                  )}
-                                </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
+                        {(provided) => (
+                          <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
+                            {frasesDisponiveis.map((frase, index) => (
+                              <Draggable key={frase} draggableId={frase} index={index}>
+                                {(provided, snapshot) => (
+                                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                    <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
 
                     {/* Mochila(s) */}
                     <div className="row">
@@ -486,30 +482,25 @@ const handleOpcaoToggle = (index) => {
                                   }}
                                 >
                                   {respostas[q.id].map((frase, index) => (
-                                    <Draggable
-                                        key={`${q.id}-${frase}-${index}`}
-                                        draggableId={`${q.id}-${frase}-${index}`}
-                                        index={index}
-                                      >
-                                        {(provided, snapshot) => (
-                                          <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            className="p-2 mb-2 rounded text-white"
-                                            style={{
-                                              backgroundColor: "#99CBC8",
-                                              userSelect: "none",
-                                              ...provided.draggableProps.style,
-                                              position: snapshot.isDragging ? "fixed" : "relative",
-                                            }}
-                                          >
-                                            {frase}
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                  ))}
-                                  {provided.placeholder}
+                                        <Draggable
+                                          key={`${q.id}-${index}`}
+                                          draggableId={`${q.id}-${index}`}  
+                                          index={index}
+                                        >
+                                          {(provided, snapshot) => (
+                                            <div
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              className="mb-2 me-2"
+                                              style={{ ...provided.draggableProps.style, position: snapshot.isDragging ? "fixed" : "relative" }}
+                                            >
+                                              <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      ))}
+                                   {provided.placeholder}
                                 </div>
                               </div>
                             )}
@@ -534,24 +525,24 @@ const handleOpcaoToggle = (index) => {
               {/* PAGE 2 - Cadeira (Chair) */}
               {pagina === 2 && (
                 <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Objetos
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
+                                    Cadeira
                                 </h4>
                   <p className="mb-3 lead">
                     A <strong>cadeira</strong> é o <strong>segundo objeto</strong> desta viagem. Representa o momento em que a pessoa encontra um espaço para 
-                    <strong> parar, sentar-se e partilhar o que está a sentir</strong>. 
+                     <strong> parar, sentar-se e partilhar o que está a sentir</strong>. 
                     É na cadeira que começa a ser construída uma <strong>ligação de confiança com o psicólogo</strong>, 
-                    através da <strong>escuta ativa, aceitação e validação</strong>. 
+                     que cria um  <strong> ambiente seguro e de escuta ativa</strong> , aceitação e validação.  
                     Este é o lugar onde se pode falar com verdade, num ambiente seguro, sem medo de julgamento. 
                     A cadeira simboliza o início de uma <strong>relação terapêutica</strong>, onde o que é dito é valorizado e respeitado. 
                     É neste espaço que a pessoa começa a perceber que <strong>não está sozinha</strong> e que há alguém disponível para 
-                    <strong> ouvir com empatia</strong>. Assim, a cadeira marca uma nova etapa da viagem: 
+                     <strong> ouvir com empatia</strong> e caminha connosco. Assim, a cadeira marca uma nova etapa da viagem: 
                     o momento de se sentir <strong>ouvido/a, compreendido/a e acompanhado/a</strong>, com tempo e espaço para 
-                    <strong> ser verdadeiramente quem se é</strong>.
+                     <strong> ser verdadeiramente quem se é</strong>.
                   </p>
 
-                  <p className="mb-3 lead text-center"><strong>Que cadeira é que escolhias neste momento para te sentares?</strong></p>
-                  <p className="mb-3 lead text-center"><strong>Escolhe uma</strong> das imagens em baixo.</p>
+                  <p className="lead text-center"><strong>Que cadeira é que escolhias neste momento para te sentares?</strong></p>
+                  <p className="lead"><strong>Escolhe uma</strong> das imagens em baixo.</p>
 
                   <div className="row text-center">
                     {[1, 2, 3, 4].map((num) => (
@@ -561,21 +552,30 @@ const handleOpcaoToggle = (index) => {
                             src={`/imgs/modulo6/viagem/cadeira${num}.png`}
                             alt={`Cadeira ${num}`}
                             className={`img-fluid selectable-img ${cadeiraSelecionada === num ? 'selected' : ''}`}
-                            onClick={() => setCadeiraSelecionada(num)}
+                            onClick={() => {
+                              setCadeiraSelecionada(num);
+                              if (cadeiraError) setCadeiraError(false);
+                            }}
                           />
                         </div>
                       </div>
                     ))}
                   </div>
+                  {cadeiraError && (
+                    <div className="alert alert-warning mt-3 text-center" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                      Por favor, escolhe uma cadeira para continuar.
+                    </div>
+                  )}
 
                   <div className="d-flex justify-content-between mt-4">
                     <button className="custom-btn-pink" onClick={() => setPagina(1)}>
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
-                    <button 
+                    <button
                       className={`custom-btn-turquoise ${!cadeiraSelecionada ? 'opacity-50' : ''}`}
-                      onClick={() => cadeiraSelecionada && setPagina(3)}
-                      disabled={!cadeiraSelecionada}
+                      onClick={handleAdvanceFromCadeira}
+                      /* não usar disabled para permitir clicar e mostrar a mensagem */
                       style={{ cursor: cadeiraSelecionada ? 'pointer' : 'not-allowed' }}
                     >
                       Próximo<i className="bi bi-arrow-right ms-2"></i>
@@ -864,7 +864,11 @@ const handleOpcaoToggle = (index) => {
                         {(provided) => (
                           <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
                             {frasesDisponiveis.map((frase, index) => (
-                              <Draggable key={frase} draggableId={frase} index={index}>
+                              <Draggable
+                                      key={`${q.id}-${frase}-${index}`} 
+                                      draggableId={frase}              
+                                      index={index}
+                                    >
                                 {(provided, snapshot) => (
                                   <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                     <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />

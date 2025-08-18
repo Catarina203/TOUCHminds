@@ -98,16 +98,16 @@ const NaoEstasSozinho = () => {
                         {/* Coluna da Esquerda */}
                         <div className="col-12 col-md-6">
                           <p className="lead">
-                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'} Linha de Aconselhamento Psicologico SNS 24</strong><br/>
+                            <strong style={{ color: "#99cbc8" }}>Linha de Aconselhamento Psicologico SNS 24</strong><br/>
                             808 24 24 24 (Opção 4)
                           </p>
                           <p className="lead">
-                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'}  SOS Voz Amiga</strong><br />
+                            <strong style={{ color: "#99cbc8" }}>SOS Voz Amiga</strong><br />
                             213 544 545 - 912 802 669 - 963 524 660<br />
                             Atendimento: 15h30 - 00h30
                           </p>
                           <p className="lead">
-                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'}  Conversa Amiga</strong><br />
+                            <strong style={{ color: "#99cbc8" }}>Conversa Amiga</strong><br />
                             210 027 159<br />
                             Atendimento: 15h30 - 22h00
                           </p>
@@ -116,12 +116,12 @@ const NaoEstasSozinho = () => {
                         {/* Coluna da Direita */}
                         <div className="col-12 col-md-6">
                           <p className="lead">
-                            <strong style={{ color: "#99cbc8" }}>{'\u{1F4DE}'}  Telefone da Amizade</strong><br />
+                            <strong style={{ color: "#99cbc8" }}>Telefone da Amizade</strong><br />
                             222 080 707<br />
                             Atendimento: 16h00 - 23h00
                           </p>
                           <p className="lead">
-                            <strong style={{ color: "#99cbc8" }}> {'\u{1F4DE}'} Voz de Apoio</strong><br />
+                            <strong style={{ color: "#99cbc8" }}>Voz de Apoio</strong><br />
                             225 506 070<br />
                             Atendimento: 21h00 - 24h00
                           </p>
