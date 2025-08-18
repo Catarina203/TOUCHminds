@@ -28,6 +28,7 @@ const comportamentos = {
       "Dificuldade em lidar com as minhas sensações físicas",
       "Preocupação excessiva com muitas coisas",
       "Pensamentos que eu não me consigo livrar",
+      "Medo de não ter ninguém que me possa ajudar caso eu precise",
       "EDITABLE_1",
       "EDITABLE_2",
       "EDITABLE_3",
@@ -358,12 +359,12 @@ const handleOpcaoToggle = (index) => {
               {/* PAGE 0 - Introduction */}
               {pagina === 0 && (
                 <>
-                  <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>Viagem Ao Bem-Estar</h2>
-                  <p className="mb-3 lead"><strong>Sê muito bem-vindo ou bem-vinda à Viagem ao Bem-Estar!</strong></p>
-                  <p className="mb-3 lead">Imagina que estás a embarcar numa <strong>viagem para o teu bem-estar</strong>.</p>
-                  <p className="mb-3 lead">Durante o percurso, vais encontrar <strong>objetos que representam as várias etapas</strong> que acontecem quando existe um <strong>acompanhamento psicológico</strong>.</p>
+                  <h2 className="text-center fw-bold mb-4"  style={{ color: "#234970" }}>Viagem Ao Bem-Estar</h2>
+                  <p className="lead"><strong>Sê muito bem-vindo/a à Viagem ao Bem-Estar!</strong></p>
+                  <p className="lead">Imagina que estás a embarcar numa <strong>viagem para o teu bem-estar</strong>.</p>
+                  <p className="lead">Durante o percurso, vais encontrar <strong>objetos que representam as várias etapas</strong> que acontecem quando existe uma <strong>intervenção psicológica</strong>.</p>
 
-                  <p className="mb-3 lead">O objetivo desta atividade é <strong>aprender sobre as fases do processo terapêutico</strong>, utilizando <strong>objetos simbólicos</strong> que representam cada etapa.</p>
+                  <p className="lead">O objetivo desta atividade é <strong>aprender sobre as fases do processo terapêutico</strong>, utilizando <strong>objetos simbólicos</strong> que representam cada etapa.</p>
 
                   <div className="text-center">
                     <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={avancarPagina}>
@@ -372,86 +373,104 @@ const handleOpcaoToggle = (index) => {
                 </>
               )}
 
-              {/* PAGE 1 - Mochila (Backpack) */}
-              {pagina === 1 && (
-                <>
-                  <div>
-                    <p className="mb-3 lead">
-                      A <strong>mochila</strong> é o <strong>primeiro objeto</strong> desta viagem. Representa o momento em que a pessoa 
-                      <strong>reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
-                      É nela que são colocadas as <strong>preocupações, emoções, medos e dúvidas</strong>. 
-                      Nesta fase inicial, começa-se a construir um <strong>espaço seguro</strong>, onde é possível 
-                      <strong>partilhar o que se sente sem medo de julgamento</strong>. 
-                      A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: 
-                      o reconhecimento de que há experiências que merecem ser cuidadas — e que 
-                      <strong>não precisam de ser carregadas sozinho/a</strong>.
-                    </p>
+         {/* PAGE 1 - Mochila (Backpack) */}
+            {pagina === 1 && (
+              <>
+                <div>
+                  <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Mochila</h2>
+                  <p className="lead">
+                    A <strong>mochila</strong> é o <strong>primeiro objeto</strong> desta viagem. Representa o momento em que a pessoa 
+                    <strong>reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
+                    É nela que são colocadas as <strong>preocupações, emoções, medos e dúvidas</strong>. 
+                    Nesta fase inicial, começa a construir-se um <strong>espaço seguro</strong>, onde é possível 
+                    <strong>partilhar o que se sente sem medo de julgamento</strong>. 
+                    A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: 
+                    o reconhecimento de que há experiências que merecem ser cuidadas — e que 
+                    <strong>não precisam de ser carregadas sozinho/a</strong>.
+                  </p>
 
-                    <p className="mb-3 lead text-center"><strong>O que colocarias na tua mochila?</strong></p>
+                  <p className="lead text-center"><strong>O que colocarias na tua mochila?</strong></p>
 
-                    <p className="mb-3 lead">
-                      <strong>Arrasta os itens</strong> que te fazem sentido para dentro da tua mochila. 
-                      <strong>Podes personalizar</strong> se achares que faz mais sentido de acordo com a tua experiência.
-                    </p>
-                    
-                    <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9" , border: "1px solid #99cbc8" }}>
-                      <i className="bi bi-info-circle me-2"></i>
-                      <strong>Dica:</strong> Clica nas opções com ícone de lápis para as personalizar com as tuas próprias palavras!
-                    </div>
+                  <p className="lead">
+                    <strong>Arrasta os itens</strong> que te fazem sentido para dentro da tua mochila. 
+                    <strong>Podes personalizar</strong> alguns itens que queiras colocar na tua mochila que melhor representam a tua experiência.
+                  </p>
+                  
+                  <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9", border: "1px solid #99cbc8" }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    <strong>Dica:</strong> Clica nos itens com ícone de lápis para personalizares com a tua própria experiência!
                   </div>
-                  <DragDropContext onDragEnd={handleDragEnd}>
-                    <>
-                      {showValidationError && (
-                        <div className="alert alert-warning mb-3">
-                          <strong>Atenção!</strong> Precisas de colocar pelo menos uma frase na mochila antes de prosseguir.
+                </div>
+
+                <DragDropContext onDragEnd={handleDragEnd}>
+                  <>
+                    {showValidationError && (
+                        <div className="alert alert-warning mt-3 text-center" role="alert">
+                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                        Por favor, coloca pelo menos uma frase na mochila antes de continuar.
+                      </div>
+                    )}
+
+                    {/* Lista horizontal de frases disponíveis */}
+                    <Droppable droppableId="frasesDisponiveis" direction="horizontal">
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                          className="d-flex flex-wrap gap-2 mb-4"
+                        >
+                          {frasesDisponiveis.map((frase, index) => (
+                            <Draggable key={frase} draggableId={`disp-${frase}`} index={index}>
+                                  {(provided) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className="badge text-white p-2"
+                                      style={{
+                                        backgroundColor: "#99CBC8",
+                                        userSelect: "none",
+                                        ...provided.draggableProps.style,
+                                      }}
+                                      title="Arrasta esta frase para a mochila"
+                                    >
+                                      {frase}
+                                    </div>
+                                  )}
+                                </Draggable>
+                          ))}
+                          {provided.placeholder}
                         </div>
                       )}
+                    </Droppable>
 
-                      <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                        {(provided) => (
-                          <div ref={provided.innerRef} {...provided.droppableProps} className="d-flex flex-wrap gap-2 mb-4">
-                            {frasesDisponiveis.map((frase, index) => (
-                              <Draggable key={frase} draggableId={frase} index={index}>
-                                {(provided, snapshot) => (
-                                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                    <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
+                    {/* Mochila(s) */}
                     <div className="row">
-                        {quadrantes.map((q) => (
-                          <div className="col-md-12  mb-3" key={q.id}>
-                            <div className="text-center mb-3">
-                              <h5 className="mt-2">Arrasta os itens para a mochila:</h5>
-                            </div>
-                            <Droppable droppableId={q.id}>
-                              {(provided) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.droppableProps}
-                                  className="position-relative"
-                                  style={{ minHeight: '400px' }}
-                                >
-                                  {/* Background image - you can replace this path */}
-                                  <img 
-                                    src="/imgs/modulo6/viagem/mochila.png" 
-                                    alt="Mochila"
-                                    className="img-fluid w-100"
-                                    style={{ 
-                                      maxHeight: '400px',
-                                      objectFit: 'contain',
-                                      opacity: 0.9
-                                    }}
-                                  />
-                                  
-                                  {/* Droppable overlay area */}
+                      {quadrantes.map((q) => (
+                        <div className="col-md-12 mb-3" key={q.id}>
+                          <Droppable droppableId={String(q.id)}>
+                            {(provided) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                className="position-relative"
+                                style={{ minHeight: '400px' }}
+                              >
+                                <img 
+                                  src="/imgs/modulo6/viagem/mochila.png" 
+                                  alt="Mochila"
+                                  className="img-fluid w-100"
+                                  style={{ 
+                                    maxHeight: '400px',
+                                    objectFit: 'contain',
+                                    opacity: 0.9
+                                  }}
+                                />
+
                                 <div 
-                                  className={`position-absolute d-flex flex-wrap align-content-start justify-content-center p-3 ${showValidationError && respostas[q.id].length === 0 ? "border border-warning rounded" : ""}`}
+                                  className={`position-absolute d-flex flex-wrap align-content-start justify-content-center p-3 ${
+                                    showValidationError && respostas[q.id].length === 0 ? "border border-warning rounded" : ""
+                                  }`}
                                   style={{ 
                                     backgroundColor: 'transparent',
                                     top: '15%',
@@ -466,49 +485,51 @@ const handleOpcaoToggle = (index) => {
                                     minHeight: '120px'
                                   }}
                                 >
-
-                                    {respostas[q.id].length === 0 && (
-                                      <div className="text-center text-muted">
-                                        <div className="bg-white bg-opacity-25 p-3 rounded">
-                                          <i className="bi bi-arrow-up-circle me-2"></i>
-                                          Arrasta os itens para aqui
-                                        </div>
-                                      </div>
-                                    )}
-                                    {respostas[q.id].map((frase, index) => (
-                                      <Draggable key={frase} draggableId={frase} index={index}>
+                                  {respostas[q.id].map((frase, index) => (
+                                    <Draggable
+                                        key={`${q.id}-${frase}-${index}`}
+                                        draggableId={`${q.id}-${frase}-${index}`}
+                                        index={index}
+                                      >
                                         {(provided, snapshot) => (
-                                          <div 
-                                            ref={provided.innerRef} 
-                                            {...provided.draggableProps} 
-                                            {...provided.dragHandleProps} 
-                                            className="mb-2 me-2"
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            className="p-2 mb-2 rounded text-white"
                                             style={{
+                                              backgroundColor: "#99CBC8",
+                                              userSelect: "none",
                                               ...provided.draggableProps.style,
-                                              position: snapshot.isDragging ? 'fixed' : 'relative'
+                                              position: snapshot.isDragging ? "fixed" : "relative",
                                             }}
                                           >
-                                            <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
+                                            {frase}
                                           </div>
                                         )}
                                       </Draggable>
-                                    ))}
-                                    {provided.placeholder}
-                                  </div>
+                                  ))}
+                                  {provided.placeholder}
                                 </div>
-                              )}
-                            </Droppable>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="d-flex justify-content-between mt-4">
-                        <button className="custom-btn-pink" onClick={() => setPagina(0)}><i className="bi bi-arrow-left me-2"></i>Anterior</button>
-                        <button className="custom-btn-turquoise" onClick={handleProceedToReflection}>Próximo<i className="bi bi-arrow-right ms-2"></i></button>
-                      </div>
-                    </>
-                  </DragDropContext>
-                </>
-              )}
+                              </div>
+                            )}
+                          </Droppable>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="d-flex justify-content-between mt-4">
+                      <button className="custom-btn-pink" onClick={() => setPagina(0)}>
+                        <i className="bi bi-arrow-left me-2"></i>Anterior
+                      </button>
+                      <button className="custom-btn-turquoise" onClick={handleProceedToReflection}>
+                        Próximo<i className="bi bi-arrow-right ms-2"></i>
+                      </button>
+                    </div>
+                  </>
+                </DragDropContext>
+              </>
+            )}
 
               {/* PAGE 2 - Cadeira (Chair) */}
               {pagina === 2 && (
