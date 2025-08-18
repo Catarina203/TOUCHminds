@@ -324,7 +324,7 @@ if (showValidationError) setShowValidationError(false);
     className="custom-btn-turquoise"
     onClick={() => setShowValidationError(true)}  // 👉 ativa alerta se não está certo
   >
-    Concluir<i className="bi bi-arrow-right ms-2"></i>
+    Conclusão<i className="bi bi-arrow-right ms-2"></i>
   </button>
 )}
       </div>
