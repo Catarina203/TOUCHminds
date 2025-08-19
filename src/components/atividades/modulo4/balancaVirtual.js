@@ -117,24 +117,44 @@ const BalancaVirtual = () => {
     if (!result.destination) return;
     const { source, destination, draggableId } = result;
 
-    // Clear validation error when user interacts
-    if (showValidationError) {
-      setShowValidationError(false);
-    }
+    if (showValidationError) setShowValidationError(false);
 
-    if (source.droppableId === "frasesDisponiveis") {
+    // 1) Da lista -> para um quadrante
+    if (source.droppableId === "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
       setFrasesDisponiveis((prev) => prev.filter((f) => f !== draggableId));
       setRespostas((prev) => ({
         ...prev,
         [destination.droppableId]: [...prev[destination.droppableId], draggableId],
       }));
-    } else if (source.droppableId !== destination.droppableId) {
-      const frase = respostas[source.droppableId].find((f) => f === draggableId);
+      return;
+    }
+
+    // 2) De um quadrante -> de volta à lista
+    if (source.droppableId !== "frasesDisponiveis" && destination.droppableId === "frasesDisponiveis") {
       setRespostas((prev) => ({
         ...prev,
-        [source.droppableId]: prev[source.droppableId].filter((f) => f !== frase),
-        [destination.droppableId]: [...prev[destination.droppableId], frase],
+        [source.droppableId]: prev[source.droppableId].filter((f) => f !== draggableId),
       }));
+      setFrasesDisponiveis((prev) => [...prev, draggableId]);
+      return;
+    }
+
+    // 3) Entre quadrantes diferentes
+    if (source.droppableId !== destination.droppableId) {
+      setRespostas((prev) => ({
+        ...prev,
+        [source.droppableId]: prev[source.droppableId].filter((f) => f !== draggableId),
+        [destination.droppableId]: [...prev[destination.droppableId], draggableId],
+      }));
+      return;
+    }
+
+    // 4) Reordenar dentro do mesmo quadrante (opcional)
+    if (source.droppableId === destination.droppableId) {
+      const items = Array.from(respostas[source.droppableId]);
+      items.splice(source.index, 1);
+      items.splice(destination.index, 0, draggableId);
+      setRespostas((prev) => ({ ...prev, [source.droppableId]: items }));
     }
   };
 
