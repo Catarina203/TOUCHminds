@@ -243,7 +243,7 @@ const AtividadeVozCritica = () => {
     </>
   ];
 
-      return (
+  return (
     <div className="container-fluid vh-100 p-0 font-poppins">
       <Navbar />
       <div className="row h-100 m-0">
@@ -265,7 +265,7 @@ const AtividadeVozCritica = () => {
                 <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
                   {titulos[pagina]}
                 </h4>
-              )}   
+              )}     
             
             {imagens[pagina] && (
               <div className="text-center mb-4">
@@ -282,7 +282,8 @@ const AtividadeVozCritica = () => {
                 />
               </div>
             )}
-            <div className="d-flex justify-content-between mt-4">
+            <div className="mb-4 font-lato">{textos[pagina]}</div>
+            <div className="d-flex justify-content-between">
               {pagina > 0 && (
                 <button className="custom-btn-pink" onClick={retrocederPagina}>
                   <i className="bi bi-arrow-left me-2"></i>Anterior
