@@ -243,44 +243,29 @@ const AtividadeVozCritica = () => {
     </>
   ];
 
-                    return (
-                      <div className="container-fluid vh-100 p-0 font-poppins">
-                        <Navbar />
-                        <div className="row h-100 m-0">
-                          <Sidebar />
-                          <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
-                            <div className="container p-5 bg-white rounded shadow-sm vozcritica-font">
-
-                              {/* CSS local para inputs e mensagens */}
-                              <style>
-                                {`
-                                  .vozcritica-font .form-control,
-                                  .vozcritica-font .invalid-feedback,
-                                  .vozcritica-font .alert-danger {
-                                    font-family: 'Lato', sans-serif !important;
-                                  }
-                                  .vozcritica-font .form-control::placeholder {
-                                    font-family: 'Lato', sans-serif !important;
-                                  }
-                                `}
-                              </style>
-
-                              <div className="progress mb-4" style={{ height: "8px" }}>
-                                <div
-                                  className="progress-bar"
-                                  role="progressbar"
-                                  style={{ width: `${progresso}%`, backgroundColor: "#99CBC8" }}
-                                  aria-valuenow={progresso}
-                                  aria-valuemin="0"
-                                  aria-valuemax="100"
-                                ></div>
-                              </div>
-
-                              {pagina >= 1 && pagina <= 9 && titulos[pagina] && (
-                                <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
-                                  {titulos[pagina]}
-                                </h4>
-                              )}
+     return (
+    <div className="container-fluid vh-100 p-0">
+      <Navbar />
+      <div className="row h-100 m-0">
+        <Sidebar />
+        <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
+          <div className="container p-5 bg-white rounded shadow-sm">
+            <div className="progress mb-4" style={{ height: "8px" }}>
+              <div
+                className="progress-bar"
+                role="progressbar"
+                style={{ width: `${progresso}%`, backgroundColor: "#99CBC8" }}
+                aria-valuenow={progresso}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            
+            {pagina >= 1 && pagina <= 9 && titulos[pagina] && (
+                <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
+                  {titulos[pagina]}
+                </h4>
+              )} 
             
             {imagens[pagina] && (
               <div className="text-center mb-4">

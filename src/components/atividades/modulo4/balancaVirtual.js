@@ -114,14 +114,13 @@ const BalancaVirtual = () => {
   const [mostrarFeedback, setMostrarFeedback] = useState(true);
 
  const handleDragEnd = (result) => {
-  if (!result.destination) return;
-
   const { source, destination, draggableId } = result;
+  if (!destination) return;
 
-  // Limpa aviso ao interagir
+  // limpa aviso quando o user interage
   if (showValidationError) setShowValidationError(false);
 
-  // 1) Reordenar na MESMA lista (lista de frases ou um quadrante)
+  // 1) Reordenar dentro da MESMA lista
   if (source.droppableId === destination.droppableId) {
     if (source.droppableId === "frasesDisponiveis") {
       setFrasesDisponiveis((prev) => {
@@ -141,34 +140,61 @@ const BalancaVirtual = () => {
     return;
   }
 
-  // 2) DA lista → PARA um quadrante
+  // 2) Da LISTA -> para um QUADRANTE
   if (source.droppableId === "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
-    setFrasesDisponiveis((prev) => prev.filter((f) => f !== draggableId));
-    setRespostas((prev) => ({
-      ...prev,
-      [destination.droppableId]: [...(prev[destination.droppableId] || []), draggableId],
-    }));
+    // remove da lista pela posição de origem
+    setFrasesDisponiveis((prev) => {
+      const list = Array.from(prev);
+      list.splice(source.index, 1);
+      return list;
+    });
+
+    // insere no quadrante na posição de destino
+    setRespostas((prev) => {
+      const destList = Array.from(prev[destination.droppableId] || []);
+      destList.splice(destination.index, 0, draggableId);
+      return { ...prev, [destination.droppableId]: destList };
+    });
     return;
   }
 
-  // 3) DE um quadrante → PARA a lista (permite "tirar" do quadrante)
+  // 3) De um QUADRANTE -> para a LISTA
   if (source.droppableId !== "frasesDisponiveis" && destination.droppableId === "frasesDisponiveis") {
-    setRespostas((prev) => ({
-      ...prev,
-      [source.droppableId]: (prev[source.droppableId] || []).filter((f) => f !== draggableId),
-    }));
-    setFrasesDisponiveis((prev) => (prev.includes(draggableId) ? prev : [...prev, draggableId]));
+    // remove do quadrante pela posição de origem
+    setRespostas((prev) => {
+      const srcList = Array.from(prev[source.droppableId] || []);
+      srcList.splice(source.index, 1);
+      return { ...prev, [source.droppableId]: srcList };
+    });
+
+    // insere na lista na posição de destino
+    setFrasesDisponiveis((prev) => {
+      const list = Array.from(prev);
+      // se por algum motivo já existir, move para o destino
+      const existingIndex = list.indexOf(draggableId);
+      if (existingIndex !== -1) {
+        list.splice(existingIndex, 1);
+      }
+      list.splice(destination.index, 0, draggableId);
+      return list;
+    });
     return;
   }
 
-  // 4) Entre quadrantes
+  // 4) Entre QUADRANTES
   if (source.droppableId !== "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
-    const frase = respostas[source.droppableId].find((f) => f === draggableId);
-    setRespostas((prev) => ({
-      ...prev,
-      [source.droppableId]: prev[source.droppableId].filter((f) => f !== frase),
-      [destination.droppableId]: [...(prev[destination.droppableId] || []), frase],
-    }));
+    setRespostas((prev) => {
+      const srcList = Array.from(prev[source.droppableId] || []);
+      const [moved] = srcList.splice(source.index, 1);
+      const destList = Array.from(prev[destination.droppableId] || []);
+      destList.splice(destination.index, 0, moved);
+
+      return {
+        ...prev,
+        [source.droppableId]: srcList,
+        [destination.droppableId]: destList,
+      };
+    });
   }
 };
 

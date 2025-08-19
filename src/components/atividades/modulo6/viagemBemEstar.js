@@ -865,33 +865,30 @@ const handleOpcaoToggle = (index) => {
                                   />
                                 </div>
 
-
-                                <div className="d-flex flex-column gap-3">
-                                  {corda[0].opcoes.map((opcao, index) => {
-                                    const isSelected = opcoesSelecionadas.includes(index);
-                                    return (
-                                      <div
-                                        key={index}
-                                        onClick={() => {
-                                            handleOpcaoToggle(index);
-                                            if (cordaError) setCordaError(false); 
-                                          }}
-                                        className="p-3 rounded"
-                                        style={{
-                                          backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
-                                          color: isSelected ? 'white' : '#234970',
-                                          border: `1px solid #99CBC8`,
-                                          transition: 'all 0.3s ease',
-                                          cursor: 'pointer'
-                                        }}
-                                      >
-                                        {/* Optional: Add a checkmark or indicator for selected items */}
-                                        {isSelected && <i className="mb-0 fw-medium"></i>}
-                                        <strong>{opcao}</strong>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
+                                    <div className="d-flex flex-column gap-3" style={{ marginTop: "20px" }}>
+                                      {corda[0].opcoes.map((opcao, index) => {
+                                        const isSelected = opcoesSelecionadas.includes(index);
+                                        return (
+                                          <div
+                                            key={index}
+                                            className={`opcao p-3 text-start ${isSelected ? "selecionada" : ""}`}
+                                            onClick={() => {
+                                              handleOpcaoToggle(index);
+                                              if (cordaError) setCordaError(false);
+                                            }}
+                                            style={{
+                                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                                              color: isSelected ? "white" : "#234970",
+                                              border: "1px solid #99CBC8",
+                                              transition: "all 0.3s ease",
+                                              cursor: "pointer",
+                                            }}
+                                          >
+                                            <p className="mb-0 fw-medium">{opcao}</p>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
 
                                 <div className="d-flex justify-content-between mt-4">
                                   <button className="custom-btn-pink" onClick={() => setPagina(3)}>
