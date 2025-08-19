@@ -131,11 +131,11 @@ const BalancaVirtual = () => {
 
     // 2) De um quadrante -> de volta à lista
     if (source.droppableId !== "frasesDisponiveis" && destination.droppableId === "frasesDisponiveis") {
-      setRespostas((prev) => ({
+      setRespostas(prev => ({
         ...prev,
-        [source.droppableId]: prev[source.droppableId].filter((f) => f !== draggableId),
+        [source.droppableId]: prev[source.droppableId].filter((id) => id !== draggableId),
       }));
-      setFrasesDisponiveis((prev) => [...prev, draggableId]);
+      setFrasesDisponiveis(prev => (prev.includes(draggableId) ? prev : [...prev, draggableId]));
       return;
     }
 
@@ -389,6 +389,9 @@ const BalancaVirtual = () => {
                                           style={{
                                             backgroundColor: "#99CBC8",
                                             userSelect: "none",       // 🔹 evita highlight
+                                            willChange: "transform",         // ajuda a GPU
+                                            transform: "translateZ(0)",      //
+                                            transition: snapshot.isDraggingOver ? "none" : "all 0.2s ease",              //
                                             ...provided.draggableProps.style, // 🔹 MUITO IMPORTANTE
                                           }}
                                           title="Arrasta esta frase para um quadrante"
