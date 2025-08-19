@@ -372,7 +372,7 @@ const BalancaVirtual = () => {
 
                         {/* FRASES DISPONÍVEIS */}
                             <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                              {(provided) => (
+                              {(provided, snapshot) => (
                                 <div
                                   ref={provided.innerRef}
                                   {...provided.droppableProps}
