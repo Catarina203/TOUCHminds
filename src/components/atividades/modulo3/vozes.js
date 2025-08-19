@@ -243,8 +243,8 @@ const AtividadeVozCritica = () => {
     </>
   ];
 
-     return (
-    <div className="container-fluid vh-100 p-0">
+      return (
+    <div className="container-fluid vh-100 p-0 font-poppins">
       <Navbar />
       <div className="row h-100 m-0">
         <Sidebar />
@@ -265,7 +265,7 @@ const AtividadeVozCritica = () => {
                 <h4 className="text-center fw-bold mb-3" style={{ color: "#234970" }}>
                   {titulos[pagina]}
                 </h4>
-              )} 
+              )}   
             
             {imagens[pagina] && (
               <div className="text-center mb-4">
