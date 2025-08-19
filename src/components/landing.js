@@ -86,7 +86,7 @@ const LandingPage = () => {
             <h1 className="fw-bold font-poppins py-3" style={{ color: "#99CBC8", fontSize: "clamp(1.8rem, 4vw, 2.5rem)" }}>
               Procurar ajuda é o começo da mudança!
             </h1>
-            <p className="text-muted font-lato py-3">
+            <p className="text-muted font-poppins py-3">
               Bem-vindo/a ao TOUCHminds. <br />O TOUCHminds é um programa online e gratuito destinado a ajudar os adolescentes, entre os 15 e os 17 anos, a compreender a ansiedade e a procurar ajuda, quando e se necessário.
             </p>
             <div className="py-3">
@@ -131,7 +131,7 @@ const LandingPage = () => {
           <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
               <Accordion.Header className="font-poppins">O que é?</Accordion.Header>
-              <Accordion.Body className="font-lato">
+              <Accordion.Body className="font-poppins">
                 O TOUCHminds é um programa online e gratuito, criado para promover a procura de ajuda em adolescentes que lidam com dificuldades relacionadas com a ansiedade.
                 Sabemos que, muitas vezes, a dificuldade em pedir ajuda vem do medo de ser julgado, da ideia de que as nossas emoções não são importantes, ou até da imposição
                 que nos colocamos de que deveríamos ser capazes de lidar com essa dificuldade sozinho/a. Este programa foi desenvolvido para mudar estas ideias e promover a
@@ -140,14 +140,14 @@ const LandingPage = () => {
             </Accordion.Item>
             <Accordion.Item eventKey="1">
               <Accordion.Header className="font-poppins">A quem se dirige?</Accordion.Header>
-              <Accordion.Body className="font-lato">
+              <Accordion.Body className="font-poppins">
                 O TOUCHminds destina-se a adolescentes dos 15 aos 17 anos que sentem que a ansiedade tem impacto na sua vida. Atualmente, o programa está disponível para
                 participantes das escolas selecionadas no norte do país, sendo necessário efetuar um registo na plataforma para aceder ao programa.
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
               <Accordion.Header className="font-poppins">Como funciona?</Accordion.Header>
-              <Accordion.Body className="font-lato">
+              <Accordion.Body className="font-poppins">
                 <ul>
                   <li>É 100% online e gratuito.</li>
                   <li>Composto por seis módulos interativos com vídeos, áudios, imagens e atividades interativas.</li>

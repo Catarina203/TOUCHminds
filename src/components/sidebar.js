@@ -52,7 +52,7 @@ const NavItem = ({ icon, text, active, onClick }) => {
       <span className="me-3 ms-2" style={{ width: '24px' }}>
         {icon}
       </span>
-      <span className='font-lato'>{text}</span>
+      <span className='font-poppins'>{text}</span>
     </div>
   );
 };
