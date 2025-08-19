@@ -509,8 +509,8 @@ const canAdvanceFromPage = (currentPage) => {
                   </p>
 
                   {avisoConfianca && (
-                      <div className="alert alert-warning mt-3">
-                        <i className="bi bi-exclamation-triangle me-2"></i>
+                      <div className="alert alert-warning mt-3 text-center" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
                         Por favor, seleciona a frase que melhor representa o teu nível de confiança para continuar.
                       </div>
                     )}

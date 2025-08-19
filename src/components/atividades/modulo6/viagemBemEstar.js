@@ -6,6 +6,7 @@ import AtividadeProgressao from "../atividadeProgressao";
 import { UserContext } from "../../../App";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const corda = [
   {
@@ -394,21 +395,16 @@ const handleOpcaoToggle = (index) => {
                 <div>
                   <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Mochila</h2>
                   <p className="lead">
-                    A <strong>mochila</strong> é o <strong>primeiro objeto</strong> desta viagem. Representa o momento em que a pessoa 
-                     <strong>reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
+                    A <strong>mochila</strong> é o <strong>primeiro objeto</strong> desta viagem. Representa o momento em que a pessoa <strong> reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
                     É nela que são colocadas as <strong>preocupações, emoções, medos e dúvidas</strong>. 
-                    Nesta fase inicial, começa a construir-se um <strong>espaço seguro</strong>, onde é possível 
-                     <strong>partilhar o que se sente sem medo de julgamento</strong>. 
-                    A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: 
-                    o reconhecimento de que há experiências que merecem ser cuidadas — e que 
-                     <strong>não precisam de ser carregadas sozinho/a</strong>.
+                    Nesta fase inicial, começa a construir-se um <strong>espaço seguro</strong>, onde é possível <strong> partilhar o que se sente sem medo de julgamento</strong>. 
+                    A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: o reconhecimento de que há experiências que merecem ser cuidadas — e que <strong> não precisam de ser carregadas sozinho/a</strong>.
                   </p>
 
                   <p className="lead text-center"><strong>O que colocarias na tua mochila?</strong></p>
 
                   <p className="lead">
-                    <strong>Arrasta as frases</strong> que te fazem sentido para dentro da tua mochila.  
-                    <strong>Podes personalizar</strong> algumas frases que queiras colocar na tua mochila que melhor representam a tua experiência.
+                    <strong>Arrasta as frases</strong> que te fazem sentido para dentro da tua mochila. <strong> Podes personalizar</strong> algumas frases que queiras colocar na tua mochila que melhor representam a tua experiência.
                   </p>
                   
                   <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9", border: "1px solid #99cbc8" }}>
@@ -435,20 +431,23 @@ const handleOpcaoToggle = (index) => {
                               className="d-flex flex-wrap gap-2 mb-4"
                             >
                               {frasesDisponiveis.map((frase, index) => (
-                                <Draggable key={frase} draggableId={frase} index={index}>
+                                <Draggable
+                                  key={`disp-${index}-${frase}`}
+                                  draggableId={frase} 
+                                  index={index}
+                                >
                                   {(provided, snapshot) => (
                                     <div
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
-                                      className="badge text-white p-2"
+                                      className="mb-2 me-2"
                                       style={{
-                                        backgroundColor: "#99cbc8", 
-                                        userSelect: "none",
                                         ...provided.draggableProps.style,
+                                        position: snapshot.isDragging ? "fixed" : "relative",
                                       }}
                                     >
-                                      {frase}
+                                      <DraggablePhrase phrase={frase} index={index} isDragging={snapshot.isDragging} />
                                     </div>
                                   )}
                                 </Draggable>
@@ -617,7 +616,7 @@ const handleOpcaoToggle = (index) => {
                     O espelho simboliza o processo de <strong>autoconhecimento</strong>: uma oportunidade para 
                     <strong>observar sem julgamentos, aceitar o que se sente e dar sentido à experiência emocional</strong>. 
                     É como se, ao olhar para esse espelho simbólico, a pessoa começasse a ver-se com  
-                    <strong>mais empatia, mais entendimento e mais verdade</strong>. 
+                    <strong> mais empatia, mais entendimento e mais verdade</strong>. 
                     É mais um passo importante nesta viagem: <strong>reconhecer quem se é e o que se sente</strong>, sem medo do reflexo.
                   </p>
 
@@ -667,6 +666,9 @@ const handleOpcaoToggle = (index) => {
                   </div>
 
                   <div className="d-flex justify-content-between mt-4">
+                    <button className="custom-btn-pink" onClick={() => setPagina(1)}>
+                      <i className="bi bi-arrow-left me-2"></i>Anterior
+                    </button>
                       <button 
                       className="custom-btn-turquoise"
                       onClick={() => {
@@ -725,7 +727,7 @@ const handleOpcaoToggle = (index) => {
                           padding: '12px 20px',
                           fontSize: '16px'
                         }}
-                        placeholder="Escreve aqui algo que agora compreendes melhor do que à um tempo a atrás"
+                        placeholder="Escreve aqui algo que agora compreendes melhor"
                         value={ferramenta}
                         onChange={(e) => {
                           setFerramenta(e.target.value);
@@ -779,7 +781,7 @@ const handleOpcaoToggle = (index) => {
                                   É como se essa corda unisse a pessoa ao psicólogo e a tudo aquilo que foi aprendendo ao longo do percurso. 
                                   À medida que a viagem continua, essa ligação torna-se mais forte. 
                                   A corda mostra que, mesmo quando o caminho é difícil, 
-                                  <strong>há sempre algo (ou alguém) que segura, apoia e dá confiança para continuar</strong>.
+                                  <strong> há sempre algo (ou alguém) que segura, apoia e dá confiança para continuar</strong>.
                                 </p>
 
                                 <p className="lead text-center">
@@ -819,7 +821,7 @@ const handleOpcaoToggle = (index) => {
                                           }}
                                         className="p-3 rounded"
                                         style={{
-                                          backgroundColor: isSelected ? '#99CBC8' : '#fff',
+                                          backgroundColor: isSelected ? '#99CBC8' : '#ffffff',
                                           color: isSelected ? 'white' : '#234970',
                                           border: `1px solid #99CBC8`,
                                           transition: 'all 0.3s ease',
@@ -869,14 +871,14 @@ const handleOpcaoToggle = (index) => {
                       <strong>tudo aquilo que foi sendo aprendido e conquistado ao longo do caminho</strong>. 
                       Nesta fase da viagem, a pessoa já passou por momentos de descoberta, desafio e crescimento. 
                       O pote simboliza o espaço onde são <strong>guardadas as pequenas vitórias</strong>, os <strong>avanços pessoais</strong>, 
-                      e as <strong>estratégias que começaram a fazer sentido</strong>. 
+                      e as <strong> estratégias que começaram a fazer sentido</strong>. 
                       É como se, ao longo do percurso, a pessoa fosse recolhendo elementos importantes — 
                       como formas de lidar com a ansiedade, maneiras de ver uma situação com mais clareza ou até momentos 
                       em que se sentiu verdadeiramente compreendida. Tudo isso é cuidadosamente colocado neste pote simbólico.
                       Mesmo que surjam novos desafios, o pote está lá, cheio de recursos que ajudam a 
-                      <strong>recordar a força que foi construída</strong> e a 
-                      <strong>usar o que já se aprendeu para seguir em frente com mais confiança</strong>. 
-                      Este objeto marca um momento de <strong>valorização</strong>, de reconhecer que 
+                      <strong> recordar a força que foi construída</strong> e a 
+                      <strong> usar o que já se aprendeu para seguir em frente com mais confiança</strong>. 
+                      Este objeto marca um momento de <strong> valorização</strong>, de reconhecer que 
                       <strong>o caminho percorrido tem frutos</strong>, e que <strong>cada passo importa</strong>.
                     </p>
 
@@ -886,7 +888,7 @@ const handleOpcaoToggle = (index) => {
 
                     <p className="lead text-center">
                       <strong>Arrasta as frases</strong> que te fazem sentido para dentro do pote. 
-                      <strong>Podes personalizar</strong> algumas frases que queiras colocar no teu pote que melhor representam a tua experiência”.
+                      <strong> Podes personalizar</strong> algumas frases que queiras colocar no teu pote que melhor representam a tua experiência”.
                     </p>
                     
                     <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9", border: "1px solid #99cbc8" }}>
@@ -894,6 +896,7 @@ const handleOpcaoToggle = (index) => {
                     <strong>Dica:</strong> Clica nas frases com ícone de lápis para personalizares com a tua própria experiência!
                   </div>
                   </div>
+                  
                   <DragDropContext onDragEnd={handleDragEnd}>
                     <>
                       {showValidationError && (
@@ -937,13 +940,7 @@ const handleOpcaoToggle = (index) => {
                               </div>
                             )}
                           </Droppable>
-                      
-                      <div className="row">
-                        {quadrantes.map((q) => (
-                          <div className="col-md-12 mb-3" key={q.id}>
-                            <div className="text-center mb-3">
-                              <h5 className="mt-2">Arrasta os recursos para o pote:</h5>
-                            </div>
+                    
                             <Droppable droppableId={q.id}>
                               {(provided) => (
                                 <div
@@ -964,7 +961,7 @@ const handleOpcaoToggle = (index) => {
 
                                     }}
                                   />
-                                  
+                                
                                   <div 
                                     className={`position-absolute d-flex flex-wrap align-content-start justify-content-center p-3 ${showValidationError && respostas[q.id].length === 0 ? "border border-warning rounded" : ""}`}
                                     style={{ 
@@ -982,15 +979,8 @@ const handleOpcaoToggle = (index) => {
                                       zIndex: 2,  
 
                                     }}
+                                  
                                   >
-                                    {respostas[q.id].length === 0 && (
-                                      <div className="text-center text-muted">
-                                        <div className="bg-white bg-opacity-25 p-3 rounded">
-                                          <i className="bi bi-arrow-up-circle me-2"></i>
-                                          Arrasta os recursos para aqui
-                                        </div>
-                                      </div>
-                                    )}
                                     {respostas[q.id].map((frase, index) => (
                                       <Draggable key={frase} draggableId={frase} index={index}>
                                         {(provided, snapshot) => (
@@ -1014,9 +1004,6 @@ const handleOpcaoToggle = (index) => {
                                 </div>
                               )}
                             </Droppable>
-                          </div>
-                        ))}
-                      </div>
                       
                       <div className="d-flex justify-content-between mt-4">
                         <button className="custom-btn-pink" onClick={() => setPagina(5)}><i className="bi bi-arrow-left me-2"></i>Anterior</button>
@@ -1079,7 +1066,7 @@ const handleOpcaoToggle = (index) => {
                         padding: '12px 20px',
                         fontSize: '16px'
                       }}
-                      placeholder="Escreve aqui o que mudanças farias se tivesses essa chave"
+                      placeholder="Escreve aqui o que abrias se tivesses essa chave"
                       value={chave}
                       onChange={(e) => {
                         setChave(e.target.value);
@@ -1090,7 +1077,7 @@ const handleOpcaoToggle = (index) => {
                     />
                     {chaveError && (
                         <div className="alert alert-warning mt-3 text-center" role="alert">
-                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
                           Por favor, escreve algo para continuar.
                         </div>
                       )}
