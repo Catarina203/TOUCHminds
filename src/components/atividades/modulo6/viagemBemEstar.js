@@ -941,7 +941,8 @@ const handleOpcaoToggle = (index) => {
                             )}
                           </Droppable>
                     
-                            <Droppable droppableId={q.id}>
+                            {quadrantes.map((q) => (
+                            <Droppable droppableId={String(q.id)} key={q.id}>
                               {(provided) => (
                                 <div
                                   ref={provided.innerRef}
@@ -949,22 +950,25 @@ const handleOpcaoToggle = (index) => {
                                   className="position-relative"
                                   style={{ minHeight: '400px' }}
                                 >
-                                  <img 
-                                    src="/imgs/modulo6/viagem/jarro.png" 
+                                  <img
+                                    src="/imgs/modulo6/viagem/jarro.png"
                                     alt="pote"
                                     className="img-fluid w-100"
-                                    style={{ 
+                                    style={{
                                       maxHeight: '500px',
                                       objectFit: 'contain',
                                       opacity: 0.9,
                                       zIndex: 1
-
                                     }}
                                   />
-                                
-                                  <div 
-                                    className={`position-absolute d-flex flex-wrap align-content-start justify-content-center p-3 ${showValidationError && respostas[q.id].length === 0 ? "border border-warning rounded" : ""}`}
-                                    style={{ 
+
+                                  <div
+                                    className={`position-absolute d-flex flex-wrap align-content-start justify-content-center p-3 ${
+                                      showValidationError && ((respostas[q.id]?.length || 0) === 0)
+                                        ? "border border-warning rounded"
+                                        : ""
+                                    }`}
+                                    style={{
                                       backgroundColor: 'transparent',
                                       top: '15%',
                                       left: '50%',
@@ -976,18 +980,20 @@ const handleOpcaoToggle = (index) => {
                                       overflowY: 'auto',
                                       overflowX: 'hidden',
                                       minHeight: '120px',
-                                      zIndex: 2,  
-
+                                      zIndex: 2,
                                     }}
-                                  
                                   >
                                     {respostas[q.id].map((frase, index) => (
-                                      <Draggable key={frase} draggableId={frase} index={index}>
+                                      <Draggable
+                                        key={`${q.id}-${frase}-${index}`}
+                                        draggableId={frase}
+                                        index={index}
+                                      >
                                         {(provided, snapshot) => (
-                                          <div 
-                                            ref={provided.innerRef} 
-                                            {...provided.draggableProps} 
-                                            {...provided.dragHandleProps} 
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
                                             className="mb-2 me-2"
                                             style={{
                                               ...provided.draggableProps.style,
@@ -1004,24 +1010,27 @@ const handleOpcaoToggle = (index) => {
                                 </div>
                               )}
                             </Droppable>
-                      
-                      <div className="d-flex justify-content-between mt-4">
-                        <button className="custom-btn-pink" onClick={() => setPagina(5)}><i className="bi bi-arrow-left me-2"></i>Anterior</button>
-                        <button
-                          className="custom-btn-turquoise"
-                          onClick={() => {
-                            const hasAny = Object.values(respostas).some((arr) => (arr?.length || 0) > 0);
-                            if (!hasAny) {
-                              setShowValidationError(true);  
-                              return;
-                            }
-                            handleProceedToReflection();    
-                          }}
-                          style={{ cursor: 'pointer' }}
-                        >
-                          Próximo<i className="bi bi-arrow-right ms-2"></i>
-                        </button>
-                      </div>
+                          ))}
+
+                          <div className="d-flex justify-content-between mt-4">
+                            <button className="custom-btn-pink" onClick={() => setPagina(5)}>
+                              <i className="bi bi-arrow-left me-2"></i>Anterior
+                            </button>
+                            <button
+                              className="custom-btn-turquoise"
+                              onClick={() => {
+                                // valida especificamente o pote
+                                if ((respostas["pote"]?.length || 0) === 0) {
+                                  setShowValidationError(true);
+                                  return;
+                                }
+                                handleProceedToReflection();
+                              }}
+                              style={{ cursor: 'pointer' }}
+                            >
+                              Próximo<i className="bi bi-arrow-right ms-2"></i>
+                            </button>
+                          </div>
                     </>
                   </DragDropContext>
                 
