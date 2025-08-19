@@ -479,20 +479,21 @@ const canAdvanceFromPage = (currentPage) => {
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
-            <button
-                    className="custom-btn-turquoise"
-                    type="button"
-                    onClick={() => {
-                      if (!faseEscolhida) {
-                        setAvisoFase(true); 
-                      }
-                      setAvisoFase(false);
-                      setMsgModalShow(true); 
-                    }}
-                  >
-                    Próximo
-                    <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
+                  <button
+                  className="custom-btn-turquoise"
+                  type="button"
+                  onClick={() => {
+                    if (!faseEscolhida) {
+                      setAvisoFase(true);
+                      return;
+                    }
+                    setAvisoFase(false);
+                    setMsgModalShow(true);
+                  }}
+                >
+                  Próximo
+                  <i className="bi bi-arrow-right ms-2"></i>
+                </button>
                 </div>
               </div>
             )}

@@ -162,7 +162,7 @@ const AtividadeVozCritica = () => {
 
           {mostrarErro && (
             <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
-              <i className="bi bi-exclamation-triangle me-2"></i>
+                    <i className="bi bi-exclamation-triangle me-2"></i>
               Por favor, preenche os dois campos antes de avançar.
             </div>
           )}

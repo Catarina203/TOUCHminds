@@ -162,25 +162,32 @@ const AnsiedadeSemFiltros = () => {
                       <i className="bi bi-hash" aria-hidden="true"></i>
                     </span>
                     <input
-                      type="text"
-                      className={`bdform-control form-control ${inputError ? 'is-invalid' : ''}`}
-                      style={{
-                        border: '1px solid #99CBC8',
-                        borderLeft: 'none'
-                      }}
-                      placeholder="Escreve aqui o # para esta imagem"
-                      value={hashtags[pagina - 1]}
-                      onChange={(e) => handleHashtagChange(pagina - 1, e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === " " || e.key === "," || e.key === "Tab") {
-                          e.preventDefault();
-                          setInputError(true);
-                        }
-                      }}
-                      aria-label={`Introduz uma hashtag para a imagem ${pagina}`}
-                      aria-describedby="hashtag-addon"
-                      required
-                    />
+                          type="text"
+                          className={`bdform-control form-control ${inputError && !hashtags[pagina - 1]?.trim() ? 'is-invalid' : ''}`}
+                          style={{
+                            border: '1px solid #99CBC8',
+                            borderLeft: 'none'
+                          }}
+                          placeholder="Escreve aqui o # para esta imagem"
+                          value={hashtags[pagina - 1]}
+                          onChange={(e) => handleHashtagChange(pagina - 1, e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === " " || e.key === "," || e.key === "Tab") {
+                              e.preventDefault();
+                              setInputError(true);
+                            }
+                          }}
+                          aria-label={`Introduz uma hashtag para a imagem ${pagina}`}
+                          aria-required="true"
+                          aria-invalid={inputError && !hashtags[pagina - 1]?.trim()}
+                          aria-describedby={inputError && !hashtags[pagina - 1]?.trim() ? `error-hashtag-${pagina}` : 'hashtag-addon'}
+                          required
+                        />
+                        {inputError && !hashtags[pagina - 1]?.trim() && (
+                          <div id={`error-hashtag-${pagina}`} className="invalid-feedback" role="alert">
+                            Este campo é obrigatório.
+                          </div>
+                        )}
                   </div>
                 </div>
 
