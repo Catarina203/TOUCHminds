@@ -167,14 +167,11 @@ const BalancaVirtual = () => {
       return { ...prev, [source.droppableId]: srcList };
     });
 
-    // insere na lista na posição de destino
+    // insere na lista na posição de destino (garante não duplicar)
     setFrasesDisponiveis((prev) => {
       const list = Array.from(prev);
-      // se por algum motivo já existir, move para o destino
       const existingIndex = list.indexOf(draggableId);
-      if (existingIndex !== -1) {
-        list.splice(existingIndex, 1);
-      }
+      if (existingIndex !== -1) list.splice(existingIndex, 1);
       list.splice(destination.index, 0, draggableId);
       return list;
     });
@@ -411,37 +408,38 @@ const BalancaVirtual = () => {
                         )}
 
                         {/* FRASES DISPONÍVEIS */}
-                            <Droppable droppableId="frasesDisponiveis" direction="horizontal">
-                              {(provided) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.droppableProps}
-                                  className="d-flex flex-wrap gap-2 mb-4"
-                                >
-                                  {frasesDisponiveis.map((frase, index) => (
-                                    <Draggable key={frase} draggableId={frase} index={index}>
-                                      {(provided) => (
-                                        <div
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                          className="badge text-white p-2"
-                                          style={{
-                                            backgroundColor: "#99CBC8",
-                                            userSelect: "none",       // 🔹 evita highlight
-                                            ...provided.draggableProps.style, // 🔹 MUITO IMPORTANTE
-                                          }}
-                                          title="Arrasta esta frase para um quadrante"
-                                        >
-                                          {frase}
-                                        </div>
-                                      )}
-                                    </Draggable>
-                                  ))}
-                                  {provided.placeholder}
-                                </div>
-                              )}
-                            </Droppable>
+                            <Droppable droppableId="frasesDisponiveis" direction="vertical">
+                                {(provided) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    className="d-flex flex-column gap-2 mb-4"
+                                    style={{ maxHeight: 220, overflowY: "auto" }} // scroll vertical no CONTAINER
+                                  >
+                                    {frasesDisponiveis.map((frase, index) => (
+                                      <Draggable key={frase} draggableId={frase} index={index}>
+                                        {(provided) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            className="badge text-white p-2"
+                                            style={{
+                                              backgroundColor: "#99CBC8",
+                                              userSelect: "none",
+                                              ...provided.draggableProps.style, // 👈 ESSENCIAL AQUI
+                                            }}
+                                            title="Arrasta esta frase para um quadrante"
+                                          >
+                                            {frase}
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                  </div>
+                                )}
+                              </Droppable>
 
 
                        {/* QUADRANTES */}
@@ -479,8 +477,12 @@ const BalancaVirtual = () => {
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               className="badge text-white p-2 mb-2"
-                                              style={{ backgroundColor: "#99cbc8" }}
-                                            >
+                                              style={{
+                                                  backgroundColor: "#99cbc8",
+                                                  userSelect: "none",
+                                                  ...provided.draggableProps.style, 
+                                                }}
+                                                                                    >
                                               {frase}
                                             </div>
                                           )}
