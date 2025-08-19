@@ -41,7 +41,7 @@ const textosPorPagina = [
     resposta: (
       <>
         Na consulta, a pessoa é ouvida com <strong>atenção</strong> e <strong>respeito</strong>. 
-        O psicólogo não está para dar <strong>ordens</strong> nem para dizer o que fazer, 
+        O psicólogo não dá <strong>ordens</strong> nem diz o que fazer, 
         mas para criar um <strong>espaço seguro</strong> onde é possível partilhar 
         <strong> pensamentos</strong> e <strong>emoções</strong> e encontrar, em conjunto, novos <strong>caminhos</strong> para a <strong>mudança</strong>.
       </>
@@ -119,20 +119,20 @@ const normalizar = (s) =>
  const avancarPagina = () => {
   if (pagina > 0 && pagina <= 6) {
     // 1) Campo vazio?
-    if (!codigoInput.trim()) {
-      setErroVazio(true);
-      setErroIncorreto(false);
-      setShowValidationError(true);
-      return;
-    }
+   if (!codigoInput.trim()) {
+  setErroVazio(true);
+  setErroIncorreto(false);
+  setShowValidationError(true);   // <-- só aqui fica true
+  return;
+}
     // 2) Conteúdo incorreto?
     const codigoCorreto = textosPorPagina[pagina - 1].codigo.palavra;
-    if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
-      setErroIncorreto(true);
-      setErroVazio(false);
-      setShowValidationError(true);
-      return;
-    }
+if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
+  setErroIncorreto(true);
+  setErroVazio(false);
+  setShowValidationError(false);  // <-- aqui fica false
+  return;
+}
   }
 
   // -> Avança
@@ -143,17 +143,18 @@ const normalizar = (s) =>
   setPagina((prev) => prev + 1);
 };
 
-  const retrocederPagina = () => {
+ const retrocederPagina = () => {
   setErroVazio(false);
   setErroIncorreto(false);
+  setShowValidationError(false); // <- acrescenta isto
   setPagina((prev) => prev - 1);
 };
 
-const handleCodigoChange = (value) => {
+  const handleCodigoChange = (value) => {
   setCodigoInput(value);
   if (erroVazio) setErroVazio(false);
   if (erroIncorreto) setErroIncorreto(false);
-  if (showValidationError) setShowValidationError(false);
+  if (showValidationError) setShowValidationError(false); // <— limpa o aviso
 };
 
   return (
@@ -216,18 +217,18 @@ const handleCodigoChange = (value) => {
                 {/* Tabela de Substituição */}
                     <div className="row mb-4">
                       <div className="col-md-10 mx-auto">
-                        <table className="table table-bordered text-center" style={{ backgroundColor: "#FBF9F9" }}>
+                        <table className="table table-bordered text-center" style={{ backgroundColor: "#234970" }}>
                           <thead>
                             <tr>
                               {tabelaSubstituicao.map(([letra], index) => (
-                                <th key={index} style={{ backgroundColor: "#FBF9F9" }}>{letra}</th>
+                                <th key={index} style={{ backgroundColor: "#E7C8C2" }}>{letra}</th>
                               ))}
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
                               {tabelaSubstituicao.map(([_, numero], index) => (
-                                <td key={index} style={{ backgroundColor: "#FBF9F9" }}>{numero}</td>
+                                <td key={index} style={{ backgroundColor: "#99CBC8" }}>{numero}</td>
                               ))}
                             </tr>
                           </tbody>
@@ -243,50 +244,44 @@ const handleCodigoChange = (value) => {
                 </div>
 
                 {/* Input para resposta */}
-              <div className="mb-4">
-                  <label className="form-label fw-bold" htmlFor="codigoInput">Descodifica o Código Aqui</label>
-                  <input
-                    id="codigoInput"
-                    type="text"
-                    className={`form-control ${(erroVazio || erroIncorreto) ? 'is-invalid' : ''}`}
-                    value={codigoInput}
-                    onChange={(e) => handleCodigoChange(e.target.value)}
-                    placeholder="Escreve a palavra descodificada aqui..."
-                    aria-describedby={
-                      erroVazio ? 'error-codigo-inline' :
-                      erroIncorreto ? 'error-codigo' :
-                      undefined
-                    }
-                  />
-                     {showValidationError && (
-                          <div className="alert alert-warning mt-3 text-center" role="alert">
-                            <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                            Por favor, descodifica o código antes de continuar.
-                          </div>
-                        )}
+                    <div className="mb-4">
+                      <label className="fw-bold mb-2" style={{ color: "#234970" }} htmlFor="codigoInput">
+                        Descodifica o Código Aqui
+                      </label>
 
-                  {/* Alerta grande (tipo o teu exemplo), aparece quando está incorreto */}
-                  {erroIncorreto && (
-                    <div className="alert alert-danger mt-3 mb-0" role="alert" aria-live="assertive" id="error-codigo">
-                      <i className="bi bi-exclamation-triangle me-2"></i>
-                      Código incorreto. Verifica a tabela e tenta novamente.
+                      <input
+                        id="codigoInput"
+                        type="text"
+                        style={{ backgroundColor: "#234970", color: "#fff", borderColor: "#234970" }}
+                        className={`form-control ${(erroVazio || erroIncorreto) ? 'is-invalid' : ''}`}
+                        value={codigoInput}
+                        onChange={(e) => handleCodigoChange(e.target.value)}
+                        placeholder="Escreve a palavra descodificada aqui"
+                      />
+
+                      {/* Campo vazio */}
+                      {erroVazio && !codigoInput.trim() && (
+                        <div id="error-codigo-inline" className="invalid-feedback" role="alert">
+                          Este campo é obrigatório.
+                        </div>
+                      )}
+
+                      {/* Código incorreto */}
+                      {erroIncorreto && (
+                        <div className="alert alert-danger mb-3" role="alert" aria-live="assertive" id="error-codigo">
+                          <i className="bi bi-exclamation-triangle me-2"></i>
+                          Código incorreto. Verifica a tabela e tenta novamente.
+                        </div>
+                      )}
+
+                      {/* Aviso geral quando tenta avançar sem estar correto */}
+                      {showValidationError && (
+                        <div className="alert alert-warning mt-3 text-center" role="alert" id="error-codigo-warning">
+                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                          Por favor, descodifica o código antes de continuar.
+                        </div>
+                      )}
                     </div>
-                  )}
-
-                  {/* Inline invalid-feedback quando está vazio */}
-                  {erroVazio && !codigoInput.trim() && (
-                    <div id="error-codigo-inline" className="invalid-feedback" role="alert">
-                      Este campo é obrigatório.
-                    </div>
-                  )}
-                </div>
-
-                {/* Mostrar resposta se código estiver correto */}
-                {normalizar(codigoInput) === normalizar(textosPorPagina[pagina - 1].codigo.palavra) && (
-                          <div className="alert alert-success">
-                            {textosPorPagina[pagina - 1].resposta}
-                          </div>
-                        )}
 
                 <div className="d-flex justify-content-between">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
@@ -295,7 +290,6 @@ const handleCodigoChange = (value) => {
                   <button
                   className="custom-btn-turquoise"
                   onClick={avancarPagina}
-                  disabled={pagina > 0 && pagina <= 6 && (!codigoInput.trim() || erroIncorreto)}
                 >
                   {pagina === 6 ? "Conclusão" : "Próximo"}
                   <i className="bi bi-arrow-right ms-2"></i>
