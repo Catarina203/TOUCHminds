@@ -9,20 +9,20 @@ import AtividadeProgressao from '../atividadeProgressao';
 const CodigoDoPsicologo = () => {
   const [pagina, setPagina] = useState(0);
   const [codigoInput, setCodigoInput] = useState("");
-  const [inputError, setInputError] = useState(false);
-
+  const [erroVazio, setErroVazio] = useState(false);
+  const [erroIncorreto, setErroIncorreto] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
 
   const modulo = modulos.find((m) => m.id === moduloId);
-  const atividade = modulo?.atividades.find(a => a.url === "codigo-do-psicologo");
 
   // Códigos e suas respectivas palavras
   const codigos = [
-    { numeros: "13 - 15 - 20 - 9 - 22 - 1", palavra: "MOTIVA" },
+    { numeros: "5 - 19 - 3 - 21 - 20 - 1", palavra: "ESCUTA" },
     { numeros: "22 - 5 - 18 - 4 - 1 - 4 - 5", palavra: "VERDADE" },
     { numeros: "16 - 18 - 9 - 22 - 1 - 3 - 9 - 4 - 1 - 4 - 5", palavra: "PRIVACIDADE" },
-    { numeros: "12 - 5 - 22 - 1 - 18 - 1 - 19 - 5 - 18 - 9 - 15", palavra: "LEVARASERIO" },
+    { numeros: "12 - 5 - 22 - 1 - 18 - 1 - 19 - 5 - 18 - 9 - 15", palavra: "LEVAR A SERIO" },
     { numeros: "16 - 1 - 18 - 20 - 9 - 3 - 9 - 16 - 1 - 3 - 1 - 15", palavra: "PARTICIPACAO" },
     { numeros: "15 - 16 - 9 - 14 - 9 - 1 - 15", palavra: "OPINIAO" }
   ];
@@ -35,68 +35,126 @@ const CodigoDoPsicologo = () => {
     ['Y', '25'], ['Z', '26']
   ];
 
-  const textosPorPagina = [
-    {
-      texto: "O **psicólogo** tem um **papel ativo no processo de mudança**. Em conjunto, são definidos **objetivos claros e realistas**, sendo o psicólogo responsável por **esclarecer as expectativas** em relação à **terapia** e à **possibilidade de mudança**, explicando que se trata de um **processo gradual**.",
-      codigo: codigos[0],
-      resposta: "O **psicólogo** **motiva** e **prepara** para o **processo de mudança**."
-    },
-    {
-      texto: "Quando se está numa **sessão**, o **psicólogo** deve ser **honesto** com a pessoa. **Não há segredos** nem **informações escondidas**. Tudo o que for dito deve ser **explicado de forma clara**, para que seja possível **compreender o que está a acontecer**. **Conhecer o que está em jogo** ajuda a pessoa a **tomar decisões** sobre o que pretende para o seu **processo terapêutico**.",
-      codigo: codigos[1],
-      resposta: "O psicólogo **deve ser sempre claro** e **honesto** sobre o **que está a acontecer**."
-    },
-    {
-      texto: "Durante a **terapia**, tudo o que for **partilhado** deve ser sempre **respeitado**. Nada do que for dito será comunicado a outras pessoas sem o **consentimento da pessoa**, exceto em situações de **risco para si própria ou para outros**. Nesses casos, o **psicólogo** explicará claramente o que irá acontecer. Além disso, o psicólogo deve **tratar sempre a pessoa com respeito**, independentemente das suas **experiências** ou **emoções**.",
-      codigo: codigos[2],
-      resposta: "O psicólogo deve **proteger as informações partilhadas** e deve **respeitar sempre o tempo e espaço da pessoa**."
-    },
-    {
-      texto: "Os **pensamentos**, **emoções** e **opiniões** da pessoa são **importantes**, e o **psicólogo** deve sempre **ouvir com atenção**. Não deve **desvalorizar** o que é dito, e as **emoções** devem ser **respeitadas**. Se houver **alguma dúvida** ou **algo a partilhar**, a pessoa deve ser **levada a sério**.",
-      codigo: codigos[3],
-      resposta: "O psicólogo **deve ouvir atentamente** e **respeitar o que é dito**, **sem julgar**."
-    },
-    {
-      texto: "O **psicólogo** deve perguntar a **opinião da pessoa** sobre o que considera que **lhe pode ajudar**. O que a pessoa **sente** e **pensa** sobre o **processo** é **muito importante**, e tem o **direito de dar a sua opinião** sobre as escolhas feitas. O psicólogo deve **ouvir** e **ajudar a tomar decisões importantes**, respeitando aquilo que é **mais significativo para a pessoa**.",
-      codigo: codigos[4],
-      resposta: "O psicólogo vai **garantir que a pessoa tenha uma palavra** a dizer sobre o **que acontece na terapia**."
-    },
-    {
-      texto: "É muito importante que o psicólogo permita que a pessoa fale sobre o que está a viver, sem receio de ser **julgada**. As **opiniões** e **emoções** da pessoa devem ser sempre **levadas a sério** e **respeitadas**. O psicólogo deve **ouvir tudo o que for partilhado**, e a **voz da pessoa** deve ter **peso nas decisões** tomadas durante a **terapia**.",
-      codigo: codigos[5],
-      resposta: "O **psicólogo** deve **ouvir as ideias, pensamentos e emoções da pessoa**, e essas **opiniões** devem ser **respeitadas** e **valorizadas**."
-    }
-  ];
+const textosPorPagina = [
+  {
+    codigo: codigos[0],
+    resposta: (
+      <>
+        Na consulta, a pessoa é ouvida com <strong>atenção</strong> e <strong>respeito</strong>. 
+        O psicólogo não está para dar <strong>ordens</strong> nem para dizer o que fazer, 
+        mas para criar um <strong>espaço seguro</strong> onde é possível partilhar 
+        <strong> pensamentos</strong> e <strong>emoções</strong> e encontrar, em conjunto, novos <strong>caminhos</strong> para a <strong>mudança</strong>.
+      </>
+    )
+  },
+  {
+    codigo: codigos[1],
+    resposta: (
+      <>
+        A <strong>intervenção psicológica</strong> é <strong>transparente</strong>.  
+        Não existem <strong>segredos</strong> nem <strong>respostas iguais</strong> para todos, 
+        e também não se resolve em duas ou três <strong>sessões</strong>.  
+        Cada <strong>passo</strong> é explicado de forma <strong>simples</strong>, permitindo que a pessoa 
+        compreenda o <strong>processo</strong> e decida o que deseja para o seu <strong>percurso terapêutico</strong>.
+      </>
+    )
+  },
+  {
+    codigo: codigos[2],
+    resposta: (
+      <>
+        O que é <strong>partilhado</strong> em consulta é <strong>confidencial</strong>, 
+        exceto em situações de <strong>risco</strong> para si próprio/a ou para outros.  
+        O <strong>respeito</strong> pelo <strong>tempo</strong>, <strong>espaço</strong> e <strong>experiências</strong> da pessoa é garantido.  
+        A <strong>psicologia</strong> não é apenas para casos muito <strong>graves</strong>: 
+        pode ser procurada por qualquer pessoa que queira cuidar do seu <strong>bem-estar</strong>.
+      </>
+    )
+  },
+  {
+    codigo: codigos[3],
+    resposta: (
+      <>
+        Cada <strong>opinião</strong>, <strong>pensamento</strong> e <strong>emoção</strong> é <strong>valorizado</strong>.  
+        Nada do que é partilhado é <strong>desconsiderado</strong> ou <strong>diminuído</strong>.  
+        Ser <strong>levada a sério</strong> significa que a pessoa é sempre reconhecida no seu direito de ser <strong>ouvida</strong>.  
+        A intervenção não se limita ao <strong>passado</strong>: 
+        o foco está no <strong>presente</strong>, no <strong>futuro</strong> ou em <strong>experiências</strong> anteriores.
+      </>
+    )
+  },
+  {
+    codigo: codigos[4],
+    resposta: (
+      <>
+        A pessoa tem <strong>voz ativa</strong> no <strong>processo</strong>.  
+        As <strong>decisões</strong> são discutidas em <strong>conjunto</strong>, e não impostas.  
+        O psicólogo apoia à <strong>reflexão</strong>, mas a <strong>escolha final</strong> é sempre construída de acordo com o que é mais <strong>significativo</strong> para a pessoa.
+      </>
+    )
+  },
+  {
+    codigo: codigos[5],
+    resposta: (
+      <>
+        Em consulta, é possível expressar <strong>ideias</strong>, <strong>sentimentos</strong> e <strong>opiniões</strong> sem receio de <strong>julgamento</strong>.  
+        O psicólogo <strong>valoriza</strong> essa expressão e não prescreve <strong>medicação</strong> — essa é uma função médica.  
+        O que a pessoa partilha é tido em conta nas <strong>decisões</strong> sobre a <strong>intervenção</strong>.
+      </>
+    )
+  }
+];
 
   const totalPaginas = 8;;
   const progresso = Math.round(((pagina + 1) / totalPaginas) * 100);
 
-  const avancarPagina = () => {
-    // Verificar se é página de código e se o código está correto
-    if (pagina > 0 && pagina <= 6) {
-      const codigoCorreto = textosPorPagina[pagina - 1].codigo.palavra;
-      if (codigoInput.toUpperCase() !== codigoCorreto) {
-        setInputError(true);
-        return;
-      }
-    }
+const normalizar = (s) =>
+  (s || "")
+    .normalize("NFD")                // separa acentos
+    .replace(/[\u0300-\u036f]/g, "") // tira acentos
+    .replace(/\s+/g, " ")            // comprime espaços múltiplos em 1 só
+    .trim()
+    .toUpperCase();
 
-    setInputError(false);
-    setCodigoInput("");
-    setPagina((prev) => prev + 1);
-  };
+ const avancarPagina = () => {
+  if (pagina > 0 && pagina <= 6) {
+    // 1) Campo vazio?
+    if (!codigoInput.trim()) {
+      setErroVazio(true);
+      setErroIncorreto(false);
+      setShowValidationError(true);
+      return;
+    }
+    // 2) Conteúdo incorreto?
+    const codigoCorreto = textosPorPagina[pagina - 1].codigo.palavra;
+    if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
+      setErroIncorreto(true);
+      setErroVazio(false);
+      setShowValidationError(true);
+      return;
+    }
+  }
+
+  // -> Avança
+  setErroVazio(false);
+  setErroIncorreto(false);
+  setShowValidationError(false);
+  setCodigoInput("");
+  setPagina((prev) => prev + 1);
+};
 
   const retrocederPagina = () => {
-    setInputError(false);
-    setPagina((prev) => prev - 1);
-  };
+  setErroVazio(false);
+  setErroIncorreto(false);
+  setPagina((prev) => prev - 1);
+};
 
-  const handleCodigoChange = (value) => {
-    setCodigoInput(value);
-    if (inputError) {
-      setInputError(false);
-    }
-  };
+const handleCodigoChange = (value) => {
+  setCodigoInput(value);
+  if (erroVazio) setErroVazio(false);
+  if (erroIncorreto) setErroIncorreto(false);
+  if (showValidationError) setShowValidationError(false);
+};
 
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
@@ -119,21 +177,21 @@ const CodigoDoPsicologo = () => {
 
             {/* INTRODUÇÃO */}
             {pagina === 0 && (
-              <div className="text-start py-4 ps-2">
-                <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>Código do Psicólogo</h2>
+              <div className= "text-center">
+                <h2 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>Código do Psicólogo</h2>
 
-                <div className="col-md-12">
-                  <p className="lead mb-3">
-                    <strong>Sê muito bem-vindo ou bem-vinda ao Código do Psicólogo!</strong>
+                <div className="lead">
+                  <p className="lead">
+                    <strong>Sê muito bem-vindo/a ao Código do Psicólogo!</strong>
                   </p>
-                  <p className="mb-3 lead">
+                  <p className="lead">
                     O objetivo desta atividade é <strong>descobrires mais sobre o papel do psicólogo</strong> e os <strong>direitos que tens durante as consultas</strong>.
                   </p>
-                  <p className="mb-3 lead">
-                    Ao longo da atividade vais encontrar <strong>códigos secretos</strong>. Esses códigos estão <strong>disfarçados por números</strong> e representam <strong>palavras-chave</strong> que são <strong>essenciais</strong> para entender o papel do psicólogo e os teus <strong>direitos</strong>.
+                  <p className="lead">
+                    Ao longo da atividade vais encontrar <strong>códigos secretos</strong>. 
                   </p>
-                  <p className="mb-4 lead">
-                    Usa a <strong>tabela de substituição</strong> fornecida para <strong>converter os números em letras</strong>. Cada número corresponde a uma <strong>letra do alfabeto</strong>, e ao converteres os números em letras, vais revelar <strong>palavras-chave</strong> que te ajudarão a <strong>compreender melhor o que o psicólogo faz</strong> e como os teus <strong>direitos são respeitados</strong> nas consultas.
+                  <p className="lead">
+                     Cada número corresponde a uma <strong>letra do alfabeto</strong>, e ao converteres os números em letras, vais revelar <strong>palavras-chave</strong> que te ajudarão a <strong>compreender melhor o que o psicólogo faz</strong> e como os teus <strong>direitos são respeitados</strong> nas consultas.
                   </p>
                   <div className="text-center">
                     <button className="custom-btn-turquoise mt-3 px-4 py-2" onClick={avancarPagina}>
@@ -148,39 +206,34 @@ const CodigoDoPsicologo = () => {
             {/* PÁGINAS DE CÓDIGOS */}
             {pagina > 0 && pagina <= 6 && (
               <>
-                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                  Descodifica o código apresentado a seguir!
+                <h4 className="text-center fw-bold mb-4"style={{ color: "#234970" }}>
+                  Descodifica o código
                 </h4>
                 <p className="mb-4">
-                  Para isso, usa a <strong>tabela de substituição fornecida</strong> e <strong>converte os números em letras</strong>.
+                  Usa a tabela fornecida e <strong>converte os números em letras</strong> para descodificares o código.
                 </p>
 
                 {/* Tabela de Substituição */}
-                <div className="row mb-4">
-                  <div className="col-md-6 mx-auto">
-                    <table className="table table-bordered table-sm" style={{ backgroundColor: "#FBF9F9" }}>
-                      <thead>
-                        <tr>
-                          <th style={{ backgroundColor: "#FBF9F9" }}><strong>Letra</strong></th>
-                          <th style={{ backgroundColor: "#FBF9F9" }}><strong>Número</strong></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {tabelaSubstituicao.map(([letra, numero], index) => (
-                          <tr key={index}>
-                            <td style={{ backgroundColor: "#FBF9F9" }}>{letra}</td>
-                            <td style={{ backgroundColor: "#FBF9F9" }}>{numero}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                {/* Texto explicativo */}
-                <div className="mb-4 p-3 rounded" style={{ backgroundColor: "#FBF9F9" }}>
-                  <p dangerouslySetInnerHTML={{ __html: textosPorPagina[pagina - 1].texto.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}></p>
-                </div>
+                    <div className="row mb-4">
+                      <div className="col-md-10 mx-auto">
+                        <table className="table table-bordered text-center" style={{ backgroundColor: "#FBF9F9" }}>
+                          <thead>
+                            <tr>
+                              {tabelaSubstituicao.map(([letra], index) => (
+                                <th key={index} style={{ backgroundColor: "#FBF9F9" }}>{letra}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              {tabelaSubstituicao.map(([_, numero], index) => (
+                                <td key={index} style={{ backgroundColor: "#FBF9F9" }}>{numero}</td>
+                              ))}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
 
                 {/* Código para descodificar */}
                 <div className="text-center mb-4">
@@ -190,41 +243,63 @@ const CodigoDoPsicologo = () => {
                 </div>
 
                 {/* Input para resposta */}
-                <div className="mb-4">
-                  <label className="form-label fw-bold">Descodifica o Código Aqui</label>
+              <div className="mb-4">
+                  <label className="form-label fw-bold" htmlFor="codigoInput">Descodifica o Código Aqui</label>
                   <input
+                    id="codigoInput"
                     type="text"
-                    className={`form-control ${inputError ? 'is-invalid' : ''}`}
+                    className={`form-control ${(erroVazio || erroIncorreto) ? 'is-invalid' : ''}`}
                     value={codigoInput}
                     onChange={(e) => handleCodigoChange(e.target.value)}
                     placeholder="Escreve a palavra descodificada aqui..."
-                    required
+                    aria-describedby={
+                      erroVazio ? 'error-codigo-inline' :
+                      erroIncorreto ? 'error-codigo' :
+                      undefined
+                    }
                   />
-                  {inputError && (
-                    <div className="invalid-feedback">
-                      Código incorreto. Verifica a tabela de substituição e tenta novamente.
+                     {showValidationError && (
+                          <div className="alert alert-warning mt-3 text-center" role="alert">
+                            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                            Por favor, descodifica o código antes de continuar.
+                          </div>
+                        )}
+
+                  {/* Alerta grande (tipo o teu exemplo), aparece quando está incorreto */}
+                  {erroIncorreto && (
+                    <div className="alert alert-danger mt-3 mb-0" role="alert" aria-live="assertive" id="error-codigo">
+                      <i className="bi bi-exclamation-triangle me-2"></i>
+                      Código incorreto. Verifica a tabela e tenta novamente.
+                    </div>
+                  )}
+
+                  {/* Inline invalid-feedback quando está vazio */}
+                  {erroVazio && !codigoInput.trim() && (
+                    <div id="error-codigo-inline" className="invalid-feedback" role="alert">
+                      Este campo é obrigatório.
                     </div>
                   )}
                 </div>
 
                 {/* Mostrar resposta se código estiver correto */}
-                {codigoInput.toUpperCase() === textosPorPagina[pagina - 1].codigo.palavra && (
-                  <div className="alert alert-success">
-                    <p dangerouslySetInnerHTML={{ __html: textosPorPagina[pagina - 1].resposta.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}></p>
-                  </div>
-                )}
+                {normalizar(codigoInput) === normalizar(textosPorPagina[pagina - 1].codigo.palavra) && (
+                          <div className="alert alert-success">
+                            {textosPorPagina[pagina - 1].resposta}
+                          </div>
+                        )}
 
                 <div className="d-flex justify-content-between">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
                   <button
-                    className="custom-btn-turquoise"
-                    onClick={avancarPagina}
-                  >
-                    {pagina === 6 ? "Conclusão" : "Próximo"}
-                    <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
+                  className="custom-btn-turquoise"
+                  onClick={avancarPagina}
+                  disabled={pagina > 0 && pagina <= 6 && (!codigoInput.trim() || erroIncorreto)}
+                >
+                  {pagina === 6 ? "Conclusão" : "Próximo"}
+                  <i className="bi bi-arrow-right ms-2"></i>
+                </button>
                 </div>
               </>
             )}
@@ -238,10 +313,10 @@ const CodigoDoPsicologo = () => {
                     <strong>Esperamos que esta atividade te tenha ajudado</strong> a entender melhor o <strong>papel do psicólogo</strong> e os <strong>direitos que tens durante as consultas</strong>.
                   </p>
                   <p className="mb-3">
-                    <strong>Lembraste-te</strong> de que o psicólogo está aqui para te <strong>apoiar</strong>, <strong>motivar</strong> e <strong>ouvir</strong>, sempre com <strong>respeito</strong> e <strong>honestidade</strong>.
+                    <strong>Lembras-te</strong> de que o psicólogo está presente para te <strong>apoiar</strong>, <strong>ouvir</strong>, sempre com <strong>respeito</strong> e <strong>honestidade</strong>.
                   </p>
                   <p className="mb-3">
-                    Durante a terapia, tens o <strong>direito de ser respeitado</strong>, de manter a <strong>privacidade das tuas informações</strong>, de ser <strong>levado a sério</strong> e de <strong>participar nas decisões</strong>.
+                    Durante a intervenção, tens o <strong>direito de ser ouvido/a e respeitado/a</strong>, de manter a <strong>privacidade das tuas informações</strong>, de ser <strong>levado/a a sério</strong> e de <strong>participar nas decisões</strong>.
                   </p>
                   <p className="mb-4">
                     A tua <strong>opinião é importante</strong>, e <strong>nunca estarás sozinho/a no teu percurso de mudança</strong>.
