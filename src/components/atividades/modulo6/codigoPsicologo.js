@@ -14,6 +14,7 @@ const CodigoDoPsicologo = () => {
   const [showValidationError, setShowValidationError] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+  const [acertou, setAcertou] = useState(false);
 
   const modulo = modulos.find((m) => m.id === moduloId);
 
@@ -116,45 +117,58 @@ const normalizar = (s) =>
     .trim()
     .toUpperCase();
 
+    const codigoCorretoAtual = pagina > 0 && pagina <= 6
+  ? textosPorPagina[pagina - 1].codigo.palavra
+  : "";
+
  const avancarPagina = () => {
   if (pagina > 0 && pagina <= 6) {
-    // 1) Campo vazio?
-   if (!codigoInput.trim()) {
-  setErroVazio(true);
-  setErroIncorreto(false);
-  setShowValidationError(true);   // <-- só aqui fica true
-  return;
-}
-    // 2) Conteúdo incorreto?
-    const codigoCorreto = textosPorPagina[pagina - 1].codigo.palavra;
-if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
-  setErroIncorreto(true);
-  setErroVazio(false);
-  setShowValidationError(false);  // <-- aqui fica false
-  return;
-}
+    if (!codigoInput.trim()) {
+      setErroVazio(true);
+      setErroIncorreto(false);
+      setShowValidationError(true);
+      setAcertou(false);
+      return;
+    }
+    if (!acertou) {
+      setErroIncorreto(true);
+      setErroVazio(false);
+      setShowValidationError(true);
+      return;
+    }
   }
-
-  // -> Avança
   setErroVazio(false);
   setErroIncorreto(false);
   setShowValidationError(false);
   setCodigoInput("");
+  setAcertou(false);
   setPagina((prev) => prev + 1);
 };
 
  const retrocederPagina = () => {
   setErroVazio(false);
   setErroIncorreto(false);
-  setShowValidationError(false); // <- acrescenta isto
+  setShowValidationError(false);
+  setAcertou(false);
+  setCodigoInput("");
   setPagina((prev) => prev - 1);
 };
 
-  const handleCodigoChange = (value) => {
+ const handleCodigoChange = (value) => {
   setCodigoInput(value);
   if (erroVazio) setErroVazio(false);
   if (erroIncorreto) setErroIncorreto(false);
-  if (showValidationError) setShowValidationError(false); // <— limpa o aviso
+  if (showValidationError) setShowValidationError(false);
+
+  if (
+    pagina > 0 &&
+    pagina <= 6 &&
+    normalizar(value) === normalizar(codigoCorretoAtual)
+  ) {
+    setAcertou(true);
+  } else {
+    setAcertou(false);
+  }
 };
 
   return (
@@ -217,7 +231,14 @@ if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
                 {/* Tabela de Substituição */}
                     <div className="row mb-4">
                       <div className="col-md-10 mx-auto">
-                        <table className="table table-bordered text-center" style={{ backgroundColor: "#234970" }}>
+                        <table
+                              className="table table-bordered text-center"
+                              style={{
+                                backgroundColor: "#FBF9F9",
+                                "--bs-table-border-color": "#234970", 
+                                "--bs-border-color": "#234970",      
+                              }}
+                            >
                           <thead>
                             <tr>
                               {tabelaSubstituicao.map(([letra], index) => (
@@ -252,7 +273,12 @@ if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
                       <input
                         id="codigoInput"
                         type="text"
-                        style={{ backgroundColor: "#234970", color: "#fff", borderColor: "#234970" }}
+                        style={{
+                          border: '1px solid #99CBC8',
+                          borderRadius: '12px',
+                          padding: '12px 20px',
+                          fontSize: '16px'
+                        }}
                         className={`form-control ${(erroVazio || erroIncorreto) ? 'is-invalid' : ''}`}
                         value={codigoInput}
                         onChange={(e) => handleCodigoChange(e.target.value)}
@@ -281,19 +307,28 @@ if (normalizar(codigoInput) !== normalizar(codigoCorreto)) {
                           Por favor, descodifica o código antes de continuar.
                         </div>
                       )}
+                     {acertou && (
+                      <div
+                        className="alert mt-3"
+                        role="status"
+                        style={{ backgroundColor: "#99CBC8", color: "#234970", borderRadius: "12px" }}
+                      >
+                        {textosPorPagina[pagina - 1].resposta}
+                      </div>
+                    )}
                     </div>
-
                 <div className="d-flex justify-content-between">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
                   <button
-                  className="custom-btn-turquoise"
-                  onClick={avancarPagina}
-                >
-                  {pagina === 6 ? "Conclusão" : "Próximo"}
-                  <i className="bi bi-arrow-right ms-2"></i>
-                </button>
+                    className="custom-btn-turquoise"
+                    onClick={avancarPagina}
+                    disabled={pagina > 0 && pagina <= 6 && !acertou}
+                  >
+                    {pagina === 6 ? "Conclusão" : "Próximo"}
+                    <i className="bi bi-arrow-right ms-2"></i>
+                  </button>
                 </div>
               </>
             )}
