@@ -377,6 +377,11 @@ const BalancaVirtual = () => {
                                   ref={provided.innerRef}
                                   {...provided.droppableProps}
                                   className="d-flex flex-wrap gap-2 mb-4"
+                                  style={{
+                                    minHeight: 60, // 👍 facilita dropar quando vazio
+                                    transition: "background-color 0.2s ease",
+                                    backgroundColor: snapshot.isDraggingOver ? "#f1fbfa" : "transparent", // opcional
+                                  }}
                                 >
                                   {frasesDisponiveis.map((frase, index) => (
                                     <Draggable key={frase} draggableId={frase} index={index}>
@@ -388,13 +393,11 @@ const BalancaVirtual = () => {
                                           className="badge text-white p-2"
                                           style={{
                                             backgroundColor: "#99CBC8",
-                                            userSelect: "none",       // 🔹 evita highlight
-                                            willChange: "transform",         // ajuda a GPU
-                                            transform: "translateZ(0)",      //
-                                            transition: snapshot.isDraggingOver ? "none" : "all 0.2s ease",              //
-                                            ...provided.draggableProps.style, // 🔹 MUITO IMPORTANTE
+                                            userSelect: "none",
+                                            willChange: "transform",
+                                            transition: "none",                 // ✅ sem transições nos itens
+                                            ...provided.draggableProps.style,   // ✅ essencial
                                           }}
-                                          title="Arrasta esta frase para um quadrante"
                                         >
                                           {frase}
                                         </div>
@@ -442,7 +445,13 @@ const BalancaVirtual = () => {
                                               {...provided.draggableProps}
                                               {...provided.dragHandleProps}
                                               className="badge text-white p-2 mb-2"
-                                              style={{ backgroundColor: "#99cbc8" }}
+                                              style={{
+                                                backgroundColor: "#99cbc8",
+                                                userSelect: "none",
+                                                willChange: "transform",
+                                                transition: "none",
+                                                ...provided.draggableProps.style,
+                                              }}
                                             >
                                               {frase}
                                             </div>
