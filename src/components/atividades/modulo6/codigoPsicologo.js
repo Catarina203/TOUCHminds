@@ -123,20 +123,23 @@ const normalizar = (s) =>
 
  const avancarPagina = () => {
   if (pagina > 0 && pagina <= 6) {
+    // Campo vazio → WARNING
     if (!codigoInput.trim()) {
       setErroVazio(true);
       setErroIncorreto(false);
-      setShowValidationError(true);
+      setShowValidationError(true);  // mostra o alert-warning
       setAcertou(false);
       return;
     }
+    // Código errado → DANGER
     if (!acertou) {
-      setErroIncorreto(true);
+      setErroIncorreto(true);        // mostra o alert-danger
       setErroVazio(false);
-      setShowValidationError(true);
+      setShowValidationError(false);  // <— garantir que o warning NÃO aparece
       return;
     }
   }
+  // Se chegou aqui, pode avançar
   setErroVazio(false);
   setErroIncorreto(false);
   setShowValidationError(false);
@@ -321,10 +324,9 @@ const normalizar = (s) =>
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
-                  <button
+                   <button
                     className="custom-btn-turquoise"
                     onClick={avancarPagina}
-                    disabled={pagina > 0 && pagina <= 6 && !acertou}
                   >
                     {pagina === 6 ? "Conclusão" : "Próximo"}
                     <i className="bi bi-arrow-right ms-2"></i>
