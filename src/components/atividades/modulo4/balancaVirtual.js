@@ -113,30 +113,64 @@ const BalancaVirtual = () => {
   const [showValidationError, setShowValidationError] = useState(false);
   const [mostrarFeedback, setMostrarFeedback] = useState(true);
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
-    const { source, destination, draggableId } = result;
+ const handleDragEnd = (result) => {
+  if (!result.destination) return;
 
-    // Clear validation error when user interacts
-    if (showValidationError) {
-      setShowValidationError(false);
-    }
+  const { source, destination, draggableId } = result;
 
+  // Limpa aviso ao interagir
+  if (showValidationError) setShowValidationError(false);
+
+  // 1) Reordenar na MESMA lista (lista de frases ou um quadrante)
+  if (source.droppableId === destination.droppableId) {
     if (source.droppableId === "frasesDisponiveis") {
-      setFrasesDisponiveis((prev) => prev.filter((f) => f !== draggableId));
-      setRespostas((prev) => ({
-        ...prev,
-        [destination.droppableId]: [...prev[destination.droppableId], draggableId],
-      }));
-    } else if (source.droppableId !== destination.droppableId) {
-      const frase = respostas[source.droppableId].find((f) => f === draggableId);
-      setRespostas((prev) => ({
-        ...prev,
-        [source.droppableId]: prev[source.droppableId].filter((f) => f !== frase),
-        [destination.droppableId]: [...prev[destination.droppableId], frase],
-      }));
+      setFrasesDisponiveis((prev) => {
+        const list = Array.from(prev);
+        const [moved] = list.splice(source.index, 1);
+        list.splice(destination.index, 0, moved);
+        return list;
+      });
+    } else {
+      setRespostas((prev) => {
+        const list = Array.from(prev[source.droppableId] || []);
+        const [moved] = list.splice(source.index, 1);
+        list.splice(destination.index, 0, moved);
+        return { ...prev, [source.droppableId]: list };
+      });
     }
-  };
+    return;
+  }
+
+  // 2) DA lista → PARA um quadrante
+  if (source.droppableId === "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
+    setFrasesDisponiveis((prev) => prev.filter((f) => f !== draggableId));
+    setRespostas((prev) => ({
+      ...prev,
+      [destination.droppableId]: [...(prev[destination.droppableId] || []), draggableId],
+    }));
+    return;
+  }
+
+  // 3) DE um quadrante → PARA a lista (permite "tirar" do quadrante)
+  if (source.droppableId !== "frasesDisponiveis" && destination.droppableId === "frasesDisponiveis") {
+    setRespostas((prev) => ({
+      ...prev,
+      [source.droppableId]: (prev[source.droppableId] || []).filter((f) => f !== draggableId),
+    }));
+    setFrasesDisponiveis((prev) => (prev.includes(draggableId) ? prev : [...prev, draggableId]));
+    return;
+  }
+
+  // 4) Entre quadrantes
+  if (source.droppableId !== "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
+    const frase = respostas[source.droppableId].find((f) => f === draggableId);
+    setRespostas((prev) => ({
+      ...prev,
+      [source.droppableId]: prev[source.droppableId].filter((f) => f !== frase),
+      [destination.droppableId]: [...(prev[destination.droppableId] || []), frase],
+    }));
+  }
+};
 
   const avaliar = () => {
     const totalMudar = respostas.mudar.length + respostas.contraNaoMudar.length;

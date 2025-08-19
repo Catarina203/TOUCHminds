@@ -141,32 +141,68 @@ useEffect(() => {
   };
 
     const handleDragEnd = (result) => {
-      if (!result.destination) return;
-      const { source, destination, draggableId } = result;
+  if (!result.destination) return;
+
+  const { source, destination, draggableId } = result;
+
+  // Limpa aviso se largou numa área válida que não seja a lista
   if (destination && destination.droppableId !== "frasesDisponiveis") {
     if (showValidationError) setShowValidationError(false);
   }
 
-      // Clear validation error when user interacts
-      if (showValidationError) {
-        setShowValidationError(false);
-      }
+  // Limpa erro de validação ao interagir
+  if (showValidationError) setShowValidationError(false);
 
-      if (source.droppableId === "frasesDisponiveis") {
-        setFrasesDisponiveis((prev) => prev.filter((f) => f !== draggableId));
-        setRespostas((prev) => ({
-          ...prev,
-          [destination.droppableId]: [...prev[destination.droppableId], draggableId],
-        }));
-      } else if (source.droppableId !== destination.droppableId) {
-        const frase = respostas[source.droppableId].find((f) => f === draggableId);
-        setRespostas((prev) => ({
-          ...prev,
-          [source.droppableId]: prev[source.droppableId].filter((f) => f !== frase),
-          [destination.droppableId]: [...prev[destination.droppableId], frase],
-        }));
-      }
-    };
+  // 1) Reordenar na MESMA lista (lista ou recipiente)
+  if (source.droppableId === destination.droppableId) {
+    if (source.droppableId === "frasesDisponiveis") {
+      setFrasesDisponiveis((prev) => {
+        const list = Array.from(prev);
+        const [moved] = list.splice(source.index, 1);
+        list.splice(destination.index, 0, moved);
+        return list;
+      });
+    } else {
+      setRespostas((prev) => {
+        const list = Array.from(prev[source.droppableId] || []);
+        const [moved] = list.splice(source.index, 1);
+        list.splice(destination.index, 0, moved);
+        return { ...prev, [source.droppableId]: list };
+      });
+    }
+    return;
+  }
+
+  // 2) DA lista -> PARA um recipiente (mochila/pote)
+  if (source.droppableId === "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
+    setFrasesDisponiveis((prev) => prev.filter((f) => f !== draggableId));
+    setRespostas((prev) => ({
+      ...prev,
+      [destination.droppableId]: [...(prev[destination.droppableId] || []), draggableId],
+    }));
+    return;
+  }
+
+  // 3) DE um recipiente -> PARA a lista (isto habilita “tirar de dentro”)
+  if (source.droppableId !== "frasesDisponiveis" && destination.droppableId === "frasesDisponiveis") {
+    setRespostas((prev) => ({
+      ...prev,
+      [source.droppableId]: (prev[source.droppableId] || []).filter((f) => f !== draggableId),
+    }));
+    setFrasesDisponiveis((prev) => (prev.includes(draggableId) ? prev : [...prev, draggableId]));
+    return;
+  }
+
+  // 4) Entre recipientes (se algum dia tiveres mais do que um ao mesmo tempo)
+  if (source.droppableId !== "frasesDisponiveis" && destination.droppableId !== "frasesDisponiveis") {
+    const frase = respostas[source.droppableId].find((f) => f === draggableId);
+    setRespostas((prev) => ({
+      ...prev,
+      [source.droppableId]: prev[source.droppableId].filter((f) => f !== frase),
+      [destination.droppableId]: [...(prev[destination.droppableId] || []), frase],
+    }));
+  }
+};
 
     // Function to handle custom phrase editing
     const handlePhraseEdit = (phraseId, newValue) => {
@@ -611,16 +647,16 @@ const handleOpcaoToggle = (index) => {
                                     Espelho
                                 </h4>
                   <p className="lead">
-                    O <strong>espelho</strong> é o <strong>terceiro objeto</strong> desta viagem. Representa o momento em que a pessoa começa a  
-                    <strong>olhar para dentro de si</strong> e a <strong>refletir sobre o que sente</strong>. 
-                    Neste ponto do percurso, as <strong>emoções</strong> ganham espaço para ser reconhecidas, partilhadas e compreendidas.  
-                    Muitas vezes, elas podem parecer <strong>confusas</strong>, intensas ou difíceis de nomear — mas, com o apoio do psicólogo,  
-                    torna-se possível <strong>ver com mais clareza</strong> o que se passa no interior. 
-                    O espelho simboliza o processo de <strong>autoconhecimento</strong>: uma oportunidade para 
-                    <strong>observar sem julgamentos, aceitar o que se sente e dar sentido à experiência emocional</strong>. 
+                    O <strong>espelho</strong> é o <strong> terceiro objeto</strong> desta viagem. Representa o momento em que a pessoa começa a  
+                    <strong> olhar para dentro de si</strong> e a <strong>refletir sobre o que sente</strong>. 
+                    Neste ponto do percurso, as <strong> emoções</strong> ganham espaço para ser reconhecidas, partilhadas e compreendidas.  
+                    Muitas vezes, elas podem parecer <strong> confusas</strong>, intensas ou difíceis de nomear — mas, com o apoio do psicólogo,  
+                    torna-se possível <strong> ver com mais clareza</strong> o que se passa no interior. 
+                    O espelho simboliza o processo de <strong> autoconhecimento</strong>: uma oportunidade para 
+                    <strong> observar sem julgamentos, aceitar o que se sente e dar sentido à experiência emocional</strong>. 
                     É como se, ao olhar para esse espelho simbólico, a pessoa começasse a ver-se com  
                     <strong> mais empatia, mais entendimento e mais verdade</strong>. 
-                    É mais um passo importante nesta viagem: <strong>reconhecer quem se é e o que se sente</strong>, sem medo do reflexo.
+                    É mais um passo importante nesta viagem: <strong> reconhecer quem se é e o que se sente</strong>, sem medo do reflexo.
                   </p>
 
                   <p className="lead text-center">
@@ -708,14 +744,14 @@ const handleOpcaoToggle = (index) => {
                     A <strong>lâmpada</strong> é o <strong>quarto objeto</strong> desta viagem. Representa o momento em que a pessoa começa a  
                     <strong>ganhar clareza sobre os seus desafios</strong> e a <strong>compreender melhor o que sente</strong>. 
                     À medida que o processo terapêutico avança, começam a surgir <strong>novas perspetivas</strong> e  
-                    <strong>formas de lidar com as emoções</strong>. A lâmpada simboliza essa <strong>luz</strong> que se vai acendendo pouco a pouco, 
+                    <strong>formas de lidar com as emoções</strong>. A lâmpada simboliza essa <strong> luz</strong> que se vai acendendo pouco a pouco, 
                     iluminando partes que antes pareciam confusas ou difíceis de entender. 
                     É como se, ao acender essa lâmpada simbólica, a pessoa começasse a  
-                    <strong>ver com mais nitidez o caminho que está a percorrer</strong>, percebendo quais são as  
-                    <strong>estratégias que pode usar</strong> para enfrentar os desafios do dia a dia. 
-                    Este é um momento de <strong>clareza</strong>, de <strong>aprendizagem</strong> e de <strong>esperança</strong>. 
+                    <strong> ver com mais nitidez o caminho que está a percorrer</strong>, percebendo quais são as  
+                    <strong> estratégias que pode usar</strong> para enfrentar os desafios do dia a dia. 
+                    Este é um momento de <strong> clareza</strong>, de <strong> aprendizagem</strong> e de <strong> esperança</strong>. 
                     Um passo importante na viagem ao bem-estar, onde começa a fazer-se 
-                    <strong>luz sobre o que antes estava às escuras</strong>.
+                    <strong> luz sobre o que antes estava às escuras</strong>.
                   </p>
 
                   <p className="mb-3 lead text-center">
@@ -851,7 +887,7 @@ const handleOpcaoToggle = (index) => {
                                       >
                                         {/* Optional: Add a checkmark or indicator for selected items */}
                                         {isSelected && <i className="mb-0 fw-medium"></i>}
-                                        {opcao}
+                                        <strong>{opcao}</strong>
                                       </div>
                                     );
                                   })}
@@ -888,10 +924,10 @@ const handleOpcaoToggle = (index) => {
                 
                   <div>
                     <p className="lead">
-                      O <strong>pote</strong> é o <strong>sexto objeto</strong> desta viagem. Representa a <strong>resiliência</strong> e o valor de 
-                      <strong>tudo aquilo que foi sendo aprendido e conquistado ao longo do caminho</strong>. 
+                      O <strong>pote</strong> é o <strong> sexto objeto</strong> desta viagem. Representa a <strong> resiliência</strong> e o valor de 
+                      <strong> tudo aquilo que foi sendo aprendido e conquistado ao longo do caminho</strong>. 
                       Nesta fase da viagem, a pessoa já passou por momentos de descoberta, desafio e crescimento. 
-                      O pote simboliza o espaço onde são <strong>guardadas as pequenas vitórias</strong>, os <strong>avanços pessoais</strong>, 
+                      O pote simboliza o espaço onde são <strong> guardadas as pequenas vitórias</strong>, os <strong> avanços pessoais</strong>, 
                       e as <strong> estratégias que começaram a fazer sentido</strong>. 
                       É como se, ao longo do percurso, a pessoa fosse recolhendo elementos importantes — 
                       como formas de lidar com a ansiedade, maneiras de ver uma situação com mais clareza ou até momentos 
@@ -899,8 +935,8 @@ const handleOpcaoToggle = (index) => {
                       Mesmo que surjam novos desafios, o pote está lá, cheio de recursos que ajudam a 
                       <strong> recordar a força que foi construída</strong> e a 
                       <strong> usar o que já se aprendeu para seguir em frente com mais confiança</strong>. 
-                      Este objeto marca um momento de <strong> valorização</strong>, de reconhecer que 
-                      <strong>o caminho percorrido tem frutos</strong>, e que <strong>cada passo importa</strong>.
+                      Este objeto marca um momento de <strong> valorização</strong>, de reconhecer que  
+                      <strong> o caminho percorrido tem frutos</strong>, e que <strong> cada passo importa</strong>.
                     </p>
 
                     <p className="lead text-center">
@@ -945,14 +981,17 @@ const handleOpcaoToggle = (index) => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-                                        className="badge text-white p-2"
+                                        className="mb-2 me-2"
                                         style={{
-                                          backgroundColor: "#99cbc8", 
-                                          userSelect: "none",
                                           ...provided.draggableProps.style,
+                                          position: snapshot.isDragging ? "fixed" : "relative",
                                         }}
                                       >
-                                        {frase}
+                                        <DraggablePhrase
+                                          phrase={frase}
+                                          index={index}
+                                          isDragging={snapshot.isDragging}
+                                        />
                                       </div>
                                     )}
                                   </Draggable>
