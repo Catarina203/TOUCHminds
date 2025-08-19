@@ -267,7 +267,8 @@ const handleOpcaoToggle = (index) => {
 
       if (isEditable && editingPhrase === phrase) {
         return (
-          <div className="badge bg-secondary p-2" style={{ minWidth: '150px' }}>
+          <div className="badge p-2" style={{ minWidth: '150px', backgroundColor: '#99CBC8', color: 'white' }}
+          >
             <input
               type="text"
               value={customPhrases[phrase]}
@@ -289,11 +290,13 @@ const handleOpcaoToggle = (index) => {
 
       return (
         <div 
-          className={`badge bg-secondary p-2`}
+          className={`badge p-2`}
           style={{ 
             minWidth: '120px', 
             cursor: isEditable ? 'pointer' : 'grab',
-            opacity: isEmpty ? 0.7 : 1
+            opacity: isEmpty ? 0.7 : 1,
+            backgroundColor: '#99CBC8',
+            color: 'white'
           }}
           onClick={isEditable ? () => setEditingPhrase(phrase) : undefined}
         >
@@ -634,7 +637,7 @@ const handleOpcaoToggle = (index) => {
                     <div className="mx-auto" style={{ maxWidth: "600px" }}>
                       <input
                         type="text"
-                        className={`form-control ${inputError ? 'is-invalid' : ''}`}
+                        className={`form-control ${inputError && !emocaoInput.trim() ? 'is-invalid' : ''}`}
                         style={{
                           border: '1px solid #99CBC8',
                           borderRadius: '12px',
@@ -655,11 +658,20 @@ const handleOpcaoToggle = (index) => {
                         }}
                         aria-label="Emoção"
                         required
+                          aria-required="true"
+                          aria-invalid={inputError && !emocaoInput.trim()}
+                          aria-describedby={inputError && !emocaoInput.trim() ? "error-emocao" : undefined}
+
                       />
                       {inputError && (
-                          <div className="alert alert-warning mt-3 text-center" role="alert">
-                            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                          <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+                             <i className="bi bi-exclamation-triangle me-2"></i>
                             Por favor, escreve uma emoção para continuar.
+                          </div>
+                        )}
+                        {inputError && !emocaoInput.trim() && (
+                          <div id="error-emocao" className="invalid-feedback" role="alert">
+                            Este campo é obrigatório.
                           </div>
                         )}
                     </div>
@@ -720,7 +732,7 @@ const handleOpcaoToggle = (index) => {
                     <div className="mx-auto" style={{ maxWidth: "600px" }}>
                       <input
                         type="text"
-                        className={`form-control ${ferramentaError ? 'is-invalid' : ''}`}
+                        className={`form-control ${ferramentaError && !ferramenta.trim() ? 'is-invalid' : ''}`}
                         style={{
                           border: '1px solid #99CBC8',
                           borderRadius: '12px',
@@ -735,11 +747,20 @@ const handleOpcaoToggle = (index) => {
                         }}
                         aria-label="Ferramenta ou estratégia"
                         required
+                        aria-required="true"
+                          aria-invalid={ferramentaError && !ferramenta.trim()}
+                          aria-describedby={ferramentaError && !ferramenta.trim() ? "error-ferramenta" : undefined}
                       />
                        {ferramentaError && (
-                        <div className="alert alert-warning mt-3 text-center" role="alert">
-                          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+                          <i className="bi bi-exclamation-triangle me-2"></i>
                           Por favor, escreve algo para continuar.
+                        </div>
+                      )}
+
+                     {ferramentaError && !ferramenta.trim() && (
+                        <div id="error-ferramenta" className="invalid-feedback" role="alert">
+                          Este campo é obrigatório.
                         </div>
                       )}
                     </div>
@@ -1068,7 +1089,7 @@ const handleOpcaoToggle = (index) => {
                   <div className="mx-auto" style={{ maxWidth: "600px" }}>
                     <input
                       type="text"
-                      className={`form-control ${chaveError ? 'is-invalid' : ''}`}
+                      className={`form-control ${chaveError && !chave.trim() ? 'is-invalid' : ''}`}
                       style={{
                         border: '1px solid #99CBC8',
                         borderRadius: '12px',
@@ -1083,11 +1104,19 @@ const handleOpcaoToggle = (index) => {
                       }}
                       aria-label="Ferramenta ou estratégia"
                       required
-                    />
+                      aria-required="true"
+                    aria-invalid={chaveError && !chave.trim()}
+                    aria-describedby={chaveError && !chave.trim() ? "error-chave" : undefined}
+                                        />
                     {chaveError && (
-                        <div className="alert alert-warning mt-3 text-center" role="alert">
-                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div className="alert alert-danger mb-3" role="alert" aria-live="assertive">
+                        <i className="bi bi-exclamation-triangle me-2"></i>
                           Por favor, escreve algo para continuar.
+                        </div>
+                      )}
+                      {chaveError && !chave.trim() && (
+                        <div id="error-chave" className="invalid-feedback" role="alert">
+                          Este campo é obrigatório.
                         </div>
                       )}
                 </div>
