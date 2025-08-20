@@ -29,7 +29,7 @@ const DesafioSemanal5 = () => {
         Este desafio tem como objetivo <strong>ajudar-te a identificar e avaliar as opções de ajuda disponíveis</strong>.
       </p>
       <p className="mb-4">
-        <strong>Lembra-te</strong> de que <strong>reconhecer que precisas de ajuda</strong> é um <strong>passo importante para cuidar de ti mesmo/a</strong>.
+        Lembra-te de que <strong>reconhecer que precisas de ajuda</strong> é um <strong>passo importante para cuidar de ti mesmo/a</strong>.
       </p>
 
       <p className="fw-bold">Vamos em frente! #ReviravoltaEmRede </p>
