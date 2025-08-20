@@ -17,7 +17,6 @@ const EscolhaCerta = () => {
     const [likePulse, setLikePulse] = useState(false);
     const [shareTo, setShareTo] = useState("");
     const [commentText, setCommentText] = useState("");
-    const [mapear, setMapear] = useState(false); // opcional: para apurar coordenadas
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
 
@@ -123,11 +122,11 @@ const EscolhaCerta = () => {
                                     {atividade?.titulo || "Escolha Certa"}
                                 </h2>
                                 <p className="lead">
-                                    <b>Sê muito bem-vindo/a ao à "Escolha Certa"</b>.<br></br><br></br>
+                                    <b>Sê muito bem-vindo/a à "Escolha Certa"</b>.<br></br><br></br>
                                     Nesta <b> atividade</b>, vais ver uma sequência de <b>stories</b> com <b> informações</b> sobre os diferentes fontes de <b>ajuda</b> que podes procurar quando
                                     temos <b> dificuldades</b> ou <b> problemas</b> que não estamos a conseguir lidar <b> sozinho/a</b>. <br></br><br></br>
                                     À medida que passas por cada <b> story</b>, <b>reflete</b> sobre o que estás a ler e <b> como isso te faz sentir</b>. Vais poder
-                                    <b> interagir</b> com cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
+                                    <b> interagir</b> a cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
                                     A ideia é <b> aprender mais</b> sobre como podemos <b>procurar ajuda</b> e <b> refletir</b> sobre o <b>impacto</b> dessa informação no nosso <b>bem-estar</b>.
                                 </p>
                                 <button
@@ -139,186 +138,168 @@ const EscolhaCerta = () => {
                             </>
                         )}
 
-                        {/* CENÁRIOS */}
+                       {/* CENÁRIOS */}
                         {pagina > 0 && pagina <= cenarios.length && (
-                            <>
-                                <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                                    Cenário {pagina} de {cenarios.length}
-                                </h4>
+                        <>
+                            <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                            Cenário {pagina} de {cenarios.length}
+                            </h4>
 
-                               {/* IMAGEM + HOTSPOTS + UI */}
-                                        <div className="position-relative mx-auto mb-4" style={{ maxWidth: 600 }}>
-                                        <img
-                                            src={cenarios[pagina - 1].imagem}
-                                            alt={`Cenário ${pagina}`}
-                                            className="img-fluid w-100 d-block rounded"
-                                            style={{ objectFit: "contain" }}
-                                            onClick={(e) => {
-                                            // modo "mapear" para apurar coordenadas (opcional)
-                                            if (!mapear) return;
-                                            const rect = e.currentTarget.getBoundingClientRect();
-                                            const x = ((e.clientX - rect.left) / rect.width) * 100;
-                                            const y = ((e.clientY - rect.top) / rect.height) * 100;
-                                            console.log(`{ x: ${x.toFixed(1)}, y: ${y.toFixed(1)}, w: 6, h: 10 }`);
-                                            }}
-                                        />
+                            {/* IMAGEM + HOTSPOTS + UI */}
+                            <div className="position-relative mx-auto mb-4" style={{ maxWidth: 600 }}>
+                            <img
+                                src={cenarios[pagina - 1].imagem}
+                                alt={`Cenário ${pagina}`}
+                                className="img-fluid w-100 d-block rounded"
+                                style={{ objectFit: "contain", pointerEvents: "none" }}
+                            />
 
-                                        {/* HOTSPOTS */}
-                                        {!mapear && cenarios[pagina - 1].hotspots?.map((h, i) => (
-                                            <button
-                                            key={i}
-                                            type="button"
-                                            aria-label={h.tipo}
-                                            onClick={() => {
-                                                setInteracao(h.tipo);
-                                                setAnchor({ x: h.x, y: h.y });
+                            {/* HOTSPOTS */}
+                            {cenarios[pagina - 1].hotspots?.map((h, i) => (
+                                <button
+                                key={i}
+                                type="button"
+                                aria-label={h.tipo}
+                                onClick={() => {
+                                    setInteracao(h.tipo);
+                                    setAnchor({ x: h.x, y: h.y });
+                                    if (h.tipo === "gostar") {
+                                    setLikePulse(true);
+                                    setOpcaoSelecionada(0); // habilita Continuar
+                                    setTimeout(() => setLikePulse(false), 450);
+                                    }
+                                }}
+                                className="p-0"
+                                style={{
+                                    position: "absolute",
+                                    left: `${h.x}%`,
+                                    top: `${h.y}%`,
+                                    width: `${h.w}%`,
+                                    height: `${h.h}%`,
+                                    transform: "translate(-50%, -50%)",
+                                    background: "transparent",
+                                    border: "2px solid transparent",
+                                    borderRadius: 12,
+                                    cursor: "pointer",
+                                    zIndex: 3,
+                                }}
+                                >
+                                <span className="visually-hidden">{h.tipo}</span>
+                                </button>
+                            ))}
 
-                                                if (h.tipo === "gostar") {
-                                                setLikePulse(true);
-                                                setOpcaoSelecionada(0); // habilita Continuar
-                                                setTimeout(() => setLikePulse(false), 450);
-                                                }
-                                            }}
-                                            className="p-0"
-                                            style={{
-                                                position: "absolute",
-                                                left: `${h.x}%`,
-                                                top: `${h.y}%`,
-                                                width: `${h.w}%`,
-                                                height: `${h.h}%`,
-                                                transform: "translate(-50%, -50%)",
-                                                background: "transparent",
-                                                border: "2px solid transparent",
-                                                borderRadius: 12, // usa 50% se o ícone for redondo
-                                                cursor: "pointer",
-                                            }}
-                                            >
-                                            <span className="visually-hidden">{h.tipo}</span>
-                                            </button>
-                                        ))}
+                            {/* CORAÇÃO (Gostar) */}
+                            {interacao === "gostar" && (
+                                <div
+                                className={likePulse ? "heart-pop" : ""}
+                                style={{
+                                    position: "absolute",
+                                    left: `${anchor.x}%`,
+                                    top: `${anchor.y}%`,
+                                    transform: "translate(-50%, -50%)",
+                                    pointerEvents: "none",
+                                    zIndex: 5,
+                                }}
+                                >
+                                <i className="bi bi-heart-fill" style={{ fontSize: 48, color: "#E63946" }} />
+                                </div>
+                            )}
 
-                                        {/* CORAÇÃO (Gostar) */}
-                                        {interacao === "gostar" && (
-                                            <div
-                                            className={likePulse ? "heart-pop" : ""}
-                                            style={{
-                                                position: "absolute",
-                                                left: `${anchor.x}%`,
-                                                top: `${anchor.y}%`,
-                                                transform: "translate(-50%, -50%)",
-                                                pointerEvents: "none",
-                                            }}
-                                            >
-                                            <i className="bi bi-heart-fill" style={{ fontSize: 48, color: "#E63946" }} />
-                                            </div>
-                                        )}
+                            {/* PARTILHAR */}
+                            {interacao === "partilhar" && (
+                                <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    if (!shareTo.trim()) return;
+                                    setOpcaoSelecionada(1);
+                                    setInteracao(null);
+                                    setShareTo("");
+                                }}
+                                style={{
+                                    position: "absolute",
+                                    left: `${anchor.x}%`,
+                                    top: `calc(${anchor.y}% + 8%)`,
+                                    transform: "translate(-50%, 0)",
+                                    background: "#fff",
+                                    border: "1px solid #99CBC8",
+                                    borderRadius: 12,
+                                    padding: 12,
+                                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                                    minWidth: 260,
+                                    zIndex: 6,
+                                }}
+                                >
+                                <label className="form-label mb-1">Partilhar com:</label>
+                                <input
+                                    type="text"
+                                    className="form-control mb-2"
+                                    placeholder="Nome, email ou contacto"
+                                    value={shareTo}
+                                    onChange={(e) => setShareTo(e.target.value)}
+                                />
+                                <div className="d-flex gap-2 justify-content-end">
+                                    <button
+                                    type="button"
+                                    className="btn btn-sm btn-outline-secondary"
+                                    onClick={() => { setInteracao(null); setShareTo(""); }}
+                                    >
+                                    Cancelar
+                                    </button>
+                                    <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
+                                    Partilhar
+                                    </button>
+                                </div>
+                                </form>
+                            )}
 
-                                        {/* PARTILHAR */}
-                                        {interacao === "partilhar" && (
-                                            <form
-                                           onSubmit={(e) => {
-                                                    e.preventDefault();
-                                                    if (!shareTo.trim()) return;
-                                                    setOpcaoSelecionada(1);   // habilita Continuar
-                                                    setInteracao(null);       // fecha a caixa
-                                                    setShareTo("");           // (opcional) limpa o campo
-                                                    }}
-                                            style={{
-                                                position: "absolute",
-                                                left: `${anchor.x}%`,
-                                                top: `calc(${anchor.y}% + 8%)`,
-                                                transform: "translate(-50%, 0)",
-                                                background: "#fff",
-                                                border: "1px solid #99CBC8",
-                                                borderRadius: 12,
-                                                padding: 12,
-                                                boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                                                minWidth: 260,
-                                                zIndex: 2,
-                                            }}
-                                            >
-                                            <label className="form-label mb-1">Partilhar com:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control mb-2"
-                                                placeholder="Nome, email ou contacto"
-                                                value={shareTo}
-                                                onChange={(e) => setShareTo(e.target.value)}
-                                            />
-                                            <div className="d-flex gap-2 justify-content-end">
-                                                <button
-                                                type="button"
-                                                className="btn btn-sm btn-outline-secondary"
-                                                onClick={() => { setInteracao(null); setShareTo(""); }}
-                                                >
-                                                Cancelar
-                                                </button>
-                                                <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
-                                                Partilhar
-                                                </button>
-                                            </div>
-                                            </form>
-                                        )}
-
-                                        {/* COMENTAR */}
-                                        {interacao === "comentar" && (
-                                            <form
-                                            onSubmit={(e) => {
-                                                    e.preventDefault();
-                                                    if (commentText.trim().length < 2) return;
-                                                    setOpcaoSelecionada(2);   // habilita Continuar
-                                                    setInteracao(null);       // fecha a caixa
-                                                    setCommentText("");       // (opcional) limpa o campo
-                                                    }}
-                                            style={{
-                                                position: "absolute",
-                                                left: `${anchor.x}%`,
-                                                top: `calc(${anchor.y}% + 8%)`,
-                                                transform: "translate(-50%, 0)",
-                                                background: "#fff",
-                                                border: "1px solid #99CBC8",
-                                                borderRadius: 12,
-                                                padding: 12,
-                                                boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                                                minWidth: 260,
-                                                zIndex: 2,
-                                            }}
-                                            >
-                                            <label className="form-label mb-1">O teu comentário:</label>
-                                            <textarea
-                                                className="form-control mb-2"
-                                                rows={3}
-                                                placeholder="Escreve aqui…"
-                                                value={commentText}
-                                                onChange={(e) => setCommentText(e.target.value)}
-                                            />
-                                            <div className="d-flex gap-2 justify-content-end">
-                                                <button
-                                                type="button"
-                                                className="btn btn-sm btn-outline-secondary"
-                                                onClick={() => { setInteracao(null); setCommentText(""); }}
-                                                >
-                                                Cancelar
-                                                </button>
-                                                <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
-                                                Enviar
-                                                </button>
-                                            </div>
-                                            </form>
-                                        )}
-                                        </div>
-
-                                        {/* Botão opcional para mapear coordenadas (apenas para ti enquanto acertas os %). Podes remover depois. */}
-                                        <div className="d-flex justify-content-end mb-2">
-                                        <button
-                                            type="button"
-                                            className="btn btn-sm btn-outline-secondary"
-                                            onClick={() => setMapear(v => !v)}
-                                        >
-                                            {mapear ? "Sair do modo mapear" : "Mapear hotspots"}
-                                        </button>
-                                        </div>
-                            </>
+                            {/* COMENTAR */}
+                            {interacao === "comentar" && (
+                                <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    if (commentText.trim().length < 2) return;
+                                    setOpcaoSelecionada(2);
+                                    setInteracao(null);
+                                    setCommentText("");
+                                }}
+                                style={{
+                                    position: "absolute",
+                                    left: `${anchor.x}%`,
+                                    top: `calc(${anchor.y}% + 8%)`,
+                                    transform: "translate(-50%, 0)",
+                                    background: "#fff",
+                                    border: "1px solid #99CBC8",
+                                    borderRadius: 12,
+                                    padding: 12,
+                                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                                    minWidth: 260,
+                                    zIndex: 6,
+                                }}
+                                >
+                                <label className="form-label mb-1">O teu comentário:</label>
+                                <textarea
+                                    className="form-control mb-2"
+                                    rows={3}
+                                    placeholder="Escreve aqui…"
+                                    value={commentText}
+                                    onChange={(e) => setCommentText(e.target.value)}
+                                />
+                                <div className="d-flex gap-2 justify-content-end">
+                                    <button
+                                    type="button"
+                                    className="btn btn-sm btn-outline-secondary"
+                                    onClick={() => { setInteracao(null); setCommentText(""); }}
+                                    >
+                                    Cancelar
+                                    </button>
+                                    <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
+                                    Enviar
+                                    </button>
+                                </div>
+                                </form>
+                            )}
+                            </div>
+                        </>
                         )}
 
                         {/* CONCLUSÃO */}
