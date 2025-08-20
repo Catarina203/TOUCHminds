@@ -287,7 +287,7 @@ resetUI();
                                     <input
                                         type="text"
                                         className="form-control mb-2"
-                                        placeholder="Escreve aqui com quem gostarias de partilhar"
+                                        placeholder="Quero partilhar com"
                                         value={shareTo}
                                         onChange={(e) => setShareTo(e.target.value)}
                                     />
