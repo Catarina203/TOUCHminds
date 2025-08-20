@@ -13,11 +13,13 @@ const EscolhaCerta = () => {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
     const modulo = modulos.find((m) => m.id === moduloId);
     const [interacao, setInteracao] = useState(null); // 'gostar' | 'partilhar' | 'comentar' | null
-    const [anchor, setAnchor] = useState({ x: 50, y: 50 }); // posição do clique (em % da imagem)
+    const [anchor, setAnchor] = useState({ x: 50, y: 50 });
     const [likePulse, setLikePulse] = useState(false);
     const [shareTo, setShareTo] = useState("");
     const [commentText, setCommentText] = useState("");
     const [showWarning, setShowWarning] = useState(false);
+    const [jaEscolheu, setJaEscolheu] = useState(false); // só 1 interação por cenário
+    const AUTO_DELAY = 600; // ms para mostrar o coração antes de avançar
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
 
@@ -92,16 +94,17 @@ const resetUI = () => {
   setShareTo("");
   setCommentText("");
   setOpcaoSelecionada(null);
-  setShowWarning(false);   // <--- novo
+  setShowWarning(false);
+  setJaEscolheu(false); // <-- aqui é o sítio certo
 };
 
 const avancar = () => {
-  if (opcaoSelecionada === null) {
+  if (!jaEscolheu) {
     setShowWarning(true);
-    return; // não avança
+    return;
   }
   setShowWarning(false);
-  setPagina((prev) => prev + 1);
+  setPagina(prev => prev + 1);
   resetUI();
 };
 
@@ -169,186 +172,197 @@ resetUI();
                                 </ul>
 
                         {/* IMAGEM + HOTSPOTS + UI */}
-                            <div className="position-relative mx-auto mb-4" style={{ maxWidth: 600 }}>
-                            <img
-                                src={cenarios[pagina - 1].imagem}
-                                alt={`Cenário ${pagina}`}
-                                className="img-fluid w-100 d-block rounded"
-                                style={{ objectFit: "contain", pointerEvents: "none" }}
-                                onError={(e) => {
-                                e.currentTarget.style.display = "none";
-                                const fallback = e.currentTarget.nextElementSibling;
-                                if (fallback) fallback.style.display = "flex";
-                                }}
-                            />
-                            {showWarning && (
-                            <div className="alert alert-warning mt-3 text-center" role="alert" aria-live="assertive">
-                                <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                                Por favor, seleciona uma reação antes de continuar.
-                            </div>
-                            )}
-                            {/* Fallback caso a imagem falhe */}
-                            <div
-                                style={{
-                                display: "none",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                minHeight: 280,
-                                border: "1px dashed #ddd",
-                                borderRadius: 12,
-                                }}
-                            >
-                                <span className="text-muted">Imagem indisponível</span>
-                            </div>
-
-                            {/* HOTSPOTS (mantém exatamente como já tens) */}
-                            {cenarios[pagina - 1].hotspots?.map((h, i) => (
-                                <button
-                                key={i}
-                                type="button"
-                                aria-label={h.tipo}
-                               onClick={() => {
-                                    setInteracao(h.tipo);
-                                    setAnchor({ x: h.x, y: h.y });
-                                    setShowWarning(false);         // <--- acrescentar
-                                    if (h.tipo === "gostar") {
-                                        setLikePulse(true);
-                                        setOpcaoSelecionada(0);
-                                        setTimeout(() => setLikePulse(false), 450);
-                                    }
+                                <div className="position-relative mx-auto mb-3" style={{ maxWidth: 450 }}>
+                                <img
+                                    src={cenarios[pagina - 1].imagem}
+                                    alt={`Cenário ${pagina}`}
+                                    className="img-fluid w-100 d-block rounded"
+                                    style={{ objectFit: "contain", pointerEvents: "none" }}
+                                    onError={(e) => {
+                                    e.currentTarget.style.display = "none";
+                                    const fallback = e.currentTarget.nextElementSibling;
+                                    if (fallback) fallback.style.display = "flex";
                                     }}
-                                className="p-0"
-                                style={{
-                                    position: "absolute",
-                                    left: `${h.x}%`,
-                                    top: `${h.y}%`,
-                                    width: `${h.w}%`,
-                                    height: `${h.h}%`,
-                                    transform: "translate(-50%, -50%)",
-                                    background: "transparent",
-                                    border: "2px solid transparent",
-                                    borderRadius: 12,
-                                    cursor: "pointer",
-                                    zIndex: 3,
-                                }}
-                                >
-                                <span className="visually-hidden">{h.tipo}</span>
-                                </button>
-                            ))}
-                            {/* CORAÇÃO (Gostar) */}
-                            {interacao === "gostar" && (
-                                <div
-                                className={likePulse ? "heart-pop" : ""}
-                                style={{
-                                    position: "absolute",
-                                    left: `${anchor.x}%`,
-                                    top: `${anchor.y}%`,
-                                    transform: "translate(-50%, -50%)",
-                                    pointerEvents: "none",
-                                    zIndex: 5,
-                                }}
-                                >
-                                <i className="bi bi-heart-fill" style={{ fontSize: 48, color: "#E63946" }} />
-                                </div>
-                            )}
-
-                            {/* PARTILHAR */}
-                            {interacao === "partilhar" && (
-                                <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    if (!shareTo.trim()) return;
-                                    setOpcaoSelecionada(1);
-                                    setShowWarning(false);
-                                    setInteracao(null);
-                                    setShareTo("");
-                                    }}
-                                style={{
-                                    position: "absolute",
-                                    left: `${anchor.x}%`,
-                                    top: `calc(${anchor.y}% + 8%)`,
-                                    transform: "translate(-50%, 0)",
-                                    background: "#fff",
-                                    border: "1px solid #99CBC8",
-                                    borderRadius: 12,
-                                    padding: 12,
-                                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                                    minWidth: 260,
-                                    zIndex: 6,
-                                }}
-                                >
-                                <label className="form-label mb-1">Partilhar com:</label>
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    placeholder="Escreve aqui com quem gostarias de partilhar"
-                                    value={shareTo}
-                                    onChange={(e) => setShareTo(e.target.value)}
                                 />
-                                <div className="d-flex gap-2 justify-content-end">
-                                    <button
-                                    type="button"
-                                    className="btn btn-sm btn-outline-secondary"
-                                    onClick={() => { setInteracao(null); setShareTo(""); }}
-                                    >
-                                    Cancelar
-                                    </button>
-                                    <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
-                                    Partilhar
-                                    </button>
+                                {/* Fallback */}
+                                <div
+                                    style={{
+                                    display: "none",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    minHeight: 280,
+                                    border: "1px dashed #ddd",
+                                    borderRadius: 12,
+                                    }}
+                                >
+                                    <span className="text-muted">Imagem indisponível</span>
                                 </div>
-                                </form>
-                            )}
 
-                            {/* COMENTAR */}
-                            {interacao === "comentar" && (
-                                <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    if (commentText.trim().length < 2) return;
-                                    setOpcaoSelecionada(2);
-                                    setShowWarning(false);
-                                    setInteracao(null);
-                                    setCommentText("");
+                                {/* HOTSPOTS */}
+                                {cenarios[pagina - 1].hotspots?.map((h, i) => (
+                                    <button
+                                    key={i}
+                                    type="button"
+                                    aria-label={h.tipo}
+                                    onClick={() => {
+                                        if (jaEscolheu) return; // já escolheu neste cenário
+                                        setInteracao(h.tipo);
+                                        setAnchor({ x: h.x, y: h.y });
+                                        setShowWarning(false);
+
+                                        if (h.tipo === "gostar") {
+                                        setLikePulse(true);
+                                        setOpcaoSelecionada("gostar");
+                                        setJaEscolheu(true);
+                                        setTimeout(() => {
+                                            setLikePulse(false);
+                                            setPagina(prev => prev + 1); // avança sozinho
+                                            resetUI();
+                                        }, AUTO_DELAY);
+                                        }
+                                    }}
+                                    className="p-0"
+                                    style={{
+                                        position: "absolute",
+                                        left: `${h.x}%`,
+                                        top: `${h.y}%`,
+                                        width: `${h.w}%`,
+                                        height: `${h.h}%`,
+                                        transform: "translate(-50%, -50%)",
+                                        background: "transparent",
+                                        border: "2px solid transparent",
+                                        borderRadius: 12,
+                                        cursor: "pointer",
+                                        zIndex: 3,
+                                    }}
+                                    >
+                                    <span className="visually-hidden">{h.tipo}</span>
+                                    </button>
+                                ))}
+
+                                {/* CORAÇÃO (Gostar) */}
+                                {interacao === "gostar" && (
+                                    <div
+                                    className={likePulse ? "heart-pop" : ""}
+                                    style={{
+                                        position: "absolute",
+                                        left: `${anchor.x}%`,
+                                        top: `${anchor.y}%`,
+                                        transform: "translate(-50%, -50%)",
+                                        pointerEvents: "none",
+                                        zIndex: 5,
+                                    }}
+                                    >
+                                    <i className="bi bi-heart-fill" style={{ fontSize: 48, color: "#E63946" }} />
+                                    </div>
+                                )}
+
+                                {/* PARTILHAR */}
+                                {interacao === "partilhar" && (
+                                    <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        if (jaEscolheu || !shareTo.trim()) return;
+                                        setOpcaoSelecionada("partilhar");
+                                        setJaEscolheu(true);
+                                        setInteracao(null);
+                                        setShareTo("");
+                                        setTimeout(() => { setPagina(p => p + 1); resetUI(); }, 250);
                                     }}
                                     style={{
-                                    position: "absolute",
-                                    left: `${anchor.x}%`,
-                                    top: `calc(${anchor.y}% + 8%)`,
-                                    transform: "translate(-50%, 0)",
-                                    background: "#fff",
-                                    border: "1px solid #99CBC8",
-                                    borderRadius: 12,
-                                    padding: 12,
-                                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                                    minWidth: 260,
-                                    zIndex: 6,
-                                }}
-                                >
-                                <label className="form-label mb-1">O teu comentário:</label>
-                                <textarea
-                                    className="form-control mb-2"
-                                    rows={3}
-                                    placeholder="Escreve aqui o teu comentário"
-                                    value={commentText}
-                                    onChange={(e) => setCommentText(e.target.value)}
-                                />
-
-                                <div className="d-flex gap-2 justify-content-end">
-                                    <button
-                                    type="button"
-                                    className="btn btn-sm btn-outline-secondary"
-                                    onClick={() => { setInteracao(null); setCommentText(""); }}
+                                        position: "absolute",
+                                        left: `${anchor.x}%`,
+                                        top: `calc(${anchor.y}% + 8%)`,
+                                        transform: "translate(-50%, 0)",
+                                        background: "#fff",
+                                        border: "1px solid #99CBC8",
+                                        borderRadius: 12,
+                                        padding: 12,
+                                        boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                                        minWidth: 260,
+                                        zIndex: 6,
+                                    }}
                                     >
-                                    Cancelar
-                                    </button>
-                                    <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
-                                    Enviar
-                                   </button>
+                                    <label className="form-label mb-1">Partilhar com:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control mb-2"
+                                        placeholder="Escreve aqui com quem gostarias de partilhar"
+                                        value={shareTo}
+                                        onChange={(e) => setShareTo(e.target.value)}
+                                    />
+                                    <div className="d-flex gap-2 justify-content-end">
+                                        <button
+                                        type="button"
+                                        className="btn btn-sm btn-outline-secondary"
+                                        onClick={() => { setInteracao(null); setShareTo(""); }}
+                                        >
+                                        Cancelar
+                                        </button>
+                                        <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
+                                        Partilhar
+                                        </button>
+                                    </div>
+                                    </form>
+                                )}
+
+                                {/* COMENTAR */}
+                                {interacao === "comentar" && (
+                                    <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        if (jaEscolheu || commentText.trim().length < 2) return;
+                                        setOpcaoSelecionada("comentar");
+                                        setJaEscolheu(true);
+                                        setInteracao(null);
+                                        setCommentText("");
+                                        setTimeout(() => { setPagina(p => p + 1); resetUI(); }, 250);
+                                    }}
+                                    style={{
+                                        position: "absolute",
+                                        left: `${anchor.x}%`,
+                                        top: `calc(${anchor.y}% + 8%)`,
+                                        transform: "translate(-50%, 0)",
+                                        background: "#fff",
+                                        border: "1px solid #99CBC8",
+                                        borderRadius: 12,
+                                        padding: 12,
+                                        boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                                        minWidth: 260,
+                                        zIndex: 6,
+                                    }}
+                                    >
+                                    <label className="form-label mb-1">O teu comentário:</label>
+                                    <textarea
+                                        className="form-control mb-2"
+                                        rows={3}
+                                        placeholder="Escreve aqui o teu comentário"
+                                        value={commentText}
+                                        onChange={(e) => setCommentText(e.target.value)}
+                                    />
+                                     <div className="d-flex gap-2 justify-content-end">
+                                        <button
+                                        type="button"
+                                        className="btn btn-sm btn-outline-secondary"
+                                        onClick={() => { setInteracao(null); setCommentText(""); }}
+                                        >
+                                        Cancelar
+                                        </button>
+                                        <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
+                                        Enviar
+                                        </button>
                                     </div>
                                     </form>
                                 )}
                                 </div>
+
+                                {/* ALERTA GLOBAL */}
+                                {showWarning && (
+                                <div className="alert alert-warning mt-2 text-center" role="alert" aria-live="assertive">
+                                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                                    Por favor, seleciona uma reação antes de continuar.
+                                </div>
+                                )}
                             </>
                             )}
 
