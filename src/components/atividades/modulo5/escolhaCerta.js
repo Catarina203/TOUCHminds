@@ -17,6 +17,7 @@ const EscolhaCerta = () => {
     const [likePulse, setLikePulse] = useState(false);
     const [shareTo, setShareTo] = useState("");
     const [commentText, setCommentText] = useState("");
+    const [showWarning, setShowWarning] = useState(false);
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
 
@@ -37,65 +38,71 @@ const EscolhaCerta = () => {
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_2.png",
         hotspots: [
-        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
-        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
-        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7 },
+        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6 },
+        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6 },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_3.png",
         hotspots: [
-        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
-        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
-        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_4.png",
         hotspots: [
-        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
-        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
-        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_5.png",
         hotspots: [
-        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
-        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
-        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
         hotspots: [
-        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
-        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
-        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_7.png",
         hotspots: [
-        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
-        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
-        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6 },
+        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
         ],
     },
     ];
 
 const resetUI = () => {
-setInteracao(null);
-setAnchor({ x: 50, y: 50 });
-setLikePulse(false);
-setShareTo("");
-setCommentText("");
-setOpcaoSelecionada(null);
+  setInteracao(null);
+  setAnchor({ x: 50, y: 50 });
+  setLikePulse(false);
+  setShareTo("");
+  setCommentText("");
+  setOpcaoSelecionada(null);
+  setShowWarning(false);   // <--- novo
 };
 
 const avancar = () => {
-setPagina((prev) => prev + 1);
-resetUI();
+  if (opcaoSelecionada === null) {
+    setShowWarning(true);
+    return; // não avança
+  }
+  setShowWarning(false);
+  setPagina((prev) => prev + 1);
+  resetUI();
 };
 
 const retroceder = () => {
@@ -140,46 +147,76 @@ resetUI();
                                     <b> interagir</b> a cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
                                     A ideia é <b> aprender mais</b> sobre como podemos <b>procurar ajuda</b> e <b> refletir</b> sobre o <b>impacto</b> dessa informação no nosso <b>bem-estar</b>.
                                 </p>
-                                <button
-                                    className="custom-btn-turquoise mt-3 px-4 py-2"
-                                    onClick={() => setPagina(1)}
-                                >
-                                    <i className="bi bi-play-fill me-2"></i>Vamos a isto?
-                                </button>
+                               <button
+                                        className="custom-btn-turquoise mt-3 px-4 py-2"
+                                        onClick={() => setPagina(1)}
+                                        >
+                                        <i className="bi bi-play-fill me-2"></i>Vamos a isto?
+                                        </button>
                             </>
                         )}
 
                        {/* CENÁRIOS */}
-                        {pagina > 0 && pagina <= cenarios.length && (
-                        <>
-                            <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                            Cenário {pagina} de {cenarios.length}
-                            </h4>
+                            {pagina > 0 && pagina <= cenarios.length && (
+                            <>
+                                <h4 className="fw-bold text-center mb-2" style={{ color: "#234970" }}>
+                                Lê cada story com atenção e reage à informação apresentada carregando no:
+                                </h4>
+                                <ul className="lead" style={{ maxWidth: 700 }}>
+                                <li><b>Gostar</b>: se achaste interessante ou útil.</li>
+                                <li><b>Partilhar</b>: se quiseres partilhar com alguém que possa precisar desta informação.</li>
+                                <li><b>Comentar</b>: se quiseres expressar o que pensaste ou como te sentiste.</li>
+                                </ul>
 
-                            {/* IMAGEM + HOTSPOTS + UI */}
+                        {/* IMAGEM + HOTSPOTS + UI */}
                             <div className="position-relative mx-auto mb-4" style={{ maxWidth: 600 }}>
                             <img
                                 src={cenarios[pagina - 1].imagem}
                                 alt={`Cenário ${pagina}`}
                                 className="img-fluid w-100 d-block rounded"
                                 style={{ objectFit: "contain", pointerEvents: "none" }}
+                                onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                                const fallback = e.currentTarget.nextElementSibling;
+                                if (fallback) fallback.style.display = "flex";
+                                }}
                             />
+                            {showWarning && (
+                            <div className="alert alert-warning mt-3 text-center" role="alert" aria-live="assertive">
+                                <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                                Por favor, seleciona uma reação antes de continuar.
+                            </div>
+                            )}
+                            {/* Fallback caso a imagem falhe */}
+                            <div
+                                style={{
+                                display: "none",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                minHeight: 280,
+                                border: "1px dashed #ddd",
+                                borderRadius: 12,
+                                }}
+                            >
+                                <span className="text-muted">Imagem indisponível</span>
+                            </div>
 
-                            {/* HOTSPOTS */}
+                            {/* HOTSPOTS (mantém exatamente como já tens) */}
                             {cenarios[pagina - 1].hotspots?.map((h, i) => (
                                 <button
                                 key={i}
                                 type="button"
                                 aria-label={h.tipo}
-                                onClick={() => {
+                               onClick={() => {
                                     setInteracao(h.tipo);
                                     setAnchor({ x: h.x, y: h.y });
+                                    setShowWarning(false);         // <--- acrescentar
                                     if (h.tipo === "gostar") {
-                                    setLikePulse(true);
-                                    setOpcaoSelecionada(0); // habilita Continuar
-                                    setTimeout(() => setLikePulse(false), 450);
+                                        setLikePulse(true);
+                                        setOpcaoSelecionada(0);
+                                        setTimeout(() => setLikePulse(false), 450);
                                     }
-                                }}
+                                    }}
                                 className="p-0"
                                 style={{
                                     position: "absolute",
@@ -198,7 +235,6 @@ resetUI();
                                 <span className="visually-hidden">{h.tipo}</span>
                                 </button>
                             ))}
-
                             {/* CORAÇÃO (Gostar) */}
                             {interacao === "gostar" && (
                                 <div
@@ -223,9 +259,10 @@ resetUI();
                                     e.preventDefault();
                                     if (!shareTo.trim()) return;
                                     setOpcaoSelecionada(1);
+                                    setShowWarning(false);
                                     setInteracao(null);
                                     setShareTo("");
-                                }}
+                                    }}
                                 style={{
                                     position: "absolute",
                                     left: `${anchor.x}%`,
@@ -244,7 +281,7 @@ resetUI();
                                 <input
                                     type="text"
                                     className="form-control mb-2"
-                                    placeholder="Nome, email ou contacto"
+                                    placeholder="Escreve aqui com quem gostarias de partilhar"
                                     value={shareTo}
                                     onChange={(e) => setShareTo(e.target.value)}
                                 />
@@ -270,10 +307,11 @@ resetUI();
                                     e.preventDefault();
                                     if (commentText.trim().length < 2) return;
                                     setOpcaoSelecionada(2);
+                                    setShowWarning(false);
                                     setInteracao(null);
                                     setCommentText("");
-                                }}
-                                style={{
+                                    }}
+                                    style={{
                                     position: "absolute",
                                     left: `${anchor.x}%`,
                                     top: `calc(${anchor.y}% + 8%)`,
@@ -291,10 +329,11 @@ resetUI();
                                 <textarea
                                     className="form-control mb-2"
                                     rows={3}
-                                    placeholder="Escreve aqui…"
+                                    placeholder="Escreve aqui o teu comentário"
                                     value={commentText}
                                     onChange={(e) => setCommentText(e.target.value)}
                                 />
+
                                 <div className="d-flex gap-2 justify-content-end">
                                     <button
                                     type="button"
@@ -305,13 +344,13 @@ resetUI();
                                     </button>
                                     <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
                                     Enviar
-                                    </button>
+                                   </button>
+                                    </div>
+                                    </form>
+                                )}
                                 </div>
-                                </form>
+                            </>
                             )}
-                            </div>
-                        </>
-                        )}
 
                         {/* CONCLUSÃO */}
                         {pagina === cenarios.length + 1 && (
@@ -356,9 +395,8 @@ resetUI();
                                 <button
                                     className="custom-btn-turquoise"
                                     onClick={avancar}
-                                    disabled={opcaoSelecionada === null}
                                 >
-                                    {pagina === cenarios.length ? "Conclusão" : "Continuar"} <i className="bi bi-arrow-right ms-2"></i>
+                                    {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>
                             )}
                         </div>
