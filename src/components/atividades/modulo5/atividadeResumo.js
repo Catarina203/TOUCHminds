@@ -208,7 +208,7 @@ const AtividadeResumoRede = () => {
 
             {/* PÁGINAS 1-4 - CENÁRIOS QUIZ */}
             {pagina >= 1 && pagina <= 4 && (
-              <div className="text-center fw-bold">
+              <div className="text-center">
                 <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
                   {cenarios[pagina - 1].titulo}
                 </h4>
@@ -258,7 +258,7 @@ const AtividadeResumoRede = () => {
                         transition: 'all 0.3s ease',
                       }}
                     >
-                      <p className="mb-0 fw-medium">{opcao.texto}</p>
+                      <p className="mb-0 fw-medium text-start">{opcao.texto}</p>
                     </div>
                     );
                   })}
