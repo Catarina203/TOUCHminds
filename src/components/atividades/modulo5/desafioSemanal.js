@@ -20,7 +20,7 @@ const DesafioSemanal5 = () => {
       </p>
       <p className="mb-3">
        Identifica uma <strong>situação durante esta semana</strong> em que sintas <strong>desconforto</strong> ou <strong>dificuldade em lidar com ela</strong>,
-        e que, normalmente, em situações semelhantes como essas, <strong>não recorres a nenhuma fonte de ajuda</strong>.
+        e que habitualmente <strong>não recorres a nenhuma fonte de ajuda</strong>, nem nessa situação nem em outras similares. 
       </p>
       <p className="mb-3">
         Tenta <strong>refletir</strong> perante essa situação <strong>qual das fontes de ajuda</strong> que falamos neste módulo <strong>seria mais útil recorreres</strong>.
