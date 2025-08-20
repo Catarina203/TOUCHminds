@@ -20,77 +20,88 @@ const EscolhaCerta = () => {
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
 
-                    const cenarios = [
-                {
-                    imagem: "/imgs/modulo5/escolhacerta/escolha_certa_1.png",
-                    hotspots: [
-                    { tipo: "gostar",    x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar",  x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_2.png",
-                    hotspots: [
-                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_3.png",
-                    hotspots: [
-                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_4.png",
-                    hotspots: [
-                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_5.png",
-                    hotspots: [
-                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
-                    hotspots: [
-                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_7.png",
-                    hotspots: [
-                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
-                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
-                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
-                    ],
-                },
-                ];
-    
-            const resetUI = () => {
-            setInteracao(null);
-            setAnchor({ x: 50, y: 50 });
-            setLikePulse(false);
-            setShareTo("");
-            setCommentText("");
-            setOpcaoSelecionada(null);
-            };
+    const cenarios = [
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_1.png",
+        hotspots: [
+        // Botão "Enviar comentário" (retângulo grande em baixo à esquerda)
+        { tipo: "comentar",  x: 0, y: 92, w: 44, h: 12 },
 
-            const avancar = () => {
-            setPagina((prev) => prev + 1);
-            resetUI();
-            };
+        // Coração
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
 
-            const retroceder = () => {
-            setPagina((prev) => prev - 1);
-            resetUI();
-            };
+        // Avião (partilhar)
+        { tipo: "partilhar", x: 86, y: 80, w: 10, h: 6 },
+        ],
+    },
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_2.png",
+        hotspots: [
+        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
+        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        ],
+    },
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_3.png",
+        hotspots: [
+        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
+        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        ],
+    },
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_4.png",
+        hotspots: [
+        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
+        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        ],
+    },
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_5.png",
+        hotspots: [
+        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
+        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        ],
+    },
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
+        hotspots: [
+        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
+        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        ],
+    },
+    {
+        imagem: "/imgs/modulo5/escolhacerta/escolha_certa_7.png",
+        hotspots: [
+        { tipo: "comentar",  x: 26, y: 92, w: 44, h: 12 },
+        { tipo: "gostar",    x: 74, y: 92, w: 10, h: 12 },
+        { tipo: "partilhar", x: 90, y: 92, w: 10, h: 12 },
+        ],
+    },
+    ];
+
+const resetUI = () => {
+setInteracao(null);
+setAnchor({ x: 50, y: 50 });
+setLikePulse(false);
+setShareTo("");
+setCommentText("");
+setOpcaoSelecionada(null);
+};
+
+const avancar = () => {
+setPagina((prev) => prev + 1);
+resetUI();
+};
+
+const retroceder = () => {
+setPagina((prev) => prev - 1);
+resetUI();
+};
 
     const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
 
