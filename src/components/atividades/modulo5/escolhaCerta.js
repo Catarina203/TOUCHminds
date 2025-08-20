@@ -11,72 +11,87 @@ const EscolhaCerta = () => {
     const { updateUserData } = useContext(UserContext);
     const [pagina, setPagina] = useState(0);
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
-    const [hoverIndex, setHoverIndex] = useState(null);
     const modulo = modulos.find((m) => m.id === moduloId);
+    const [interacao, setInteracao] = useState(null); // 'gostar' | 'partilhar' | 'comentar' | null
+    const [anchor, setAnchor] = useState({ x: 50, y: 50 }); // posição do clique (em % da imagem)
+    const [likePulse, setLikePulse] = useState(false);
+    const [shareTo, setShareTo] = useState("");
+    const [commentText, setCommentText] = useState("");
+    const [mapear, setMapear] = useState(false); // opcional: para apurar coordenadas
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
 
-    const cenarios = [
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_1.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_2.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_3.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_4.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_5.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-        {
-            imagem: "/imgs/modulo5/escolhacerta/escolha_certa_7.png",
-            opcoes: [
-                <><b>Gostar</b> – se achaste útil ou interessante.</>,
-                <><b>Partilhar</b> – se conheces alguém que possa precisar.</>,
-                <><b>Comentar</b> – se quiseres dizer o que pensaste ou sentiste.</>]
-        },
-    ];
+                    const cenarios = [
+                {
+                    imagem: "/imgs/modulo5/escolhacerta/escolha_certa_1.png",
+                    hotspots: [
+                    { tipo: "gostar",    x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar",  x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_2.png",
+                    hotspots: [
+                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_3.png",
+                    hotspots: [
+                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_4.png",
+                    hotspots: [
+                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_5.png",
+                    hotspots: [
+                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
+                    hotspots: [
+                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                { imagem: "/imgs/modulo5/escolhacerta/escolha_certa_7.png",
+                    hotspots: [
+                    { tipo: "gostar", x: 72, y: 86, w: 6, h: 10 },
+                    { tipo: "comentar", x: 82, y: 86, w: 6, h: 10 },
+                    { tipo: "partilhar", x: 92, y: 86, w: 6, h: 10 },
+                    ],
+                },
+                ];
+    
+            const resetUI = () => {
+            setInteracao(null);
+            setAnchor({ x: 50, y: 50 });
+            setLikePulse(false);
+            setShareTo("");
+            setCommentText("");
+            setOpcaoSelecionada(null);
+            };
 
-    const avancar = () => {
-        setPagina((prev) => prev + 1);
-        setOpcaoSelecionada(null);
-    };
+            const avancar = () => {
+            setPagina((prev) => prev + 1);
+            resetUI();
+            };
 
-    const retroceder = () => {
-        setPagina((prev) => prev - 1);
-        setOpcaoSelecionada(null);
-    };
+            const retroceder = () => {
+            setPagina((prev) => prev - 1);
+            resetUI();
+            };
 
     const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
 
@@ -104,30 +119,22 @@ const EscolhaCerta = () => {
                         {/* INTRODUÇÃO */}
                         {pagina === 0 && (
                             <>
-                                <h2 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
+                                <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                                     {atividade?.titulo || "Escolha Certa"}
                                 </h2>
-                                <p className="lead text-start">
-                                    {/* Coloca aqui o teu texto de introdução */}
-                                    <b>Sê muito bem-vindo ou bem-vinda ao à "Escolha Certa"</b>.<br></br><br></br>
-
-                                    Nesta <b>atividade</b>, vais ver uma sequência de <b>stories</b> com <b>informações</b> sobre os diferentes tipos de <b>ajuda</b> que podes procurar quando
-                                    temos <b>dificuldades</b> ou <b>problemas</b> que não estamos a conseguir lidar <b>sozinho/a</b>. <br></br><br></br>
-
-                                    À medida que passas por cada <b>story</b>, <b>reflete</b> sobre o que estás a ler e <b>como isso te faz sentir</b>. Ao final de cada <b>story</b>, vais poder
-                                    <b>interagir</b>, escolhendo uma opção que reflete a tua <b>reação</b> ao conteúdo apresentado: <br></br><br></br>
-                                    <ul style={{ marginTop: "0px" }}>
-                                        <li><b>Gostar</b>: Se achaste <b>interessante</b> ou <b>útil</b>.</li>
-                                        <li><b>Partilhar</b>: Se quiseres <b>partilhar</b> com alguém que possa precisar desta <b>informação</b>.</li>
-                                        <li><b>Comentar</b>: Se quiseres <b>expressar</b> o que pensaste ou como te <b>sentiste</b>.</li>
-                                    </ul>
-                                    A ideia é <b>aprender mais</b> sobre como podemos <b>procurar ajuda</b> quando mais precisamos e <b>refletir</b> sobre o <b>impacto</b> dessa informação no nosso <b>bem-estar</b>.
+                                <p className="lead">
+                                    <b>Sê muito bem-vindo/a ao à "Escolha Certa"</b>.<br></br><br></br>
+                                    Nesta <b> atividade</b>, vais ver uma sequência de <b>stories</b> com <b> informações</b> sobre os diferentes fontes de <b>ajuda</b> que podes procurar quando
+                                    temos <b> dificuldades</b> ou <b> problemas</b> que não estamos a conseguir lidar <b> sozinho/a</b>. <br></br><br></br>
+                                    À medida que passas por cada <b> story</b>, <b>reflete</b> sobre o que estás a ler e <b> como isso te faz sentir</b>. Vais poder
+                                    <b> interagir</b> com cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
+                                    A ideia é <b> aprender mais</b> sobre como podemos <b>procurar ajuda</b> e <b> refletir</b> sobre o <b>impacto</b> dessa informação no nosso <b>bem-estar</b>.
                                 </p>
                                 <button
                                     className="custom-btn-turquoise mt-3 px-4 py-2"
                                     onClick={() => setPagina(1)}
                                 >
-                                    <i className="bi bi-play-fill me-2"></i>Vamos começar!
+                                    <i className="bi bi-play-fill me-2"></i>Vamos a isto?
                                 </button>
                             </>
                         )}
@@ -139,78 +146,198 @@ const EscolhaCerta = () => {
                                     Cenário {pagina} de {cenarios.length}
                                 </h4>
 
-                                <img
-                                    src={cenarios[pagina - 1].imagem}
-                                    alt={`Cenário ${pagina}`}
-                                    className="img-fluid rounded mb-4"
-                                    style={{ maxHeight: "400px", objectFit: "contain" }}
-                                />
+                               {/* IMAGEM + HOTSPOTS + UI */}
+                                        <div className="position-relative mx-auto mb-4" style={{ maxWidth: 600 }}>
+                                        <img
+                                            src={cenarios[pagina - 1].imagem}
+                                            alt={`Cenário ${pagina}`}
+                                            className="img-fluid w-100 d-block rounded"
+                                            style={{ objectFit: "contain" }}
+                                            onClick={(e) => {
+                                            // modo "mapear" para apurar coordenadas (opcional)
+                                            if (!mapear) return;
+                                            const rect = e.currentTarget.getBoundingClientRect();
+                                            const x = ((e.clientX - rect.left) / rect.width) * 100;
+                                            const y = ((e.clientY - rect.top) / rect.height) * 100;
+                                            console.log(`{ x: ${x.toFixed(1)}, y: ${y.toFixed(1)}, w: 6, h: 10 }`);
+                                            }}
+                                        />
 
-                                <p className="lead text-start">
-                                    Escolhe <b>a interação</b> que melhor mostra <b>a tua reação</b> a este story:
-                                </p>
+                                        {/* HOTSPOTS */}
+                                        {!mapear && cenarios[pagina - 1].hotspots?.map((h, i) => (
+                                            <button
+                                            key={i}
+                                            type="button"
+                                            aria-label={h.tipo}
+                                            onClick={() => {
+                                                setInteracao(h.tipo);
+                                                setAnchor({ x: h.x, y: h.y });
 
-                                <div className="d-flex flex-column gap-3 mb-4">
-                                    {cenarios[pagina - 1].opcoes.map((opcao, index) => {
-                                        const isSelected = opcaoSelecionada === index;
-                                        const isHovered = hoverIndex === index;
-
-                                        return (
-                                            <div
-                                                key={index}
-                                                onClick={() => setOpcaoSelecionada(index)}
-                                                onMouseEnter={() => setHoverIndex(index)}
-                                                onMouseLeave={() => setHoverIndex(null)}
-                                                className="p-3 text-start"
-                                                style={{
-                                                    backgroundColor: isSelected
-                                                        ? '#99CBC8'
-                                                        : isHovered
-                                                            ? '#5AAAA5'
-                                                            : '#ffffff',
-                                                    color: isSelected
-                                                        ? 'white'
-                                                        : isHovered
-                                                            ? 'white'
-                                                            : '#000000',
-                                                    border: isSelected
-                                                        ? '1px solid #99CBC8'
-                                                        : isHovered
-                                                            ? '1px solid #5AAAA5'
-                                                            : '1px solid #99CBC8',
-                                                    borderRadius: '10px',
-                                                    cursor: 'pointer',
-                                                    fontWeight: isSelected ? '200' : 'normal',
-                                                    transition: 'all 0.3s ease',
-                                                }}
+                                                if (h.tipo === "gostar") {
+                                                setLikePulse(true);
+                                                setOpcaoSelecionada(0); // habilita Continuar
+                                                setTimeout(() => setLikePulse(false), 450);
+                                                }
+                                            }}
+                                            className="p-0"
+                                            style={{
+                                                position: "absolute",
+                                                left: `${h.x}%`,
+                                                top: `${h.y}%`,
+                                                width: `${h.w}%`,
+                                                height: `${h.h}%`,
+                                                transform: "translate(-50%, -50%)",
+                                                background: "transparent",
+                                                border: "2px solid transparent",
+                                                borderRadius: 12, // usa 50% se o ícone for redondo
+                                                cursor: "pointer",
+                                            }}
                                             >
-                                                {opcao}
+                                            <span className="visually-hidden">{h.tipo}</span>
+                                            </button>
+                                        ))}
+
+                                        {/* CORAÇÃO (Gostar) */}
+                                        {interacao === "gostar" && (
+                                            <div
+                                            className={likePulse ? "heart-pop" : ""}
+                                            style={{
+                                                position: "absolute",
+                                                left: `${anchor.x}%`,
+                                                top: `${anchor.y}%`,
+                                                transform: "translate(-50%, -50%)",
+                                                pointerEvents: "none",
+                                            }}
+                                            >
+                                            <i className="bi bi-heart-fill" style={{ fontSize: 48, color: "#E63946" }} />
                                             </div>
-                                        );
-                                    })}
-                                </div>
+                                        )}
+
+                                        {/* PARTILHAR */}
+                                        {interacao === "partilhar" && (
+                                            <form
+                                           onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    if (!shareTo.trim()) return;
+                                                    setOpcaoSelecionada(1);   // habilita Continuar
+                                                    setInteracao(null);       // fecha a caixa
+                                                    setShareTo("");           // (opcional) limpa o campo
+                                                    }}
+                                            style={{
+                                                position: "absolute",
+                                                left: `${anchor.x}%`,
+                                                top: `calc(${anchor.y}% + 8%)`,
+                                                transform: "translate(-50%, 0)",
+                                                background: "#fff",
+                                                border: "1px solid #99CBC8",
+                                                borderRadius: 12,
+                                                padding: 12,
+                                                boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                                                minWidth: 260,
+                                                zIndex: 2,
+                                            }}
+                                            >
+                                            <label className="form-label mb-1">Partilhar com:</label>
+                                            <input
+                                                type="text"
+                                                className="form-control mb-2"
+                                                placeholder="Nome, email ou contacto"
+                                                value={shareTo}
+                                                onChange={(e) => setShareTo(e.target.value)}
+                                            />
+                                            <div className="d-flex gap-2 justify-content-end">
+                                                <button
+                                                type="button"
+                                                className="btn btn-sm btn-outline-secondary"
+                                                onClick={() => { setInteracao(null); setShareTo(""); }}
+                                                >
+                                                Cancelar
+                                                </button>
+                                                <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
+                                                Partilhar
+                                                </button>
+                                            </div>
+                                            </form>
+                                        )}
+
+                                        {/* COMENTAR */}
+                                        {interacao === "comentar" && (
+                                            <form
+                                            onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    if (commentText.trim().length < 2) return;
+                                                    setOpcaoSelecionada(2);   // habilita Continuar
+                                                    setInteracao(null);       // fecha a caixa
+                                                    setCommentText("");       // (opcional) limpa o campo
+                                                    }}
+                                            style={{
+                                                position: "absolute",
+                                                left: `${anchor.x}%`,
+                                                top: `calc(${anchor.y}% + 8%)`,
+                                                transform: "translate(-50%, 0)",
+                                                background: "#fff",
+                                                border: "1px solid #99CBC8",
+                                                borderRadius: 12,
+                                                padding: 12,
+                                                boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                                                minWidth: 260,
+                                                zIndex: 2,
+                                            }}
+                                            >
+                                            <label className="form-label mb-1">O teu comentário:</label>
+                                            <textarea
+                                                className="form-control mb-2"
+                                                rows={3}
+                                                placeholder="Escreve aqui…"
+                                                value={commentText}
+                                                onChange={(e) => setCommentText(e.target.value)}
+                                            />
+                                            <div className="d-flex gap-2 justify-content-end">
+                                                <button
+                                                type="button"
+                                                className="btn btn-sm btn-outline-secondary"
+                                                onClick={() => { setInteracao(null); setCommentText(""); }}
+                                                >
+                                                Cancelar
+                                                </button>
+                                                <button type="submit" className="btn btn-sm" style={{ background: "#99CBC8", color: "#fff" }}>
+                                                Enviar
+                                                </button>
+                                            </div>
+                                            </form>
+                                        )}
+                                        </div>
+
+                                        {/* Botão opcional para mapear coordenadas (apenas para ti enquanto acertas os %). Podes remover depois. */}
+                                        <div className="d-flex justify-content-end mb-2">
+                                        <button
+                                            type="button"
+                                            className="btn btn-sm btn-outline-secondary"
+                                            onClick={() => setMapear(v => !v)}
+                                        >
+                                            {mapear ? "Sair do modo mapear" : "Mapear hotspots"}
+                                        </button>
+                                        </div>
                             </>
                         )}
 
                         {/* CONCLUSÃO */}
                         {pagina === cenarios.length + 1 && (
                             <>
-                                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
+                                <h4 className="fw-bold mb-4 text-center" style={{ color: "#234970" }}>
                                     Conclusão da Atividade
                                 </h4>
-                                <p className="lead text-start">
-                                    {/* Coloca aqui o teu texto de conclusão */}
-                                    <b>Procurar ajuda é um passo fundamental para o nosso bem-estar emocional</b>.
-                                    Todos nós passamos por <b>omentos difíceis</b>, e saber <b>quando</b> e a <b>quem pedir ajuda</b> é essencial para lidar com esses desafios da melhor forma.<br></br><br></br>
-                                    É importante lembrar que, quando estamos perante a <b>ansiedade SOS</b>, a <b>ajuda formal</b> é <b>crucial</b>. Os <b>psicólogos</b> são especializados para lidar
-                                    com essas questões e podem fornecer o <b>ajuda necessário</b> para que possas <b>compreender</b> e <b>lidar melhor com elas</b>, além de <b>desenvolver estratégias eficazes</b> para o teu <b>bem-estar</b>.<br></br><br></br>
+                                <p className="lead">
+                                    <b>Procurar ajuda é um passo fundamental para o nosso bem-estar</b>.
+                                    Todos nós passamos por <b> momentos difíceis</b>, e saber <b> quando</b> e a <b> quem pedir ajuda</b> é essencial para lidar com esses desafios da melhor forma.<br></br><br></br>
+                                    É importante lembrar que, quando estamos perante a <b> ansiedade SOS</b>, a <b> ajuda formal</b> é <b> crucial</b>. Os <b> psicólogos</b> são preparados para lidar
+                                    com essas questões e podem fornecer a <b> ajuda necessário</b> para que possas <b> compreender</b> e <b>lidar melhor com as tuas dificuldades</b>, além de <b> desenvolver estratégias eficazes</b> para o teu <b>bem-estar</b>.<br></br><br></br>
                                     As ajudas semiformais e informais, por outro lado, são <b>valiosas</b> para quando precisas de <b>orientação</b> ou de <b>ajuda emocional imediata</b> de pessoas
-                                    próximas a ti. Mas, novamente, em casos de <b>ansiedade SOS persistentes</b>, <b>procurar ajuda profissional</b> deve ser uma <b>prioridade</b>.<br></br><br></br>
+                                    próximas a ti; não esqueças que mesmo quando estas ajudas estão presentes,  <b>a ajuda profissional</b> deve ser uma prioridade em casos de <b>ansiedade SOS persistentes</b>.<br></br><br></br>
                                     Embora as <b>ferramentas de autoajuda</b> (como <b>apps</b>, <b>chats</b> ou <b>sites</b>) possam ser <b>úteis</b>, é necessário ter <b>cuidado</b> ao escolher essas opções. Muitas dessas
                                     plataformas <b>não são construídas por profissionais</b> e podem <b>não ser baseadas em evidências científicas confiáveis</b>. Em momentos mais desafiantes, elas podem servir
-                                    como <b>complemento</b>, mas <b>nunca devem substituir</b> a ajuda de profissionais.<br></br><br></br>
-                                    <b>Cuidar de ti é o primeiro passo para o teu bem-estar</b>.
-
+                                    como <b>complemento</b>, mas <b>nunca devem substituir</b> a ajuda de profissionais ou de pessoas cuja intenção é estar do teu lado e contribuir para o teu bem-estar. <br></br><br></br>
+                                    <b>Cuidar de ti, e deixares que alguém te cuide, é um passo muito importante para o teu bem-estar</b>.
                                 </p>
 
                                 <div className="d-flex justify-content-between mt-4">
