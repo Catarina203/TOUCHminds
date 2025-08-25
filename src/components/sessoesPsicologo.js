@@ -4,10 +4,25 @@ import Sidebar from './sidebar';
 import Loading from './loading';
 import { UserContext } from '../App';
 
+// Firebase
+import { db } from '../firebase';
+import {
+  collection,
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  serverTimestamp,
+  documentId,
+} from 'firebase/firestore';
+
 function fmtDate(d) {
   return new Date(d).toISOString().split('T')[0];
 }
 
+function SessoesPsicologo() {
   const { userData } = useContext(UserContext);
 
   // Tabs: 'agendar' | 'meus'
@@ -16,9 +31,9 @@ function fmtDate(d) {
   // ---------- Estado (Agendar) ----------
   const [range, setRange] = useState({
     from: fmtDate(new Date()),
-    to: fmtDate(new Date(Date.now() + 1000 * 60 * 60 * 24 * 14)) // 14 dias
+    to: fmtDate(new Date(Date.now() + 1000 * 60 * 60 * 24 * 14)), // 14 dias
   });
-  const [dias, setDias] = useState([]);           // [{ data: 'YYYY-MM-DD', horas: ['HH:MM', ...] }]
+  const [dias, setDias] = useState([]); // [{ data: 'YYYY-MM-DD', horas: ['HH:MM', ...] }]
   const [diaSel, setDiaSel] = useState('');
   const [horaSel, setHoraSel] = useState('');
   const [loadingSlots, setLoadingSlots] = useState(false);
@@ -32,16 +47,32 @@ function fmtDate(d) {
   const [loadingConsulta, setLoadingConsulta] = useState(false);
   const [msgConsulta, setMsgConsulta] = useState(null);
 
-  // Carrega disponibilidade
+  // Carrega disponibilidade (coleção 'slots' com docs ID = 'YYYY-MM-DD' e campo 'hours': string[])
   useEffect(function carregarDisponibilidade() {
     let cancelado = false;
+
     async function run() {
       try {
         setLoadingSlots(true);
-        const res = await fetch(`/api/disponibilidade?from=${range.from}&to=${range.to}`);
-        const data = await res.json();
+
+        const slotsCol = collection(db, 'slots');
+        const qSlots = query(
+          slotsCol,
+          where(documentId(), '>=', range.from),
+          where(documentId(), '<=', range.to)
+        );
+
+        const snap = await getDocs(qSlots);
+        let data = snap.docs.map((d) => ({
+          data: d.id,
+          horas: Array.isArray(d.data().hours) ? d.data().hours : [],
+        }));
+
+        // ordena por data asc
+        data.sort((a, b) => a.data.localeCompare(b.data));
+
         if (!cancelado) {
-          setDias(Array.isArray(data) ? data : []);
+          setDias(data);
           setDiaSel('');
           setHoraSel('');
         }
@@ -51,12 +82,15 @@ function fmtDate(d) {
         if (!cancelado) setLoadingSlots(false);
       }
     }
+
     run();
-    return () => { cancelado = true; };
+    return () => {
+      cancelado = true;
+    };
   }, [range.from, range.to]);
 
   const horasDoDia = useMemo(
-    () => (dias.find(d => d.data === diaSel)?.horas || []),
+    () => dias.find((d) => d.data === diaSel)?.horas || [],
     [dias, diaSel]
   );
 
@@ -74,29 +108,37 @@ function fmtDate(d) {
 
     try {
       setEnviando(true);
-      const res = await fetch('/api/agendar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome: formAgendar.nome,
-          email: formAgendar.email,
-          data: diaSel,
-          hora: horaSel,
-          modalidade: 'online'
-        })
+
+      // Valida que o slot ainda existe
+      const slotRef = doc(db, 'slots', diaSel);
+      const slotSnap = await getDoc(slotRef);
+      const hours = slotSnap.exists() ? slotSnap.data().hours || [] : [];
+      if (!hours.includes(horaSel)) {
+        throw new Error('Esse horário já não está disponível.');
+      }
+
+      await addDoc(collection(db, 'appointments'), {
+        name: formAgendar.nome,
+        email: formAgendar.email,
+        date: diaSel,
+        hour: horaSel,
+        status: 'pending', // o admin confirma depois
+        createdAt: serverTimestamp(),
       });
-      if (!res.ok) throw new Error('Falha no envio');
 
       setMsgAgendar({
         tipo: 'success',
-        texto: 'Pedido enviado! Receberás um e-mail quando for confirmado.'
+        texto: 'Pedido enviado! Receberás um e-mail quando for confirmado.',
       });
       setFormAgendar({ nome: '', email: '' });
       setDiaSel('');
       setHoraSel('');
     } catch (e) {
       console.error(e);
-      setMsgAgendar({ tipo: 'danger', texto: 'Não foi possível enviar. Tenta de novo.' });
+      setMsgAgendar({
+        tipo: 'danger',
+        texto: e.message || 'Não foi possível enviar. Tenta de novo.',
+      });
     } finally {
       setEnviando(false);
     }
@@ -115,13 +157,22 @@ function fmtDate(d) {
 
     try {
       setLoadingConsulta(true);
-      const res = await fetch(`/api/agendamentos?email=${encodeURIComponent(emailConsulta)}`);
-      if (!res.ok) throw new Error('Erro na pesquisa');
-      const data = await res.json();
-      setResConsulta(data);
 
-      const nada = (!data?.pendentes?.length && !data?.confirmados?.length);
-      if (nada) setMsgConsulta({ tipo: 'info', texto: 'Sem agendamentos para este e-mail.' });
+      // Busca todos os appointments por e-mail e filtra em memória
+      const qAll = query(collection(db, 'appointments'), where('email', '==', emailConsulta));
+      const snapAll = await getDocs(qAll);
+      const todos = snapAll.docs.map((d) => ({ id: d.id, ...d.data() }));
+
+      // separa e ordena por data+hora
+      const toKey = (it) => `${it.date || ''}T${it.hour || ''}`;
+      const pendentes = todos.filter((a) => a.status === 'pending').sort((a, b) => toKey(a).localeCompare(toKey(b)));
+      const confirmados = todos.filter((a) => a.status === 'confirmed').sort((a, b) => toKey(a).localeCompare(toKey(b)));
+
+      setResConsulta({ pendentes, confirmados });
+
+      if (!pendentes.length && !confirmados.length) {
+        setMsgConsulta({ tipo: 'info', texto: 'Sem agendamentos para este e-mail.' });
+      }
     } catch (e) {
       console.error(e);
       setMsgConsulta({ tipo: 'danger', texto: 'Não foi possível carregar os teus agendamentos.' });
@@ -332,7 +383,7 @@ function fmtDate(d) {
                                 className="list-group-item d-flex justify-content-between align-items-center"
                               >
                                 <span>
-                                  <strong>{a.data}</strong> às <strong>{a.hora}</strong>
+                                  <strong>{a.date}</strong> às <strong>{a.hour}</strong>
                                 </span>
                                 <span className="badge bg-success">Confirmado</span>
                               </li>
@@ -355,7 +406,7 @@ function fmtDate(d) {
                                 className="list-group-item d-flex justify-content-between align-items-center"
                               >
                                 <span>
-                                  <strong>{a.data}</strong> às <strong>{a.hora}</strong>
+                                  <strong>{a.date}</strong> às <strong>{a.hour}</strong>
                                 </span>
                                 <span className="badge bg-warning text-dark">Aguarda confirmação</span>
                               </li>
@@ -375,6 +426,5 @@ function fmtDate(d) {
       </div>
     </div>
   );
-
-
-export default sessoesPsicologo;
+}
+export default SessoesPsicologo;
