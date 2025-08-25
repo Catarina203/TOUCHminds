@@ -284,7 +284,7 @@ const handleAttemptClose = () => {
               <>
                 <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="mb-3 lead">
-                  <strong>Agora que exploraste o ciclo da mudança</strong> e experimentaste cada uma das <strong>ferramentas simbólicas</strong>, é importante parares um pouco e pensares no que levas desta <strong>viagem</strong>.
+                 Agora que exploraste o ciclo da mudança e experimentaste cada uma das <strong>ferramentas simbólicas</strong>, é importante parares um pouco e pensares no que levas desta viagem.
                 </p>
                 <p className="mb-3 lead">
                   Percebeste que <strong>mudar não acontece de um dia para o outro</strong> — é um <strong>processo</strong>. Um <strong>caminho</strong> com momentos de <strong>dúvida</strong>, <strong>reflexão</strong>, <strong>pequenas vitórias</strong> e, por vezes, <strong>tropeços</strong>.
@@ -293,7 +293,7 @@ const handleAttemptClose = () => {
                   Cada fase do ciclo tem o seu <strong>valor</strong>, e <strong>não há uma forma "certa"</strong> de passar por elas. O mais importante é ires <strong>prestando atenção ao que sentes</strong>, ao que <strong>precisas</strong> e ao que <strong>te faz bem</strong>.
                 </p>
                 <p className="mb-3 lead">
-                  Tal como usaste a <strong>lupa</strong> para observar mais de perto, a <strong>bússola</strong> para refletir sobre o caminho, o <strong>mapa</strong> para planear, o <strong>martelo</strong> para agir, a <strong>âncora</strong> para manter, e caso precises podes recorrer à <strong>borracha</strong> para reajustar, lembra-te: <strong>todas estas ferramentas estão sempre contigo</strong>.
+                  Tal como usaste a <strong>lupa</strong> para observar mais de perto, a <strong>bússola</strong> para refletir sobre o caminho, o <strong>mapa</strong> para planear, o <strong>martelo</strong> para agir, a <strong>âncora</strong> para manter, e caso precises podes recorrer à <strong>borracha</strong> para reajustar; lembra-te: <strong>todas estas ferramentas estão sempre contigo</strong>.
                 </p>
                 <p className="mb-3 lead"><strong>Podes usá-las quando precisares.</strong></p>
                 <div className="d-flex justify-content-between mt-4">
