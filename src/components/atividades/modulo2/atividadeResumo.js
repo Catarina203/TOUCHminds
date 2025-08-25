@@ -98,7 +98,7 @@ const AtividadeResumoModulo2 = () => {
             setShowModal(true);
             };
 
-const ModalCustom = ({ show, onClose, content }) => {
+const ModalCustom = ({ show, onClose, onNext, content }) => {
   if (!show) return null;
 
   return (
@@ -111,7 +111,6 @@ const ModalCustom = ({ show, onClose, content }) => {
     >
       <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content">
-
           <div
             className="modal-header"
             style={{
@@ -131,7 +130,7 @@ const ModalCustom = ({ show, onClose, content }) => {
               className="btn-close"
               style={{ filter: "invert(1)" }}
               aria-label="Close"
-              onClick={onClose}
+              onClick={onClose} 
             ></button>
           </div>
 
@@ -149,7 +148,7 @@ const ModalCustom = ({ show, onClose, content }) => {
           >
             <button
               type="button"
-              onClick={onClose}
+              onClick={onNext} 
               style={{
                 backgroundColor: "#234970",
                 border: "none",
@@ -334,6 +333,10 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                             <ModalCustom
                                 show={showModal}
                                 onClose={() => setShowModal(false)}
+                                onNext={() => {
+                                    setShowModal(false);
+                                    avancar(); 
+                                }}
                                 content={modalContent}
                             />
                         </div>

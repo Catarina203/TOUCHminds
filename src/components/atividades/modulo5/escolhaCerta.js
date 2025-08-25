@@ -28,13 +28,13 @@ const EscolhaCerta = () => {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_1.png",
         hotspots: [
         // Botão "Enviar comentário" (retângulo grande em baixo à esquerda)
-        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7 },
+        { tipo: "comentar",  x: 31, y: 94, w: 46, h: 7 },
 
         // Coração
-        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6 },
+        { tipo: "gostar",    x: 74, y: 94, w: 8, h: 6 },
 
         // Avião (partilhar)
-        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6 },
+        { tipo: "partilhar", x: 89, y: 94, w: 8, h: 6 },
         ],
     },
     {
