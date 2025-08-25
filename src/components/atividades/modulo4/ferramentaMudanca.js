@@ -74,7 +74,7 @@ const handleAttemptClose = () => {
     }
   };
 
-  const progresso = Math.round((pagina / (TOTAL_PAGINAS - 1)) * 100);
+ const progresso = Math.round((pagina / 2) * 100);
 
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
