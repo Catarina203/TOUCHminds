@@ -123,10 +123,10 @@ const AnsiedadeSOSPOD = () => {
               <>
                 <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="lead">
-                  <strong>Chegámos ao fim deste episódio</strong>, e antes de terminarmos, quero deixar-te com uma <strong>reflexão importante: a ansiedade SOS é algo real</strong>, e por vezes pode <strong>tomar conta de nós sem aviso prévio</strong>.<br /><br />
+                  Chegámos ao fim deste episódio, e antes de terminarmos, quero deixar-te com uma reflexão importante: <strong> a ansiedade SOS é algo real</strong>, e por vezes pode <strong>tomar conta de nós sem aviso prévio</strong>.<br /><br />
                   O que é fundamental é <strong> estar atento aos sinais e começar a (re)agir de forma diferente </strong>.<br></br><br></br>
-                  <strong>Não se trata de ignorar a ansiedade</strong> ou de a <strong>'aguentar'</strong> até ao limite. Trata-se de <strong>reconhecer quando ela aparece e procurar maneiras de lidar com ela na nossa vida </strong>.<br /><br />
-                  <strong>Lembra-te</strong> que <strong>a ansiedade não precisa de ser um bicho-papão</strong>.
+                  Não se trata de ignorar a ansiedade ou de a 'aguentar' até ao limite. Trata-se de <strong>reconhecer quando ela aparece e procurar maneiras de lidar com ela na nossa vida</strong>.<br /><br />
+                  Lembra-te que <strong>a ansiedade não precisa de ser um bicho-papão</strong>.
                 </p>
                 <div className="d-flex justify-content-between mt-4">
                   <button className="btn btn-outline-secondary" style={{
