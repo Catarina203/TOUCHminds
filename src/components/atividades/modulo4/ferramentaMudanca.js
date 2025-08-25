@@ -14,27 +14,44 @@ const FerramentasMudanca = () => {
   const audioRef = useRef(null);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+  const [showAudioWarning, setShowAudioWarning] = useState(false);
 
   const ferramentas = [
-    { id: "lupa", titulo: "Lupa", audio: "/audios/lupa.mp3" },
-    { id: "bussola", titulo: "Bússola", audio: "/audios/bussola.mp3" },
-    { id: "mapa", titulo: "Mapa", audio: "/audios/mapa.mp3" },
-    { id: "ancora", titulo: "Âncora", audio: "/audios/ancora.mp3" },
-    { id: "martelo", titulo: "Martelo", audio: "/audios/martelo.mp3" },
-    { id: "perigo", titulo: "Sinal de Perigo", audio: "/audios/perigo.mp3" },
+    { id: "lupa", titulo: "Lupa", audio: "/audios/modulo4/ferramentas/lupa.mp3" },
+    { id: "bussola", titulo: "Bússola", audio: "/audios/modulo4/ferramentas/bussola.mp3" },
+    { id: "mapa", titulo: "Mapa", audio: "/audios/modulo4/ferramentas/mapa.mp3" },
+    { id: "ancora", titulo: "Âncora", audio: "/audios/modulo4/ferramentas/ancora.mp3" },
+    { id: "martelo", titulo: "Martelo", audio: "/audios/modulo4/ferramentas/martelo.mp3" },
+    { id: "perigo", titulo: "Sinal de Perigo", audio: "/audios/modulo4/ferramentas/perigo.mp3" },
   ];
 
-  const progresso = Math.round((pagina / 2) * 100);
-
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const handleEnded = () => setCanCloseModal(true);
-    audio.addEventListener("ended", handleEnded);
-    return () => {
-      audio.removeEventListener("ended", handleEnded);
-    };
-  }, [modalAberto]);
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  setShowAudioWarning(false);   // limpa o aviso ao abrir modal
+  setCanCloseModal(false);      // volta a bloquear fecho
+
+  const handleEnded = () => {
+    setCanCloseModal(true);     // só depois de acabar pode fechar
+    setShowAudioWarning(false); // esconde qualquer aviso
+  };
+
+  audio.addEventListener("ended", handleEnded);
+  return () => {
+    audio.removeEventListener("ended", handleEnded);
+  };
+}, [modalAberto]);
+
+const handleAttemptClose = () => {
+  if (!canCloseModal) {
+    setShowAudioWarning(true);
+    // opcional: esconder o alerta automaticamente após 3s
+    setTimeout(() => setShowAudioWarning(false), 3000);
+    return;
+  }
+  fecharModal();
+};
 
   const fecharModal = () => {
     setModalAberto(null);
@@ -64,13 +81,13 @@ const FerramentasMudanca = () => {
 
             {/* PÁGINA 0: INSTRUÇÃO */}
             {pagina === 0 && (
-              <div className="text-start py-4">
+              <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>Ferramentas de Mudança</h2>
                 <p className="mb-3 lead">
-                  <strong>Sê muito bem-vindo ou bem-vinda à atividade "Ferramentas de Mudança"!</strong>
+                  <strong>Sê muito bem-vindo/a à atividade "Ferramentas de Mudança"!</strong>
                 </p>
                 <p className="mb-3 lead">
-                  Nesta atividade, vamos explorar o <strong>ciclo da mudança</strong>, que nos ajuda a compreender melhor o que acontece quando lidamos com a <strong>ansiedade</strong> e outros <strong>desafios do dia-a-dia</strong> e sentimos que <strong>não sabemos por onde começar</strong>.
+                  Nesta atividade, vamos explorar o <strong>ciclo da mudança</strong>, que nos ajuda a compreender melhor o que acontece quando lidamos com a <strong>ansiedade</strong> e outros <strong>desafios do dia a dia</strong> e sentimos que <strong>não sabemos por onde começar</strong>.
                 </p>
                 <p className="mb-3 lead">
                   O ciclo de mudança ajuda-nos a perceber que a <strong>evolução</strong> não acontece de uma só vez, mas sim <strong>aos poucos</strong>, com cada <strong>pequeno passo</strong> a fazer a diferença.
@@ -83,7 +100,7 @@ const FerramentasMudanca = () => {
                 </p>
                 <div className="text-center">
                 <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={() => setPagina(1)}>
-                  Vamos começar?
+                  Vamos a isto?
                 </button>
                 </div>
               </div>
@@ -94,7 +111,7 @@ const FerramentasMudanca = () => {
           {pagina === 1 && (
             <div className="text-center">
               <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Explora as Ferramentas</h4>
-              <p>Clica em cada ferramenta para saberes mais. Só podes fechar o áudio após ouvi-lo até ao fim.</p>
+              <p>Clica em todas as ferramentas para saberes mais.</p>
               
               <div className="d-flex justify-content-center mt-4">
                 <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -222,7 +239,7 @@ const FerramentasMudanca = () => {
             {/* PÁGINA 2: CONCLUSÃO */}
             {pagina === 2 && (
               <>
-                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="mb-3 lead">
                   <strong>Agora que exploraste o ciclo da mudança</strong> e experimentaste cada uma das <strong>ferramentas simbólicas</strong>, é importante parares um pouco e pensares no que levas desta <strong>viagem</strong>.
                 </p>
@@ -236,9 +253,6 @@ const FerramentasMudanca = () => {
                   Tal como usaste a <strong>lupa</strong> para observar mais de perto, a <strong>bússola</strong> para refletir sobre o caminho, o <strong>mapa</strong> para planear, o <strong>martelo</strong> para agir, a <strong>âncora</strong> para manter, e caso precises podes recorrer à <strong>borracha</strong> para reajustar, lembra-te: <strong>todas estas ferramentas estão sempre contigo</strong>.
                 </p>
                 <p className="mb-3 lead"><strong>Podes usá-las quando precisares.</strong></p>
-                <p className="mb-3 lead">
-                  <strong>Não te esqueças: não há problema nenhum em precisar de voltar atrás para seguir em frente.</strong>
-                </p>
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={() => setPagina(1)}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
@@ -253,26 +267,32 @@ const FerramentasMudanca = () => {
             )}
 
             {/* MODAL DE ÁUDIO */}
-            <Modal show={!!modalAberto} centered backdrop="static">
-              <Modal.Header>
-                <Modal.Title>{modalAberto?.titulo}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body className="text-center">
-                <audio ref={audioRef} controls autoPlay style={{ width: "100%" }}>
-                  <source src={modalAberto?.audio} type="audio/mpeg" />
-                  O teu navegador não suporta áudio.
-                </audio>
-              </Modal.Body>
-              <Modal.Footer>
-                <button
-                  className="btn btn-success"
-                  onClick={fecharModal}
-                  disabled={!canCloseModal}
-                >
-                  Fechar
-                </button>
-              </Modal.Footer>
-            </Modal>
+            <Modal show={!!modalAberto} centered backdrop="static" onHide={handleAttemptClose} keyboard>
+                <Modal.Header closeButton>
+                  <Modal.Title>{modalAberto?.titulo}</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body className="text-center">
+                  {showAudioWarning && (
+                    <div className="alert mb-4 text-white"
+                      style={{ backgroundColor: '#99CBC8', border: 'none' }}>
+                      <i className="bi bi-info-circle me-2"></i>
+                      É necessário ouvir o áudio até ao fim para continuar.
+                    </div>
+                  )}
+
+                  <audio ref={audioRef} controls autoPlay style={{ width: "100%" }}>
+                    <source src={modalAberto?.audio} type="audio/mpeg" />
+                    O teu navegador não suporta a reprodução de áudio.
+                  </audio>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <button className="btn btn-success" onClick={handleAttemptClose}>
+                    Fechar
+                  </button>
+                </Modal.Footer>
+              </Modal>
           </div>
         </div>
       </div>
