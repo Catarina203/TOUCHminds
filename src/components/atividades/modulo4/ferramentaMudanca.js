@@ -15,26 +15,35 @@ const FerramentasMudanca = () => {
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
   const [showAudioWarning, setShowAudioWarning] = useState(false);
+  const [audiosOuvidos, setAudiosOuvidos] = useState({});
+const [showWarning, setShowWarning] = useState(false);
 
   const ferramentas = [
-    { id: "lupa", titulo: "Lupa", audio: "/audios/modulo4/ferramentas/lupa.mp3" },
-    { id: "bussola", titulo: "Bússola", audio: "/audios/modulo4/ferramentas/bussola.mp3" },
-    { id: "mapa", titulo: "Mapa", audio: "/audios/modulo4/ferramentas/mapa.mp3" },
-    { id: "ancora", titulo: "Âncora", audio: "/audios/modulo4/ferramentas/ancora.mp3" },
-    { id: "martelo", titulo: "Martelo", audio: "/audios/modulo4/ferramentas/martelo.mp3" },
-    { id: "perigo", titulo: "Sinal de Perigo", audio: "/audios/modulo4/ferramentas/perigo.mp3" },
-  ];
+  { id: "lupa",    titulo: "Lupa",           audio: "/audios/modulo4/ferramentas/lupa.mp3",    imagem: "/imgs/modulo4/ferramentas/lupa.png" },
+  { id: "bussola", titulo: "Bússola",        audio: "/audios/modulo4/ferramentas/bussola.mp3", imagem: "/imgs/modulo4/ferramentas/bussola.png" },
+  { id: "mapa",    titulo: "Mapa",           audio: "/audios/modulo4/ferramentas/mapa.mp3",    imagem: "/imgs/modulo4/ferramentas/mapa.png" },
+  { id: "ancora",  titulo: "Âncora",         audio: "/audios/modulo4/ferramentas/ancora.mp3",  imagem: "/imgs/modulo4/ferramentas/ancora.png" },
+  { id: "martelo", titulo: "Martelo",        audio: "/audios/modulo4/ferramentas/martelo.mp3", imagem: "/imgs/modulo4/ferramentas/martelo.png" },
+  { id: "perigo",  titulo: "Sinal de Perigo",audio: "/audios/modulo4/ferramentas/perigo.mp3",  imagem: "/imgs/modulo4/ferramentas/perigo.png" },
+];
 
   useEffect(() => {
   const audio = audioRef.current;
   if (!audio) return;
 
-  setShowAudioWarning(false);   // limpa o aviso ao abrir modal
-  setCanCloseModal(false);      // volta a bloquear fecho
+  setShowAudioWarning(false);
+  setCanCloseModal(false);
 
   const handleEnded = () => {
-    setCanCloseModal(true);     // só depois de acabar pode fechar
-    setShowAudioWarning(false); // esconde qualquer aviso
+    setCanCloseModal(true);
+    setShowAudioWarning(false);
+
+    if (modalAberto) {
+      setAudiosOuvidos(prev => ({
+        ...prev,
+        [modalAberto.id]: true
+      }));
+    }
   };
 
   audio.addEventListener("ended", handleEnded);
@@ -226,12 +235,28 @@ const handleAttemptClose = () => {
               </div>
 
               <div className="d-flex justify-content-between mt-4">
-                <button className="custom-btn-pink" onClick={() => setPagina(0)}>
-                <i className="bi bi-arrow-left me-2"></i>Anterior
+                <button
+                  className="custom-btn-turquoise"
+                  onClick={() => {
+                    const totalOuvidos = Object.keys(audiosOuvidos).length;
+                    if (totalOuvidos < ferramentas.length) {
+                      setShowWarning(true);
+                      setTimeout(() => setShowWarning(false), 3000); // esconde aviso após 3s
+                    } else {
+                      setShowWarning(false);
+                      setPagina(2);
+                    }
+                  }}
+                >
+                  Conclusão <i className="bi bi-arrow-right ms-2"></i>
                 </button>
-                <button className="custom-btn-turquoise" onClick={() => setPagina(2)}>
-                  Conclusão<i className="bi bi-arrow-right ms-2"></i>
-                </button>
+
+               {showWarning && (
+              <div className="alert alert-warning mt-3 text-center" role="alert">
+                <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                Por favor, carrega em todas as ferramentas antes de continuar.
+              </div>
+            )}
               </div>
             </div>
           )}
@@ -266,19 +291,54 @@ const handleAttemptClose = () => {
               </>
             )}
 
-            {/* MODAL DE ÁUDIO */}
-            <Modal show={!!modalAberto} centered backdrop="static" onHide={handleAttemptClose} keyboard>
-                <Modal.Header closeButton>
-                  <Modal.Title>{modalAberto?.titulo}</Modal.Title>
+           {/* MODAL DE ÁUDIO */}
+              <Modal show={!!modalAberto} centered backdrop="static" onHide={handleAttemptClose} keyboard>
+                <Modal.Header
+                  closeButton
+                  className="w-100 d-flex justify-content-center"
+                  style={{ borderBottom: "none" }} // opcional, remove a linha inferior do header
+                >
+                  <Modal.Title
+                    style={{
+                      color: "#234970", // <- MUDA AQUI A COR DO TÍTULO
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      width: "100%",
+                      fontSize: "1.5rem" // aumenta o tamanho, se quiseres
+                    }}
+                  >
+                    {modalAberto?.titulo}
+                  </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body className="text-center">
                   {showAudioWarning && (
-                    <div className="alert mb-4 text-white"
-                      style={{ backgroundColor: '#99CBC8', border: 'none' }}>
+                    <div
+                      className="alert mb-4 text-white"
+                      role="alert"
+                      aria-live="assertive"
+                      style={{ backgroundColor: '#99CBC8', border: 'none' }}
+                    >
                       <i className="bi bi-info-circle me-2"></i>
                       É necessário ouvir o áudio até ao fim para continuar.
                     </div>
+                  )}
+
+                  {modalAberto?.imagem && (
+                    <img
+                      src={modalAberto.imagem}
+                      alt={modalAberto.titulo}
+                      style={{
+                        maxWidth: "100%",
+                        width: "420px",
+                        height: "auto",
+                        borderRadius: "12px",
+                        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                        marginBottom: "16px",
+                        objectFit: "contain"
+                      }}
+                      loading="eager"
+                    />
                   )}
 
                   <audio ref={audioRef} controls autoPlay style={{ width: "100%" }}>
