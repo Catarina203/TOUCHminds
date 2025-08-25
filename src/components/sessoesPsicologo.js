@@ -5,7 +5,7 @@ import Loading from './loading';
 import { UserContext } from '../App';
 
 // Firebase
-import { db } from '../firebase';
+import { db } from '../data/database';
 import {
   collection,
   doc,
