@@ -11,6 +11,7 @@ const Sidebar = () => {
     { icon: <Envelope />, text: 'Progresso', path: '/progresso' },
     { icon: <Trophy />, text: 'Conquistas', path: '/conquistas' },
     { icon: <People />, text: 'Contactos', path: '/contactos' },
+    { icon: <People />, text: 'Sessões com o Psicólogo', path: '/sessoes' },
   ];
 
   return (
