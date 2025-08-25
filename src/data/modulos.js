@@ -171,7 +171,7 @@ const modulos = [
         atividades: [
           {
             url: "podcast2",
-            titulo: "Podcast: “Touchminds",
+            titulo: "Podcast: “Touchminds” ",
             descricao: "Banda desenhada que explica ansiedade comum vs. SOS.",
             imagem: "../imgs/act1mod5.png"
           },
