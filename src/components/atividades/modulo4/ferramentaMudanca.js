@@ -27,12 +27,19 @@ const [showWarning, setShowWarning] = useState(false);
   { id: "perigo",  titulo: "Sinal de Perigo",audio: "/audios/modulo4/ferramentas/perigo.mp3",  imagem: "/imgs/modulo4/ferramentas/perigo.png" },
 ];
 
-  useEffect(() => {
+ useEffect(() => {
   const audio = audioRef.current;
   if (!audio) return;
 
   setShowAudioWarning(false);
   setCanCloseModal(false);
+
+  // Garante que começa parado quando a modal abre
+  try {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.load(); // força a preparar a nova fonte, sem tocar
+  } catch (_) {}
 
   const handleEnded = () => {
     setCanCloseModal(true);
@@ -120,9 +127,14 @@ const handleAttemptClose = () => {
 
 {/* PÁGINA 1: FERRAMENTAS COM INVISIBLE BUTTONS */}
           {pagina === 1 && (
-            <div className="text-center">
-              <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>Explora as Ferramentas</h4>
-              <p>Clica em todas as ferramentas para saberes mais.</p>
+             <div className="text-center">
+              <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                Ferramentas de Mudança
+              </h4>
+
+                <p className="lead">
+                  Clica em todas as ferramentas para saberes mais.
+                </p>
               
               <div className="d-flex justify-content-center mt-4">
                 <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -235,33 +247,37 @@ const handleAttemptClose = () => {
                   />
                 </div>
               </div>
+                {/* Botões de navegação da página 1 */}
+                    <div className="d-flex justify-content-between mt-4">
+                      <button className="custom-btn-pink" onClick={() => setPagina(0)}>
+                        <i className="bi bi-arrow-left me-2"></i>Anterior
+                      </button>
 
-              <div className="d-flex justify-content-between mt-4">
-                <button
-                  className="custom-btn-turquoise"
-                  onClick={() => {
-                    const totalOuvidos = Object.keys(audiosOuvidos).length;
-                    if (totalOuvidos < ferramentas.length) {
-                      setShowWarning(true);
-                      setTimeout(() => setShowWarning(false), 3000); // esconde aviso após 3s
-                    } else {
-                      setShowWarning(false);
-                      setPagina(2);
-                    }
-                  }}
-                >
-                  Conclusão <i className="bi bi-arrow-right ms-2"></i>
-                </button>
+                      <button
+                        className="custom-btn-turquoise"
+                        onClick={() => {
+                          const totalOuvidos = Object.keys(audiosOuvidos).length;
+                          if (totalOuvidos < ferramentas.length) {
+                            setShowWarning(true);
+                            setTimeout(() => setShowWarning(false), 3000);
+                          } else {
+                            setShowWarning(false);
+                            setPagina(2);
+                          }
+                        }}
+                      >
+                        Conclusão <i className="bi bi-arrow-right ms-2"></i>
+                      </button>
+                    </div>
 
-               {showWarning && (
-              <div className="alert alert-warning mt-3 text-center" role="alert">
-                <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                Por favor, carrega em todas as ferramentas antes de continuar.
-              </div>
-            )}
-              </div>
-            </div>
-          )}
+                    {showWarning && (
+                      <div className="alert alert-warning mt-3 text-center" role="alert">
+                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                        Por favor, carrega em todas as ferramentas antes de continuar.
+                      </div>
+                    )}
+                  </div>
+                )}
 
             {/* PÁGINA 2: CONCLUSÃO */}
             {pagina === 2 && (
@@ -295,23 +311,22 @@ const handleAttemptClose = () => {
 
            {/* MODAL DE ÁUDIO */}
               <Modal show={!!modalAberto} centered backdrop="static" onHide={handleAttemptClose} keyboard>
-                <Modal.Header
-                  closeButton
-                  className="w-100 d-flex justify-content-center"
-                  style={{ borderBottom: "none" }} // opcional, remove a linha inferior do header
-                >
-                  <Modal.Title
-                    style={{
-                      color: "#234970", // <- MUDA AQUI A COR DO TÍTULO
-                      fontWeight: "bold",
-                      textAlign: "center",
-                      width: "100%",
-                      fontSize: "1.5rem" // aumenta o tamanho, se quiseres
-                    }}
-                  >
-                    {modalAberto?.titulo}
-                  </Modal.Title>
-                </Modal.Header>
+                <Modal.Footer>
+                      <button
+                        className="btn"
+                        style={{
+                          backgroundColor: "#234970",
+                          color: "#fff",
+                          border: "none",
+                          padding: "8px 16px",
+                          borderRadius: "6px",
+                          fontWeight: "bold",
+                        }}
+                        onClick={handleAttemptClose}
+                      >
+                        Fechar
+                      </button>
+                    </Modal.Footer>
 
                 <Modal.Body className="text-center">
                   {showAudioWarning && (
@@ -343,8 +358,17 @@ const handleAttemptClose = () => {
                     />
                   )}
 
-                  <audio ref={audioRef} controls autoPlay style={{ width: "100%" }}>
-                    <source src={modalAberto?.audio} type="audio/mpeg" />
+                  <audio
+                    ref={audioRef}
+                    src={modalAberto?.audio}
+                    controls
+                    playsInline
+                    controlsList="nodownload noplaybackrate noremoteplayback"
+                    disablePictureInPicture
+                    onContextMenu={(e) => e.preventDefault()}
+                    preload="none"
+                    style={{ width: "100%" }}
+                  >
                     O teu navegador não suporta a reprodução de áudio.
                   </audio>
                 </Modal.Body>
