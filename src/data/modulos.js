@@ -171,7 +171,7 @@ const modulos = [
         atividades: [
           {
             url: "podcast2",
-            titulo: "Ansiedade SOS: Quando o Corpo Fala Mais Alto",
+            titulo: "Podcast: “Touchminds",
             descricao: "Banda desenhada que explica ansiedade comum vs. SOS.",
             imagem: "../imgs/act1mod5.png"
           },

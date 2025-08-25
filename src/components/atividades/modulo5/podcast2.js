@@ -75,7 +75,7 @@ const AnsiedadeSOSPOD = () => {
 
              {pagina === 1 && (
                 <>
-                  <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                  <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
                     Episódio: Ansiedade SOS - Quando o Corpo Fala Mais Alto
                   </h4>
 
