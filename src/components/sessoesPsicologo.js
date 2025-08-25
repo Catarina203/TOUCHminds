@@ -49,44 +49,47 @@ function SessoesPsicologo() {
 
   // Carrega disponibilidade (coleção 'slots' com docs ID = 'YYYY-MM-DD' e campo 'hours': string[])
   useEffect(function carregarDisponibilidade() {
-    let cancelado = false;
+  let cancelado = false;
 
-    async function run() {
-      try {
-        setLoadingSlots(true);
+  async function run() {
+    try {
+      setLoadingSlots(true);
 
-    const qSlots = query(
-    slotsCol,
-    where(FieldPath.documentId(), '>=', range.from),
-    where(FieldPath.documentId(), '<=', range.to)
-     );
+      // ✅ AQUI declaramos a coleção antes de criar a query
+      const slotsCol = collection(db, 'slots');
 
-        const snap = await getDocs(qSlots);
-        let data = snap.docs.map((d) => ({
-          data: d.id,
-          horas: Array.isArray(d.data().hours) ? d.data().hours : [],
-        }));
+      const qSlots = query(
+        slotsCol,
+        where(FieldPath.documentId(), '>=', range.from),
+        where(FieldPath.documentId(), '<=', range.to)
+      );
 
-        // ordena por data asc
-        data.sort((a, b) => a.data.localeCompare(b.data));
+      const snap = await getDocs(qSlots);
+      let data = snap.docs.map((d) => ({
+        data: d.id,
+        horas: Array.isArray(d.data().hours) ? d.data().hours : [],
+      }));
 
-        if (!cancelado) {
-          setDias(data);
-          setDiaSel('');
-          setHoraSel('');
-        }
-      } catch (e) {
-        console.error(e);
-      } finally {
-        if (!cancelado) setLoadingSlots(false);
+      // ordena por data asc
+      data.sort((a, b) => a.data.localeCompare(b.data));
+
+      if (!cancelado) {
+        setDias(data);
+        setDiaSel('');
+        setHoraSel('');
       }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      if (!cancelado) setLoadingSlots(false);
     }
+  }
 
-    run();
-    return () => {
-      cancelado = true;
-    };
-  }, [range.from, range.to]);
+  run();
+  return () => {
+    cancelado = true;
+  };
+}, [range.from, range.to]);
 
   const horasDoDia = useMemo(
     () => dias.find((d) => d.data === diaSel)?.horas || [],
