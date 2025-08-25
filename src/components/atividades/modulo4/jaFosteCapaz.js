@@ -7,62 +7,60 @@ import AtividadeProgressao from "../atividadeProgressao";
 
 const JaFosteCapaz = () => {
   const [pagina, setPagina] = useState(0);
-  const [audioCompleted, setAudioCompleted] = useState([false, false, false, false]);
-  const [showAudioWarning, setShowAudioWarning] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);   
-  const [saveError, setSaveError] = useState(null);  
-
+  const [audioCompleted, setAudioCompleted] = useState([false, false, false, false]); // Para controlar se cada áudio foi ouvido
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
   const audioRefs = useRef([]);
 
-  const persistProgress = async (override = {}) => {
-    if (typeof updateUserData !== "function") return;
-    try {
-      setIsSaving(true);
-      setSaveError(null);
-      await updateUserData({
-        moduloId,
-        atividadeKey: "ja_foste_capaz",
-        progresso: {
-          pagina,
-          audioCompleted,
-          ...override,
-        },
-      });
-    } catch (error) {
-      console.error("Erro ao guardar progresso:", error);
-      setSaveError("Erro a guardar. Tenta novamente mais tarde.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   const avancarPagina = () => {
     if (pagina >= 1 && pagina <= 4 && !audioCompleted[pagina - 1]) {
-      setShowAudioWarning(true);
+      setShowAudioWarning(true); // mostra o aviso
       return;
     }
-    setShowAudioWarning(false);
-    const novaPagina = pagina + 1;
-    setPagina(novaPagina);
-    persistProgress({ pagina: novaPagina });
+    setShowAudioWarning(false); // limpa aviso se válido
+    setPagina((prev) => prev + 1);
   };
+
+  // Estado para controlar se o aviso de áudio deve ser mostrado
+  const [showAudioWarning, setShowAudioWarning] = useState(false);
 
   const retrocederPagina = () => {
-    const novaPagina = Math.max(0, pagina - 1);
-    setPagina(novaPagina);
-    persistProgress({ pagina: novaPagina });
+    setPagina((prev) => prev - 1);
   };
 
+  const progresso = Math.round((pagina / 5) * 100); // 0-5 páginas
+
+  // Função para controlar quando o áudio termina
   const handleAudioEnded = (audioIndex) => {
-    const newAudioState = [...audioCompleted];
-    newAudioState[audioIndex] = true;
-    setAudioCompleted(newAudioState);
-    persistProgress({ audioCompleted: newAudioState });
+    setAudioCompleted(prev => {
+      const newState = [...prev];
+      newState[audioIndex] = true;
+      return newState;
+    });
   };
 
-  const progresso = Math.round((pagina / 5) * 100);
+  // Reset do estado do áudio quando a página muda
+  useEffect(() => {
+    setShowAudioWarning(false); // limpa o aviso sempre que muda de página
+
+    if (pagina >= 1 && pagina <= 4) {
+      const currentAudioIndex = pagina - 1;
+      if (!audioCompleted[currentAudioIndex]) {
+        setAudioCompleted(prev => {
+          const newState = [...prev];
+          newState[currentAudioIndex] = false;
+          return newState;
+        });
+      }
+    }
+  }, [pagina]);
+
+  const canAdvance = (currentPage) => {
+    if (currentPage >= 1 && currentPage <= 4) {
+      return audioCompleted[currentPage - 1];
+    }
+    return true;
+  };
 
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
@@ -71,43 +69,37 @@ const JaFosteCapaz = () => {
         <Sidebar />
         <div className="col px-4 py-4" style={{ backgroundColor: "#FBF9F9" }}>
           <div className="container p-5 bg-white rounded shadow-sm">
-
-            {/* 🔹 Barra de progresso com estado de gravação */}
-            <div className="d-flex justify-content-between align-items-center mb-2">
-              <div className="progress" style={{ height: "8px", width: "75%" }}>
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  style={{ width: `${progresso}%`, backgroundColor: "#99CBC8" }}
-                  aria-valuenow={progresso}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-              <div className="ms-3" style={{ minWidth: 120, textAlign: "right" }}>
-                {isSaving && <small className="text-muted">a guardar…</small>}
-                {!isSaving && !saveError && <small className="text-success">guardado</small>}
-                {saveError && <small className="text-warning">{saveError}</small>}
-              </div>
+            <div className="progress mb-4" style={{ height: "8px" }}>
+              <div
+                className="progress-bar"
+                role="progressbar"
+                style={{ width: `${progresso}%`, backgroundColor: "#99CBC8" }}
+                aria-valuenow={progresso}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
             </div>
 
             {/* PÁGINA 0 - INTRODUÇÃO */}
             {pagina === 0 && (
-              <div className="text-center">
+              <div className="text-start py-4">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
                   Já Foste Capaz!
                 </h2>
-                <p className="lead">
-                  Sê muito bem-vindo/a à atividade <strong>"Já Foste Capaz"</strong>!
+                <p className="lead mb-3">
+                  Sê muito <strong>bem-vindo</strong> ou <strong>bem-vinda</strong> à atividade <strong>"Já Foste Capaz"</strong>!
                 </p>
-                <p className="lead">
-                  Nesta atividade, vais ter a oportunidade de <strong>parar um pouco</strong> e <strong>refletir</strong> sobre <strong>situações</strong> em que ultrapassaste <strong>dificuldades</strong>, mesmo quando parecia <strong>difícil</strong>.
+                <p className="mb-3 lead">
+                  Nesta <strong>atividade</strong> vais ter a oportunidade de <strong>parar um pouco</strong> e <strong>refletir</strong> sobre <strong>situações</strong> em que ultrapassaste <strong>dificuldades</strong>, mesmo quando parecia <strong>difícil</strong>.
                 </p>
-                <p className="lead">
+                <p className="mb-3 lead">
                   A ideia é ajudares-te a ti próprio/a a <strong>reconhecer</strong> tudo o que já foste <strong>capaz</strong> de fazer, mesmo em momentos de <strong>dúvida</strong> ou <strong>ansiedade</strong>.
                 </p>
-                <p className="lead">
-                  Ao longo da atividade, vais <strong>lembrar-te</strong> de <strong>experiências tuas</strong>, de <strong>outras pessoas</strong> que te <strong>inspiraram</strong> e do <strong>impacto</strong> que o <strong>apoio dos outros</strong> já teve em ti e nas tuas conquistas.
+                <p className="mb-3 lead">
+                  Ao longo da atividade, vais <strong>lembrar-te</strong> de <strong>experiências tuas</strong>, de <strong>outras pessoas</strong> que te <strong>inspiraram</strong> e do <strong>impacto</strong> que o <strong>apoio dos outros</strong> pode ter em ti.
+                </p>
+                <p className="mb-4 lead">
+                  Quando estiveres <strong>pronto/a</strong>, começa a <strong>explorar</strong> — esta <strong>viagem é sobre ti</strong>. <strong>Ouve os áudios que se seguem</strong>, que te irão guiar nesta reflexão.
                 </p>
                 <div className="text-center">
                   <button className="custom-btn-turquoise mt-2 px-4 py-2" onClick={avancarPagina}>
@@ -129,7 +121,7 @@ const JaFosteCapaz = () => {
 
                 <div className="mb-4">
                   <audio
-                    ref={(el) => (audioRefs.current[pagina - 1] = el)}
+                    ref={el => audioRefs.current[pagina - 1] = el}
                     controls
                     style={{ width: "100%", maxWidth: "600px" }}
                     onEnded={() => handleAudioEnded(pagina - 1)}
@@ -140,7 +132,8 @@ const JaFosteCapaz = () => {
                 </div>
 
                 {showAudioWarning && (
-                  <div className="alert mb-4 text-white" style={{ backgroundColor: "#99CBC8", border: "none" }}>
+                  <div className="alert mb-4 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none' }}>
                     <i className="bi bi-info-circle me-2"></i>
                     É necessário ouvir o áudio até ao fim para continuar.
                   </div>
@@ -151,34 +144,40 @@ const JaFosteCapaz = () => {
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
 
-                  <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                    {pagina === 4 ? "Conclusão" : "Próximo"}
+                  <button
+                    className="custom-btn-turquoise"
+                    onClick={avancarPagina}
+                  >
+                    {pagina === 4 ? 'Conclusão' : 'Próximo'}
                     <i className="bi bi-arrow-right ms-2"></i>
                   </button>
                 </div>
               </div>
             )}
 
-
             {/* PÁGINA 5 - CONCLUSÃO */}
             {pagina === 5 && (
               <>
-                <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
-                <p className="lead">
-                  Com esta atividade pudeste perceber que a nossa <strong>confiança</strong> em ser capaz de <strong>enfrentar</strong> e <strong>superar desafios</strong> vem da <strong>crença</strong> de que conseguimos realizar o que nos propomos.
+                <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
+                <p className="mb-3">
+                  Com esta <strong>atividade</strong> pudeste perceber que a nossa <strong>confiança</strong> em ser capaz de <strong>enfrentar</strong> e <strong>superar desafios</strong> vem da <strong>crença</strong> de que conseguimos realizar o que nos propomos.
                 </p>
-                <p className="lead">
+                <p className="mb-3 lead">
                   As <strong>experiências passadas</strong>, especialmente as em que <strong>superamos dificuldades</strong>, ajudam-nos a perceber que somos <strong>capazes</strong> de lidar com <strong>situações difíceis</strong>.
                 </p>
-                <p className="lead">
+                <p className="mb-3 lead">
                   Além disso, ver <strong>outras pessoas</strong> a conseguirem o que parecia <strong>impossível</strong> pode nos fazer <strong>acreditar</strong> que também somos capazes.
                 </p>
-                <p className="lead">
-                  O <strong>apoio</strong> de quem acredita em nós, como <strong> amigos, professores</strong> ou <strong>familiares</strong>, aumenta essa confiança.
+                <p className="mb-3 lead">
+                  O <strong>apoio</strong> de quem acredita em nós, como <strong>professores</strong> ou <strong>familiares</strong>, aumenta essa confiança.
                 </p>
-                <p className="lead">
-                  Quando estamos <strong>bem-dispostos e com energia</strong>, isso nota-se também no <strong> nosso corpo </strong> e ajuda a sentirmo-nos mais confiantes para enfrentar os desafios.
+                <p className="mb-3 lead">
+                  A maneira como lidamos com a <strong>ansiedade</strong>, como as <strong>mãos a suar</strong> ou o <strong>coração acelerado</strong>, também influencia como nos vemos.
                 </p>
+                <p className="mb-4 lead">
+                  Quando conseguimos <strong>continuar</strong> apesar destas <strong>sensações físicas</strong>, estamos a demonstrar que somos capazes de <strong>enfrentar desafios</strong>.
+                </p>
+
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
@@ -191,6 +190,7 @@ const JaFosteCapaz = () => {
                 </div>
               </>
             )}
+
           </div>
         </div>
       </div>
