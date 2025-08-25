@@ -54,7 +54,7 @@ const AnsiedadeSOSPOD = () => {
             {pagina === 0 && (
               <div className="text-center">
                 <h2 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                  {atividade?.titulo || "Podcast TOUCHminds"}
+                  Podcast TOUCHminds
                 </h2>
                 <p className="lead">
                   <strong>Sê muito bem-vindo/a ao Podcast TOUCHminds!</strong><br /><br />
