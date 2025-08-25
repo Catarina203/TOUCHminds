@@ -7,15 +7,15 @@ import { UserContext } from '../App';
 // Firebase
 import { db } from '../data/database';
 import {
-  collection,
-  doc,
-  addDoc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-  serverTimestamp,
-  documentId,
+collection,
+ doc,
+addDoc,
+getDoc,
+getDocs,
+query,
+where,
+serverTimestamp,
+FieldPath,
 } from 'firebase/firestore';
 
 function fmtDate(d) {
@@ -55,12 +55,11 @@ function SessoesPsicologo() {
       try {
         setLoadingSlots(true);
 
-        const slotsCol = collection(db, 'slots');
-        const qSlots = query(
-          slotsCol,
-          where(documentId(), '>=', range.from),
-          where(documentId(), '<=', range.to)
-        );
+    const qSlots = query(
+    slotsCol,
+    where(FieldPath.documentId(), '>=', range.from),
+    where(FieldPath.documentId(), '<=', range.to)
+     );
 
         const snap = await getDocs(qSlots);
         let data = snap.docs.map((d) => ({
