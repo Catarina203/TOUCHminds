@@ -75,11 +75,12 @@ const handleAttemptClose = () => {
   };
 
   const handleAreaClick = (ferramentaId) => {
-    const ferramenta = ferramentas.find(f => f.id === ferramentaId);
-    if (ferramenta) {
-      setModalAberto(ferramenta);
-    }
-  };
+  const ferramenta = ferramentas.find(f => f.id === ferramentaId);
+  if (ferramenta) {
+    setShowWarning(false);       
+    setModalAberto(ferramenta);
+  }
+};
 
  const progresso = Math.round((pagina / 2) * 100);
 
@@ -256,15 +257,14 @@ const handleAttemptClose = () => {
                       <button
                         className="custom-btn-turquoise"
                         onClick={() => {
-                          const totalOuvidos = Object.keys(audiosOuvidos).length;
-                          if (totalOuvidos < ferramentas.length) {
-                            setShowWarning(true);
-                            setTimeout(() => setShowWarning(false), 3000);
-                          } else {
-                            setShowWarning(false);
-                            setPagina(2);
-                          }
-                        }}
+                            const totalOuvidos = Object.keys(audiosOuvidos).length;
+                            if (totalOuvidos < ferramentas.length) {
+                              setShowWarning(true);      
+                            } else {
+                              setShowWarning(false);
+                              setPagina(2);
+                            }
+                          }}
                       >
                         Conclusão <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -310,75 +310,99 @@ const handleAttemptClose = () => {
             )}
 
            {/* MODAL DE ÁUDIO */}
-              <Modal show={!!modalAberto} centered backdrop="static" onHide={handleAttemptClose} keyboard>
-                <Modal.Footer>
-                      <button
-                        className="btn"
-                        style={{
-                          backgroundColor: "#234970",
-                          color: "#fff",
-                          border: "none",
-                          padding: "8px 16px",
-                          borderRadius: "6px",
-                          fontWeight: "bold",
-                        }}
-                        onClick={handleAttemptClose}
+                       <Modal
+                        show={!!modalAberto}
+                        centered
+                        backdrop="static"
+                        onHide={handleAttemptClose}
+                        keyboard
                       >
-                        Fechar
-                      </button>
-                    </Modal.Footer>
+                        {/* Cabeçalho com título da ferramenta */}
+                        <Modal.Header
+                          closeButton={false}
+                          style={{
+                            justifyContent: "center",
+                            backgroundColor: "#f8f9fa",
+                            borderBottom: "none"
+                          }}
+                        >
+                          <h5
+                            className="fw-bold"
+                            style={{ color: "#234970", textAlign: "center", margin: 0 }}
+                          >
+                            {modalAberto?.titulo}
+                          </h5>
+                        </Modal.Header>
 
-                <Modal.Body className="text-center">
-                  {showAudioWarning && (
-                    <div
-                      className="alert mb-4 text-white"
-                      role="alert"
-                      aria-live="assertive"
-                      style={{ backgroundColor: '#99CBC8', border: 'none' }}
-                    >
-                      <i className="bi bi-info-circle me-2"></i>
-                      É necessário ouvir o áudio até ao fim para continuar.
-                    </div>
-                  )}
+                        {/* Corpo do modal */}
+                        <Modal.Body className="text-center">
+                          {showAudioWarning && (
+                            <div
+                              className="alert mb-4 text-white"
+                              role="alert"
+                              aria-live="assertive"
+                              style={{ backgroundColor: "#99CBC8", border: "none" }}
+                            >
+                              <i className="bi bi-info-circle me-2"></i>
+                              É necessário ouvir o áudio até ao fim para continuar.
+                            </div>
+                          )}
 
-                  {modalAberto?.imagem && (
-                    <img
-                      src={modalAberto.imagem}
-                      alt={modalAberto.titulo}
-                      style={{
-                        maxWidth: "100%",
-                        width: "420px",
-                        height: "auto",
-                        borderRadius: "12px",
-                        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                        marginBottom: "16px",
-                        objectFit: "contain"
-                      }}
-                      loading="eager"
-                    />
-                  )}
+                          {modalAberto?.imagem && (
+                            <img
+                              src={modalAberto.imagem}
+                              alt={modalAberto.titulo}
+                              style={{
+                                maxWidth: "100%",
+                                width: "420px",
+                                height: "auto",
+                                borderRadius: "12px",
+                                boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                                marginBottom: "16px",
+                                objectFit: "contain"
+                              }}
+                              loading="eager"
+                            />
+                          )}
 
-                  <audio
-                    ref={audioRef}
-                    src={modalAberto?.audio}
-                    controls
-                    playsInline
-                    controlsList="nodownload noplaybackrate noremoteplayback"
-                    disablePictureInPicture
-                    onContextMenu={(e) => e.preventDefault()}
-                    preload="none"
-                    style={{ width: "100%" }}
-                  >
-                    O teu navegador não suporta a reprodução de áudio.
-                  </audio>
-                </Modal.Body>
+                          <audio
+                            ref={audioRef}
+                            src={modalAberto?.audio}
+                            controls
+                            playsInline
+                            controlsList="nodownload noplaybackrate noremoteplayback"
+                            disablePictureInPicture
+                            onContextMenu={(e) => e.preventDefault()}
+                            preload="none"
+                            style={{ width: "100%" }}
+                          >
+                            O teu navegador não suporta a reprodução de áudio.
+                          </audio>
+                        </Modal.Body>
 
-                <Modal.Footer>
-                  <button className="btn btn-success" onClick={handleAttemptClose}>
-                    Fechar
-                  </button>
-                </Modal.Footer>
-              </Modal>
+                        {/* Rodapé com botão fechar azul */}
+                        <Modal.Footer
+                          style={{
+                            justifyContent: "center",
+                            borderTop: "none"
+                          }}
+                        >
+                          <button
+                            className="btn"
+                            style={{
+                              backgroundColor: "#234970",
+                              color: "#fff",
+                              border: "none",
+                              padding: "8px 16px",
+                              borderRadius: "6px",
+                              fontWeight: "bold"
+                            }}
+                            onClick={handleAttemptClose}
+                          >
+                            Fechar
+                          </button>
+                        </Modal.Footer>
+                      </Modal>
           </div>
         </div>
       </div>
