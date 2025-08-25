@@ -15,7 +15,7 @@ import Contactos from './components/contactos';
 import Definições from './components/def';
 import Homepage from './components/homepage';
 import Modulos from './components/modulo';
-import SessoesPsicologo from './components/sessoes';
+import SessoesPsicologo from './components/sessoesPsicologo';
 
 import BandaDesenhada from './components/atividades/modulo1/bandaDesenhada';
 import LinhaAnsiedade from './components/atividades/modulo1/linhaAnsiedade';
@@ -118,7 +118,7 @@ const App = () => {
           <Route path="/conquistas" element={<Conquistas />} />
           <Route path="/contactos" element={<Contactos />} />
           <Route path="/definicoes" element={<Definições />} />
-          <Route path="/sessoes" element={<SessoesPsicologo />} />
+          <Route path="/sessoesPsicologo" element={<SessoesPsicologo />} />
 
           {/* Página principal de cada módulo */}
           <Route path="/modulos/:id" element={<Modulos />} />
