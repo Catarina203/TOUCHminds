@@ -12,32 +12,31 @@ const JaFosteCapaz = () => {
   const [audioEnded, setAudioEnded] = useState([false, false, false, false]);
   const [choice, setChoice] = useState([null, null, null, null]);
   const audioRefs = useRef([]);
-  const [showAudioMsg, setShowAudioMsg] = useState(false);
-  const [showChoiceMsg, setShowChoiceMsg] = useState(false);
+  const [triedNext, setTriedNext] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ feedback: "" });
-  const handleAudioPlay = () => setShowAudioMsg(false);
+  const handleAudioPlay = () => setTriedNext(false);
   const progresso = Math.round((pagina / 5) * 100);
 
 
   useEffect(() => {
-   setShowAudioMsg(false);
-    setShowChoiceMsg(false);
+  setTriedNext(false); // limpa os avisos ao entrar na página
 
-    if (pagina >= 1 && pagina <= 4) {
-      const idx = pagina - 1;
-     setAudioEnded((prev) => {
-        const next = [...prev];
-        next[idx] = false; 
-        return next;
-      });
-      setChoice((prev) => {
-        const next = [...prev];
-        next[idx] = null;
-        return next;
-      });
-    }
-  }, [pagina]);
+  if (pagina >= 1 && pagina <= 4) {
+    const idx = pagina - 1;
+    setAudioEnded(prev => {
+      const next = [...prev];
+      next[idx] = false;
+      return next;
+    });
+    setChoice(prev => {
+      const next = [...prev];
+      next[idx] = null;
+      return next;
+    });
+  }
+}, [pagina]);
+
 
 
   const audioSources = [
@@ -127,14 +126,13 @@ const JaFosteCapaz = () => {
     });
   };
 
-  const handleChoose = (idx, value) => {
-  setChoice((prev) => {
+const handleChoose = (idx, value) => {
+  setTriedNext(false); // limpa avisos assim que escolhe
+  setChoice(prev => {
     const next = [...prev];
     next[idx] = value;
     return next;
   });
-  setShowChoiceMsg(false); 
-  
   const page = idx + 1;
   const msg = feedbackMsgs[page]?.[value];
   if (msg) {
@@ -143,17 +141,16 @@ const JaFosteCapaz = () => {
   }
 };
 
-  const canProceed = () => {
-    if (pagina >= 1 && pagina <= 4) {
-      const idx = pagina - 1;
-      const okAudio = audioEnded[idx];
-      const okChoice = !!choice[idx];
-      setShowAudioMsg(!okAudio);
-      setShowChoiceMsg(okAudio && !okChoice);
-      return okAudio && okChoice;
-    }
-    return true;
-  };
+const canProceed = () => {
+  if (pagina >= 1 && pagina <= 4) {
+    const idx = pagina - 1;
+    const okAudio = audioEnded[idx];
+    const okChoice = !!choice[idx];
+    if (!(okAudio && okChoice)) setTriedNext(true); // mostra avisos
+    return okAudio && okChoice;
+  }
+  return true;
+};
 
   const avancarPagina = () => {
     if (!canProceed()) return;
@@ -233,6 +230,12 @@ const JaFosteCapaz = () => {
           );
         };
 
+const idxAtual = pagina - 1;
+const needAudioMsg =
+triedNext && pagina >= 1 && pagina <= 4 && !audioEnded[idxAtual];
+const needChoiceMsg =
+triedNext && pagina >= 1 && pagina <= 4 && audioEnded[idxAtual] && !choice[idxAtual];
+
  return (
     <div className="container-fluid vh-100 p-0 font-poppins">
       <Navbar />
@@ -273,6 +276,7 @@ const JaFosteCapaz = () => {
               </div>
             )}
 
+
            {/* PÁGINAS 1–4 */}
             {pagina >= 1 && pagina <= 4 && (
               <>
@@ -304,7 +308,7 @@ const JaFosteCapaz = () => {
                 </div>
 
                 {/* Mensagens de bloqueio */}
-                {showAudioMsg && (
+                {needAudioMsg && (
                   <div className="alert mt-3 text-white"
                     style={{ backgroundColor: '#99CBC8', border: 'none', textAlign: 'center' }}>
                     <i className="bi bi-info-circle me-2"></i>
@@ -312,7 +316,7 @@ const JaFosteCapaz = () => {
                   </div>
                 )}
 
-                {showChoiceMsg && (
+                {needChoiceMsg && (
                   <div className="alert alert-warning mt-3 text-center" role="alert">
                     <i className="bi bi-exclamation-triangle-fill me-2"></i>
                     Por favor, seleciona uma opção antes de continuar.
