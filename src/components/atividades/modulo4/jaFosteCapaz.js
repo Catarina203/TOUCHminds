@@ -14,6 +14,8 @@ const JaFosteCapaz = () => {
   const audioRefs = useRef([]);
   const [showAudioMsg, setShowAudioMsg] = useState(false);
   const [showChoiceMsg, setShowChoiceMsg] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ feedback: "" });
   const progresso = Math.round((pagina / 5) * 100);
 
 
@@ -125,18 +127,19 @@ const JaFosteCapaz = () => {
   };
 
   const handleChoose = (idx, value) => {
-    setChoice((prev) => {
-      const next = [...prev];
-      next[idx] = value;
-      return next;
-    });
+  setChoice((prev) => {
+    const next = [...prev];
+    next[idx] = value;
+    return next;
+  });
 
-    const page = idx + 1;
-    const msg = feedbackMsgs[page]?.[value];
-    if (msg) {
-      alert(msg);
-    }
-  };
+  const page = idx + 1;
+  const msg = feedbackMsgs[page]?.[value];
+  if (msg) {
+    setModalContent({ feedback: msg });
+    setShowModal(true);
+  }
+};
 
   const canProceed = () => {
     if (pagina >= 1 && pagina <= 4) {
@@ -169,6 +172,75 @@ const JaFosteCapaz = () => {
   3: "Quando alguém acredita em ti",
   4: "O que o teu Corpo te diz antes dos desafios",
 };
+
+          // Modal component (igual ao teu exemplo, com prop nextLabel)
+          const Modal = ({ show, onClose, content, nextLabel }) => {
+            if (!show) return null;
+
+            return (
+              <div
+                className="modal fade show"
+                style={{
+                  display: "block",
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                }}
+              >
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                  <div className="modal-content">
+                    <div
+                      className="modal-header"
+                      style={{
+                        backgroundColor: "#99CBC8",
+                        borderBottom: "none",
+                        color: "#fff",
+                      }}
+                    >
+                      <h5 className="modal-title w-100 text-center" style={{ fontWeight: 600 }}>
+                        Impacto da tua escolha!
+                      </h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        style={{ filter: "invert(1)" }}
+                        aria-label="Close"
+                        onClick={onClose}
+                      />
+                    </div>
+
+                    <div className="modal-body pt-4 ps-4 pe-4">
+                      <p className="lead text-start">{content.feedback}</p>
+                    </div>
+
+                    <div
+                      className="modal-footer"
+                      style={{
+                        borderTop: "none",
+                        backgroundColor: "#F5FDFC",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={onClose}
+                        style={{
+                          backgroundColor: "#234970",
+                          border: "none",
+                          color: "white",
+                          borderRadius: "20px",
+                          padding: "0.5rem 1.5rem",
+                          fontWeight: 500,
+                          boxShadow: "none",
+                          outline: "none",
+                        }}
+                      >
+                        {nextLabel}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          };
 
  return (
     <div className="container-fluid vh-100 p-0 font-poppins">
@@ -210,207 +282,199 @@ const JaFosteCapaz = () => {
               </div>
             )}
 
-            {/* PÁGINAS 1–4 */}
-          {pagina >= 1 && pagina <= 4 && (
-            <div className="text-center fw-bold mb-4">
-              <PageHeader titulo={`${titles[pagina]}`} />
-              <p className="lead">
-                Ouve o áudio e completa a atividade a seguir.
-              </p>
+           {/* PÁGINAS 1–4 */}
+            {pagina >= 1 && pagina <= 4 && (
+              <>
+                <h4 className="text-center fw-bold" style={{ color: "#234970" }}>
+                  {titles[pagina]}
+                </h4>
 
-              {/* Player de áudio */}
-              <div className="mb-3">
-                <audio
-                  ref={(el) => {
-                    if (el) audioRefs.current[pagina - 1] = el;
-                  }}
-                  src={audioSources[pagina]}
-                  controls
-                  playsInline
-                  controlsList="nodownload noplaybackrate noremoteplayback"
-                  disablePictureInPicture
-                  preload="none"
-                  onContextMenu={(e) => e.preventDefault()}
-                  onEnded={() => handleEnded(pagina - 1)}
-                  style={{ width: "100%" }}
-                >
-                  O teu navegador não suporta a reprodução de áudio.
-                </audio>
-              </div>
+                <p className="lead mb-4">
+                  Ouve o áudio e completa a atividade a seguir.
+                </p>
 
-              {/* Mensagens de bloqueio com visual igual ao exemplo */}
-              {showAudioMsg && (
-                <div
-                  className="alert mt-3 text-center"
-                  role="alert"
-                  style={{
-                    backgroundColor: "#E8F6F5",
-                    border: "1px solid #99CBC8",
-                    color: "#234970",
-                  }}
-                >
-                  <i className="bi bi-info-circle me-2"></i>
-                  É necessário ouvir o áudio até ao fim para continuar.
+                {/* Player de áudio */}
+                <div className="mb-3">
+                  <audio
+                    ref={(el) => { if (el) audioRefs.current[pagina - 1] = el; }}
+                    src={audioSources[pagina]}
+                    controls
+                    playsInline
+                    controlsList="nodownload noplaybackrate noremoteplayback"
+                    disablePictureInPicture
+                    preload="none"
+                    onContextMenu={(e) => e.preventDefault()}
+                    onEnded={() => handleEnded(pagina - 1)}
+                    style={{ width: "100%" }}
+                  >
+                    O teu navegador não suporta a reprodução de áudio.
+                  </audio>
                 </div>
-              )}
-              {showChoiceMsg && (
-                <div className="alert alert-warning mt-3 text-center" role="alert">
-                  <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                  Por favor, seleciona uma opção antes de continuar.
+
+                {/* Mensagens de bloqueio */}
+                {showAudioMsg && (
+                  <div className="alert mt-3 text-white"
+                    style={{ backgroundColor: '#99CBC8', border: 'none', textAlign: 'center' }}>
+                    <i className="bi bi-info-circle me-2"></i>
+                    É necessário ouvir o áudio até ao fim para continuar.
+                  </div>
+                )}
+
+                {showChoiceMsg && (
+                  <div className="alert alert-warning mt-3 text-center" role="alert">
+                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                    Por favor, seleciona uma opção antes de continuar.
+                  </div>
+                )}
+
+                {/* Atividade (ativa só depois do áudio) */}
+                <div className={`border rounded p-4 ${audioEnded[pagina - 1] ? "" : "opacity-50 pe-none"}`}>
+                  {/* Página 1 */}
+                  {pagina === 1 && (
+                    <>
+                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                        Ao lembrares-te de uma situação em que sentiste ansiedade ou medo de falhar e em que acabaste por dar a volta, como avalias agora a tua capacidade de o conseguir outra vez?
+                      </p>
+                      <div className="d-flex flex-column gap-3 text-start">
+                        {optionsByPage[1].map((op, index) => {
+                          const isSelected = choice[0] === op;
+                          return (
+                            <div
+                              key={index}
+                              onClick={() => handleChoose(0, op)}
+                              className="p-3 rounded"
+                              style={{
+                                backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                                color: isSelected ? "white" : "#234970",
+                                border: "1px solid #99CBC8",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                              }}
+                            >
+                              <p className="mb-0 fw-medium">{op}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Página 2 */}
+                  {pagina === 2 && (
+                    <>
+                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                        Ao lembrares-te de alguém que viste a ultrapassar um desafio que também te parecia difícil, o que é que esse exemplo te faz acreditar sobre a tua própria capacidade?
+                      </p>
+                      <div className="d-flex flex-column gap-3 text-start">
+                        {optionsByPage[2].map((op, index) => {
+                          const isSelected = choice[1] === op;
+                          return (
+                            <div
+                              key={index}
+                              onClick={() => handleChoose(1, op)}
+                              className="p-3 rounded"
+                              style={{
+                                backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                                color: isSelected ? "white" : "#234970",
+                                border: "1px solid #99CBC8",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                              }}
+                            >
+                              <p className="mb-0 fw-medium">{op}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Página 3 */}
+                  {pagina === 3 && (
+                    <>
+                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                        Ao lembrares-te de uma situação em que alguém acreditou em ti. Como te sentiste ao ouvir essas palavras e o que isso te leva a pensar sobre tentares algo novo?
+                      </p>
+                      <div className="d-flex flex-column gap-3 text-start">
+                        {optionsByPage[3].map((op, index) => {
+                          const isSelected = choice[2] === op;
+                          return (
+                            <div
+                              key={index}
+                              onClick={() => handleChoose(2, op)}
+                              className="p-3 rounded"
+                              style={{
+                                backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                                color: isSelected ? "white" : "#234970",
+                                border: "1px solid #99CBC8",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                              }}
+                            >
+                              <p className="mb-0 fw-medium">{op}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Página 4 */}
+                  {pagina === 4 && (
+                    <>
+                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                        Ao lembrares-te de uma situação em que sentiste, no corpo e na mente, que ia correr bem e que serias capaz, qual destas frases descreve melhor como te sentes neste momento?
+                      </p>
+                      <div className="d-flex flex-column gap-3 text-start">
+                        {optionsByPage[4].map((op, index) => {
+                          const isSelected = choice[3] === op;
+                          return (
+                            <div
+                              key={index}
+                              onClick={() => handleChoose(3, op)}
+                              className="p-3 rounded"
+                              style={{
+                                backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                                color: isSelected ? "white" : "#234970",
+                                border: "1px solid #99CBC8",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                              }}
+                            >
+                              <p className="mb-0 fw-medium">{op}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
                 </div>
-              )}
 
-              {/* Atividade (ativa só depois do áudio) */}
-              <div
-                className={`border rounded p-4 ${
-                  audioEnded[pagina - 1] ? "" : "opacity-50 pe-none"
-                }`}
-              >
-                {/* Página 1 */}
-                {pagina === 1 && (
-                  <>
-                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                      {titles[1]}
-                    </h4>
-                    <p className="lead mb-4">
-                      Ao lembrares-te de uma situação em que sentiste ansiedade ou medo de falhar e em que acabaste por dar a volta, como avalias agora a tua capacidade de o conseguir outra vez?
-                    </p>
-                    <div className="d-flex flex-column gap-3">
-                      {optionsByPage[1].map((op, index) => {
-                        const isSelected = choice[0] === op;
-                        return (
-                          <div
-                            key={index}
-                            onClick={() => handleChoose(0, op)}
-                            className="p-3 rounded"
-                            style={{
-                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
-                              color: isSelected ? "white" : "#234970",
-                              border: "1px solid #99CBC8",
-                              cursor: "pointer",
-                              transition: "all 0.3s ease",
-                            }}
-                          >
-                            <p className="mb-0 fw-medium">{op}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
+                {/* Navegação */}
+                <div className="d-flex justify-content-between mt-4">
+                  <button className="custom-btn-pink" onClick={retrocederPagina}>
+                    <i className="bi bi-arrow-left me-2"></i>Anterior
+                  </button>
+                  <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                    {pagina === 4 ? "Conclusão" : "Próximo"}
+                    <i className="bi bi-arrow-right ms-2"></i>
+                  </button>
+                </div>
+              </>
+            )}
 
-                {/* Página 2 */}
-                {pagina === 2 && (
-                  <>
-                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                      {titles[2]}
-                    </h4>
-                    <p className="lead mb-4">
-                      Ao lembrares-te de alguém que viste a ultrapassar um desafio que também te parecia difícil, o que é que esse exemplo te faz acreditar sobre a tua própria capacidade?
-                    </p>
-                    <div className="d-flex flex-column gap-3">
-                      {optionsByPage[2].map((op, index) => {
-                        const isSelected = choice[1] === op;
-                        return (
-                          <div
-                            key={index}
-                            onClick={() => handleChoose(1, op)}
-                            className="p-3 rounded"
-                            style={{
-                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
-                              color: isSelected ? "white" : "#234970",
-                              border: "1px solid #99CBC8",
-                              cursor: "pointer",
-                              transition: "all 0.3s ease",
-                            }}
-                          >
-                            <p className="mb-0 fw-medium">{op}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
+                <Modal
+                  show={showModal}
+                  onClose={() => {
+                    setShowModal(false);
+                    // Se quiseres avançar automaticamente ao fechar o modal, descomenta a linha:
+                    // if (choice[pagina - 1]) avancarPagina();
+                  }}
+                  content={modalContent}
+                  nextLabel={pagina === 4 ? "Conclusão" : "Próximo"}
+                />
 
-                {/* Página 3 */}
-                {pagina === 3 && (
-                  <>
-                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                      {titles[3]}
-                    </h4>
-                    <p className="lead mb-4">
-                      Ao lembrares-te de uma situação em que alguém acreditou em ti. Como te sentiste ao ouvir essas palavras e o que isso te leva a pensar sobre tentares algo novo?
-                    </p>
-                    <div className="d-flex flex-column gap-3">
-                      {optionsByPage[3].map((op, index) => {
-                        const isSelected = choice[2] === op;
-                        return (
-                          <div
-                            key={index}
-                            onClick={() => handleChoose(2, op)}
-                            className="p-3 rounded"
-                            style={{
-                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
-                              color: isSelected ? "white" : "#234970",
-                              border: "1px solid #99CBC8",
-                              cursor: "pointer",
-                              transition: "all 0.3s ease",
-                            }}
-                          >
-                            <p className="mb-0 fw-medium">{op}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
 
-                {/* Página 4 */}
-                {pagina === 4 && (
-                  <>
-                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
-                      {titles[4]}
-                    </h4>
-                    <p className="lead mb-4">
-                      Ao lembrares-te de uma situação em que sentiste, no corpo e na mente, que ia correr bem e que serias capaz, qual destas frases descreve melhor como te sentes neste momento?
-                    </p>
-                    <div className="d-flex flex-column gap-3">
-                      {optionsByPage[4].map((op, index) => {
-                        const isSelected = choice[3] === op;
-                        return (
-                          <div
-                            key={index}
-                            onClick={() => handleChoose(3, op)}
-                            className="p-3 rounded"
-                            style={{
-                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
-                              color: isSelected ? "white" : "#234970",
-                              border: "1px solid #99CBC8",
-                              cursor: "pointer",
-                              transition: "all 0.3s ease",
-                            }}
-                          >
-                            <p className="mb-0 fw-medium">{op}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Navegação */}
-              <div className="d-flex justify-content-between mt-4">
-                <button className="custom-btn-pink" onClick={retrocederPagina}>
-                  <i className="bi bi-arrow-left me-2"></i>Anterior
-                </button>
-                <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                  {pagina === 4 ? "Conclusão" : "Próximo"}
-                  <i className="bi bi-arrow-right ms-2"></i>
-                </button>
-              </div>
-            </div>
-          )}
             {/* PÁGINA 5 - CONCLUSÃO */}
             {pagina === 5 && (
               <>

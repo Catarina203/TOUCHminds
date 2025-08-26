@@ -603,15 +603,16 @@ export default function SessoesPsicologo() {
 
           {/* ---- Modal Reagendar ---- */}
          {showReagendar && (
-            <div className="modal d-block" tabIndex="-1" role="dialog" style={{ background:'rgba(0,0,0,0.35)' }}>
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
+                  <div className="modal d-block" tabIndex="-1" role="dialog" style={{ background:'rgba(0,0,0,0.35)' }}>
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                      <div className="modal-content">
 
-                  {/* Header: só o título */}
-                  <h5 className="modal-title" style={{ color: '#234970', fontWeight: 700 }}>
-                    Reagendar sessão
-                  </h5>
-
+                        <div className="modal-header">
+                          <h5 className="modal-title" style={{ color: '#234970', fontWeight: 700 }}>
+                            Reagendar sessão
+                          </h5>
+                          <button type="button" className="btn-close" aria-label="Fechar" onClick={()=>setShowReagendar(false)} />
+                        </div>
                      {/* Body */}
                           <div className="modal-body">
                             {msgReagendar && (
