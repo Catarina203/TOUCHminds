@@ -147,7 +147,6 @@ export default function SessoesPsicologo() {
     return ()=>{ cancel=true; };
   }, [diaSel, config, feriados]);
 
-  if (!userData) return <Loading message="A carregar Sessões com o Psicólogo..." />;
 
   // -------- Submeter Agendamento (grava e envia e-mails) --------
   async function submeterAgendamento(e) {
@@ -355,6 +354,8 @@ export default function SessoesPsicologo() {
       setLoadingReagendar(false);
     }
   }
+
+   if (!userData) return <Loading message="A carregar Sessões com o Psicólogo..." />;
 
   // -------- UI --------
   return (
