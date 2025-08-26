@@ -72,38 +72,49 @@ const JaFosteCapaz = () => {
   
   const feedbackMsgs = {
   1: {
-    "Confio totalmente que consigo":
-      "Isso mostra que reconheces as tuas capacidades. Lembra-te desta experiência para te ajudar em desafios futuros.",
-    "Acho que posso conseguir, mas tenho dúvidas":
-      "É natural ter dúvidas. Em situações desafiantes, avançar um passo de cada vez ajuda a ganhar confiança.",
-    "Tenho medo de falhar novamente":
-      "O medo é comum, mas não significa que não consegues. Recorda-te de momentos em que conseguiste superar dificuldades.",
+    "Confio totalmente que consigo": 
+      "Muito bem! Isso mostra que tens consciência das tuas capacidades. Lembra-te desta confiança quando precisares de enfrentar novos desafios.",
+
+    "Acho que posso conseguir, mas tenho dúvidas": 
+      "Ter dúvidas é normal. O importante é dar um passo de cada vez e ir ganhando confiança.",
+
+    "Tenho medo de falhar novamente": 
+      "Sentir medo é natural, mas isso não significa que não consigas. Recorda-te de situações em que já superaste dificuldades — isso mostra que és capaz."
   },
+
   2: {
-    "Se ele conseguiu, eu também posso":
-      "Observar alguém a conseguir pode reforçar a tua confiança. Usa esse exemplo como evidência de que também é possível para ti.",
-    "Não sei se consigo, mas posso tentar":
-      "A tentativa é um passo importante. Cada experiência, mesmo que difícil, ajuda-te a aprender e a crescer.",
-    "Ele conseguiu, mas sinto que não sou capaz":
-      "Cada pessoa tem o seu ritmo. Foca-te nos teus próprios passos e no que podes fazer agora.",
+    "Se ele conseguiu, eu também posso": 
+      "Ver alguém a conseguir pode aumentar a tua confiança. Usa esse exemplo como prova de que também é possível para ti.",
+
+    "Não sei se consigo, mas posso tentar": 
+      "O mais importante é tentar. Cada tentativa, mesmo que difícil, ajuda-te a aprender e a evoluir.",
+
+    "Ele conseguiu, mas sinto que não sou capaz": 
+      "Cada pessoa tem o seu ritmo. O mais importante é concentrares-te nos teus próprios passos e no que podes fazer agora."
   },
+
   3: {
-    "Sinto que posso tentar e ter sucesso":
-      "É importante reconhecer a influência do apoio dos outros. Usa essa confiança para dares os teus próprios passos.",
-    "Ajuda-me, mas continuo com receio":
-      "É natural sentir receio, mesmo com apoio. O essencial é avançar pouco a pouco, no teu ritmo.",
-    "Não acredito em mim, mesmo com incentivo":
-      "É compreensível sentir isso. Procura lembrar-te de situações em que já conseguiste enfrentar desafios — isso mostra que és capaz.",
+    "Sinto que posso tentar e ter sucesso": 
+      "Ótimo! Reconhecer o apoio que recebes e acreditar em ti dá-te mais força para avançares e alcançares os teus objetivos.",
+
+    "Ajuda-me, mas continuo com receio": 
+      "É normal sentir receio, mesmo com apoio. O essencial é avançar no teu ritmo e passo a passo.",
+
+    "Não acredito em mim, mesmo com incentivo": 
+      "É natural sentir isso às vezes. Lembra-te de momentos em que já enfrentaste desafios e conseguiste superá-los — isso mostra que tens capacidade."
   },
+
   4: {
-    "Sinto-me bem e preparado/a":
-      "Reconhecer que estás bem e preparado/a é importante. Podes usar isso como recurso quando enfrentares desafios novos.",
-    "Sinto alguma ansiedade, mas consigo gerir":
-      "A ansiedade é uma reação normal. Identificar que consegues geri-la aumenta a tua confiança.",
-    "Sinto muita ansiedade e ainda tenho dúvidas":
-      "É normal sentir ansiedade. A experiência ajuda-te a lidar melhor com essas situações.",
-  },
-};
+    "Sinto-me bem e preparado/a": 
+      "Muito bem! Reconhecer que estás preparado/a é importante. Podes usar essa confiança como recurso para enfrentar novos desafios.",
+
+    "Sinto alguma ansiedade, mas consigo gerir": 
+      "Sentir alguma ansiedade é normal. O mais importante é saberes que consegues lidar com ela e continuar a avançar.",
+
+    "Sinto muita ansiedade e ainda tenho dúvidas": 
+      "Está tudo bem sentir ansiedade. Identificá-la é o primeiro passo. Com o tempo, vais ganhar mais segurança."
+  }
+}
 
   const handleEnded = (idx) => {
     setAudioEnded((prev) => {
@@ -200,147 +211,206 @@ const JaFosteCapaz = () => {
             )}
 
             {/* PÁGINAS 1–4 */}
-            {pagina >= 1 && pagina <= 4 && (
-              <div className="text-center fw-bold mb-4">
-                <PageHeader titulo={`${titles[pagina]} — Áudio ${pagina} de 4`} />
-                
-                <p className="lead">
-                  Ouve o áudio e completa a atividade a seguir.
-                </p>
+          {pagina >= 1 && pagina <= 4 && (
+            <div className="text-center fw-bold mb-4">
+              <PageHeader titulo={`${titles[pagina]}`} />
+              <p className="lead">
+                Ouve o áudio e completa a atividade a seguir.
+              </p>
 
-                {/* Player de VÍDEO com download desativado */}
-                <div className="mb-3">
-                  <audio
-                    ref={(el) => { if (el) audioRefs.current[pagina - 1] = el; }}
-                    src={audioSources[pagina]}
-                    controls
-                    playsInline
-                    controlsList="nodownload noplaybackrate noremoteplayback"
-                    disablePictureInPicture
-                    preload="none"
-                    onContextMenu={(e) => e.preventDefault()}
-                    onEnded={() => handleEnded(pagina - 1)}
-                    style={{ width: "100%" }}
-                  >  
+              {/* Player de áudio */}
+              <div className="mb-3">
+                <audio
+                  ref={(el) => {
+                    if (el) audioRefs.current[pagina - 1] = el;
+                  }}
+                  src={audioSources[pagina]}
+                  controls
+                  playsInline
+                  controlsList="nodownload noplaybackrate noremoteplayback"
+                  disablePictureInPicture
+                  preload="none"
+                  onContextMenu={(e) => e.preventDefault()}
+                  onEnded={() => handleEnded(pagina - 1)}
+                  style={{ width: "100%" }}
+                >
                   O teu navegador não suporta a reprodução de áudio.
-                  </audio>
-                </div>
+                </audio>
+              </div>
 
-                {/* Mensagens de bloqueio */}
-                {showAudioMsg && (
-                      <div className="alert mb-4 text-white" style={{ backgroundColor: "#99CBC8" }}>
-                      <i className="bi bi-info-circle me-2"></i>
-                        É necessário ouvir o áudio até ao fim para continuar.
+              {/* Mensagens de bloqueio com visual igual ao exemplo */}
+              {showAudioMsg && (
+                <div
+                  className="alert mt-3 text-center"
+                  role="alert"
+                  style={{
+                    backgroundColor: "#E8F6F5",
+                    border: "1px solid #99CBC8",
+                    color: "#234970",
+                  }}
+                >
+                  <i className="bi bi-info-circle me-2"></i>
+                  É necessário ouvir o áudio até ao fim para continuar.
+                </div>
+              )}
+              {showChoiceMsg && (
+                <div className="alert alert-warning mt-3 text-center" role="alert">
+                  <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                  Por favor, seleciona uma opção antes de continuar.
+                </div>
+              )}
+
+              {/* Atividade (ativa só depois do áudio) */}
+              <div
+                className={`border rounded p-4 ${
+                  audioEnded[pagina - 1] ? "" : "opacity-50 pe-none"
+                }`}
+              >
+                {/* Página 1 */}
+                {pagina === 1 && (
+                  <>
+                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      {titles[1]}
+                    </h4>
+                    <p className="lead mb-4">
+                      Ao lembrares-te de uma situação em que sentiste ansiedade ou medo de falhar e em que acabaste por dar a volta, como avalias agora a tua capacidade de o conseguir outra vez?
+                    </p>
+                    <div className="d-flex flex-column gap-3">
+                      {optionsByPage[1].map((op, index) => {
+                        const isSelected = choice[0] === op;
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => handleChoose(0, op)}
+                            className="p-3 rounded"
+                            style={{
+                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                              color: isSelected ? "white" : "#234970",
+                              border: "1px solid #99CBC8",
+                              cursor: "pointer",
+                              transition: "all 0.3s ease",
+                            }}
+                          >
+                            <p className="mb-0 fw-medium">{op}</p>
+                          </div>
+                        );
+                      })}
                     </div>
-                    )}
-                {showChoiceMsg && (
-                 <div className="alert alert-warning mt-3 text-center" role="alert">
-                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                        Por favor, seleciona uma opção antes de continuar.
-                      </div>
+                  </>
                 )}
 
-                {/* Atividade (só ativa depois do vídeo terminar) */}
-                <div className={`border rounded p-3 ${audioEnded[pagina - 1] ? "" : "opacity-50 pe-none"}`}>
-                  {/* Pergunta por página */}
-                  {pagina === 1 && (
-                    <>
-                      <p className="mb-2">
-                        <strong>
-          Depois de veres o vídeo: ao lembrares-te de uma situação em que sentiste ansiedade ou medo de falhar e em que acabaste por dar a volta, como avalias agora a tua capacidade de o conseguir outra vez?
-                        </strong>
-                      </p>
-                      <div className="d-flex flex-wrap">
-                        {optionsByPage[1].map((op) => (
-                          <button
-                            key={op}
-                            className={`btn btn-sm me-2 mb-2 ${choice[0] === op ? "btn-primary" : "btn-outline-primary"}`}
-                            onClick={() => handleChoose(0, op)}
-                          >
-                            {op}
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
-
-                  {pagina === 2 && (
-                    <>
-                      <p className="mb-2">
-                        <strong>
-            Depois de veres o vídeo: ao lembrares-te de alguém que viste a ultrapassar um desafio que também te parecia difícil, o que é que esse exemplo te faz acreditar sobre a tua própria capacidade?
-                        </strong>
-                      </p>
-                      <div className="d-flex flex-wrap">
-                        {optionsByPage[2].map((op) => (
-                          <button
-                            key={op}
-                            className={`btn btn-sm me-2 mb-2 ${choice[1] === op ? "btn-primary" : "btn-outline-primary"}`}
+                {/* Página 2 */}
+                {pagina === 2 && (
+                  <>
+                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      {titles[2]}
+                    </h4>
+                    <p className="lead mb-4">
+                      Ao lembrares-te de alguém que viste a ultrapassar um desafio que também te parecia difícil, o que é que esse exemplo te faz acreditar sobre a tua própria capacidade?
+                    </p>
+                    <div className="d-flex flex-column gap-3">
+                      {optionsByPage[2].map((op, index) => {
+                        const isSelected = choice[1] === op;
+                        return (
+                          <div
+                            key={index}
                             onClick={() => handleChoose(1, op)}
+                            className="p-3 rounded"
+                            style={{
+                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                              color: isSelected ? "white" : "#234970",
+                              border: "1px solid #99CBC8",
+                              cursor: "pointer",
+                              transition: "all 0.3s ease",
+                            }}
                           >
-                            {op}
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
+                            <p className="mb-0 fw-medium">{op}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
 
-                  {pagina === 3 && (
-                    <>
-                      <p className="mb-2">
-                        <strong>
-          Depois de veres o vídeo: pensa numa situação em que alguém acreditou em ti. Como te sentiste ao ouvir essas palavras e o que isso te leva a pensar sobre tentares algo novo?
-                        </strong>
-                      </p>
-                      <div className="d-flex flex-wrap">
-                        {optionsByPage[3].map((op) => (
-                          <button
-                            key={op}
-                            className={`btn btn-sm me-2 mb-2 ${choice[2] === op ? "btn-primary" : "btn-outline-primary"}`}
+                {/* Página 3 */}
+                {pagina === 3 && (
+                  <>
+                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      {titles[3]}
+                    </h4>
+                    <p className="lead mb-4">
+                      Ao lembrares-te de uma situação em que alguém acreditou em ti. Como te sentiste ao ouvir essas palavras e o que isso te leva a pensar sobre tentares algo novo?
+                    </p>
+                    <div className="d-flex flex-column gap-3">
+                      {optionsByPage[3].map((op, index) => {
+                        const isSelected = choice[2] === op;
+                        return (
+                          <div
+                            key={index}
                             onClick={() => handleChoose(2, op)}
+                            className="p-3 rounded"
+                            style={{
+                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                              color: isSelected ? "white" : "#234970",
+                              border: "1px solid #99CBC8",
+                              cursor: "pointer",
+                              transition: "all 0.3s ease",
+                            }}
                           >
-                            {op}
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
+                            <p className="mb-0 fw-medium">{op}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
 
-                  {pagina === 4 && (
-                    <>
-                      <p className="mb-2">
-                        <strong>
-          Depois de veres o vídeo: lembra-te de quando sentiste, no corpo e na mente, que ia correr bem e que serias capaz. Neste momento, qual destas frases descreve melhor como te sentes?
-                        </strong>
-                      </p>
-                      <div className="d-flex flex-wrap">
-                        {optionsByPage[4].map((op) => (
-                          <button
-                            key={op}
-                            className={`btn btn-sm me-2 mb-2 ${choice[3] === op ? "btn-primary" : "btn-outline-primary"}`}
+                {/* Página 4 */}
+                {pagina === 4 && (
+                  <>
+                    <h4 className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      {titles[4]}
+                    </h4>
+                    <p className="lead mb-4">
+                      Ao lembrares-te de uma situação em que sentiste, no corpo e na mente, que ia correr bem e que serias capaz, qual destas frases descreve melhor como te sentes neste momento?
+                    </p>
+                    <div className="d-flex flex-column gap-3">
+                      {optionsByPage[4].map((op, index) => {
+                        const isSelected = choice[3] === op;
+                        return (
+                          <div
+                            key={index}
                             onClick={() => handleChoose(3, op)}
+                            className="p-3 rounded"
+                            style={{
+                              backgroundColor: isSelected ? "#99CBC8" : "#ffffff",
+                              color: isSelected ? "white" : "#234970",
+                              border: "1px solid #99CBC8",
+                              cursor: "pointer",
+                              transition: "all 0.3s ease",
+                            }}
                           >
-                            {op}
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                {/* Navegação */}
-                <div className="d-flex justify-content-between mt-4">
-                  <button className="custom-btn-pink" onClick={retrocederPagina}>
-                    <i className="bi bi-arrow-left me-2"></i>Anterior
-                  </button>
-                  <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                    {pagina === 4 ? "Conclusão" : "Próximo"}
-                    <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
-                </div>
+                            <p className="mb-0 fw-medium">{op}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
-            )}
 
+              {/* Navegação */}
+              <div className="d-flex justify-content-between mt-4">
+                <button className="custom-btn-pink" onClick={retrocederPagina}>
+                  <i className="bi bi-arrow-left me-2"></i>Anterior
+                </button>
+                <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                  {pagina === 4 ? "Conclusão" : "Próximo"}
+                  <i className="bi bi-arrow-right ms-2"></i>
+                </button>
+              </div>
+            </div>
+          )}
             {/* PÁGINA 5 - CONCLUSÃO */}
             {pagina === 5 && (
               <>
