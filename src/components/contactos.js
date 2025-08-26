@@ -35,7 +35,7 @@ const Contactos = () => {
                 
                 <a
                   href="mailto:catarinaamonteiro@ua.pt"
-                  style={{ color: '#2A7F7F', textDecoration: 'none', fontWeight: '500' }}
+                  style={{ color: '#99CBC8', textDecoration: 'none', fontWeight: '500' }}
                   aria-label="Enviar e-mail para Catarina Monteiro"
                 >
                   catarinaamonteiro@ua.pt
@@ -56,7 +56,7 @@ const Contactos = () => {
                   <strong>Linha S.O.S. Adolescente:</strong>{' '}
                   <a
                     href="tel:800202484"
-                    style={{ color: '#2A7F7F', textDecoration: 'none' }}
+                    style={{ color: '#99CBC8', textDecoration: 'none' }}
                     aria-label="Ligar para Linha S.O.S. Adolescente 800 202 484"
                   >
                     800 202 484
@@ -66,7 +66,7 @@ const Contactos = () => {
                   <strong>Linha Jovem:</strong>{' '}
                   <a
                     href="tel:800208020"
-                    style={{ color: '#2A7F7F', textDecoration: 'none' }}
+                    style={{ color: '#99CBC8', textDecoration: 'none' }}
                     aria-label="Ligar para Linha Jovem 800 208 020"
                   >
                     800 208 020
