@@ -16,6 +16,7 @@ const JaFosteCapaz = () => {
   const [showChoiceMsg, setShowChoiceMsg] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState({ feedback: "" });
+  const handleAudioPlay = () => setShowAudioMsg(false);
   const progresso = Math.round((pagina / 5) * 100);
 
 
@@ -132,7 +133,8 @@ const JaFosteCapaz = () => {
     next[idx] = value;
     return next;
   });
-
+  setShowChoiceMsg(false); 
+  
   const page = idx + 1;
   const msg = feedbackMsgs[page]?.[value];
   if (msg) {
@@ -293,6 +295,7 @@ const JaFosteCapaz = () => {
                     disablePictureInPicture
                     preload="none"
                     onContextMenu={(e) => e.preventDefault()}
+                    onPlay={handleAudioPlay} 
                     onEnded={() => handleEnded(pagina - 1)}
                     style={{ width: "100%" }}
                   >
