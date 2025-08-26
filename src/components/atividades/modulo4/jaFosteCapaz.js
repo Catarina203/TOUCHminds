@@ -173,74 +173,63 @@ const JaFosteCapaz = () => {
   4: "O que o teu Corpo te diz antes dos desafios",
 };
 
-          // Modal component (igual ao teu exemplo, com prop nextLabel)
-          const Modal = ({ show, onClose, content, nextLabel }) => {
-            if (!show) return null;
+          // Modal component (igual ao teu, mas com onNext no botão primário)
+        const Modal = ({ show, onClose, onNext, content, nextLabel }) => {
+          if (!show) return null;
 
-            return (
-              <div
-                className="modal fade show"
-                style={{
-                  display: "block",
-                  backgroundColor: "rgba(0,0,0,0.5)",
-                }}
-              >
-                <div className="modal-dialog modal-dialog-centered modal-lg">
-                  <div className="modal-content">
-                    <div
-                      className="modal-header"
+          return (
+            <div
+              className="modal fade show"
+              style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+            >
+              <div className="modal-dialog modal-dialog-centered modal-lg">
+                <div className="modal-content">
+                  <div
+                    className="modal-header"
+                    style={{ backgroundColor: "#99CBC8", borderBottom: "none", color: "#fff" }}
+                  >
+                    <h5 className="modal-title w-100 text-center" style={{ fontWeight: 600 }}>
+                      Feedback da tua escolha!
+                    </h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      style={{ filter: "invert(1)" }}
+                      aria-label="Close"
+                      onClick={onClose}
+                    />
+                  </div>
+
+                  <div className="modal-body pt-4 ps-4 pe-4">
+                    <p className="lead text-start">{content.feedback}</p>
+                  </div>
+
+                  <div
+                    className="modal-footer"
+                    style={{ borderTop: "none", backgroundColor: "#F5FDFC", justifyContent: "center" }}
+                  >
+                    <button
+                      type="button"
+                      onClick={onNext} // <-- AVANÇA AO CLICAR "Próximo"
                       style={{
-                        backgroundColor: "#99CBC8",
-                        borderBottom: "none",
-                        color: "#fff",
+                        backgroundColor: "#234970",
+                        border: "none",
+                        color: "white",
+                        borderRadius: "20px",
+                        padding: "0.5rem 1.5rem",
+                        fontWeight: 500,
+                        boxShadow: "none",
+                        outline: "none",
                       }}
                     >
-                      <h5 className="modal-title w-100 text-center" style={{ fontWeight: 600 }}>
-                        Impacto da tua escolha!
-                      </h5>
-                      <button
-                        type="button"
-                        className="btn-close"
-                        style={{ filter: "invert(1)" }}
-                        aria-label="Close"
-                        onClick={onClose}
-                      />
-                    </div>
-
-                    <div className="modal-body pt-4 ps-4 pe-4">
-                      <p className="lead text-start">{content.feedback}</p>
-                    </div>
-
-                    <div
-                      className="modal-footer"
-                      style={{
-                        borderTop: "none",
-                        backgroundColor: "#F5FDFC",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <button
-                        type="button"
-                        onClick={onClose}
-                        style={{
-                          backgroundColor: "#234970",
-                          border: "none",
-                          color: "white",
-                          borderRadius: "20px",
-                          padding: "0.5rem 1.5rem",
-                          fontWeight: 500,
-                          boxShadow: "none",
-                          outline: "none",
-                        }}
-                      >
-                        {nextLabel}
-                      </button>
-                    </div>
+                      {nextLabel}
+                    </button>
                   </div>
                 </div>
               </div>
-            );
-          };
+            </div>
+          );
+        };
 
  return (
     <div className="container-fluid vh-100 p-0 font-poppins">
@@ -332,7 +321,7 @@ const JaFosteCapaz = () => {
                   {/* Página 1 */}
                   {pagina === 1 && (
                     <>
-                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      <p className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                         Ao lembrares-te de uma situação em que sentiste ansiedade ou medo de falhar e em que acabaste por dar a volta, como avalias agora a tua capacidade de o conseguir outra vez?
                       </p>
                       <div className="d-flex flex-column gap-3 text-start">
@@ -362,7 +351,7 @@ const JaFosteCapaz = () => {
                   {/* Página 2 */}
                   {pagina === 2 && (
                     <>
-                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      <p className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                         Ao lembrares-te de alguém que viste a ultrapassar um desafio que também te parecia difícil, o que é que esse exemplo te faz acreditar sobre a tua própria capacidade?
                       </p>
                       <div className="d-flex flex-column gap-3 text-start">
@@ -392,7 +381,7 @@ const JaFosteCapaz = () => {
                   {/* Página 3 */}
                   {pagina === 3 && (
                     <>
-                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      <p className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                         Ao lembrares-te de uma situação em que alguém acreditou em ti. Como te sentiste ao ouvir essas palavras e o que isso te leva a pensar sobre tentares algo novo?
                       </p>
                       <div className="d-flex flex-column gap-3 text-start">
@@ -422,7 +411,7 @@ const JaFosteCapaz = () => {
                   {/* Página 4 */}
                   {pagina === 4 && (
                     <>
-                      <p className="fw-bold mb-4" style={{ color: "#234970" }}>
+                      <p className="text-center fw-bold mb-4" style={{ color: "#234970" }}>
                         Ao lembrares-te de uma situação em que sentiste, no corpo e na mente, que ia correr bem e que serias capaz, qual destas frases descreve melhor como te sentes neste momento?
                       </p>
                       <div className="d-flex flex-column gap-3 text-start">
@@ -463,12 +452,17 @@ const JaFosteCapaz = () => {
               </>
             )}
 
-                <Modal
+              <Modal
                   show={showModal}
                   onClose={() => {
+                    // X apenas fecha o modal
                     setShowModal(false);
-                    // Se quiseres avançar automaticamente ao fechar o modal, descomenta a linha:
-                    // if (choice[pagina - 1]) avancarPagina();
+                  }}
+                  onNext={() => {
+                    // "Próximo" fecha e AVANÇA de página
+                    setShowModal(false);
+                    // usa a tua função de navegação (respeita as regras/gating que já tens)
+                    avancarPagina();
                   }}
                   content={modalContent}
                   nextLabel={pagina === 4 ? "Conclusão" : "Próximo"}
