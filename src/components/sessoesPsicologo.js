@@ -606,30 +606,81 @@ export default function SessoesPsicologo() {
             <div className="modal d-block" tabIndex="-1" role="dialog" style={{ background:'rgba(0,0,0,0.35)' }}>
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
+
+                  {/* Header: só o título */}
                   <div className="modal-header">
                     <h5 className="modal-title">Reagendar sessão</h5>
+                  </div>
+
+                  {/* Body: conteúdo do teu modal (ex.: mensagens, inputs, slots...) */}
+                  <div className="modal-body">
+                    {msgReagendar && <div className={`alert alert-${msgReagendar.tipo}`}>{msgReagendar.texto}</div>}
+
+                    <div className="mb-3">
+                      <label className="form-label">Novo dia</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={novoDia}
+                        min={minDate}
+                        onChange={e=>setNovoDia(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="mb-2">
+                      <label className="form-label">Nova hora</label>
+                      <div className="d-flex flex-wrap gap-2">
+                        {loadingReagendar && <span className="text-muted">A carregar…</span>}
+                        {!loadingReagendar && horasReagendar.length===0 && <span className="text-muted">Sem horários livres neste dia.</span>}
+                        {horasReagendar.map(h=>(
+                          <button
+                            key={h}
+                            type="button"
+                            onClick={()=>setNovaHora(h)}
+                            style={novaHora===h
+                              ? { background:'#99CBC8', color:'#fff', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
+                              : { background:'transparent', color:'#99CBC8', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
+                            }
+                          >
+                            {h}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Footer: botões com as cores do header */}
+                  <div className="modal-footer">
                     <button
-                                onClick={()=>setShowReagendar(false)}
-                                style={{ background:'#FBF9F9', color:'#234970', border:'none', borderRadius:8, padding:'8px 16px', fontWeight:600 }}
-                              >
-                                Fechar
-                              </button>
-                              <button
-                                onClick={reagendarAgendamento}
-                                disabled={!novaHora || loadingReagendar}
-                                style={{
-                                  background:'#99CBC8',
-                                  color:'#fff',
-                                  border:'none',
-                                  borderRadius:8,
-                                  padding:'8px 16px',
-                                  fontWeight:600,
-                                  opacity:(!novaHora||loadingReagendar)?0.7:1,
-                                  cursor:(!novaHora||loadingReagendar)?'not-allowed':'pointer'
-                                }}
-                              >
-                                {loadingReagendar ? 'A reagendar…' : 'Confirmar'}
-                              </button>
+                      onClick={()=>setShowReagendar(false)}
+                      style={{
+                        background:'#FBF9F9',
+                        color:'#234970',
+                        border:'none',
+                        borderRadius:8,
+                        padding:'8px 16px',
+                        fontWeight:600
+                      }}
+                    >
+                      Fechar
+                    </button>
+
+                    <button
+                      onClick={reagendarAgendamento}
+                      disabled={!novaHora || loadingReagendar}
+                      style={{
+                        background:'#99CBC8',
+                        color:'#fff',
+                        border:'none',
+                        borderRadius:8,
+                        padding:'8px 16px',
+                        fontWeight:600,
+                        opacity:(!novaHora||loadingReagendar)?0.7:1,
+                        cursor:(!novaHora||loadingReagendar)?'not-allowed':'pointer'
+                      }}
+                    >
+                      {loadingReagendar ? 'A reagendar…' : 'Confirmar'}
+                    </button>
                   </div>
                   <div className="modal-body">
                     {msgReagendar && <div className={`alert alert-${msgReagendar.tipo}`}>{msgReagendar.texto}</div>}
