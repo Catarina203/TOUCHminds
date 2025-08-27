@@ -2,11 +2,10 @@ import { useEffect, useRef } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../database/database";
 
-const diasPassados = (dataISO) => {
-  if (!dataISO) return 0;
-  const dataDesbloqueio = new Date(dataISO);
-  const agora = new Date();
-  return Math.floor((agora - dataDesbloqueio) / (1000 * 60 * 60 * 24));
+const diasPassados = (data) => {
+  const d = data?.toDate ? data.toDate() : new Date(data); 
+  if (!d || isNaN(d)) return 0;
+  return Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
 };
 
 // Define quantos dias de intervalo são necessários entre cada módulo
