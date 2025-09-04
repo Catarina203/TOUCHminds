@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { House, Envelope, Trophy, People, Gear } from 'react-bootstrap-icons';
+import { House, Envelope, Trophy, People, PersonWorkspace } from 'react-bootstrap-icons';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const Sidebar = () => {
     { icon: <Envelope />, text: 'Progresso', path: '/progresso' },
     { icon: <Trophy />, text: 'Conquistas', path: '/conquistas' },
     { icon: <People />, text: 'Contactos', path: '/contactos' },
-    { icon: <People />, text: 'Sessões com o Psicólogo', path: '/sessoesPsicologo' },
+    { icon: <PersonWorkspace />, text: 'Sessões com o Psicólogo', path: '/sessoesPsicologo' },
   ];
 
   return (
