@@ -146,7 +146,7 @@ export async function loginAluno(codigoParticipante, password) {
     const logins = userData.periodicidade.logins || [];
     logins.push(`Login realizado em ${formatoData}`);
 
-    await updateDoc(userRef, {
+ await updateDoc(userRef, {
   "periodicidade.logins": arrayUnion(serverTimestamp()),
 });
 
@@ -171,31 +171,26 @@ try {
 
 export async function logoutAluno() {
   try {
-    const userRef = doc(db, "alunos", auth.currentUser.uid);
-          const docSnap = await getDoc(userRef);
-          const userData = docSnap.data();
-    
-          const logouts = userData?.periodicidade?.logouts || [];
-    
-          const dataAtual = new Date();
-          const formatoData = dataAtual.toLocaleDateString('pt-PT', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-    
-          logouts.push(`Logout realizado em ${formatoData}`);
-    
-          await updateDoc(userRef, {
-            "periodicidade.logouts": arrayUnion(serverTimestamp()),
-          });
+    const user = auth.currentUser;
+    if (!user) {
+      // Já não há sessão — evita erros e sai silenciosamente
+      await signOut(auth).catch(() => {});
+      return;
+    }
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    // Regista logout como Timestamp numa lista (consistente com o login)
+    await updateDoc(userRef, {
+      "periodicidade.logouts": arrayUnion(serverTimestamp()),
+    });
 
     await signOut(auth);
     console.log("Logout realizado com sucesso.");
   } catch (error) {
-    console.error("Erro ao fazer logout:", error.message);
+    console.error("Erro ao fazer logout:", error);
+    // Mesmo com erro no write, tenta terminar sessão para não “ficar preso”
+    try { await signOut(auth); } catch {}
     throw error;
   }
 }
