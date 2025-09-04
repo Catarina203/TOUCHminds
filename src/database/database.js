@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc } from "firebase/firestore";
+import {
+  getFirestore, doc, setDoc, getDoc, collection, query, where,
+  getDocs, updateDoc, serverTimestamp, arrayUnion
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB3zTp5CC9lIvNwt1XN1l69lMobSfOgMyg",
@@ -72,14 +75,15 @@ export async function registerAluno(codigoParticipante, password) {
       },
       modulos: {
         // ter em conta o numero de atividades de cada modulo
-        modulo1: { status: "desbloqueado", desafioSemanal: [], mensagemdefim: "naomostrada",
-          atividades: [
-          { status: "desbloqueado", concluido: false },
-          { status: "bloqueado", concluido: false },
-          { status: "bloqueado", concluido: false },
-          { status: "bloqueado", concluido: false },
-          { status: "bloqueado", concluido: false }
-        ]},
+         modulo1: { status: "desbloqueado", dataInicio: serverTimestamp(), desafioSemanal: [], mensagemdefim: "naomostrada",
+           atividades: [
+             { status: "desbloqueado", concluido: false },
+             { status: "bloqueado", concluido: false },
+             { status: "bloqueado", concluido: false },
+             { status: "bloqueado", concluido: false },
+             { status: "bloqueado", concluido: false }
+           ]
+         },
         modulo2: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
@@ -143,8 +147,19 @@ export async function loginAluno(codigoParticipante, password) {
     logins.push(`Login realizado em ${formatoData}`);
 
     await updateDoc(userRef, {
-      "periodicidade.logins": logins
-    });
+  "periodicidade.logins": arrayUnion(serverTimestamp()),
+});
+
+try {
+ const m1 = userData?.modulos?.modulo1;
+ if (m1 && m1.status === "desbloqueado" && !m1.dataInicio) {
+ await updateDoc(userRef, {
+ "modulos.modulo1.dataInicio": serverTimestamp(),
+ });
+ }
+} catch (e) {
+ console.warn("Não foi possível definir dataInicio do modulo1:", e);
+ }
 
     console.log("Login realizado com sucesso:", codigoParticipante);
     return user;
@@ -174,7 +189,7 @@ export async function logoutAluno() {
           logouts.push(`Logout realizado em ${formatoData}`);
     
           await updateDoc(userRef, {
-            "periodicidade.logouts": logouts
+            "periodicidade.logouts": arrayUnion(serverTimestamp()),
           });
 
     await signOut(auth);

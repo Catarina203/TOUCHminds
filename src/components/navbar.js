@@ -101,10 +101,20 @@ const verificarNotificacoesSemanais = () => {
 
   const modulos = userData?.modulos || {};
   const ativo = moduloAtivo(modulos); // usa a função do topo
-  if (!ativo?.dataInicio) return;
+
+  console.log('[NAVBAR] ativo:', ativo?.nome, 'status:', ativo?.status);
+
+  // Sem módulo ativo/sem dataInicio -> aborta este render
+  if (!ativo?.dataInicio) {
+    console.warn('[NAVBAR] dataInicio ainda não disponível; a aguardar próxima leitura do Firestore…');
+    return;
+  }
 
   const inicio = toDateSafe(ativo.dataInicio);
-  if (!inicio || isNaN(inicio.getTime())) return;
+  if (!inicio || isNaN(inicio.getTime())) {
+    console.warn('[NAVBAR] dataInicio veio num formato inesperado; abortar este ciclo.');
+    return;
+  }
 
   const atividades = Array.isArray(ativo?.atividades) ? ativo.atividades : [];
   const total = atividades.length;
@@ -114,6 +124,8 @@ const verificarNotificacoesSemanais = () => {
   const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14
   const fimPrazoDia = addDaysLocal(inicio, diasJanela);         // 00:00
   if (!fimPrazoDia) return;
+
+  console.log('[NAVBAR] inicio:', inicio, 'fimPrazoDia:', fimPrazoDia, 'progresso:', progressoModulo);
 
   // 1) Prazo passou
   if (hojeDia.getTime() >= fimPrazoDia.getTime() && progressoModulo < 100) {
