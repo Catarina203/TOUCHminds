@@ -31,10 +31,8 @@ const moduloAtivo = (modulos) => {
 
   for (const nome of nomes) {
     const m = modulos[nome];
-    const atividades = Array.isArray(m?.atividades) ? m.atividades : [];
-    const porFazer = atividades.some(a => !a?.concluido);
     const status = (m?.status || '').toLowerCase().replace(/\s+/g, '');
-    if (porFazer && (status === 'desbloqueado' || status === 'emprogresso')) {
+    if (status === 'desbloqueado' || status === 'emprogresso') {
       return { nome, ...m };
     }
   }
@@ -98,47 +96,44 @@ useEffect(() => {
 const verificarNotificacoesSemanais = () => {
   if (!userData) return;
 
-  const hoje = new Date();
-  const hojeDia = startOfLocalDay(hoje);
+  const now = new Date();
+  const hojeDia = startOfLocalDay(now);
 
   const modulos = userData?.modulos || {};
-  const ativo = moduloAtivo(modulos); // módulo desbloqueado/em progresso com tarefas por fazer
+  const ativo = moduloAtivo(modulos); // usa a função do topo
   if (!ativo?.dataInicio) return;
 
-const inicio = toDateSafe(ativo.dataInicio);
-if (!inicio || isNaN(inicio.getTime())) return;
+  const inicio = toDateSafe(ativo.dataInicio);
+  if (!inicio || isNaN(inicio.getTime())) return;
 
   const atividades = Array.isArray(ativo?.atividades) ? ativo.atividades : [];
   const total = atividades.length;
   const concluidas = atividades.filter(a => a?.concluido).length;
-  // Para notificações, se não há atividades ainda, tratamos como 0% (novo módulo)
   const progressoModulo = total > 0 ? (concluidas / total) * 100 : 0;
 
-  // ------ janela e fim às 00:00 local ------
   const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14
-  const fimPrazoDia = addDaysLocal(inicio, diasJanela);         // 00:00 do dia de fecho
+  const fimPrazoDia = addDaysLocal(inicio, diasJanela);         // 00:00
   if (!fimPrazoDia) return;
 
-  // ======= PRIORIDADES (exclusivas) =======
-  // 1) PRAZO PASSOU (>= fim) e progresso < 100% → 1x por login
-  if (startOfLocalDay(new Date()).getTime() >= fimPrazoDia.getTime() && progressoModulo < 100) {
+  // 1) Prazo passou
+  if (hojeDia.getTime() >= fimPrazoDia.getTime() && progressoModulo < 100) {
     showOncePerLogin("Ainda há um módulo por acabar. Retoma-o para não quebrares o teu progresso.");
     return;
   }
 
-  // 2) FALTAM <= 48H para o fim e progresso < 100% → 1x por login
-  const msAteFim = fimPrazoDia.getTime() - new Date().getTime();
+  // 2) Faltam <= 48h
+  const msAteFim = fimPrazoDia.getTime() - now.getTime();
   if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000 && progressoModulo < 100) {
     showOncePerLogin("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
     return;
   }
 
-  // 3) DESDE O DIA DO DESBLOQUEIO EM DIANTE: se progresso === 0% → 1x por login
-  if (startOfLocalDay(new Date()).getTime() >= startOfLocalDay(inicio).getTime() && progressoModulo === 0) {
+  // 3) Desde o dia do desbloqueio em diante com 0%
+  if (hojeDia.getTime() >= startOfLocalDay(inicio).getTime() && progressoModulo === 0) {
     showOncePerLogin("Novo módulo! Explora hoje as atividades e dá mais um passo.");
     return;
   }
-  };
+};
 
  useEffect(() => {
   if (userData) verificarNotificacoesSemanais();
