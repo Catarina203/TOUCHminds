@@ -45,7 +45,7 @@ export async function registerAluno(codigoParticipante, password) {
       throw new Error("Lista de códigos não encontrada.");
     }
 
-    const codigosArray = docSnap.data().codigos; // Array de códigos autorizados
+    const codigosArray = docSnap.data().codigo; // Array de códigos autorizados
     if (!codigosArray.includes(codigoParticipante)) {
       throw new Error("Este código de participante não é válido.");
     }
