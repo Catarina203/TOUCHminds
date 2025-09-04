@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BoxArrowRight, List, House, Envelope, Trophy, People, Gear,  } from 'react-bootstrap-icons';
 import { UserContext } from '../App';
@@ -16,13 +16,22 @@ import avatar8 from "../imgs/avatar8.jpg";
 import avatar9 from "../imgs/avatar9.jpg";
 import avatar10 from "../imgs/avatar10.jpg";
 
-const toDateSafe = (val) => (val?.toDate ? val.toDate() : new Date(val));
-const startOfLocalDay = (d) => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
-const addDaysLocal = (val, days) => {
-  const d = toDateSafe(val); if (!d || isNaN(d)) return null;
-  const base = startOfLocalDay(d); base.setDate(base.getDate() + days); return base;
+// ===== helpers de tempo e seleção de módulos =====
+const addDaysLocal = (iso, days) => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  const out = new Date(d);
+  out.setDate(out.getDate() + days);
+  return out;
 };
 
+const isSameDay = (a, b) =>
+  a.getFullYear() === b.getFullYear() &&
+  a.getMonth() === b.getMonth() &&
+  a.getDate() === b.getDate();
+
+
+// encontra o primeiro módulo desbloqueado/em progresso com atividades por concluir
 const moduloAtivo = (modulos) => {
   if (!modulos) return null;
   const nomes = Object.keys(modulos)
@@ -31,16 +40,38 @@ const moduloAtivo = (modulos) => {
 
   for (const nome of nomes) {
     const m = modulos[nome];
-    const status = (m?.status || '').toLowerCase().replace(/\s+/g, '');
-    if (status === 'desbloqueado' || status === 'emprogresso') {
+    const atividades = m?.atividades || [];
+    const porFazer = atividades.some(a => !a?.concluido);
+    if (porFazer && m?.status === 'desbloqueado') {
       return { nome, ...m };
     }
   }
   return null;
 };
 
+// cálculo do próximo desbloqueio, caso o backend ainda não tenha marcado
 const numeroModulo = (nome) => parseInt(String(nome).replace("modulo",""), 10);
 const intervaloEntre = (n) => ([1,3,5].includes(n) ? 7 : [2,4].includes(n) ? 14 : 7);
+
+const proximoDesbloqueioCalculado = (modulos) => {
+  if (!modulos) return null;
+  const nomes = Object.keys(modulos)
+    .filter(k => /^modulo\d+$/i.test(k))
+    .sort((a,b) => numeroModulo(a) - numeroModulo(b));
+
+  for (let i = 0; i < nomes.length - 1; i++) {
+    const atual = modulos[nomes[i]];
+    const seguinteNome = nomes[i+1];
+    const seguinte = modulos[seguinteNome];
+    if (seguinte?.status === 'bloqueado' && atual?.dataFim) {
+      const dias = intervaloEntre(numeroModulo(nomes[i]));
+      const abreEm = addDaysLocal(atual.dataFim, dias);
+      if (abreEm) return { alvo: seguinteNome, abreEm };
+    }
+  }
+  return null;
+};
+
 
 const Navbar = () => {
   const avatarOptions = [
@@ -78,78 +109,50 @@ const Navbar = () => {
   };
 
   const toggleTooltip = () => setShowTooltip(prev => !prev);
-  
-  const shownThisLoginRef = useRef(false);
- 
-  const showOncePerLogin = (msg) => {
-  if (shownThisLoginRef.current) return;
-  setNotificacaoSemanal(msg);
-  setNotificacaoVisivel(true);
-  shownThisLoginRef.current = true;
-  };
 
-useEffect(() => {
-  shownThisLoginRef.current = false;
-}, [userData?.uid]);
-
-
-const verificarNotificacoesSemanais = () => {
-  if (!userData) return;
-
-  const now = new Date();
-  const hojeDia = startOfLocalDay(now);
-
+ const verificarNotificacoesSemanais = () => {
+  const hoje = new Date();
   const modulos = userData?.modulos || {};
-  const ativo = moduloAtivo(modulos); // usa a função do topo
+  const ativo = moduloAtivo(modulos); // módulo desbloqueado ou em progresso
 
-  console.log('[NAVBAR] ativo:', ativo?.nome, 'status:', ativo?.status);
+  if (!ativo?.dataInicio) return;
 
-  // Sem módulo ativo/sem dataInicio -> aborta este render
-  if (!ativo?.dataInicio) {
-    console.warn('[NAVBAR] dataInicio ainda não disponível; a aguardar próxima leitura do Firestore…');
+  const inicio = new Date(ativo.dataInicio);
+  const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14 dias
+  const fimPrazo = addDaysLocal(ativo.dataInicio, diasJanela);
+  const msAteFim = fimPrazo - hoje;
+
+  const todayStr = hoje.toDateString();
+  const lastShown = localStorage.getItem('lastNotificationDate');
+
+  // ---- 1) NOVO MÓDULO (no dia em que desbloqueia) ----
+  if (isSameDay(hoje, inicio) && lastShown !== todayStr) {
+
+    setNotificacaoSemanal("Novo módulo! Explora hoje as atividades e dá mais um passo.");
+    setNotificacaoVisivel(true);
+    localStorage.setItem('lastNotificationDate', todayStr);
     return;
   }
 
-  const inicio = toDateSafe(ativo.dataInicio);
-  if (!inicio || isNaN(inicio.getTime())) {
-    console.warn('[NAVBAR] dataInicio veio num formato inesperado; abortar este ciclo.');
+  // ---- 2) QUANDO ESTÁ QUASE A TERMINAR (faltam <= 48h) ----
+  if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000 && lastShown !== todayStr) {
+    setNotificacaoSemanal("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
+    setNotificacaoVisivel(true);
+    localStorage.setItem('lastNotificationDate', todayStr);
     return;
   }
 
-  const atividades = Array.isArray(ativo?.atividades) ? ativo.atividades : [];
-  const total = atividades.length;
-  const concluidas = atividades.filter(a => a?.concluido).length;
-  const progressoModulo = total > 0 ? (concluidas / total) * 100 : 0;
-
-  const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14
-  const fimPrazoDia = addDaysLocal(inicio, diasJanela);         // 00:00
-  if (!fimPrazoDia) return;
-
-  console.log('[NAVBAR] inicio:', inicio, 'fimPrazoDia:', fimPrazoDia, 'progresso:', progressoModulo);
-
-  // 1) Prazo passou
-  if (hojeDia.getTime() >= fimPrazoDia.getTime() && progressoModulo < 100) {
-    showOncePerLogin("Ainda há um módulo por acabar. Retoma-o para não quebrares o teu progresso.");
-    return;
-  }
-
-  // 2) Faltam <= 48h
-  const msAteFim = fimPrazoDia.getTime() - now.getTime();
-  if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000 && progressoModulo < 100) {
-    showOncePerLogin("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
-    return;
-  }
-
-  // 3) Desde o dia do desbloqueio em diante com 0%
-  if (hojeDia.getTime() >= startOfLocalDay(inicio).getTime() && progressoModulo === 0) {
-    showOncePerLogin("Novo módulo! Explora hoje as atividades e dá mais um passo.");
-    return;
+  // ---- 3) QUANDO O PRAZO PASSOU E O MÓDULO NÃO FOI CONCLUÍDO ----
+  if (msAteFim <= 0) {
+    setNotificacaoSemanal("Ainda há um módulo por acabar. Retoma-o para não quebrares o teu progresso.");
+    setNotificacaoVisivel(true);
   }
 };
 
- useEffect(() => {
-  if (userData) verificarNotificacoesSemanais();
-}, [userData?.uid, JSON.stringify(userData?.modulos)]);
+
+  useEffect(() => {
+    if (userData) verificarNotificacoesSemanais();
+  }, [userData]);
 
   useEffect(() => {
     if (notificacaoVisivel) {
@@ -158,6 +161,9 @@ const verificarNotificacoesSemanais = () => {
     }
   }, [notificacaoVisivel]);
   
+useEffect(() => {
+  localStorage.removeItem('lastNotificationDate');
+}, [userData?.uid]);
 
   let avatarSelecionado = avatarOptions.find(a => a.id === userData?.avatarId)?.src;
 

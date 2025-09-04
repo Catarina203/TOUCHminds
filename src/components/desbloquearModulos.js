@@ -1,15 +1,11 @@
 import { useEffect, useRef } from "react";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../database/database";
 
-const toDateSafe = (val) => (val?.toDate ? val.toDate() : new Date(val));
-const startOfLocalDay = (d) => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
-const addDaysLocal = (val, days) => {
-  const d = toDateSafe(val);
-  if (!d || isNaN(d)) return null;
-  const base = startOfLocalDay(d);
-  base.setDate(base.getDate() + days);
-  return base; // 00:00 local do dia alvo
+const diasPassados = (data) => {
+  const d = data?.toDate ? data.toDate() : new Date(data); 
+  if (!d || isNaN(d)) return 0;
+  return Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
 };
 
 // Define quantos dias de intervalo são necessários entre cada módulo
@@ -65,33 +61,32 @@ const useDesbloquearModulos = (userData) => {
           continue;
         }
 
-          const moduloIndex = i + 1;
-          const intervaloNecessario = calcularIntervaloDias(moduloIndex);
+        const diasDesdeFinalizacao = diasPassados(moduloAtual.dataFim);
+        const moduloIndex = i + 1; 
+        const intervaloNecessario = calcularIntervaloDias(moduloIndex);
 
-          const hoje = startOfLocalDay(new Date());
-          const dataAlvo = addDaysLocal(moduloAtual.dataFim, intervaloNecessario);
+        console.log(`Módulo ${nomeAtual} finalizado em ${moduloAtual.dataFim}`);
+        console.log(`Já se passaram ${diasDesdeFinalizacao} dias desde a conclusão`);
 
-          console.log(`Módulo ${nomeAtual} finalizado em ${moduloAtual?.dataFim}`);
-          console.log(`Data alvo para desbloquear ${nomeSeguinte}: ${dataAlvo?.toString()}`);
-          if (dataAlvo && hoje.getTime() >= dataAlvo.getTime()) {
-            try {
-              await updateDoc(doc(db, "alunos", userData.uid), {
-                [`modulos.${nomeSeguinte}.status`]: "desbloqueado",
-                [`modulos.${nomeSeguinte}.dataInicio`]: serverTimestamp(),
-              });
-              console.log(`Módulo ${nomeSeguinte} foi desbloqueado (dia de calendário).`);
-              break; // 1 por verificação
-            } catch (error) {
-              console.error("Erro ao desbloquear módulo:", error);
-            }
-          } else if (dataAlvo) {
-            const faltamDias = Math.ceil((dataAlvo - hoje) / (1000 * 60 * 60 * 24));
-            console.log(`Ainda faltam ${faltamDias} dia(s) para desbloquear ${nomeSeguinte}`);
+        if (diasDesdeFinalizacao >= intervaloNecessario) {
+          try {
+            const dataDesbloqueio = new Date().toISOString();
+            await updateDoc(doc(db, "alunos", userData.uid), {
+              [`modulos.${nomeSeguinte}.status`]: "desbloqueado",
+              [`modulos.${nomeSeguinte}.dataInicio`]: dataDesbloqueio,
+            });
+            console.log(`Módulo ${nomeSeguinte} foi desbloqueado com sucesso!`);
+            break; 
+          } catch (error) {
+            console.error("Erro ao desbloquear módulo:", error);
           }
+        } else {
+          console.log(`Ainda faltam ${intervaloNecessario - diasDesdeFinalizacao} dias para desbloquear ${nomeSeguinte}`);
         }
-      }; 
+      }
+    };
 
-          console.log("Executando verificação inicial de desbloqueio");
+    console.log("Executando verificação inicial de desbloqueio");
     checkAndUpdate();
 
     // Verificação periódica (a cada 10 minutos)
