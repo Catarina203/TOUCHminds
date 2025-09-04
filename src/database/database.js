@@ -189,8 +189,9 @@ export async function logoutAluno() {
           logouts.push(`Logout realizado em ${formatoData}`);
     
           await updateDoc(userRef, {
-            "periodicidade.logouts": logouts
-          });
+      "periodicidade.logouts": arrayUnion(serverTimestamp()),
+    });
+
 
     await signOut(auth);
     console.log("Logout realizado com sucesso.");
