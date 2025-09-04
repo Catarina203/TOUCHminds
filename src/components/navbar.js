@@ -33,7 +33,7 @@ const moduloAtivo = (modulos) => {
     const m = modulos[nome];
     const atividades = Array.isArray(m?.atividades) ? m.atividades : [];
     const porFazer = atividades.some(a => !a?.concluido);
-    const status = (m?.status || '').toLowerCase();
+    const status = (m?.status || '').toLowerCase().replace(/\s+/g, '');
     if (porFazer && (status === 'desbloqueado' || status === 'emprogresso')) {
       return { nome, ...m };
     }
@@ -109,39 +109,40 @@ const inicio = toDateSafe(ativo.dataInicio);
 if (!inicio || isNaN(inicio.getTime())) return;
 
   const atividades = Array.isArray(ativo?.atividades) ? ativo.atividades : [];
-  const todasConcluidas = atividades.length > 0 && atividades.every(a => a?.concluido === true);
+  const total = atividades.length;
+  const concluidas = atividades.filter(a => a?.concluido).length;
+  // Para notificações, se não há atividades ainda, tratamos como 0% (novo módulo)
+  const progressoModulo = total > 0 ? (concluidas / total) * 100 : 0;
 
+  // ------ janela e fim às 00:00 local ------
   const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14
-  const fimPrazoDia = addDaysLocal(inicio, diasJanela);         // 00:00 local do dia de fecho
+  const fimPrazoDia = addDaysLocal(inicio, diasJanela);         // 00:00 do dia de fecho
   if (!fimPrazoDia) return;
 
-  // 1) Dia do desbloqueio → mostra 1x por login ENQUANTO não fizer nenhuma atividade
-  if (startOfLocalDay(inicio).getTime() === hojeDia.getTime()) {
-    if (!todasConcluidas) {
-      showOncePerLogin("Novo módulo! Explora hoje as atividades e dá mais um passo.");
-    }
-    return;
-  }
-
-  // 2) Faltam <= 48h para o prazo → 1x por login até concluir o módulo
-  const msAteFim = fimPrazoDia.getTime() - hoje.getTime(); // hora real agora
-  if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000) {
-    if (!todasConcluidas) {
-      showOncePerLogin("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
-    }
-    return;
-  }
-
-  // 3) Prazo passou e módulo não concluído → 1x por login
-  if (hojeDia.getTime() >= fimPrazoDia.getTime() && !todasConcluidas) {
+  // ======= PRIORIDADES (exclusivas) =======
+  // 1) PRAZO PASSOU (>= fim) e progresso < 100% → 1x por login
+  if (startOfLocalDay(new Date()).getTime() >= fimPrazoDia.getTime() && progressoModulo < 100) {
     showOncePerLogin("Ainda há um módulo por acabar. Retoma-o para não quebrares o teu progresso.");
+    return;
   }
-};
 
+  // 2) FALTAM <= 48H para o fim e progresso < 100% → 1x por login
+  const msAteFim = fimPrazoDia.getTime() - new Date().getTime();
+  if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000 && progressoModulo < 100) {
+    showOncePerLogin("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
+    return;
+  }
 
-  useEffect(() => {
-    if (userData) verificarNotificacoesSemanais();
-  }, [userData]);
+  // 3) DESDE O DIA DO DESBLOQUEIO EM DIANTE: se progresso === 0% → 1x por login
+  if (startOfLocalDay(new Date()).getTime() >= startOfLocalDay(inicio).getTime() && progressoModulo === 0) {
+    showOncePerLogin("Novo módulo! Explora hoje as atividades e dá mais um passo.");
+    return;
+  }
+  };
+
+ useEffect(() => {
+  if (userData) verificarNotificacoesSemanais();
+}, [userData?.uid, JSON.stringify(userData?.modulos)]);
 
   useEffect(() => {
     if (notificacaoVisivel) {
