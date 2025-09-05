@@ -42,7 +42,7 @@ const Footer = () => {
 
         {/* Texto final */}
         <div className="text-center small" style={{ color: "#f7f7f7" }}>
-          Desenvolvido pelo <strong>Departamento de Psicologia e Educação</strong> da Universidade de Aveiro e pelo <strong>William James Center for Research</strong>, com financiamento da <strong>Fundação para a Ciência e Tecnologia</strong>.
+          Desenvolvido pelo <strong>Departamento de Psicologia e Educação</strong> da Universidade de Aveiro e pelo <strong>William James Center for Research (ref: UIDP/04810/2020)</strong>, com financiamento da <strong>Fundação para a Ciência e Tecnologia</strong>.
         </div>
       </div>
 
