@@ -90,7 +90,7 @@ export default function SessoesPsicologo() {
       } catch {}
     })();
     return ()=>{ cancel=true; };
-  }, []);
+  }, [userData?.uid]);
 
   const minDate = useMemo(()=>fmtDate(new Date()), []);
 
