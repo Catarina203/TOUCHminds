@@ -111,48 +111,50 @@ const Navbar = () => {
 
   const toggleTooltip = () => setShowTooltip(prev => !prev);
 
- const verificarNotificacoesSemanais = () => {
-  const hoje = new Date();
-  const modulos = userData?.modulos || {};
-  const ativo = moduloAtivo(modulos); // módulo desbloqueado ou em progresso
-
-  if (!ativo?.dataInicio) return;
-
-  const inicio = new Date(ativo.dataInicio);
-  const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14 dias
-  const fimPrazo = addDaysLocal(ativo.dataInicio, diasJanela);
-  const msAteFim = fimPrazo - hoje;
-
-  const todayStr = hoje.toDateString();
-  const lastShown = localStorage.getItem('lastNotificationDate');
-
-  // ---- 1) NOVO MÓDULO (no dia em que desbloqueia) ----
-  if (isSameDay(hoje, inicio) && lastShown !== todayStr) {
-
-    setNotificacaoSemanal("Novo módulo! Explora hoje as atividades e dá mais um passo.");
-    setNotificacaoVisivel(true);
-    localStorage.setItem('lastNotificationDate', todayStr);
-    return;
-  }
-
-  // ---- 2) QUANDO ESTÁ QUASE A TERMINAR (faltam <= 48h) ----
-  if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000 && lastShown !== todayStr) {
-    setNotificacaoSemanal("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
-    setNotificacaoVisivel(true);
-    localStorage.setItem('lastNotificationDate', todayStr);
-    return;
-  }
-
-  // ---- 3) QUANDO O PRAZO PASSOU E O MÓDULO NÃO FOI CONCLUÍDO ----
-  if (msAteFim <= 0) {
-    setNotificacaoSemanal("Ainda há um módulo por acabar. Retoma-o para não quebrares o teu progresso.");
-    setNotificacaoVisivel(true);
-  }
-};
-
   useEffect(() => {
-    if (userData) verificarNotificacoesSemanais();
-  }, [userData, verificarNotificacoesSemanais]);
+    if (!userData) return;
+
+    const verificarNotificacoesSemanais = () => {
+    const hoje = new Date();
+    const modulos = userData?.modulos || {};
+    const ativo = moduloAtivo(modulos); // módulo desbloqueado ou em progresso
+
+    if (!ativo?.dataInicio) return;
+
+    const inicio = new Date(ativo.dataInicio);
+    const diasJanela = intervaloEntre(numeroModulo(ativo.nome)); // 7 ou 14 dias
+    const fimPrazo = addDaysLocal(ativo.dataInicio, diasJanela);
+    const msAteFim = fimPrazo - hoje;
+
+    const todayStr = hoje.toDateString();
+    const lastShown = localStorage.getItem('lastNotificationDate');
+
+    // ---- 1) NOVO MÓDULO (no dia em que desbloqueia) ----
+    if (isSameDay(hoje, inicio) && lastShown !== todayStr) {
+
+      setNotificacaoSemanal("Novo módulo! Explora hoje as atividades e dá mais um passo.");
+      setNotificacaoVisivel(true);
+      localStorage.setItem('lastNotificationDate', todayStr);
+      return;
+    }
+
+    // ---- 2) QUANDO ESTÁ QUASE A TERMINAR (faltam <= 48h) ----
+    if (msAteFim > 0 && msAteFim <= 48 * 60 * 60 * 1000 && lastShown !== todayStr) {
+      setNotificacaoSemanal("A semana está quase a terminar! Conclui o módulo e continua a avançar.");
+      setNotificacaoVisivel(true);
+      localStorage.setItem('lastNotificationDate', todayStr);
+      return;
+    }
+
+    // ---- 3) QUANDO O PRAZO PASSOU E O MÓDULO NÃO FOI CONCLUÍDO ----
+    if (msAteFim <= 0) {
+      setNotificacaoSemanal("Ainda há um módulo por acabar. Retoma-o para não quebrares o teu progresso.");
+      setNotificacaoVisivel(true);
+    }
+  };
+      
+    verificarNotificacoesSemanais();
+  }, [userData]);
 
   useEffect(() => {
     if (notificacaoVisivel) {
