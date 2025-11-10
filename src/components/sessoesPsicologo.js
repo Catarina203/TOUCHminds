@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
 import Loading from './loading';
@@ -72,42 +72,48 @@ export default function SessoesPsicologo() {
   });
   const [feriados, setFeriados] = useState(new Set());
 
+  // ---------- CARREGA USERNAME + CONFIG + FERIADOS ----------
   useEffect(() => {
-    let cancel=false;
+    if (!userData?.uid) return; // espera pelo userData
+    let cancel = false;
     (async () => {
       try {
         const userDoc = await getDoc(doc(db, 'alunos', userData.uid));
         if (!cancel && userDoc.exists()) {
           const ud = userDoc.data();
-          const nome = ud.codigoParticipante ?? '';
-          if (nome) setUsername(nome);
+          // tenta vários campos que possam conter o nome/username
+          const nome = ud.codigoParticipante ?? ud.username ?? ud.nome ?? '';
+          if (nome) setUsername(String(nome));
         }
 
         const cfg = await getDoc(doc(db,'settings','schedule'));
-        if(!cancel && cfg.exists()) setConfig(c=>({ ...c, ...cfg.data() }));
+        if (!cancel && cfg.exists()) setConfig(c=>({ ...c, ...cfg.data() }));
+
         const hol = await getDoc(doc(db,'holidays','pt'));
-        if(!cancel && hol.exists() && Array.isArray(hol.data().dates)) setFeriados(new Set(hol.data().dates));
-      } catch {}
+        if (!cancel && hol.exists() && Array.isArray(hol.data().dates)) setFeriados(new Set(hol.data().dates));
+      } catch (err) {
+        console.error('Erro ao carregar utilizador/config/feriados:', err);
+      }
     })();
-    return ()=>{ cancel=true; };
+    return ()=>{ cancel = true; };
   }, [userData?.uid]);
 
   const minDate = useMemo(()=>fmtDate(new Date()), []);
 
-  // Carrega disponibilidade do dia
+  // ---------- Carrega disponibilidade do dia ----------
   useEffect(() => {
     let cancel=false;
     (async () => {
       try {
         setLoadingSlots(true); setMsgAgendar(null); setHoraSel(''); setHoras([]);
-        if (!diaSel) return;
-        if (isPastDate(diaSel)) { setMsgAgendar({tipo:'info',texto:'Não é possível marcar em datas passadas.'}); return; }
-        if (isWeekend(diaSel)) { setMsgAgendar({tipo:'info',texto:'Apenas dias úteis (segunda a sexta).'}); return; }
-        if (feriados.has(diaSel)) { setMsgAgendar({tipo:'info',texto:'Feriado — sem horários disponíveis.'}); return; }
+        if (!diaSel) { setLoadingSlots(false); return; }
+        if (isPastDate(diaSel)) { setMsgAgendar({tipo:'info',texto:'Não é possível marcar em datas passadas.'}); setLoadingSlots(false); return; }
+        if (isWeekend(diaSel)) { setMsgAgendar({tipo:'info',texto:'Apenas dias úteis (segunda a sexta).'}); setLoadingSlots(false); return; }
+        if (feriados.has(diaSel)) { setMsgAgendar({tipo:'info',texto:'Feriado — sem horários disponíveis.'}); setLoadingSlots(false); return; }
 
         const ovSnap = await getDoc(doc(db,'schedule_overrides',diaSel));
         const ov = ovSnap.exists()? ovSnap.data(): null;
-        if (ov?.closed) { setMsgAgendar({tipo:'info',texto:'Não há sessões neste dia.'}); return; }
+        if (ov?.closed) { setMsgAgendar({tipo:'info',texto:'Não há sessões neste dia.'}); setLoadingSlots(false); return; }
 
         let blocks = [
           ...(config.morning?[config.morning]:[]),
@@ -148,13 +154,13 @@ export default function SessoesPsicologo() {
         }
       } catch (e) {
         if (!cancel) setMsgAgendar({tipo:'danger',texto:'Falha ao carregar disponibilidade do dia.'});
+        console.error('Erro ao carregar slots do dia:', e);
       } finally {
         if (!cancel) setLoadingSlots(false);
       }
     })();
     return ()=>{ cancel=true; };
   }, [diaSel, config, feriados]);
-
 
   // -------- Submeter Agendamento (grava e envia e-mails) --------
   async function submeterAgendamento(e) {
@@ -212,6 +218,7 @@ export default function SessoesPsicologo() {
       setFormAgendar({ nome: '', email: '' });
       setHoraSel('');
       setLoadingSlots(true);
+      // força recálculo mantendo o mesmo dia
       setDiaSel((d) => d);
     } catch (e) {
       console.error(e);
@@ -223,7 +230,7 @@ export default function SessoesPsicologo() {
 
   // -------- Consultar Agendamentos --------
   async function consultarAgendamentos(e){
-    e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
     setMsgConsulta(null); setListaAgendamentos(null);
     if (!emailConsulta){ setMsgConsulta({tipo:'danger',texto:'Introduz o teu e-mail.'}); return; }
     try{
@@ -233,7 +240,8 @@ export default function SessoesPsicologo() {
         .sort((a,b)=>`${a.date||''}T${a.hour||''}`.localeCompare(`${b.date||''}T${b.hour||''}`));
       setListaAgendamentos(todos);
       if (!todos.length) setMsgConsulta({tipo:'info',texto:'Sem marcações para este e-mail.'});
-    }catch{
+    }catch(err){
+      console.error('Erro ao consultar agendamentos:', err);
       setMsgConsulta({tipo:'danger',texto:'Não foi possível carregar as tuas marcações.'});
     }finally{ setLoadingConsulta(false); }
   }
@@ -247,7 +255,7 @@ export default function SessoesPsicologo() {
     setShowReagendar(true);
   }
 
-  async function getSlotsLivresParaDia(dia) {
+  const getSlotsLivresParaDia = useCallback(async (dia) => {
     if (isPastDate(dia) || isWeekend(dia) || feriados.has(dia)) return [];
     const ovSnap = await getDoc(doc(db,'schedule_overrides',dia));
     const ov = ovSnap.exists() ? ovSnap.data() : null;
@@ -284,19 +292,25 @@ export default function SessoesPsicologo() {
     const snapDay = await getDocs(query(collection(db,'appointments'), where('date','==',dia)));
     const booked=new Set(snapDay.docs.map(d=>d.data().hour));
     return slots.filter(s=>!booked.has(s));
-  }
+  }, [config, feriados]);
 
   useEffect(() => {
     if (!showReagendar) return;
     let cancel=false;
     (async ()=>{
       setLoadingReagendar(true); setMsgReagendar(null); setNovaHora(''); setHorasReagendar([]);
-      const livres = await getSlotsLivresParaDia(novoDia);
-      if (!cancel) setHorasReagendar(livres);
-      setLoadingReagendar(false);
+      try {
+        const livres = await getSlotsLivresParaDia(novoDia);
+        if (!cancel) setHorasReagendar(livres);
+      } catch (err) {
+        console.error('Erro a carregar slots para reagendar:', err);
+        if (!cancel) setMsgReagendar({ tipo:'danger', texto:'Falha ao carregar horários.' });
+      } finally {
+        if (!cancel) setLoadingReagendar(false);
+      }
     })();
     return ()=>{ cancel=true; };
-  }, [showReagendar, novoDia, config, feriados]);
+  }, [showReagendar, novoDia, getSlotsLivresParaDia]);
 
   async function reagendarAgendamento() {
     if (!reservaReagendar || !novoDia || !novaHora) {
@@ -354,9 +368,11 @@ export default function SessoesPsicologo() {
 
       setShowReagendar(false);
       setMsgConsulta({ tipo:'success', texto:`Reagendado para ${novoDia} às ${novaHora}.` });
-      await consultarAgendamentos(new Event('submit', { cancelable: true }));
+      // chamar consultarAgendamentos sem usar new Event
+      await consultarAgendamentos({ preventDefault: () => {} });
       if (diaSel === novoDia || diaSel === reservaReagendar.date) setDiaSel(d=>d);
     } catch (e) {
+      console.error(e);
       setMsgReagendar({ tipo:'danger', texto: e.message || 'Não foi possível reagendar.' });
     } finally {
       setLoadingReagendar(false);
@@ -474,7 +490,6 @@ export default function SessoesPsicologo() {
                   <hr className="my-4" />
 
                   {/* Formulário */}
-                  
                   <form onSubmit={submeterAgendamento} className="row g-3">
                     <div className="col-12 col-md-6">
                       <label className="form-label">Nome</label>
@@ -497,7 +512,7 @@ export default function SessoesPsicologo() {
                         disabled={!horaSel}
                       />
                     </div>
-                    
+
                     <div className="col-12">
                       <button
                             type="submit"
