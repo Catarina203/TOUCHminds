@@ -150,10 +150,9 @@ const Navbar = () => {
   }
 };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (userData) verificarNotificacoesSemanais();
-  }, [userData]);
+  }, [userData, verificarNotificacoesSemanais]);
 
   useEffect(() => {
     if (notificacaoVisivel) {

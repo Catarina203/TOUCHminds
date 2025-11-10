@@ -278,7 +278,6 @@ export default function SessoesPsicologo() {
     return slots.filter(s=>!booked.has(s));
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!showReagendar) return;
     let cancel=false;
@@ -289,7 +288,7 @@ export default function SessoesPsicologo() {
       setLoadingReagendar(false);
     })();
     return ()=>{ cancel=true; };
-  }, [showReagendar, novoDia, config, feriados]);
+  }, [showReagendar, novoDia, config, feriados, getSlotsLivresParaDia]);
 
   async function reagendarAgendamento() {
     if (!reservaReagendar || !novoDia || !novaHora) {
