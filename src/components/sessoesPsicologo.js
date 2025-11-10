@@ -239,7 +239,11 @@ export default function SessoesPsicologo() {
     setShowReagendar(true);
   }
 
-  async function getSlotsLivresParaDia(dia) {
+useEffect(() => {
+  if (!showReagendar) return;
+  let cancel = false;
+
+  const obterSlots = async (dia) => {
     if (isPastDate(dia) || isWeekend(dia) || feriados.has(dia)) return [];
     const ovSnap = await getDoc(doc(db,'schedule_overrides',dia));
     const ov = ovSnap.exists() ? ovSnap.data() : null;
@@ -249,46 +253,46 @@ export default function SessoesPsicologo() {
       ...(config.morning ? [config.morning] : []),
       ...(config.afternoon ? [config.afternoon] : []),
     ];
-    if (Array.isArray(ov?.extraBlocks)) blocks=[...blocks, ...ov.extraBlocks];
+    if (Array.isArray(ov?.extraBlocks)) blocks = [...blocks, ...ov.extraBlocks];
     if (Array.isArray(ov?.removedBlocks) && ov.removedBlocks.length){
-      const rem = mergeBlocks(ov.removedBlocks); const nb=[];
-      for(const b of blocks){
+      const rem = mergeBlocks(ov.removedBlocks); 
+      const nb = [];
+      for (const b of blocks) {
         let curr=[{...b}];
-        for(const r of rem){
+        for (const r of rem) {
           const next=[];
-          for(const seg of curr){
-            const s1=mins(seg.start), e1=mins(seg.end), s2=mins(r.start), e2=mins(r.end);
-            if(e1<=s2 || e2<=s1) next.push(seg);
-            else { if(s1<s2) next.push({start:hhmm(s1), end:hhmm(s2)}); if(e2<e1) next.push({start:hhmm(e2), end:hhmm(e1)}); }
+          for (const seg of curr) {
+            const s1 = mins(seg.start), e1 = mins(seg.end), s2 = mins(r.start), e2 = mins(r.end);
+            if (e1 <= s2 || e2 <= s1) next.push(seg);
+            else { if(s1<s2) next.push({start:hhmm(s1), end:hhmm(s2)}); if(e2<e1) next.push({start:hhmm(e2), end:hhmm(e1)});}
           }
-          curr=next;
+          curr = next;
         }
         nb.push(...curr);
       }
-      blocks=nb;
+      blocks = nb;
     }
 
-    let slots = slotsFromBlocks(blocks, config.slotMinutes||30);
+    let slots = slotsFromBlocks(blocks, config.slotMinutes || 30);
     if (Array.isArray(ov?.blockedSlots)) {
-      const blocked=new Set(ov.blockedSlots);
-      slots = slots.filter(s=>!blocked.has(s));
+      const blocked = new Set(ov.blockedSlots);
+      slots = slots.filter(s => !blocked.has(s));
     }
-    const snapDay = await getDocs(query(collection(db,'appointments'), where('date','==',dia)));
-    const booked=new Set(snapDay.docs.map(d=>d.data().hour));
-    return slots.filter(s=>!booked.has(s));
-  }
 
-  useEffect(() => {
-    if (!showReagendar) return;
-    let cancel=false;
-    (async ()=>{
-      setLoadingReagendar(true); setMsgReagendar(null); setNovaHora(''); setHorasReagendar([]);
-      const livres = await getSlotsLivresParaDia(novoDia);
-      if (!cancel) setHorasReagendar(livres);
-      setLoadingReagendar(false);
-    })();
-    return ()=>{ cancel=true; };
-  }, [showReagendar, novoDia, config, feriados, getSlotsLivresParaDia]);
+    const snapDay = await getDocs(query(collection(db,'appointments'), where('date','==',dia)));
+    const booked = new Set(snapDay.docs.map(d => d.data().hour));
+    return slots.filter(s => !booked.has(s));
+  };
+
+  (async () => {
+    setLoadingReagendar(true); setMsgReagendar(null); setNovaHora(''); setHorasReagendar([]);
+    const livres = await obterSlots(novoDia);
+    if (!cancel) setHorasReagendar(livres);
+    setLoadingReagendar(false);
+  })();
+
+  return () => { cancel = true; };
+}, [showReagendar, novoDia, config, feriados]);
 
   async function reagendarAgendamento() {
     if (!reservaReagendar || !novoDia || !novaHora) {
