@@ -54,14 +54,14 @@ const Modulos = () => {
 
   const [showModal, setShowModal] = useState(() => {
     if (!modulo) return false;
-    return (progressoModulo === 100 && mfim == "naomostrada") || progressoModulo === 0
+    return (progressoModulo === 100 && mfim === "naomostrada") || progressoModulo === 0
   });
 
   const [showExtraModal, setShowExtraModal] = useState(false);
 
   const [mensagemModal] = useState(() => {
     if (!modulo) return '';
-    if (progressoModulo === 100 && mfim == "naomostrada") {
+    if (progressoModulo === 100 && mfim === "naomostrada") {
       updateDoc(doc(db, "alunos", userData.uid), {
           [`modulos.${moduloUserKey}.mensagemdefim`]: "mostrada"
         }).catch(console.error);

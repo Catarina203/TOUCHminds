@@ -278,6 +278,7 @@ export default function SessoesPsicologo() {
     return slots.filter(s=>!booked.has(s));
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!showReagendar) return;
     let cancel=false;

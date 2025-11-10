@@ -4,6 +4,7 @@ import { BoxArrowRight, List, House, Envelope, Trophy, People, Gear,  } from 're
 import { UserContext } from '../App';
 import { logoutAluno } from "../database/database";
 import logo from "../imgs/logoazul.png";
+import { Link } from 'react-router-dom';
 
 import avatar1 from "../imgs/avatar1.jpg";
 import avatar2 from "../imgs/avatar2.jpg";
@@ -149,7 +150,7 @@ const Navbar = () => {
   }
 };
 
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (userData) verificarNotificacoesSemanais();
   }, [userData]);
@@ -184,13 +185,13 @@ useEffect(() => {
           <button className="btn d-md-none me-3" onClick={() => setMenuAberto(true)}>
             <List size={28} />
           </button>
-          <a
-            className="navbar-brand text-info d-flex align-items-center"
-            onClick={() => navigate('/plataforma')}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src={logo} alt="TOUCHminds Logo" style={{ width: "120px" }} />
-          </a>
+          <Link
+          to="/plataforma"
+          className="navbar-brand text-info d-flex align-items-center"
+          style={{ cursor: 'pointer' }}
+        >
+          <img src={logo} alt="TOUCHminds Logo" style={{ width: "120px" }} />
+        </Link>
         </div>
 
         {/* Avatar com tooltip/logout */}
