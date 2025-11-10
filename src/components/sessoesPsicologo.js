@@ -40,6 +40,7 @@ export default function SessoesPsicologo() {
 
   // Estado (Agendar)
   const [diaSel, setDiaSel] = useState(fmtDate(new Date()));
+  const [username, setUsername] = useState('');
   const [horas, setHoras] = useState([]);
   const [horaSel, setHoraSel] = useState('');
   const [loadingSlots, setLoadingSlots] = useState(false);
@@ -75,7 +76,13 @@ export default function SessoesPsicologo() {
     let cancel=false;
     (async () => {
       try {
-        const username = await getDoc(doc(db, "alunos", userData.uid, "codigoParticipante"));
+        const userDoc = await getDoc(doc(db, 'alunos', userData.uid));
+        if (!cancel && userDoc.exists()) {
+          const ud = userDoc.data();
+          const nome = ud.codigoParticipante ?? '';
+          if (nome) setUsername(nome);
+        }
+
         const cfg = await getDoc(doc(db,'settings','schedule'));
         if(!cancel && cfg.exists()) setConfig(c=>({ ...c, ...cfg.data() }));
         const hol = await getDoc(doc(db,'holidays','pt'));
@@ -442,7 +449,7 @@ export default function SessoesPsicologo() {
                   {/* Horários */}
                   <div className="row g-3">
                     <div className="col-12">
-                      <label className="form-label">Horário{username}</label>
+                      <label className="form-label">Horário {username ? `(${username})` : ''}</label>
                       <div className="d-flex flex-wrap gap-2" aria-live="polite">
                         {loadingSlots && <span className="text-muted">A carregar…</span>}
                         {!loadingSlots && !horas.length && <span className="text-muted">Sem horários para este dia.</span>}
