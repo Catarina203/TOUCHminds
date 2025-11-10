@@ -292,18 +292,21 @@ export default function SessoesPsicologo() {
   }
 
   useEffect(() => {
-    if (!showReagendar) return;
-    let cancel=false;
-    (async ()=>{
-      setLoadingReagendar(true); setMsgReagendar(null); setNovaHora(''); setHorasReagendar([]);
-      const livres = await getSlotsLivresParaDia(novoDia);
-      if (!cancel) setHorasReagendar(livres);
-      setLoadingReagendar(false);
-    })();
-    return ()=>{ cancel=true; };
-  }, [showReagendar, novoDia, config, feriados]);
-
-  async function reagendarAgendamento() {
+  if (!showReagendar) return;
+  let cancel=false;
+  (async ()=>{
+    setLoadingReagendar(true);
+    setMsgReagendar(null);
+    setNovaHora('');
+    setHorasReagendar([]);
+    const livres = await getSlotsLivresParaDia(novoDia);
+    if (!cancel) setHorasReagendar(livres);
+    setLoadingReagendar(false);
+  })();
+  return ()=>{ cancel=true; };
+}, [showReagendar, novoDia, config, feriados]);
+  
+async function reagendarAgendamento() {
     if (!reservaReagendar || !novoDia || !novaHora) {
       setMsgReagendar({ tipo:'danger', texto:'Seleciona um dia e hora válidos.' });
       return;
