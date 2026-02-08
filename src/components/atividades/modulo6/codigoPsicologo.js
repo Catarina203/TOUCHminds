@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../navbar";
 import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
-import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 
 const CodigoDoPsicologo = () => {

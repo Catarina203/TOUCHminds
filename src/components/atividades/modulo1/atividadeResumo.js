@@ -8,7 +8,6 @@ import AtividadeProgressao from '../atividadeProgressao';
 
 const AtividadeResumo = () => {
   const [pagina, setPagina] = useState(0);
-  const [hashtags, setHashtags] = useState(Array(12).fill(""));
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [, setSelectedOption] = useState(null);

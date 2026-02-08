@@ -12,7 +12,7 @@ const AtividadeResumoModulo2 = () => {
     const [pagina, setPagina] = useState(0);
     const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
-    const [hoverIndex, setHoverIndex] = useState(null);
+    const [, setHoverIndex] = useState(null);
     const [showWarning, setShowWarning] = useState(false);
     const modulo = modulos.find((m) => m.id === moduloId);
     const [showModal, setShowModal] = useState(false);

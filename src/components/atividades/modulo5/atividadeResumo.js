@@ -40,7 +40,7 @@ const AtividadeResumoRede = () => {
     setShowWarning(false);
   };
 
-  const [hoverIndex, setHoverIndex] = useState(null);
+  const [, setHoverIndex] = useState(null);
 
   const progresso = Math.round((pagina / 6) * 100);
 
