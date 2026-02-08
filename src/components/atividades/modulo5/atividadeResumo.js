@@ -238,7 +238,6 @@ const AtividadeResumoRede = () => {
                   {cenarios[pagina - 1].opcoes.map((opcao, index) => {
                     const isSelected = opcaoSelecionada === index;
                     const isDisabled = opcaoSelecionada !== null && !isSelected;
-                    const isHovered = hoverIndex === index;
 
                     return (
                       <div

@@ -198,23 +198,3 @@ export async function dadosAlunos(uid) {
 }
 
 export {db};
-
-
-
-{/*  Informações a guardar na base de dados:   
-
-  Quantos módulos foram concluídos. 
-
-  Tempo gasto para completar as atividades e os módulos. 
-
-  Periodicidade da realização dos módulos (se foram feitos todos no mesmo dia ou distribuídos ao longo da semana). 
-
-  O modulo tem de ficar bloqueado de inicio , quando o modulo é concluido , alterar o estado do modulo na base de dados para desbloqueado.
-
-
-  Para cada aluno, guardar os seguintes dados:
-
-  Nome , email, palavra passe, escola, código do participante, 
-  utilizar autenticathion do firebase para login e registo.
-
-*/}

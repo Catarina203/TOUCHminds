@@ -147,12 +147,6 @@ if (showValidationError) setShowValidationError(false);
   }
 };
 
-  // Função para resetar a atividade
-  const resetarAtividade = () => {
-    setFrasesEmColunas(colunasIniciais);
-    setFrasesDisponiveis(todasFrases);
-  };
-
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
       <Navbar />

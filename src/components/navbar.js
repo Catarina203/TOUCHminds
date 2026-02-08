@@ -54,26 +54,6 @@ const moduloAtivo = (modulos) => {
 const numeroModulo = (nome) => parseInt(String(nome).replace("modulo",""), 10);
 const intervaloEntre = (n) => ([1,3,5].includes(n) ? 7 : [2,4].includes(n) ? 14 : 7);
 
-const proximoDesbloqueioCalculado = (modulos) => {
-  if (!modulos) return null;
-  const nomes = Object.keys(modulos)
-    .filter(k => /^modulo\d+$/i.test(k))
-    .sort((a,b) => numeroModulo(a) - numeroModulo(b));
-
-  for (let i = 0; i < nomes.length - 1; i++) {
-    const atual = modulos[nomes[i]];
-    const seguinteNome = nomes[i+1];
-    const seguinte = modulos[seguinteNome];
-    if (seguinte?.status === 'bloqueado' && atual?.dataFim) {
-      const dias = intervaloEntre(numeroModulo(nomes[i]));
-      const abreEm = addDaysLocal(atual.dataFim, dias);
-      if (abreEm) return { alvo: seguinteNome, abreEm };
-    }
-  }
-  return null;
-};
-
-
 const Navbar = () => {
   const avatarOptions = [
     { id: "avatar1", src: avatar1 },

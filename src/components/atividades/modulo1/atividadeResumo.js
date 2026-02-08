@@ -11,7 +11,7 @@ const AtividadeResumo = () => {
   const [hashtags, setHashtags] = useState(Array(12).fill(""));
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [, setSelectedOption] = useState(null);
   const [showWarning, setShowWarning] = useState(false);
   const [userChoices, setUserChoices] = useState({
     0: null, // Chegada ao Clube
@@ -41,17 +41,9 @@ const AtividadeResumo = () => {
     setPagina((prev) => prev + 1);
   };
 
-  const [hoverIndex, setHoverIndex] = useState(null); 
-
   const retrocederPagina = () => setPagina((prev) => prev - 1);
 
   const progresso = Math.round((pagina / 7) * 100);
-
-  const handleHashtagChange = (index, value) => {
-    const newHashtags = [...hashtags];
-    newHashtags[index] = value;
-    setHashtags(newHashtags);
-  };
 
   const handleOptionClick = ( option, questionIndex) => {
     setModalContent(option);

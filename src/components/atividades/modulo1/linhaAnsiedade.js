@@ -43,7 +43,6 @@ const LinhaAnsiedade = () => {
   
   const [videoCompleted, setVideoCompleted] = useState(false);
   const [showVideoWarning, setShowVideoWarning] = useState(false);
-  const videoRef = useRef(null);
  
   const avancarPagina = () => {
   // Pág. 1 -> exige ver o vídeo inicial

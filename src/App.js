@@ -55,7 +55,7 @@ import { dadosAlunos } from './database/database';
 export const UserContext = createContext(null);
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
 
   // Utiliza o hook para verificar e desbloquear módulos a cada 7 dias

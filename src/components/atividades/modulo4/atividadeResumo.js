@@ -151,19 +151,6 @@ const imagemFase = {
   setAvisoFase(false);     
 };
 
-  const handleConfiancaSelect = (nivel) => {
-    setConfianca(nivel);
-  };
-
-const canAdvanceFromPage = (currentPage) => {
-  switch (currentPage) {
-    case 3:
-      return confianca !== "";
-    default:
-      return true;
-  }
-};
-
   return (
     <div className="container-fluid vh-100 p-0 font-poppins">
       <Navbar />

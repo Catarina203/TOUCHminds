@@ -255,7 +255,6 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                     <div className="d-flex flex-column gap-3" style={{ marginTop: "20px" }}>
                                         {cenarios[pagina - 1].opcoes.map((opcao, index) => {
                                             const isSelected = opcaoSelecionada === index;
-                                            const isHovered = hoverIndex === index;
                                             return (
                                                 <div
                                                     key={index}

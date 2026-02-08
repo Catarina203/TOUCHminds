@@ -11,9 +11,6 @@ const NaoEstasSozinho = () => {
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
 
-  const modulo = modulos.find((m) => m.id === moduloId);
-  const atividade = modulo?.atividades.find(a => a.url === "nao-estas-sozinho");
-
   const progresso = Math.round((pagina / 1) * 100);
 
   const handleDownload = () => {

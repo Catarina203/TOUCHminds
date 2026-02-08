@@ -111,7 +111,6 @@ const BalancaVirtual = () => {
     contraNaoMudar: [],
   });
   const [showValidationError, setShowValidationError] = useState(false);
-  const [mostrarFeedback, setMostrarFeedback] = useState(true);
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
@@ -227,9 +226,6 @@ const BalancaVirtual = () => {
     setPagina(2);
   };
 
-  const getEmptyQuadrantes = () => {
-    return quadrantes.filter(quadrante => respostas[quadrante.id].length === 0);
-  };
   const progresso = Math.round((pagina / 4) * 100);
 
   return (

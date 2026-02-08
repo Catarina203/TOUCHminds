@@ -19,7 +19,6 @@ const UnindoExperiencias = () => {
 
   const [videoCompleted, setVideoCompleted] = useState(false);
   const [showVideoWarning, setShowVideoWarning] = useState(false);
-  const videoRef = useRef(null);
   const avancarPagina = () => {
     if (pagina === 1 && !videoCompleted) {
       setShowVideoWarning(true); // Mostra aviso azul

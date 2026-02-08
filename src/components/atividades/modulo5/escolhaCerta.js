@@ -10,7 +10,7 @@ const EscolhaCerta = () => {
     const { id: moduloId } = useParams();
     const { updateUserData } = useContext(UserContext);
     const [pagina, setPagina] = useState(0);
-    const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
+    const [, setOpcaoSelecionada] = useState(null);
     const modulo = modulos.find((m) => m.id === moduloId);
     const [interacao, setInteracao] = useState(null); // 'gostar' | 'partilhar' | 'comentar' | null
     const [anchor, setAnchor] = useState({ x: 50, y: 50 });

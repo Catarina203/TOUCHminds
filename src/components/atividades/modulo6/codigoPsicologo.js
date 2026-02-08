@@ -16,8 +16,6 @@ const CodigoDoPsicologo = () => {
   const { updateUserData } = useContext(UserContext);
   const [acertou, setAcertou] = useState(false);
 
-  const modulo = modulos.find((m) => m.id === moduloId);
-
   // Códigos e suas respectivas palavras
   const codigos = [
     { numeros: "5 - 19 - 3 - 21 - 20 - 1", palavra: "ESCUTA" },

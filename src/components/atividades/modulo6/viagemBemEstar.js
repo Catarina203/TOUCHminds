@@ -54,10 +54,8 @@ const ViagemBemEstar = () => {
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
   const [pagina, setPagina] = useState(0);
-  const [comportamento, setComportamento] = useState(null);
   const [frasesDisponiveis, setFrasesDisponiveis] = useState([]);
-  const [frasesDisponiveis2, setFrasesDisponiveis2] = useState([]);
-  const [currentBehavior, setCurrentBehavior] = useState('mochila'); 
+  const [, setCurrentBehavior] = useState('mochila'); 
   const [cordaError, setCordaError] = useState(false);
   const [respostas, setRespostas] = useState({
   mochila: [],

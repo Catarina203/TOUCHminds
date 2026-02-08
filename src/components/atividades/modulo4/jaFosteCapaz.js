@@ -159,12 +159,6 @@ const canProceed = () => {
 
   const retrocederPagina = () => setPagina((p) => p - 1);
 
-  const PageHeader = ({ titulo }) => (
-    <h4 className="fw-bold mb-4 text-start" style={{ color: "#234970" }}>
-      {titulo}
-    </h4>
-  );
-
  const titles = {
   1: "Lembra-te de um desafio que superaste",
   2: "Inspirar-te com o exemplo de alguém",
