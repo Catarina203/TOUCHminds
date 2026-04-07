@@ -85,7 +85,7 @@ const Definicoes = () => {
           <div className="container p-4 bg-white rounded shadow-sm">
             <h2 className="mb-3 fw-semibold" style={{ color: "#99CBC8" }}>Definições</h2>
             <p className="text-muted" style={{ fontSize: '1rem' }}>
-              Personaliza o teu perfil alterando o nome na plataforma e escolhendo um avatar.
+              Personaliza o teu perfil, alterando o teu nome na plataforma e escolhendo um avatar.
             </p>
 
             {message.text && (
@@ -106,7 +106,7 @@ const Definicoes = () => {
                   type="text"
                   className="form-control"
                   placeholder="Insira o nome na plataforma"
-                  aria-label="Nome na plataforma"
+                  aria-label="O Teu Nome na plataforma"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   required
@@ -115,8 +115,8 @@ const Definicoes = () => {
               </div>
 
               <fieldset className="mt-4 p-4 rounded" style={{ backgroundColor: '#fbf9f9' }}>
-                <legend className="fw-semibold mb-2" style={{ color: '#234970' }}>Escolhe o teu avatar</legend>
-                <p>Seleciona uma imagem que te represente:</p>
+                <legend className="fw-semibold mb-2" style={{ color: '#234970' }}>O Teu Avatar</legend>
+                <p>Seleciona um avatar com o qual te identifiques:</p>
                 <div className="d-flex flex-wrap gap-3 mt-3">
                   {avatarOptions.map((avatar) => (
                     <div key={avatar.id} className="text-center">

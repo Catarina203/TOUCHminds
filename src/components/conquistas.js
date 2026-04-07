@@ -62,7 +62,7 @@ const Conquistas = () => {
               As Minhas Conquistas
             </h2>
             <p className="text-muted mb-4" style={{ fontSize: '1rem' }}>
-              Completa todos os módulos para revelar o puzzle completo!
+              Completa todos os módulos para veres o puzzle completo!
             </p>
 
             <section aria-label="Progresso dos módulos concluídos" className="mb-4">

@@ -22,12 +22,12 @@ const Contactos = () => {
               Contactos
             </h2>
             <p className="text-muted" style={{ fontSize: '1rem' }}>
-              A nossa equipa de investigação está disponível para esclarecer qualquer dúvida e oferecer o apoio necessário.
+              A nossa equipa de investigação está disponível para esclarecer-te qualquer dúvida e oferecer-te a ajuda necessária.
             </p>
 
             <section className="mt-4 p-4 rounded" style={{ backgroundColor: '#fbf9f9' }} aria-labelledby="contacto-direto">
               <h5 id="contacto-direto" className="fw-semibold mb-2" style={{ color: '#234970' }}>
-                Contacto da psicóloga responsável
+                Contacto da Psicóloga Responsável
               </h5>
               <address>
                 <p className="mb-1">
@@ -46,7 +46,7 @@ const Contactos = () => {
 
             <section className="mt-4 p-4 rounded" style={{ backgroundColor: '#fbf9f9' }} aria-labelledby="outras-opcoes">
               <h5 id="outras-opcoes" className="fw-semibold mb-2" style={{ color: '#234970' }}>
-                Outras opções de apoio
+                Outras Opções de Ajuda
               </h5>
               <ul
                 style={{ listStyleType: 'none', paddingLeft: 0, lineHeight: '1.8' }}
