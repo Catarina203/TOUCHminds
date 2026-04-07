@@ -165,12 +165,12 @@ const LandingPage = () => {
           Espreita os Módulos!
         </h2>
         <div className="row mt-4">
-          <ModuleCard image={mod1} title="Módulo 1" subtitle="Ansiedade NÃO é bicho-papão!" description="Aprende a diferenciar ansiedade comum de SOS, e reconhece como a ansiedade pode afetar a vida das pessoas, incluindo a tua." />
-          <ModuleCard image={mod2} title="Módulo 2" subtitle="Desmistificar a Ansiedade!" description="Percebe o impacto do estigma sobre a ansiedade e a forma como lidamos com ela e aprende a separar factos de mitos." />
-          <ModuleCard image={mod3} title="Módulo 3" subtitle="Sê Amigo de Ti Mesmo!" description="Examina como o autocriticismo te trava e descobre a autocompaixão como superpoder para cuidares melhor de ti." />
-          <ModuleCard image={mod4} title="Módulo 4" subtitle="O Poder da Mudança!" description="Explora as fases da mudança, avalia prós e contras de novos comportamentos e desenvolve confiança para dares pequenos passos." />
-          <ModuleCard image={mod5} title="Módulo 5" subtitle="Reviravolta em Rede!" description="Identifica sinais de ansiedade, explora terapias baseadas em evidência e aprende a distinguir diferentes fontes de ajuda." />
-          <ModuleCard image={mod6} title="Módulo 6" subtitle="Um Novo Começo!" description="Conhece o papel do psicólogo, compreende as etapas da psicoterapia e explora recursos disponíveis para pedires ajuda sempre que precisares." />
+          <ModuleCard image={mod1} title="Módulo 1" subtitle="Ansiedade NÃO é bicho-papão!" description="Aprende a diferenciar ansiedade comum de ansiedade SOS e reconhece como a ansiedade pode afetar a vida das pessoas, incluindo a tua." />
+          <ModuleCard image={mod2} title="Módulo 2" subtitle="Desmistificar a Ansiedade!" description="Percebe a ansiedade, explorando os mitos e o estigma que a cercam."/>
+          <ModuleCard image={mod3} title="Módulo 3" subtitle="Sê Amigo de Ti Mesmo!" description="Descobre o impacto da autocrítica e como a autocompaixão pode ser um superpoder para cuidares melhor de ti." />
+          <ModuleCard image={mod4} title="Módulo 4" subtitle="O Poder da Mudança!" description="Explora as fases da mudança, avalia prós e contras de novos comportamentos e desenvolve a tua confiança para dares pequenos passos para a mudança." />
+          <ModuleCard image={mod5} title="Módulo 5" subtitle="Reviravolta em Rede!" description="Identifica sintomas de ansiedade, explora terapias baseadas em evidência e aprende a distinguir diferentes fontes de ajuda." />
+          <ModuleCard image={mod6} title="Módulo 6" subtitle="Um Novo Começo!" description="Conhece o papel do psicólogo, compreende as etapas do processo terapêutico e explora recursos disponíveis para pedires ajuda sempre que precisares." />
         </div>
       </section>
 
