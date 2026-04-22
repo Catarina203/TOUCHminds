@@ -45,17 +45,17 @@ export default function SessoesPsicologo() {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [enviando, setEnviando] = useState(false);
   const [msgAgendar, setMsgAgendar] = useState(null);
-  const [formAgendar, setFormAgendar] = useState({ nome: '', email: '' });
+  const [formAgendar, setFormAgendar] = useState({ codigo: '' });
 
   // Estado (Meus Agendamentos)
-  const [emailConsulta, setEmailConsulta] = useState('');
+  const [codigoConsulta, setCodigoConsulta] = useState('');
   const [listaAgendamentos, setListaAgendamentos] = useState(null);
   const [loadingConsulta, setLoadingConsulta] = useState(false);
   const [msgConsulta, setMsgConsulta] = useState(null);
 
   // ---- REAGENDAR ----
   const [showReagendar, setShowReagendar] = useState(false);
-  const [reservaReagendar, setReservaReagendar] = useState(null); // {id,name,email,date,hour}
+  const [reservaReagendar, setReservaReagendar] = useState(null); // {id,participantCode,date,hour}
   const [novoDia, setNovoDia] = useState(fmtDate(new Date()));
   const [horasReagendar, setHorasReagendar] = useState([]);
   const [novaHora, setNovaHora] = useState('');
@@ -153,8 +153,8 @@ export default function SessoesPsicologo() {
     e.preventDefault();
     setMsgAgendar(null);
 
-    if (!formAgendar.nome || !formAgendar.email || !diaSel || !horaSel) {
-      setMsgAgendar({ tipo: 'danger', texto: 'Preenche nome, e-mail, dia e hora.' });
+     if (!formAgendar.codigo || !diaSel || !horaSel) {
+      setMsgAgendar({ tipo: 'danger', texto: 'Preenche código, dia e hora.' });
       return;
     }
     if (isPastDate(diaSel) || isWeekend(diaSel) || feriados.has(diaSel)) {
@@ -171,9 +171,8 @@ export default function SessoesPsicologo() {
       await runTransaction(db, async (tx) => {
         const existing = await tx.get(apptRef);
         if (existing.exists()) throw new Error('Esse horário acabou de ser reservado por outra pessoa.');
-        tx.set(apptRef, {
-          name: formAgendar.nome,
-          email: formAgendar.email,
+         tx.set(apptRef, {
+          participantCode: formAgendar.codigo,
           date: diaSel,
           hour: horaSel,
           status: 'confirmed',
@@ -190,18 +189,17 @@ export default function SessoesPsicologo() {
           body: JSON.stringify({
             token: TOKEN_PARTILHADO,
             type: 'create', // <<< importante para o Apps Script
-            name: formAgendar.nome,
-            email: formAgendar.email,
-            date: diaSel,
-            hour: horaSel,
-          }),
-        });
+            participantCode: formAgendar.codigo,
+          date: diaSel,
+          hour: horaSel,
+        }),
+      });
       } catch (err) {
         console.warn('Falha ao chamar o Apps Script:', err);
       }
 
-      setMsgAgendar({ tipo: 'success', texto: 'Sessão confirmada! Enviámos um e-mail com os detalhes.' });
-      setFormAgendar({ nome: '', email: '' });
+      setMsgAgendar({ tipo: 'success', texto: 'Sessão confirmada!' });
+      setFormAgendar({ codigo: '' });
       setHoraSel('');
       setLoadingSlots(true);
       setDiaSel((d) => d);
@@ -217,14 +215,14 @@ export default function SessoesPsicologo() {
   async function consultarAgendamentos(e){
     e.preventDefault();
     setMsgConsulta(null); setListaAgendamentos(null);
-    if (!emailConsulta){ setMsgConsulta({tipo:'danger',texto:'Introduz o teu e-mail.'}); return; }
+    if (!codigoConsulta){ setMsgConsulta({tipo:'danger',texto:'Introduz o teu código.'}); return; }
     try{
       setLoadingConsulta(true);
-      const snapAll = await getDocs(query(collection(db,'appointments'), where('email','==',emailConsulta)));
+      const snapAll = await getDocs(query(collection(db,'appointments'), where('participantCode','==',codigoConsulta)));
       const todos = snapAll.docs.map(d=>({ id:d.id, ...d.data() }))
         .sort((a,b)=>`${a.date||''}T${a.hour||''}`.localeCompare(`${b.date||''}T${b.hour||''}`));
       setListaAgendamentos(todos);
-      if (!todos.length) setMsgConsulta({tipo:'info',texto:'Sem marcações para este e-mail.'});
+      if (!todos.length) setMsgConsulta({tipo:'info',texto:'Sem marcações para este código.'});
     }catch{
       setMsgConsulta({tipo:'danger',texto:'Não foi possível carregar as tuas marcações.'});
     }finally{ setLoadingConsulta(false); }
@@ -334,14 +332,13 @@ useEffect(() => {
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            token: TOKEN_PARTILHADO,
-            type: 'reschedule',
-            name: reservaReagendar.name,
-            email: reservaReagendar.email,
-            oldDate: reservaReagendar.date,
-            oldHour: reservaReagendar.hour,
-            newDate: novoDia,
-            newHour: novaHora,
+           token: TOKEN_PARTILHADO,
+           type: 'reschedule',
+           participantCode: reservaReagendar.participantCode,
+           oldDate: reservaReagendar.date,
+           oldHour: reservaReagendar.hour,
+           newDate: novoDia,
+           newHour: novaHora,
           }),
         });
       } catch (err) {
@@ -472,22 +469,12 @@ useEffect(() => {
                   {/* Formulário */}
                   <form onSubmit={submeterAgendamento} className="row g-3">
                     <div className="col-12 col-md-6">
-                      <label className="form-label">Nome</label>
+                      <label className="form-label">Código</label>
                       <input
+                        type="text"
                         className="form-control"
-                        value={formAgendar.nome}
-                        onChange={e=>setFormAgendar(f=>({...f, nome:e.target.value}))}
-                        required
-                        disabled={!horaSel}
-                      />
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <label className="form-label">E-mail</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        value={formAgendar.email}
-                        onChange={e=>setFormAgendar(f=>({...f, email:e.target.value}))}
+                        value={formAgendar.codigo}
+                        onChange={e => setFormAgendar(f => ({...f, codigo: e.target.value}))}
                         required
                         disabled={!horaSel}
                       />
@@ -534,15 +521,15 @@ useEffect(() => {
                       )}
 
                   <form onSubmit={consultarAgendamentos} className="mb-3">
-                    <label className="form-label">O teu e-mail</label>
+                    <label className="form-label">O teu código</label>
                     <div className="input-group">
                       <input
-                        type="email"
-                        className="form-control"
-                        placeholder="teuemail@exemplo.com"
-                        value={emailConsulta}
-                        onChange={e=>setEmailConsulta(e.target.value)}
-                        required
+                      type="text"
+                      className="form-control"
+                      placeholder="O teu código"
+                      value={codigoConsulta}
+                      onChange={e => setCodigoConsulta(e.target.value)}
+                      required
                       />
                       <button
                               type="submit"
