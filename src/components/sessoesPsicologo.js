@@ -469,7 +469,7 @@ useEffect(() => {
                   {/* Formulário */}
                   <form onSubmit={submeterAgendamento} className="row g-3">
                     <div className="col-12 col-md-6">
-                      <label className="form-label">Código</label>
+                      <label className="form-label">Código de Participante</label>
                       <input
                         type="text"
                         className="form-control"
@@ -521,12 +521,12 @@ useEffect(() => {
                       )}
 
                   <form onSubmit={consultarAgendamentos} className="mb-3">
-                    <label className="form-label">O teu código</label>
+                    <label className="form-label">Código de Participante</label>
                     <div className="input-group">
                       <input
                       type="text"
                       className="form-control"
-                      placeholder="O teu código de participante"
+                      placeholder="Introduz o teu código de participante"
                       value={codigoConsulta}
                       onChange={e => setCodigoConsulta(e.target.value)}
                       required
