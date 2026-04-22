@@ -29,7 +29,7 @@ const mergeBlocks=(blocks)=>{ const a=[...blocks].sort((x,y)=>mins(x.start)-mins
 const slotsFromBlocks=(blocks,step)=>mergeBlocks(blocks).flatMap(b=>genSlots(b.start,b.end,step));
 
 // >>>> A TUA URL e TOKEN <<<<
-const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjO1Qnwv7XXCsK3DpnXvSFkX-wKBaCnLfiCLAwCP5DAoAYWONGgcCZRhh4RgAsFJOX/exec';
+const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwES8RzmIbfbAD2kXKJgpZDN84HQKqckLphT11lsBirAIt2T2ksVXGkTxKiQ4S7lO0m/exec';
 const TOKEN_PARTILHADO = 'Dor de Cabeça';
 
 export default function SessoesPsicologo() {
@@ -329,7 +329,7 @@ useEffect(() => {
       try {
         await fetch(APPSCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors',
+          mode: 'cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
            token: TOKEN_PARTILHADO,
