@@ -29,7 +29,7 @@ const mergeBlocks=(blocks)=>{ const a=[...blocks].sort((x,y)=>mins(x.start)-mins
 const slotsFromBlocks=(blocks,step)=>mergeBlocks(blocks).flatMap(b=>genSlots(b.start,b.end,step));
 
 // >>>> A TUA URL e TOKEN <<<<
-const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwES8RzmIbfbAD2kXKJgpZDN84HQKqckLphT11lsBirAIt2T2ksVXGkTxKiQ4S7lO0m/exec';
+const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwt_JU1MCfM3lVfrimSET76TvD7ctbXPnX_TG-m1J4cGQOVqanQpU_1UMdFFBCoG9nE/exec';
 const TOKEN_PARTILHADO = 'Dor de Cabeça';
 
 export default function SessoesPsicologo() {
