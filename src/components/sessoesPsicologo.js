@@ -215,7 +215,7 @@ export default function SessoesPsicologo() {
   async function consultarAgendamentos(e){
     e.preventDefault();
     setMsgConsulta(null); setListaAgendamentos(null);
-    if (!codigoConsulta){ setMsgConsulta({tipo:'danger',texto:'Introduz o teu código.'}); return; }
+    if (!codigoConsulta){ setMsgConsulta({tipo:'danger',texto:'Introduz o teu código de participante.'}); return; }
     try{
       setLoadingConsulta(true);
       const snapAll = await getDocs(query(collection(db,'appointments'), where('participantCode','==',codigoConsulta)));
@@ -526,7 +526,7 @@ useEffect(() => {
                       <input
                       type="text"
                       className="form-control"
-                      placeholder="O teu código"
+                      placeholder="O teu código de participante"
                       value={codigoConsulta}
                       onChange={e => setCodigoConsulta(e.target.value)}
                       required
