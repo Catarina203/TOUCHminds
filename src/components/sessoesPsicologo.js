@@ -184,7 +184,7 @@ export default function SessoesPsicologo() {
       try {
         await fetch(APPSCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors',
+          mode: 'cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             token: TOKEN_PARTILHADO,
