@@ -6,7 +6,7 @@ import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { db } from "../../../database/database";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const BandaDesenhada = () => {
@@ -34,13 +34,15 @@ const BandaDesenhada = () => {
 
     const userRef = doc(db, "alunos", user.uid);
 
-    await updateDoc(userRef, {
-      "respostas.bandaDesenhada": {
-        ansiedadeComum: ansiedadeComum,
-        ansiedadeSOS: ansiedadeSOS,
-        data: new Date()
-      }
-    });
+    await setDoc(userRef, {
+  respostas: {
+    bandaDesenhada: {
+      ansiedadeComum,
+      ansiedadeSOS,
+      data: new Date()
+    }
+  }
+}, { merge: true });
 
     console.log("Respostas guardadas!");
   } catch (error) {
