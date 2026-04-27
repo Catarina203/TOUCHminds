@@ -5,7 +5,7 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
-import { db } from "../../../firebase";
+import { db } from "../../../database";
 import { doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
