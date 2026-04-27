@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
+import { db } from "../../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const BandaDesenhada = () => {
   const [pagina, setPagina] = useState(0);
@@ -19,17 +22,48 @@ const BandaDesenhada = () => {
   const atividade = modulo?.atividades.find(a => a.url === "banda-desenhada");
   const quadros = atividade?.quadros || [];
 
-  const avancarPagina = () => {
-    if (pagina === quadros.length + 1) {
-      if (!ansiedadeComum.trim() || !ansiedadeSOS.trim()) {
-        setInputError(true);
-        return;
-      }
+  const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("Utilizador não autenticado");
+      return;
     }
 
-    setInputError(false);
-    setPagina((prev) => prev + 1);
-  };
+    const userRef = doc(db, "alunos", user.uid);
+
+    await updateDoc(userRef, {
+      "respostas.bandaDesenhada": {
+        ansiedadeComum: ansiedadeComum,
+        ansiedadeSOS: ansiedadeSOS,
+        data: new Date()
+      }
+    });
+
+    console.log("Respostas guardadas!");
+  } catch (error) {
+    console.error("Erro ao guardar:", error);
+  }
+};
+
+ const avancarPagina = async () => {
+  if (pagina === quadros.length + 1) {
+    if (!ansiedadeComum.trim() || !ansiedadeSOS.trim()) {
+      setInputError(true);
+      return;
+    }
+
+    // GUARDA NO FIREBASE
+    await guardarRespostas().catch(() => {
+      alert("Erro ao guardar. Tenta novamente.");
+    });
+  }
+
+  setInputError(false);
+  setPagina((prev) => prev + 1);
+};
 
   const retrocederPagina = () => {
     setInputError(false);
