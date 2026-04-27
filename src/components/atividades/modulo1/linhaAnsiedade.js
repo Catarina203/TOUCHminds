@@ -276,7 +276,7 @@ const LinhaAnsiedade = () => {
                         <div className="alert mt-3 text-white"
                           style={{ backgroundColor: '#99CBC8', border: 'none', textAlign: 'center' }}>
                           <i className="bi bi-info-circle me-2"></i>
-                          É necessário ver o vídeo até ao fim para continuar.
+                           É necessário ver os vídeos do antes, durante, depois e a conclusão para continuar.
                         </div>
                       )}
                     
@@ -419,7 +419,7 @@ const LinhaAnsiedade = () => {
                     <div className="alert mt-3 text-white"
                       style={{ backgroundColor: '#99CBC8', border: 'none', textAlign: 'center' }}>
                       <i className="bi bi-info-circle me-2"></i>
-                      É necessário ver o vídeo até ao fim para continuar.
+                      É necessário ver os vídeos do antes, durante, depois e a conclusão para continuar.
                     </div>
                   )}
                     
@@ -505,7 +505,7 @@ const LinhaAnsiedade = () => {
                     <div className="text-center"></div>
                     <h4 className="text-center fw-bold" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                     <p className="lead">
-                    Espero que esta atividade tenha ajudado a perceber como <strong>os nossos pensamentos, emoções e comportamentos</strong> influenciam a forma como enfrentamos uma situação desafiadora! <br></br><br></br>
+                    Espero que esta atividade te tenha ajudado a perceber como <strong>os nossos pensamentos, emoções e comportamentos</strong> influenciam a forma como enfrentamos uma situação desafiadora! <br></br><br></br>
                     Lembra-te que a ansiedade é útil e ajuda-nos a <strong>preparar</strong> para situações difíceis. <br></br><br></br>
                     No entanto, alguns <strong>comportamentos</strong>, como <strong>evitar</strong> certas situações, podem acabar por nos <strong>manter ansiosos</strong>, de tal maneira que parece que toda a nossa vida gira em torno da ansiedade. <br></br><br></br>
                     <strong>Nem todo o tipo de evitamento</strong> é problemático; às vezes, pode ser a única maneira de lidar com uma situação difícil.<br></br><br></br>
