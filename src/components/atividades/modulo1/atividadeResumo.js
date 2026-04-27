@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
+import { db } from "../../../database/database";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const AtividadeResumo = () => {
   const [pagina, setPagina] = useState(0);
@@ -43,6 +46,37 @@ const AtividadeResumo = () => {
   const retrocederPagina = () => setPagina((prev) => prev - 1);
 
   const progresso = Math.round((pagina / 7) * 100);
+
+const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("Utilizador ainda não disponível");
+      return;
+    }
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+      userRef,
+      {
+        respostas: {
+          atividadeResumo: {
+            escolhas: userChoices,
+            data: new Date().toISOString(),
+          },
+        },
+      },
+      { merge: true }
+    );
+
+    console.log("Respostas guardadas com sucesso!");
+  } catch (error) {
+    console.error("Erro ao guardar respostas:", error);
+  }
+};
 
   const handleOptionClick = ( option, questionIndex) => {
     setModalContent(option);
@@ -500,9 +534,16 @@ const AtividadeResumo = () => {
                 <div className="d-flex justify-content-between">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
-                  </button>
-                  <button className="custom-btn-turquoise" onClick={avancarPagina}>
-                    Conclusão<i className="bi bi-arrow-right ms-2"></i>
+                    </button>
+                  <button
+                    className="custom-btn-turquoise"
+                    onClick={async () => {
+                      await guardarRespostas();
+                      avancarPagina();
+                    }}
+                  >
+                    Conclusão
+                    <i className="bi bi-arrow-right ms-2"></i>
                   </button>
                 </div>
               </>
