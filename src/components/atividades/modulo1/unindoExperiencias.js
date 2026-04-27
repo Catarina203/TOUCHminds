@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
+import { db } from "../../../database/database";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const UnindoExperiencias = () => {
   const [pagina, setPagina] = useState(0);
@@ -19,6 +22,40 @@ const UnindoExperiencias = () => {
 
   const [videoCompleted, setVideoCompleted] = useState(false);
   const [showVideoWarning, setShowVideoWarning] = useState(false);
+
+const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("Utilizador ainda não disponível");
+      return;
+    }
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+      userRef,
+      {
+        respostas: {
+          unindoExperiencias: {
+            pensamento,
+            sensacao,
+            comportamento,
+            data: new Date().toISOString(),
+          },
+        },
+      },
+      { merge: true }
+    );
+
+    console.log("Respostas guardadas com sucesso!");
+  } catch (error) {
+    console.error("Erro ao guardar respostas:", error);
+  }
+};
+
   const avancarPagina = () => {
     if (pagina === 1 && !videoCompleted) {
       setShowVideoWarning(true); // Mostra aviso azul
@@ -27,6 +64,7 @@ const UnindoExperiencias = () => {
     setShowVideoWarning(false);
     setPagina(prev => prev + 1);
   };
+
 
   const retrocederPagina = () => {
     setPagina(prev => prev - 1);
@@ -338,13 +376,19 @@ const [comportamento, setComportamento] = useState("");
                       </button>
                       <button
                         className="custom-btn-turquoise"
-                        onClick={() => {
+                         onClick={async () => {
                           if (!pensamento.trim() || !sensacao.trim() || !comportamento.trim()) {
                             setInputError(true);
                             return;
                           }
-                          setInputError(false);
-                          avancarPagina();
+
+                          try {
+                            await guardarRespostas();
+                            setInputError(false);
+                            avancarPagina();
+                          } catch (err) {
+                            alert("Erro ao guardar. Tenta novamente.");
+                          }
                         }}
                         aria-label="Avançar para a conclusão"
                       >

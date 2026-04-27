@@ -44,9 +44,9 @@ if (!user) {
       }
     }, { merge: true });
 
-    console.log("Respostas guardadas!");
+    console.log("Respostas guardadas com sucesso!");
   } catch (error) {
-    console.error("Erro ao guardar:", error);
+    console.error("Erro ao guardar respostas", error);
   }
 };
 
