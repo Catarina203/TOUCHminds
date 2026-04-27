@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
+import { db } from "../../../database/database";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; 
 
 const AnsiedadeSemFiltros = () => {
   const [pagina, setPagina] = useState(0);
@@ -16,6 +19,37 @@ const AnsiedadeSemFiltros = () => {
 
   const modulo = modulos.find((m) => m.id === moduloId);
   const atividade = modulo?.atividades.find(a => a.url === "ansiedade-sem-filtros");
+
+  const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("Utilizador não autenticado");
+      return;
+    }
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+      userRef,
+      {
+        respostas: {
+          ansiedadeSemFiltros: {
+            hashtags,
+            data: new Date().toISOString(),
+          },
+        },
+      },
+      { merge: true }
+    );
+
+    console.log("Guardado com sucesso!");
+  } catch (error) {
+    console.error("Erro ao guardar:", error);
+  }
+};
 
   const avancarPagina = () => {
     if (pagina > 0 && pagina <= 12 && !hashtags[pagina - 1].trim()) {
@@ -202,7 +236,21 @@ const AnsiedadeSemFiltros = () => {
                   </button>
                   <button
                     className="custom-btn-turquoise"
-                    onClick={avancarPagina}
+                    onClick={async () => {
+                      if (!hashtags[pagina - 1].trim()) {
+                        setInputError(true);
+                        return;
+                      }
+
+                      setInputError(false);
+
+                      // 👉 guarda só na última imagem
+                      if (pagina === 12) {
+                        await guardarRespostas();
+                      }
+
+                      avancarPagina();
+                    }}
                     aria-label={pagina === 12 ? "Conclusão" : "Avançar para a próxima imagem"}
                   >
                     {pagina === 12 ? "Conclusão" : "Próximo"}

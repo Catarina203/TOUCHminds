@@ -29,7 +29,7 @@ const guardarRespostas = async () => {
     const user = auth.currentUser;
 
     if (!user) {
-      console.error("Utilizador ainda não disponível");
+      console.error("Utilizador não autenticado");
       return;
     }
 
@@ -50,9 +50,9 @@ const guardarRespostas = async () => {
       { merge: true }
     );
 
-    console.log("Respostas guardadas com sucesso!");
+     console.log("Guardado com sucesso!");
   } catch (error) {
-    console.error("Erro ao guardar respostas:", error);
+    console.error("Erro ao guardar:", error);
   }
 };
 
