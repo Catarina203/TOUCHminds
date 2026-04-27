@@ -22,27 +22,27 @@ const BandaDesenhada = () => {
   const atividade = modulo?.atividades.find(a => a.url === "banda-desenhada");
   const quadros = atividade?.quadros || [];
 
-  const guardarRespostas = async () => {
+ const guardarRespostas = async () => {
   try {
     const auth = getAuth();
-    const user = auth.currentUser;
+const user = auth.currentUser;
 
-    if (!user) {
-      console.error("Utilizador não autenticado");
-      return;
-    }
+if (!user) {
+  console.error("Utilizador ainda não disponível");
+  return;
+}
 
     const userRef = doc(db, "alunos", user.uid);
 
     await setDoc(userRef, {
-  respostas: {
-    bandaDesenhada: {
-      ansiedadeComum,
-      ansiedadeSOS,
-      data: new Date()
-    }
-  }
-}, { merge: true });
+      respostas: {
+        bandaDesenhada: {
+          ansiedadeComum,
+          ansiedadeSOS,
+          data: new Date().toISOString()
+        }
+      }
+    }, { merge: true });
 
     console.log("Respostas guardadas!");
   } catch (error) {
