@@ -57,6 +57,8 @@ const guardarRespostas = async () => {
       return;
     }
 
+    console.log("A guardar:", userChoices); // 👈 DEBUG
+
     const userRef = doc(db, "alunos", user.uid);
 
     await setDoc(
@@ -64,7 +66,12 @@ const guardarRespostas = async () => {
       {
         respostas: {
           atividadeResumo: {
-            escolhas: userChoices,
+            escolhas: Object.fromEntries(
+              Object.entries(userChoices).map(([key, value]) => [
+                key,
+                value ? value.text : null
+              ])
+            ),
             data: new Date().toISOString(),
           },
         },

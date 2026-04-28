@@ -199,7 +199,7 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
         </table>
               <div className="lead mb-4">
         <p>
-         Ao <b>refletires</b> sobre a tua <b>experiência de ansiedade</b>, estarás a dar um passo importante para <b>compreender</b> e <b>lidar</b> de forma que traga mais <b>bem-estar e significado à tua vida</b>.
+         Ao <b>refletires</b> sobre a tua <b>experiência de ansiedade</b>, estarás a dar um passo importante para <b>compreenderes</b> e <b>lidares</b> com ela, de forma a trazer mais <b>bem-estar e significado à tua vida</b>.
         </p>
         <p>Espero que esta semana te ajude a <b>aprender mais sobre ti</b> e sobre a tua <b>experiência da ansiedade!</b></p>
         <p><b><b>Vamos em frente! #SemBichoPapão</b></b></p>
