@@ -141,7 +141,7 @@ const avancar = () => {
     }));
 };
 
-const ModalCustom = ({ show, onClose, onNext, content, pagina, cenarios, guardarRespostas }) => {
+const ModalCustom = ({ show, onClose, onNext, content }) => {
   if (!show) return null;
 
   return (
@@ -407,6 +407,9 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                     avancar(); 
                                 }}
                                 content={modalContent}
+                                pagina={pagina}
+                                cenarios={cenarios}
+                                guardarRespostas={guardarRespostas}
                             />
                         </div>
                     </div>
