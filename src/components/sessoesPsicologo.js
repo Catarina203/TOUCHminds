@@ -55,7 +55,7 @@ export default function SessoesPsicologo() {
 
   // ---- REAGENDAR ----
   const [showReagendar, setShowReagendar] = useState(false);
-  const [reservaReagendar, setReservaReagendar] = useState(null); // {id,participantCode,date,hour}
+  const [reservaReagendar, setReservaReagendar] = useState(null);
   const [novoDia, setNovoDia] = useState(fmtDate(new Date()));
   const [horasReagendar, setHorasReagendar] = useState([]);
   const [novaHora, setNovaHora] = useState('');
@@ -148,12 +148,12 @@ export default function SessoesPsicologo() {
   }, [diaSel, config, feriados]);
 
 
-  // -------- Submeter Agendamento (grava e envia e-mails) --------
+  // -------- Submeter Agendamento --------
   async function submeterAgendamento(e) {
     e.preventDefault();
     setMsgAgendar(null);
 
-     if (!formAgendar.codigo || !diaSel || !horaSel) {
+    if (!formAgendar.codigo || !diaSel || !horaSel) {
       setMsgAgendar({ tipo: 'danger', texto: 'Preenche código, dia e hora.' });
       return;
     }
@@ -171,7 +171,7 @@ export default function SessoesPsicologo() {
       await runTransaction(db, async (tx) => {
         const existing = await tx.get(apptRef);
         if (existing.exists()) throw new Error('Esse horário acabou de ser reservado por outra pessoa.');
-         tx.set(apptRef, {
+        tx.set(apptRef, {
           participantCode: formAgendar.codigo,
           date: diaSel,
           hour: horaSel,
@@ -180,20 +180,19 @@ export default function SessoesPsicologo() {
         });
       });
 
-      // E-mail + calendário (Apps Script)
+      // Content-Type: text/plain para evitar CORS preflight no Apps Script
       try {
         await fetch(APPSCRIPT_URL, {
           method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({
             token: TOKEN_PARTILHADO,
-            type: 'create', // <<< importante para o Apps Script
+            type: 'create',
             participantCode: formAgendar.codigo,
-          date: diaSel,
-          hour: horaSel,
-        }),
-      });
+            date: diaSel,
+            hour: horaSel,
+          }),
+        });
       } catch (err) {
         console.warn('Falha ao chamar o Apps Script:', err);
       }
@@ -237,60 +236,60 @@ export default function SessoesPsicologo() {
     setShowReagendar(true);
   }
 
-useEffect(() => {
-  if (!showReagendar) return;
-  let cancel = false;
+  useEffect(() => {
+    if (!showReagendar) return;
+    let cancel = false;
 
-  const obterSlots = async (dia) => {
-    if (isPastDate(dia) || isWeekend(dia) || feriados.has(dia)) return [];
-    const ovSnap = await getDoc(doc(db,'schedule_overrides',dia));
-    const ov = ovSnap.exists() ? ovSnap.data() : null;
-    if (ov?.closed) return [];
+    const obterSlots = async (dia) => {
+      if (isPastDate(dia) || isWeekend(dia) || feriados.has(dia)) return [];
+      const ovSnap = await getDoc(doc(db,'schedule_overrides',dia));
+      const ov = ovSnap.exists() ? ovSnap.data() : null;
+      if (ov?.closed) return [];
 
-    let blocks = [
-      ...(config.morning ? [config.morning] : []),
-      ...(config.afternoon ? [config.afternoon] : []),
-    ];
-    if (Array.isArray(ov?.extraBlocks)) blocks = [...blocks, ...ov.extraBlocks];
-    if (Array.isArray(ov?.removedBlocks) && ov.removedBlocks.length){
-      const rem = mergeBlocks(ov.removedBlocks); 
-      const nb = [];
-      for (const b of blocks) {
-        let curr=[{...b}];
-        for (const r of rem) {
-          const next=[];
-          for (const seg of curr) {
-            const s1 = mins(seg.start), e1 = mins(seg.end), s2 = mins(r.start), e2 = mins(r.end);
-            if (e1 <= s2 || e2 <= s1) next.push(seg);
-            else { if(s1<s2) next.push({start:hhmm(s1), end:hhmm(s2)}); if(e2<e1) next.push({start:hhmm(e2), end:hhmm(e1)});}
+      let blocks = [
+        ...(config.morning ? [config.morning] : []),
+        ...(config.afternoon ? [config.afternoon] : []),
+      ];
+      if (Array.isArray(ov?.extraBlocks)) blocks = [...blocks, ...ov.extraBlocks];
+      if (Array.isArray(ov?.removedBlocks) && ov.removedBlocks.length){
+        const rem = mergeBlocks(ov.removedBlocks);
+        const nb = [];
+        for (const b of blocks) {
+          let curr=[{...b}];
+          for (const r of rem) {
+            const next=[];
+            for (const seg of curr) {
+              const s1 = mins(seg.start), e1 = mins(seg.end), s2 = mins(r.start), e2 = mins(r.end);
+              if (e1 <= s2 || e2 <= s1) next.push(seg);
+              else { if(s1<s2) next.push({start:hhmm(s1), end:hhmm(s2)}); if(e2<e1) next.push({start:hhmm(e2), end:hhmm(e1)});}
+            }
+            curr = next;
           }
-          curr = next;
+          nb.push(...curr);
         }
-        nb.push(...curr);
+        blocks = nb;
       }
-      blocks = nb;
-    }
 
-    let slots = slotsFromBlocks(blocks, config.slotMinutes || 30);
-    if (Array.isArray(ov?.blockedSlots)) {
-      const blocked = new Set(ov.blockedSlots);
-      slots = slots.filter(s => !blocked.has(s));
-    }
+      let slots = slotsFromBlocks(blocks, config.slotMinutes || 30);
+      if (Array.isArray(ov?.blockedSlots)) {
+        const blocked = new Set(ov.blockedSlots);
+        slots = slots.filter(s => !blocked.has(s));
+      }
 
-    const snapDay = await getDocs(query(collection(db,'marcacoes'), where('date','==',dia)));
-    const booked = new Set(snapDay.docs.map(d => d.data().hour));
-    return slots.filter(s => !booked.has(s));
-  };
+      const snapDay = await getDocs(query(collection(db,'marcacoes'), where('date','==',dia)));
+      const booked = new Set(snapDay.docs.map(d => d.data().hour));
+      return slots.filter(s => !booked.has(s));
+    };
 
-  (async () => {
-    setLoadingReagendar(true); setMsgReagendar(null); setNovaHora(''); setHorasReagendar([]);
-    const livres = await obterSlots(novoDia);
-    if (!cancel) setHorasReagendar(livres);
-    setLoadingReagendar(false);
-  })();
+    (async () => {
+      setLoadingReagendar(true); setMsgReagendar(null); setNovaHora(''); setHorasReagendar([]);
+      const livres = await obterSlots(novoDia);
+      if (!cancel) setHorasReagendar(livres);
+      setLoadingReagendar(false);
+    })();
 
-  return () => { cancel = true; };
-}, [showReagendar, novoDia, config, feriados]);
+    return () => { cancel = true; };
+  }, [showReagendar, novoDia, config, feriados]);
 
   async function reagendarAgendamento() {
     if (!reservaReagendar || !novoDia || !novaHora) {
@@ -325,20 +324,19 @@ useEffect(() => {
         tx.delete(oldRef);
       });
 
-      // E-mail + atualizar evento de calendário (Apps Script)
+      // ✅ Content-Type: text/plain para evitar CORS preflight no Apps Script
       try {
         await fetch(APPSCRIPT_URL, {
           method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({
-           token: TOKEN_PARTILHADO,
-           type: 'reschedule',
-           participantCode: reservaReagendar.participantCode,
-           oldDate: reservaReagendar.date,
-           oldHour: reservaReagendar.hour,
-           newDate: novoDia,
-           newHour: novaHora,
+            token: TOKEN_PARTILHADO,
+            type: 'reschedule',
+            participantCode: reservaReagendar.participantCode,
+            oldDate: reservaReagendar.date,
+            oldHour: reservaReagendar.hour,
+            newDate: novoDia,
+            newHour: novaHora,
           }),
         });
       } catch (err) {
@@ -356,7 +354,7 @@ useEffect(() => {
     }
   }
 
-   if (!userData) return <Loading message="A carregar Sessões com o Psicólogo..." />;
+  if (!userData) return <Loading message="A carregar Sessões com o Psicólogo..." />;
 
   // -------- UI --------
   return (
@@ -369,39 +367,39 @@ useEffect(() => {
             <h2 className="mb-3 fw-semibold" style={{ color: '#99CBC8' }}>
               Sessões com o Psicólogo
             </h2>
-         <p className="text-muted" style={{ fontSize: '1rem' }}>
-          Aqui podes agendar as tuas sessões e ver as tuas marcações.
-        </p>
+            <p className="text-muted" style={{ fontSize: '1rem' }}>
+              Aqui podes agendar as tuas sessões e ver as tuas marcações.
+            </p>
 
             {/* Tabs */}
             <ul className="nav nav-tabs" role="tablist">
               <li className="nav-item" role="presentation">
                 <button
-                      type="button"
-                      className="nav-link fw-semibold"
-                      onClick={()=>setTab('agendar')}
-                      role="tab"
-                      aria-selected={tab==='agendar'}
-                      style={tab==='agendar'
-                        ? { backgroundColor:'#99CBC8', color:'#fff', borderRadius:'6px 6px 0 0', padding:'10px 18px', border:'none' }
-                        : { backgroundColor:'transparent', color:'#234970', padding:'10px 18px', border:'none' }}
-                    >
-                      Agendar
-                    </button>
+                  type="button"
+                  className="nav-link fw-semibold"
+                  onClick={()=>setTab('agendar')}
+                  role="tab"
+                  aria-selected={tab==='agendar'}
+                  style={tab==='agendar'
+                    ? { backgroundColor:'#99CBC8', color:'#fff', borderRadius:'6px 6px 0 0', padding:'10px 18px', border:'none' }
+                    : { backgroundColor:'transparent', color:'#234970', padding:'10px 18px', border:'none' }}
+                >
+                  Agendar
+                </button>
               </li>
               <li className="nav-item" role="presentation">
                 <button
-                    type="button"
-                    className="nav-link fw-semibold"
-                    onClick={()=>setTab('meus')}
-                    role="tab"
-                    aria-selected={tab==='meus'}
-                    style={tab==='meus'
-                      ? { backgroundColor:'#99CBC8', color:'#fff', borderRadius:'6px 6px 0 0', padding:'10px 18px', border:'none' }
-                      : { backgroundColor:'transparent', color:'#234970', padding:'10px 18px', border:'none' }}
-                  >
-                    As minhas marcações
-                  </button>
+                  type="button"
+                  className="nav-link fw-semibold"
+                  onClick={()=>setTab('meus')}
+                  role="tab"
+                  aria-selected={tab==='meus'}
+                  style={tab==='meus'
+                    ? { backgroundColor:'#99CBC8', color:'#fff', borderRadius:'6px 6px 0 0', padding:'10px 18px', border:'none' }
+                    : { backgroundColor:'transparent', color:'#234970', padding:'10px 18px', border:'none' }}
+                >
+                  As minhas marcações
+                </button>
               </li>
             </ul>
 
@@ -410,20 +408,20 @@ useEffect(() => {
               {tab==='agendar' && (
                 <div className="tab-pane active" role="tabpanel">
                   {msgAgendar && (
-                      <div
-                        className="alert"
-                        role="alert"
-                        style={
-                          msgAgendar.tipo==='success'
-                            ? { background:'#FBF9F9', color:'#99CBC8', border:'none' }
-                            : msgAgendar.tipo==='info'
-                              ? { background:'#fbf9f9', color:'#234970', border:'none' }
-                              : { background:'#fbf9f9', color:'#c72c41', border:'none' }
-                        }
-                      >
-                        {msgAgendar.texto}
-                      </div>
-                    )}
+                    <div
+                      className="alert"
+                      role="alert"
+                      style={
+                        msgAgendar.tipo==='success'
+                          ? { background:'#FBF9F9', color:'#99CBC8', border:'none' }
+                          : msgAgendar.tipo==='info'
+                            ? { background:'#fbf9f9', color:'#234970', border:'none' }
+                            : { background:'#fbf9f9', color:'#c72c41', border:'none' }
+                      }
+                    >
+                      {msgAgendar.texto}
+                    </div>
+                  )}
 
                   {/* Dia */}
                   <div className="row g-2 mb-3">
@@ -447,18 +445,18 @@ useEffect(() => {
                         {loadingSlots && <span className="text-muted">A carregar…</span>}
                         {!loadingSlots && !horas.length && <span className="text-muted">Sem horários para este dia.</span>}
                         {horas.map(h=>(
-                         <button
-                              key={h}
-                              type="button"
-                              onClick={()=>setHoraSel(h)}
-                              aria-pressed={horaSel===h}
-                              style={horaSel===h
-                                ? { background:'#99CBC8', color:'#fff', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
-                                : { background:'transparent', color:'#99CBC8', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
-                              }
-                            >
-                              {h}
-                            </button>
+                          <button
+                            key={h}
+                            type="button"
+                            onClick={()=>setHoraSel(h)}
+                            aria-pressed={horaSel===h}
+                            style={horaSel===h
+                              ? { background:'#99CBC8', color:'#fff', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
+                              : { background:'transparent', color:'#99CBC8', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
+                            }
+                          >
+                            {h}
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -481,19 +479,19 @@ useEffect(() => {
                     </div>
                     <div className="col-12">
                       <button
-                            type="submit"
-                            disabled={enviando||!diaSel||!horaSel}
-                            style={{
-                              backgroundColor:'#99CBC8',
-                              color:'#fff',
-                              border:'none',
-                              fontWeight:600,
-                              padding:'8px 18px',
-                              borderRadius:8,
-                              opacity:(enviando||!diaSel||!horaSel)?0.7:1,
-                              cursor:(enviando||!diaSel||!horaSel)?'not-allowed':'pointer'
-                            }}
-                          >
+                        type="submit"
+                        disabled={enviando||!diaSel||!horaSel}
+                        style={{
+                          backgroundColor:'#99CBC8',
+                          color:'#fff',
+                          border:'none',
+                          fontWeight:600,
+                          padding:'8px 18px',
+                          borderRadius:8,
+                          opacity:(enviando||!diaSel||!horaSel)?0.7:1,
+                          cursor:(enviando||!diaSel||!horaSel)?'not-allowed':'pointer'
+                        }}
+                      >
                         {enviando ? 'A marcar…' : `Marcar${diaSel && horaSel ? ` (${diaSel} às ${horaSel})` : ''}`}
                       </button>
                     </div>
@@ -505,46 +503,46 @@ useEffect(() => {
               {tab==='meus' && (
                 <div className="tab-pane active" role="tabpanel">
                   {msgConsulta && (
-                        <div
-                          className="alert"
-                          role="alert"
-                          style={
-                            msgConsulta.tipo==='success'
-                              ? { background:'#FBF9F9', color:'#99CBC8', border:'none'  }
-                              : msgConsulta.tipo==='info'
-                                ? { background:'#fbf9f9', color:'#234970', border:'none' }
-                                : { background:'#fbf9f9', color:'#c72c41', border:'none'}
-                          }
-                        >
-                          {msgConsulta.texto}
-                        </div>
-                      )}
+                    <div
+                      className="alert"
+                      role="alert"
+                      style={
+                        msgConsulta.tipo==='success'
+                          ? { background:'#FBF9F9', color:'#99CBC8', border:'none' }
+                          : msgConsulta.tipo==='info'
+                            ? { background:'#fbf9f9', color:'#234970', border:'none' }
+                            : { background:'#fbf9f9', color:'#c72c41', border:'none'}
+                      }
+                    >
+                      {msgConsulta.texto}
+                    </div>
+                  )}
 
                   <form onSubmit={consultarAgendamentos} className="mb-3">
                     <label className="form-label">Código de Participante</label>
                     <div className="input-group">
                       <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Introduz o teu código de participante"
-                      value={codigoConsulta}
-                      onChange={e => setCodigoConsulta(e.target.value)}
-                      required
+                        type="text"
+                        className="form-control"
+                        placeholder="Introduz o teu código de participante"
+                        value={codigoConsulta}
+                        onChange={e => setCodigoConsulta(e.target.value)}
+                        required
                       />
                       <button
-                              type="submit"
-                              disabled={loadingConsulta}
-                              style={{
-                                backgroundColor:'#99CBC8',
-                                color:'#fff',
-                                border:'none',
-                                fontWeight:600,
-                                padding:'8px 18px',
-                                borderRadius:8,
-                                opacity:loadingConsulta?0.7:1,
-                                cursor:loadingConsulta?'not-allowed':'pointer'
-                              }}
-                            >
+                        type="submit"
+                        disabled={loadingConsulta}
+                        style={{
+                          backgroundColor:'#99CBC8',
+                          color:'#fff',
+                          border:'none',
+                          fontWeight:600,
+                          padding:'8px 18px',
+                          borderRadius:8,
+                          opacity:loadingConsulta?0.7:1,
+                          cursor:loadingConsulta?'not-allowed':'pointer'
+                        }}
+                      >
                         {loadingConsulta?'A procurar…':'Ver'}
                       </button>
                     </div>
@@ -560,26 +558,26 @@ useEffect(() => {
                               <li key={a.id} className="list-group-item d-flex justify-content-between align-items-center">
                                 <span><strong>{a.date}</strong> às <strong>{a.hour}</strong></span>
                                 <div className="d-flex gap-2">
-                                      <span
-                                        className="align-self-center"
-                                        style={{ background:'#99CBC8', color:'#fff', borderRadius:12, padding:'4px 10px', fontSize:12 }}
-                                      >
-                                        Confirmado
-                                      </span>
-                                      <button
-                                        onClick={()=>abrirReagendar(a)}
-                                        style={{
-                                          border:'2px solid #99CBC8',
-                                          color:'#99CBC8',
-                                          background:'transparent',
-                                          fontWeight:600,
-                                          borderRadius:8,
-                                          padding:'4px 12px'
-                                        }}
-                                      >
-                                        Reagendar
-                                      </button>
-                                    </div>
+                                  <span
+                                    className="align-self-center"
+                                    style={{ background:'#99CBC8', color:'#fff', borderRadius:12, padding:'4px 10px', fontSize:12 }}
+                                  >
+                                    Confirmado
+                                  </span>
+                                  <button
+                                    onClick={()=>abrirReagendar(a)}
+                                    style={{
+                                      border:'2px solid #99CBC8',
+                                      color:'#99CBC8',
+                                      background:'transparent',
+                                      fontWeight:600,
+                                      borderRadius:8,
+                                      padding:'4px 12px'
+                                    }}
+                                  >
+                                    Reagendar
+                                  </button>
+                                </div>
                               </li>
                             ))}
                           </ul>
@@ -593,103 +591,102 @@ useEffect(() => {
           </div>
 
           {/* ---- Modal Reagendar ---- */}
-         {showReagendar && (
-                  <div className="modal d-block" tabIndex="-1" role="dialog" style={{ background:'rgba(0,0,0,0.35)' }}>
-                    <div className="modal-dialog modal-dialog-centered" role="document">
-                      <div className="modal-content">
+          {showReagendar && (
+            <div className="modal d-block" tabIndex="-1" role="dialog" style={{ background:'rgba(0,0,0,0.35)' }}>
+              <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-content">
 
-                        <div className="modal-header">
-                          <h5 className="modal-title" style={{ color: '#234970', fontWeight: 700 }}>
-                            Reagendar sessão
-                          </h5>
-                          <button type="button" className="btn-close" aria-label="Fechar" onClick={()=>setShowReagendar(false)} />
-                        </div>
-                     {/* Body */}
-                          <div className="modal-body">
-                            {msgReagendar && (
-                              <div
-                                className="alert"
-                                role="alert"
-                                style={
-                                  msgReagendar.tipo==='success'
-                                    ? { background:'#FBF9F9', color:'#99CBC8', border:'none' }
-                                    : msgReagendar.tipo==='info'
-                                      ? { background:'#fbf9f9', color:'#234970', border:'none' }
-                                      : { background:'#fbf9f9', color:'#c72c41', border:'none' }
-                                }
-                              >
-                                {msgReagendar.texto}
-                              </div>
-                            )}
+                  <div className="modal-header">
+                    <h5 className="modal-title" style={{ color: '#234970', fontWeight: 700 }}>
+                      Reagendar sessão
+                    </h5>
+                    <button type="button" className="btn-close" aria-label="Fechar" onClick={()=>setShowReagendar(false)} />
+                  </div>
 
-                            <div className="mb-3">
-                              <label className="form-label">Novo dia</label>
-                              <input
-                                type="date"
-                                className="form-control"
-                                value={novoDia}
-                                min={minDate}
-                                onChange={e=>setNovoDia(e.target.value)}
-                              />
-                            </div>
+                  <div className="modal-body">
+                    {msgReagendar && (
+                      <div
+                        className="alert"
+                        role="alert"
+                        style={
+                          msgReagendar.tipo==='success'
+                            ? { background:'#FBF9F9', color:'#99CBC8', border:'none' }
+                            : msgReagendar.tipo==='info'
+                              ? { background:'#fbf9f9', color:'#234970', border:'none' }
+                              : { background:'#fbf9f9', color:'#c72c41', border:'none' }
+                        }
+                      >
+                        {msgReagendar.texto}
+                      </div>
+                    )}
 
-                            <div className="mb-2">
-                              <label className="form-label">Nova hora</label>
-                              <div className="d-flex flex-wrap gap-2">
-                                {loadingReagendar && <span className="text-muted">A carregar…</span>}
-                                {!loadingReagendar && horasReagendar.length===0 && (
-                                  <span className="text-muted">Sem horários livres neste dia.</span>
-                                )}
-                                {horasReagendar.map(h=>(
-                                  <button
-                                    key={h}
-                                    type="button"
-                                    onClick={()=>setNovaHora(h)}
-                                    style={novaHora===h
-                                      ? { background:'#99CBC8', color:'#fff', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
-                                      : { background:'transparent', color:'#99CBC8', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
-                                    }
-                                  >
-                                    {h}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
+                    <div className="mb-3">
+                      <label className="form-label">Novo dia</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={novoDia}
+                        min={minDate}
+                        onChange={e=>setNovoDia(e.target.value)}
+                      />
+                    </div>
 
-                          {/* Footer */}
-                          <div className="modal-footer">
-                            <button
-                              onClick={()=>setShowReagendar(false)}
-                              style={{
-                                background:'#FBF9F9',
-                                color:'#234970',
-                                border:'none',
-                                borderRadius:8,
-                                padding:'8px 16px',
-                                fontWeight:600
-                              }}
-                            >
-                              Fechar
-                            </button>
+                    <div className="mb-2">
+                      <label className="form-label">Nova hora</label>
+                      <div className="d-flex flex-wrap gap-2">
+                        {loadingReagendar && <span className="text-muted">A carregar…</span>}
+                        {!loadingReagendar && horasReagendar.length===0 && (
+                          <span className="text-muted">Sem horários livres neste dia.</span>
+                        )}
+                        {horasReagendar.map(h=>(
+                          <button
+                            key={h}
+                            type="button"
+                            onClick={()=>setNovaHora(h)}
+                            style={novaHora===h
+                              ? { background:'#99CBC8', color:'#fff', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
+                              : { background:'transparent', color:'#99CBC8', border:'1.5px solid #99CBC8', borderRadius:8, padding:'6px 10px' }
+                            }
+                          >
+                            {h}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
 
-                            <button
-                              onClick={reagendarAgendamento}
-                              disabled={!novaHora || loadingReagendar}
-                              style={{
-                                background:'#99CBC8',
-                                color:'#fff',
-                                border:'none',
-                                borderRadius:8,
-                                padding:'8px 16px',
-                                fontWeight:600,
-                                opacity:(!novaHora||loadingReagendar)?0.7:1,
-                                cursor:(!novaHora||loadingReagendar)?'not-allowed':'pointer'
-                              }}
-                            >
-                              {loadingReagendar ? 'A reagendar…' : 'Confirmar'}
-                            </button>
-                          </div>
+                  <div className="modal-footer">
+                    <button
+                      onClick={()=>setShowReagendar(false)}
+                      style={{
+                        background:'#FBF9F9',
+                        color:'#234970',
+                        border:'none',
+                        borderRadius:8,
+                        padding:'8px 16px',
+                        fontWeight:600
+                      }}
+                    >
+                      Fechar
+                    </button>
+
+                    <button
+                      onClick={reagendarAgendamento}
+                      disabled={!novaHora || loadingReagendar}
+                      style={{
+                        background:'#99CBC8',
+                        color:'#fff',
+                        border:'none',
+                        borderRadius:8,
+                        padding:'8px 16px',
+                        fontWeight:600,
+                        opacity:(!novaHora||loadingReagendar)?0.7:1,
+                        cursor:(!novaHora||loadingReagendar)?'not-allowed':'pointer'
+                      }}
+                    >
+                      {loadingReagendar ? 'A reagendar…' : 'Confirmar'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
