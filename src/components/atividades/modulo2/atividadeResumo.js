@@ -74,7 +74,9 @@ const AtividadeResumoModulo2 = () => {
         }
     ];
  
-    const guardarRespostas = async () => {
+    const [respostas, setRespostas] = useState({});
+
+ const guardarRespostas = async () => {
   try {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -87,7 +89,7 @@ const AtividadeResumoModulo2 = () => {
       userRef,
       {
         respostas: {
-          atividadeResumoModulo2: arrayUnion({
+          atividadeResumo2: arrayUnion({
             respostas,
             data: new Date().toISOString(),
           }),

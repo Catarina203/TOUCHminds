@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../../App";
 import { useContext } from "react";
 import { db } from "../../../database/database";
-import { updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const afirmacoes = [
