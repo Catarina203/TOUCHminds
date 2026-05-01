@@ -44,16 +44,12 @@ const AtividadeResumoCarta = () => {
           respostas: {
             modulo3: {
                 atividaderesumo3: arrayUnion({
-                  parte1,
-                  parte2,
-                  parte3,
-                  parte4,
-                  parte5,
-                  parte6,
-                  parte7,
-                  parte8,
-                  parte9,
-                  parte10,
+                  frasescarta: Object.fromEntries(
+                    Object.entries(carta).map(([key, value]) => [
+                      key,
+                      value ? value.text : null
+                    ])
+                  ),
                   data: new Date().toISOString()
                 }),
             },
