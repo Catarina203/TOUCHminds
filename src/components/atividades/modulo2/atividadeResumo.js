@@ -21,6 +21,7 @@ const AtividadeResumoModulo2 = () => {
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const atividade = modulo?.atividades.find(a => a.url === "atividade-resumo");
+    const [respostas, setRespostas] = useState({});
 
     const cenarios = [
         {
@@ -121,13 +122,19 @@ const avancar = () => {
         setOpcaoSelecionada(null);
     };
 
-            const escolherOpcao = (index) => {
-            const explicacao = cenarios[pagina - 1].explicacao;
-            setModalContent(explicacao);
-            setOpcaoSelecionada(index);
-            setShowWarning(false);
-            setShowModal(true);
-            };
+    const escolherOpcao = (index) => {
+    const explicacao = cenarios[pagina - 1].explicacao;
+
+    setModalContent(explicacao);
+    setOpcaoSelecionada(index);
+    setShowWarning(false);
+    setShowModal(true);
+
+    setRespostas(prev => ({
+        ...prev,
+        [pagina - 1]: index
+    }));
+};
 
 const ModalCustom = ({ show, onClose, onNext, content }) => {
   if (!show) return null;
