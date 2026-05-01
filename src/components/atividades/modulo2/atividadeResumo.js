@@ -85,17 +85,15 @@ const AtividadeResumoModulo2 = () => {
     const userRef = doc(db, "alunos", user.uid);
 
     await setDoc(
-      userRef,
-      {
-        respostas: {
-          atividadeResumo2: arrayUnion({
-            respostas,
-            data: new Date().toISOString(),
-          }),
-        },
-      },
-      { merge: true }
-    );
+  userRef,
+  {
+    atividadeResumo2: arrayUnion({
+      respostas,
+      data: new Date().toISOString(),
+    }),
+  },
+  { merge: true }
+);
 
     console.log("Respostas guardadas!");
   } catch (error) {
@@ -131,9 +129,9 @@ const avancar = () => {
     setShowModal(true);
 
     setRespostas(prev => ({
-        ...prev,
-        [pagina - 1]: index
-    }));
+  ...prev,
+  [pagina - 1]: cenarios[pagina - 1].opcoes[index]
+}));
 };
 
 const ModalCustom = ({ show, onClose, onNext, content }) => {

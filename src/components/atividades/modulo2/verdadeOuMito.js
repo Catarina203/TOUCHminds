@@ -111,13 +111,15 @@ const VerdadeOuMito = () => {
     const userRef = doc(db, "alunos", user.uid);
 
     await setDoc(
-          userRef,
-          {
-      "respostas.verdadeOuMito": arrayUnion({
+    userRef,
+    {
+      verdadeOuMito: arrayUnion({
         respostas: respostas,
         data: new Date().toISOString(),
       }),
-    });
+    },
+    { merge: true }
+  );
 
     console.log("Resposta adicionada ao histórico!");
   } catch (error) {
