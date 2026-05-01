@@ -4,6 +4,9 @@ import Navbar from "../../navbar";
 import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import AtividadeProgressao from "../atividadeProgressao";
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const AtividadeVozCritica = () => {
   const [pagina, setPagina] = useState(0);
@@ -12,6 +15,41 @@ const AtividadeVozCritica = () => {
   const [mostrarErro, setMostrarErro] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+
+  const guardarRespostas = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+  
+      if (!user) {
+        console.error("Utilizador não autenticado");
+        return;
+      }
+  
+      const userRef = doc(db, "alunos", user.uid);
+  
+      await setDoc(
+        userRef,
+        {
+          respostas: {
+            modulo3: {
+                vozes: arrayUnion({
+                  vozCritica,
+                  vozCompassiva,
+                  data: new Date().toISOString()
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
+  
+      console.log("Guardado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao guardar:", error);
+    }
+  };
+  
 
   const avancarPagina = () => {
     // Validação para a página de reflexão (página 10)
@@ -24,6 +62,7 @@ const AtividadeVozCritica = () => {
     }
     setPagina((prev) => prev + 1);
   };
+
 
   const retrocederPagina = () => setPagina((prev) => prev - 1);
 
@@ -292,7 +331,12 @@ const AtividadeVozCritica = () => {
            {pagina < 11 && pagina > 0 ? (
             <button
               className="custom-btn-turquoise"
-              onClick={avancarPagina}
+              onClick={async () => {
+                if (pagina === 10) {
+                  await guardarRespostas(); 
+                }
+                avancarPagina();
+              }}
             >
               {pagina === 9
                 ? "Refletir"

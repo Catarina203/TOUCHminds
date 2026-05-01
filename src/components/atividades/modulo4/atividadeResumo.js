@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import AtividadeProgressao from "../atividadeProgressao";
 import { Modal, Button } from 'react-bootstrap';
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const AtividadeResumoMudanca = () => {
   const [pagina, setPagina] = useState(0);
@@ -16,6 +19,39 @@ const AtividadeResumoMudanca = () => {
   const [avisoFase, setAvisoFase] = useState(false);
   const [avisoConfianca, setAvisoConfianca] = useState(false);
   
+const guardarRespostas = async () => {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+    
+        if (!user) {
+          console.error("Utilizador não autenticado");
+          return;
+        }
+    
+        const userRef = doc(db, "alunos", user.uid);
+    
+        await setDoc(
+          userRef,
+          {
+            respostas: {
+              modulo4: {
+                  atividaderesumo4: arrayUnion({
+                    faseEscolhida,
+                    confianca,
+                    data: new Date().toISOString()
+                  }),
+              },
+            },
+          },
+          { merge: true }
+        );
+    
+        console.log("Guardado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao guardar:", error);
+      }
+    };
 
  const handlePhaseInfoClick = (faseKey) => {
   setFasesAbertas((prev) =>
@@ -536,7 +572,8 @@ const imagemFase = {
                         </button>
                         <button
                           className="custom-btn-turquoise"
-                          onClick={() => {
+                          onClick={async () => {
+                            await guardarRespostas();
                             if (!confianca) {
                               setAvisoConfianca(true);  
                               return;

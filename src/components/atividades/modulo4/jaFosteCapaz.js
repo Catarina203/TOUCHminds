@@ -4,6 +4,9 @@ import Navbar from "../../navbar";
 import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import AtividadeProgressao from "../atividadeProgressao";
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const JaFosteCapaz = () => {
   const [pagina, setPagina] = useState(0);
@@ -18,6 +21,38 @@ const JaFosteCapaz = () => {
   const handleAudioPlay = () => setTriedNext(false);
   const progresso = Math.round((pagina / 5) * 100);
 
+  const guardarRespostas = async () => {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+    
+        if (!user) {
+          console.error("Utilizador não autenticado");
+          return;
+        }
+    
+        const userRef = doc(db, "alunos", user.uid);
+    
+        await setDoc(
+          userRef,
+          {
+            respostas: {
+              modulo4: {
+                  jafostecapaz: arrayUnion({
+                    choice,
+                    data: new Date().toISOString()
+                  }),
+              },
+            },
+          },
+          { merge: true }
+        );
+    
+        console.log("Guardado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao guardar:", error);
+      }
+    };
 
   useEffect(() => {
   setTriedNext(false); // limpa os avisos ao entrar na página
@@ -203,7 +238,12 @@ const canProceed = () => {
                   >
                     <button
                       type="button"
-                      onClick={onNext} // <-- AVANÇA AO CLICAR "Próximo"
+                      onClick={async () => {
+                        if (pagina === 4) {
+                          await guardarRespostas(); 
+                        }
+                        onNext();
+                      }}
                       style={{
                         backgroundColor: "#234970",
                         border: "none",
@@ -445,7 +485,8 @@ triedNext && pagina >= 1 && pagina <= 4 && audioEnded[idxAtual] && !choice[idxAt
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior
                   </button>
-                  <button className="custom-btn-turquoise" onClick={avancarPagina}>
+                  <button className="custom-btn-turquoise"
+                          onClick={avancarPagina}>
                     {pagina === 4 ? "Conclusão" : "Próximo"}
                     <i className="bi bi-arrow-right ms-2"></i>
                   </button>
@@ -467,6 +508,7 @@ triedNext && pagina >= 1 && pagina <= 4 && audioEnded[idxAtual] && !choice[idxAt
                   }}
                   content={modalContent}
                   nextLabel={pagina === 4 ? "Conclusão" : "Próximo"}
+                  pagina={pagina}
                 />
 
 

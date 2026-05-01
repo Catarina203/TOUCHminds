@@ -4,6 +4,9 @@ import Navbar from "../../navbar";
 import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import AtividadeProgressao from "../atividadeProgressao";
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const AtividadeResumoCarta = () => {
   const [pagina, setPagina] = useState(0);
@@ -22,6 +25,48 @@ const AtividadeResumoCarta = () => {
     parte10: ""
   });
   const [erroCampos, setErroCampos] = useState(false);
+
+  const guardarRespostas = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+  
+      if (!user) {
+        console.error("Utilizador não autenticado");
+        return;
+      }
+  
+      const userRef = doc(db, "alunos", user.uid);
+  
+      await setDoc(
+        userRef,
+        {
+          respostas: {
+            modulo3: {
+                atividaderesumo3: arrayUnion({
+                  parte1,
+                  parte2,
+                  parte3,
+                  parte4,
+                  parte5,
+                  parte6,
+                  parte7,
+                  parte8,
+                  parte9,
+                  parte10,
+                  data: new Date().toISOString()
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
+  
+      console.log("Guardado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao guardar:", error);
+    }
+  };
 
   const handleChange = (name, value) => {
     setCarta(prev => ({ ...prev, [name]: value }));
@@ -282,7 +327,10 @@ const baseInputStyle = {
                   </button>
                   <button
                     className="custom-btn-turquoise"
-                    onClick={validarCampos}
+                    onClick={async () => {
+                      await guardarRespostas(); 
+                      validarCampos();
+                    }}
                     aria-label="Avançar para a conclusão"
                   >
                     Conclusão

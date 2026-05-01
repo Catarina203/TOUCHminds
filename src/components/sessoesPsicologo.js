@@ -95,7 +95,7 @@ export default function SessoesPsicologo() {
         if (!diaSel) return;
         if (isPastDate(diaSel)) { setMsgAgendar({tipo:'info',texto:'Não é possível marcar em datas passadas.'}); return; }
         if (isWeekend(diaSel)) { setMsgAgendar({tipo:'info',texto:'Apenas dias úteis (segunda a sexta).'}); return; }
-        if (feriados.has(diaSel)) { setMsgAgendar({tipo:'info',texto:'Feriado — sem horários disponíveis.'}); return; }
+        if (feriados.has(diaSel)) { setMsgAgendar({tipo:'info',texto:'Feriado ou Férias — sem horários disponíveis.'}); return; }
 
         const ovSnap = await getDoc(doc(db,'schedule_overrides',diaSel));
         const ov = ovSnap.exists()? ovSnap.data(): null;

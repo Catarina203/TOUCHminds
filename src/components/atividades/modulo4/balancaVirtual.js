@@ -6,6 +6,9 @@ import AtividadeProgressao from "../atividadeProgressao";
 import { UserContext } from "../../../App";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const comportamentos = {
   procrastinacao: {
@@ -111,6 +114,43 @@ const BalancaVirtual = () => {
     contraNaoMudar: [],
   });
   const [showValidationError, setShowValidationError] = useState(false);
+
+  const guardarRespostas = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+  
+      if (!user) {
+        console.error("Utilizador não autenticado");
+        return;
+      }
+  
+      const userRef = doc(db, "alunos", user.uid);
+  
+      await setDoc(
+        userRef,
+        {
+          respostas: {
+            modulo4: {
+                balancavirtual: arrayUnion({
+                  comportamento,
+                  mudar: respostas.mudar,
+                  contraMudar: respostas.contraMudar,
+                  naoMudar: respostas.naoMudar,
+                  contraNaoMudar: respostas.contraNaoMudar,
+                  data: new Date().toISOString()
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
+  
+      console.log("Guardado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao guardar:", error);
+    }
+  };
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
@@ -527,7 +567,11 @@ const BalancaVirtual = () => {
                     <button className="custom-btn-pink" onClick={() => setPagina(2)}>
                       <i className="bi bi-arrow-left me-2"></i>Anterior
                     </button>
-                    <button className="custom-btn-turquoise" onClick={() => setPagina(4)}>
+                    <button className="custom-btn-turquoise"
+                            onClick={async () => {
+                            await guardarRespostas();
+                            setPagina(4);
+                          }}>
                       Conclusão<i className="bi bi-arrow-right ms-2"></i>
                     </button>
                   </div>
