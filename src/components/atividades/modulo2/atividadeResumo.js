@@ -73,8 +73,6 @@ const AtividadeResumoModulo2 = () => {
 
         }
     ];
- 
-    const [respostas, setRespostas] = useState({});
 
  const guardarRespostas = async () => {
   try {
