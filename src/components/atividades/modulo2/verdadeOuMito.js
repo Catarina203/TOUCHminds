@@ -5,6 +5,9 @@ import AtividadeProgressao from "../atividadeProgressao";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../../App";
 import { useContext } from "react";
+import { db } from "../../../database/database";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const afirmacoes = [
   {
@@ -25,7 +28,7 @@ const afirmacoes = [
   },
   {
     texto: <p style={{color:'#234970'}}>Se eu admitir que fico ansioso, serei visto como fraco/a ou estranho/a.</p>,
-    resposta: "Verdade",
+    resposta: "Mito",
     explicacao:
       <p className="lead">
         <strong>Mito!</strong> Sentir <strong>ansiedade</strong> não tem nada de <strong>estranho</strong> — é algo <strong>humano</strong>, que <strong>todos experimentamos</strong>. O <strong>medo</strong> de ser <strong>julgado</strong> pode levar muitas pessoas a hesitar em <strong>falar</strong> sobre o que sentem. No entanto, <strong>admitir</strong> que estamos <strong>ansiosos</strong> é um sinal de <strong>coragem</strong> e <strong>autoconhecimento</strong>. <strong>Falar</strong> sobre as nossas <strong>emoções</strong> pode trazer <strong>surpresas positivas</strong>: podemos encontrar a <strong>compreensão</strong> e o <strong>apoio</strong> que desejávamos, mas não esperávamos. Mostrar <strong>vulnerabilidade</strong> não só fortalece os <strong>laços de amizade</strong>, como também cria um <strong>ambiente</strong> mais <strong>acolhedor</strong> e <strong>seguro</strong>, onde todos se sentem mais à vontade para <strong>partilhar</strong> as suas <strong>experiências</strong>.
@@ -41,7 +44,7 @@ const afirmacoes = [
   },
   {
     texto: <p style={{color:'#234970'}}>Ter ansiedade não é o mesmo que sentir medo.</p>,
-    resposta: "Verdade",
+    resposta: "Mito",
     explicacao:
       <p className="lead">
       <strong>Mito!</strong> A <strong>ansiedade</strong> engloba mais do que apenas o <strong>medo</strong>. O <strong>medo</strong> é uma <strong>resposta</strong> a um <strong>perigo específico</strong> e <strong>imediato</strong>, a algo que está mesmo a <strong>acontecer</strong> (como ver um <strong>cão</strong> a correr na tua <strong>direção</strong>). Já a <strong>ansiedade</strong> é mais sobre o que <strong>poderá acontecer</strong> no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja <strong>provável</strong>. A <strong>ansiedade</strong> é <strong>preocupação</strong> com o que pode estar para <strong>vir</strong>, enquanto o <strong>medo</strong> é uma <strong>resposta</strong> ao <strong>agora</strong>.
@@ -96,6 +99,35 @@ const VerdadeOuMito = () => {
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
   const [mostrarAviso, setMostrarAviso] = useState(false);
+  const [respostas, setRespostas] = useState({});
+  
+  const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) return;
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+      userRef,
+      {
+        respostas: {
+          verdadeOuMito: {
+            respostas: respostas, // o que o aluno escolheu
+            data: new Date().toISOString(),
+          },
+        },
+      },
+      { merge: true }
+    );
+
+    console.log("Respostas guardadas!");
+  } catch (error) {
+    console.error("Erro ao guardar:", error);
+  }
+};
 
  const avancarPagina = () => {
     // Se estiver numa afirmação e ainda não escolheu nada, mostra aviso
@@ -116,10 +148,15 @@ const VerdadeOuMito = () => {
   };
 
   const selecionarResposta = (resposta) => {
-    setRespostaSelecionada(resposta);
-    setMostrarAviso(false); // <- limpa o aviso logo ao selecionar
-    setMostrarPopup(true);
-  };
+  setRespostaSelecionada(resposta);
+  setMostrarAviso(false);
+  setMostrarPopup(true);
+
+  setRespostas((prev) => ({
+    ...prev,
+    [pagina - 1]: resposta,
+  }));
+};
 
   // 🔵 CÁLCULO DO PROGRESSO
   const totalPaginas = afirmacoes.length + 2; // introdução + afirmações + conclusão
@@ -232,7 +269,10 @@ const VerdadeOuMito = () => {
                     </button>
                    <button
                       className="custom-btn-turquoise"
-                      onClick={avancarPagina}
+                      onClick={async () => {
+                        await guardarRespostas();
+                        avancarPagina();
+                      }}
                     >
                       Próximo <i className="bi bi-arrow-right ms-2"></i>
                     </button>
