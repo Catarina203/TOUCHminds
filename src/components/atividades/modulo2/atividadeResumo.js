@@ -141,8 +141,18 @@ const avancar = () => {
     }));
 };
 
-const ModalCustom = ({ show, onClose, onNext, content }) => {
+const ModalCustom = ({
+  show,
+  onClose,
+  onNext,
+  content,
+  pagina,
+  cenarios,
+  guardarRespostas,
+}) => {
   if (!show) return null;
+
+  const isLastPage = pagina === cenarios.length - 1;
 
   return (
     <div
@@ -168,13 +178,14 @@ const ModalCustom = ({ show, onClose, onNext, content }) => {
             >
               Impacto da tua escolha!
             </h5>
+
             <button
               type="button"
               className="btn-close"
               style={{ filter: "invert(1)" }}
               aria-label="Close"
-              onClick={onClose} 
-            ></button>
+              onClick={onClose}
+            />
           </div>
 
           <div className="modal-body pt-4 ps-4 pe-4">
@@ -189,31 +200,10 @@ const ModalCustom = ({ show, onClose, onNext, content }) => {
               justifyContent: "center",
             }}
           >
-            {pagina > 0 && pagina < cenarios.length && (
-                <button
-                  type="button"
-                  onClick={onNext} 
-                  style={{
-                    backgroundColor: "#234970",
-                    border: "none",
-                    color: "white",
-                    borderRadius: "20px",
-                    padding: "0.5rem 1.5rem",
-                    fontWeight: "500",
-                    boxShadow: "none",
-                    outline: "none"
-                  }}
-                >
-                    Próximo
-                </button>
-            )}
-            {pagina === cenarios.length && (
+            {!isLastPage && (
               <button
                 type="button"
-                onClick={async () => {
-                    await guardarRespostas();
-                    onNext;
-                  }}
+                onClick={onNext}
                 style={{
                   backgroundColor: "#234970",
                   border: "none",
@@ -222,11 +212,33 @@ const ModalCustom = ({ show, onClose, onNext, content }) => {
                   padding: "0.5rem 1.5rem",
                   fontWeight: "500",
                   boxShadow: "none",
-                  outline: "none"
+                  outline: "none",
                 }}
-                >
-                    Conclusão
-                </button>
+              >
+                Próximo
+              </button>
+            )}
+
+            {isLastPage && (
+              <button
+                type="button"
+                onClick={async () => {
+                  await guardarRespostas();
+                  onNext();
+                }}
+                style={{
+                  backgroundColor: "#234970",
+                  border: "none",
+                  color: "white",
+                  borderRadius: "20px",
+                  padding: "0.5rem 1.5rem",
+                  fontWeight: "500",
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+              >
+                Conclusão
+              </button>
             )}
           </div>
         </div>
