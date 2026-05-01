@@ -27,8 +27,8 @@ const AtividadeResumoModulo2 = () => {
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_1.png",
             opcoes: [
-                <> Ignorava ou afastava-me da pessoa. </>,
-                <> Aproximava-me e oferecia companhia.</>
+                "Ignorava ou afastava-me da pessoa.",
+                "Aproximava-me e oferecia companhia."
             ],
             explicacao: (
             <>
@@ -39,8 +39,8 @@ const AtividadeResumoModulo2 = () => {
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_2.png",
             opcoes: [
-                <>Concordava com os comentários.</>,
-                <>Escutava, defendia e mostrava que entendia o lado do colega.</>
+                "Concordava com os comentários.",
+                "Escutava, defendia e mostrava que entendia o lado do colega."
             ],
             explicacao: (
                 <>
@@ -51,8 +51,8 @@ const AtividadeResumoModulo2 = () => {
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_3.png",
             opcoes: [
-                <>Ria, comentava com colegas, não leva a apresentação a sério.</>,
-                <>Encorajava, sorria de forma acolhedora, apoiava verbalmente.</>
+                "Ria, comentava com colegas, não leva a apresentação a sério.",
+                "Encorajava, sorria de forma acolhedora, apoiava verbalmente."
             ],
             explicacao: (
                 <>
@@ -63,8 +63,8 @@ const AtividadeResumoModulo2 = () => {
         {
             imagemBase: "/imgs/modulo2/resumo/resumo2_4.png",
             opcoes: [
-                <>Ignorava o que está a acontecer, fazia scroll, ou até concordava com os comentários.</>,
-                <>Denunciava os comentários e lembrava-lhe que não está sozinho e que há pessoas que se importam com ele.</>
+                "Ignorava o que está a acontecer, fazia scroll, ou até concordava com os comentários.",
+                "Denunciava os comentários e lembrava-lhe que não está sozinho e que há pessoas que se importam com ele."
             ],
             explicacao: (
                 <>
@@ -130,8 +130,8 @@ const avancar = () => {
 
     setRespostas(prev => ({
   ...prev,
-  [pagina - 1]: cenarios[pagina - 1].opcoes[index]
-}));
+    [pagina - 1]: cenarios[pagina - 1].opcoes[index]
+    }));
 };
 
 const ModalCustom = ({ show, onClose, onNext, content }) => {
@@ -360,9 +360,11 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                             )}
                             {pagina > 0 && pagina <= cenarios.length && (
                                 <button
-                                    className="custom-btn-turquoise" onClick={async () => {
+                                  className="custom-btn-turquoise"
+                                  onClick={async () => {
                                     await guardarRespostas();
-                                    }}
+                                    avancarPagina();
+                                  }}
                                 >
                                     {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>
