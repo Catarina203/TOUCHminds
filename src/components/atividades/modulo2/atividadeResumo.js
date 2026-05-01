@@ -141,80 +141,93 @@ const avancar = () => {
     }));
 };
 
-const ModalCustom = ({
-  show,
-  onClose,
-  onNext,
-  content,
-  pagina = 0,
-  cenarios = [],
-  guardarRespostas = async () => {},
-}) => {
+const ModalCustom = ({ show, onClose, onNext, content, pagina, cenarios, guardarRespostas }) => {
   if (!show) return null;
-
-  const total = cenarios?.length ?? 0;
-  const isLastPage = pagina === total - 1;
 
   return (
     <div
       className="modal fade show"
-      style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+      style={{
+        display: "block",
+        backgroundColor: "rgba(0,0,0,0.5)",
+      }}
     >
       <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content">
-
-          <div className="modal-header" style={{ backgroundColor: "#99CBC8", borderBottom: "none", color: "#fff" }}>
-            <h5 className="modal-title w-100 text-center" style={{ fontWeight: "600" }}>
+          <div
+            className="modal-header"
+            style={{
+              backgroundColor: "#99CBC8",
+              borderBottom: "none",
+              color: "#fff",
+            }}
+          >
+            <h5
+              className="modal-title w-100 text-center"
+              style={{ fontWeight: "600" }}
+            >
               Impacto da tua escolha!
             </h5>
-
             <button
               type="button"
               className="btn-close"
               style={{ filter: "invert(1)" }}
-              onClick={onClose}
-            />
+              aria-label="Close"
+              onClick={onClose} 
+            ></button>
           </div>
 
           <div className="modal-body pt-4 ps-4 pe-4">
             <p className="lead text-start">{content}</p>
           </div>
 
-          <div className="modal-footer" style={{ borderTop: "none", backgroundColor: "#F5FDFC", justifyContent: "center" }}>
-            
-            {!isLastPage && (
-              <button
-                onClick={onNext}
-                style={{
-                  backgroundColor: "#234970",
-                  border: "none",
-                  color: "white",
-                  borderRadius: "20px",
-                  padding: "0.5rem 1.5rem",
-                }}
-              >
-                Próximo
-              </button>
+          <div
+            className="modal-footer"
+            style={{
+              borderTop: "none",
+              backgroundColor: "#F5FDFC",
+              justifyContent: "center",
+            }}
+          >
+            {pagina > 0 && pagina < cenarios.length && (
+                <button
+                  type="button"
+                  onClick={onNext} 
+                  style={{
+                    backgroundColor: "#234970",
+                    border: "none",
+                    color: "white",
+                    borderRadius: "20px",
+                    padding: "0.5rem 1.5rem",
+                    fontWeight: "500",
+                    boxShadow: "none",
+                    outline: "none"
+                  }}
+                >
+                    Próximo
+                </button>
             )}
-
-            {isLastPage && (
+            {pagina === cenarios.length && (
               <button
+                type="button"
                 onClick={async () => {
-                  await guardarRespostas?.();
-                  onNext?.();
-                }}
+                    await guardarRespostas();
+                    onNext();
+                  }}
                 style={{
                   backgroundColor: "#234970",
                   border: "none",
                   color: "white",
                   borderRadius: "20px",
                   padding: "0.5rem 1.5rem",
+                  fontWeight: "500",
+                  boxShadow: "none",
+                  outline: "none"
                 }}
-              >
-                Conclusão
-              </button>
+                >
+                    Conclusão
+                </button>
             )}
-
           </div>
         </div>
       </div>
