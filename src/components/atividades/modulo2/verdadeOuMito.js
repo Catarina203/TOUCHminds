@@ -268,10 +268,10 @@ const VerdadeOuMito = () => {
                    <button
                       className="custom-btn-turquoise"
                       onClick={async () => {
-                        if (pagina === cenarios.length) {
+                        if (pagina === afirmacoes.length) {
                           await guardarRespostas(); 
                         }
-                        avancar();
+                        avancarPagina();
                       }}
                     >
                       Próximo <i className="bi bi-arrow-right ms-2"></i>

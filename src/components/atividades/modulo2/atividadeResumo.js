@@ -363,7 +363,7 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                   className="custom-btn-turquoise"
                                   onClick={async () => {
                                     await guardarRespostas();
-                                    avancarPagina();
+                                    avancar();
                                   }}
                                 >
                                     {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
