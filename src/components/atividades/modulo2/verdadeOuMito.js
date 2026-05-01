@@ -110,7 +110,9 @@ const VerdadeOuMito = () => {
 
     const userRef = doc(db, "alunos", user.uid);
 
-    await updateDoc(userRef, {
+    await setDoc(
+          userRef,
+          {
       "respostas.verdadeOuMito": arrayUnion({
         respostas: respostas,
         data: new Date().toISOString(),
