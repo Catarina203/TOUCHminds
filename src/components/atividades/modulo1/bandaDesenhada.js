@@ -278,7 +278,7 @@ if (!user) {
                 <p className="lead">
                  Espero que esta atividade tenha sido <strong>importante para compreenderes melhor</strong> como a <strong>ansiedade</strong> pode interferir na tua vida.
                  <br /><br />
-                 Lembra-te de que a <strong>ansiedade comum</strong> pode ser uma <strong>aliada</strong>, <strong>ajudando-nos</strong> a enfrentar desafios e a <strong>preparar-nos</strong> para momentos difíceis.
+                 Lembra-te de que a <strong>ansiedade comum</strong> pode ser uma <strong>aliada</strong>, <strong>ajudando-nos</strong> a enfrentar desafios e a <strong>prepararmo-nos</strong> para momentos difíceis.
                  <br /><br />
                  No entanto, quando a <strong>ansiedade se torna SOS</strong>, ela pode interferir no nosso <strong>bem-estar</strong> e até prejudicar as nossas <strong>relações</strong> e <strong>atividades diárias</strong>.
                  <br /><br />

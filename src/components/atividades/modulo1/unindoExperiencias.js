@@ -115,8 +115,7 @@ const [comportamento, setComportamento] = useState("");
                       nesta experiência.</strong> A ansiedade é uma <strong>emoção comum e partilhada por todos os seres humanos.</strong><br></br><br></br>
                       Este conceito de <strong>"humanidade comum"</strong> mostra-nos que as nossas dificuldades, fracassos e
                       sofrimento não são únicos ou isolados, mas fazem parte de uma experiência <strong>universal.</strong><br></br><br></br>
-                      Reconhecer que o nosso sofrimento é algo que nos <strong>conecta aos outros</strong>,
-                      e não algo que nos afasta.<br></br><br></br>
+                      Quando reconhecemos que o <strong> nosso sofrimento ou dificuldades </strong> fazem parte de uma experiência que todos sentimos, isso ajuda-nos a <strong>conectar aos outros</strong>.<br></br><br></br>
                       No <strong>vídeo</strong> que se segue vais poder ouvir o que outras pessoas próximas da tua idade têm a dizer sobre as suas experiências com a <strong>ansiedade</strong>.<br></br>
                     
                     </p>
