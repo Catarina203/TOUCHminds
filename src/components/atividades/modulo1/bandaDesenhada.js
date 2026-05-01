@@ -6,7 +6,7 @@ import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { db } from "../../../database/database";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const BandaDesenhada = () => {
@@ -22,29 +22,33 @@ const BandaDesenhada = () => {
   const atividade = modulo?.atividades.find(a => a.url === "banda-desenhada");
   const quadros = atividade?.quadros || [];
 
- const guardarRespostas = async () => {
+const guardarRespostas = async () => {
   try {
     const auth = getAuth();
-const user = auth.currentUser;
+    const user = auth.currentUser;
 
-if (!user) {
-  console.error("Utilizador não autenticado");
-  return;
-}
+    if (!user) {
+      console.error("Utilizador não autenticado");
+      return;
+    }
 
     const userRef = doc(db, "alunos", user.uid);
 
-    await setDoc(userRef, {
-      respostas: {
-        bandaDesenhada: {
-          ansiedadeComum,
-          ansiedadeSOS,
-          data: new Date().toISOString()
+    await setDoc(
+      userRef,
+      {
+        respostas: {
+          bandaDesenhada: arrayUnion({
+            ansiedadeComum,
+            ansiedadeSOS,
+            data: new Date().toISOString()
+          })
         }
-      }
-    }, { merge: true });
+      },
+      { merge: true }
+    );
 
-     console.log("Guardado com sucesso!");
+    console.log("Guardado com sucesso!");
   } catch (error) {
     console.error("Erro ao guardar:", error);
   }

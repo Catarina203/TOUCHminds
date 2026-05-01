@@ -4,13 +4,13 @@ import { UserContext } from '../../../App';
 const DesafioSemanal = ({ id }) => {
   const { userData, updateUserData } = useContext(UserContext);
   const [form, setForm] = useState({
-    dia: '',
-    situacao: '',
-    comoMeSenti: '',
-    pensamentos: '',
-    comoLidei: '',
-    funcionou: '',
-  });
+      diaSemana: '',
+      situacao: '',
+      comoMeSenti: '',
+      pensamentos: '',
+      comoLidei: '',
+      funcionou: '',
+    });
   const [loading, setLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [feedbackType, setFeedbackType] = useState(''); // 'success' ou 'error'
@@ -270,7 +270,7 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
                 {registos.map((item, idx) => (
                   <tr key={idx}>
                     <td>{item.dataCriacao}</td>
-                    <td>{item.dia}</td>
+                    <td>{item.diaSemana}</td>
                     <td>{item.situacao}</td>
                     <td>{item.comoMeSenti}</td>
                     <td>{item.pensamentos}</td>

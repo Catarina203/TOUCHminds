@@ -6,7 +6,7 @@ import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { db } from "../../../database/database";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth"; 
 
 const AnsiedadeSemFiltros = () => {
@@ -31,19 +31,18 @@ const AnsiedadeSemFiltros = () => {
     }
 
     const userRef = doc(db, "alunos", user.uid);
-
-    await setDoc(
-      userRef,
-      {
-        respostas: {
-          ansiedadeSemFiltros: {
-            hashtags,
-            data: new Date().toISOString(),
-          },
-        },
+   await setDoc(
+    userRef,
+    {
+      respostas: {
+        ansiedadeSemFiltros: arrayUnion({
+          hashtags,
+          data: new Date().toISOString(),
+        }),
       },
-      { merge: true }
-    );
+    },
+    { merge: true }
+  );
 
     console.log("Guardado com sucesso!");
   } catch (error) {

@@ -6,7 +6,7 @@ import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { db } from "../../../database/database";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const UnindoExperiencias = () => {
@@ -32,23 +32,21 @@ const guardarRespostas = async () => {
       console.error("Utilizador não autenticado");
       return;
     }
-
-    const userRef = doc(db, "alunos", user.uid);
-
+const userRef = doc(db, "alunos", user.uid);
     await setDoc(
-      userRef,
-      {
-        respostas: {
-          unindoExperiencias: {
-            pensamento,
-            sensacao,
-            comportamento,
-            data: new Date().toISOString(),
-          },
-        },
-      },
-      { merge: true }
-    );
+  userRef,
+  {
+    respostas: {
+      unindoExperiencias: arrayUnion({
+        pensamento,
+        sensacao,
+        comportamento,
+        data: new Date().toISOString(),
+      }),
+    },
+  },
+  { merge: true }
+);
 
      console.log("Guardado com sucesso!");
   } catch (error) {

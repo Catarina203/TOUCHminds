@@ -4,7 +4,7 @@ import { UserContext } from '../../../App';
 const DesafioSemanal = ({ id }) => {
   const { userData, updateUserData } = useContext(UserContext);
   const [form, setForm] = useState({
-    dia: '',
+    diaSemana: '',
     situacaoobservada: '',
     reflexaoResposta: '',
   });
@@ -240,7 +240,7 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
                 {registos.map((item, idx) => (
                   <tr key={idx}>
                     <td>{item.dataCriacao}</td>
-                    <td>{item.dia}</td>
+                    <td>{item.diaSemana}</td>
                     <td>{item.situacaoobservada}</td>
                     <td>{item.reflexaoResposta}</td>
                   </tr>

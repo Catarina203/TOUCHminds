@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../../App";
 import { useContext } from "react";
 import { db } from "../../../database/database";
-import { doc, setDoc } from "firebase/firestore";
+import { updateDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const afirmacoes = [
@@ -110,20 +110,14 @@ const VerdadeOuMito = () => {
 
     const userRef = doc(db, "alunos", user.uid);
 
-    await setDoc(
-      userRef,
-      {
-        respostas: {
-          verdadeOuMito: {
-            respostas: respostas, // o que o aluno escolheu
-            data: new Date().toISOString(),
-          },
-        },
-      },
-      { merge: true }
-    );
+    await updateDoc(userRef, {
+      "respostas.verdadeOuMito": arrayUnion({
+        respostas: respostas,
+        data: new Date().toISOString(),
+      }),
+    });
 
-    console.log("Respostas guardadas!");
+    console.log("Resposta adicionada ao histórico!");
   } catch (error) {
     console.error("Erro ao guardar:", error);
   }

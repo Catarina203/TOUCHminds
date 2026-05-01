@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const AtividadeResumoModulo2 = () => {
     const { id: moduloId } = useParams();
@@ -70,8 +73,36 @@ const AtividadeResumoModulo2 = () => {
 
         }
     ];
+ 
+    const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-   const avancar = () => {
+    if (!user) return;
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+      userRef,
+      {
+        respostas: {
+          atividadeResumoModulo2: arrayUnion({
+            respostas,
+            data: new Date().toISOString(),
+          }),
+        },
+      },
+      { merge: true }
+    );
+
+    console.log("Respostas guardadas!");
+  } catch (error) {
+    console.error("Erro ao guardar:", error);
+  }
+};
+   
+const avancar = () => {
         // Bloqueia avanço se não tiver escolhido opção nas páginas de cenários
         if (pagina > 0 && pagina <= cenarios.length && opcaoSelecionada === null) {
             setShowWarning(true);
@@ -324,7 +355,9 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                             )}
                             {pagina > 0 && pagina <= cenarios.length && (
                                 <button
-                                    className="custom-btn-turquoise" onClick={avancar}
+                                    className="custom-btn-turquoise" onClick={async () => {
+                                    await guardarRespostas();
+                                    }}
                                 >
                                     {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>

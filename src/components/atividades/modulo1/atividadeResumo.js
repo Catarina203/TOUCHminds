@@ -6,7 +6,7 @@ import { UserContext } from "../../../App";
 import modulos from '../../../data/modulos';
 import AtividadeProgressao from '../atividadeProgressao';
 import { db } from "../../../database/database";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const AtividadeResumo = () => {
@@ -57,27 +57,26 @@ const guardarRespostas = async () => {
       return;
     }
 
-    console.log("A guardar:", userChoices); // 👈 DEBUG
+    console.log("A guardar:", userChoices); 
 
-    const userRef = doc(db, "alunos", user.uid);
-
-    await setDoc(
-      userRef,
-      {
-        respostas: {
-          atividadeResumo: {
-            escolhas: Object.fromEntries(
-              Object.entries(userChoices).map(([key, value]) => [
-                key,
-                value ? value.text : null
-              ])
-            ),
-            data: new Date().toISOString(),
-          },
-        },
-      },
-      { merge: true }
-    );
+const userRef = doc(db, "alunos", user.uid);
+  await setDoc(
+  userRef,
+  {
+    respostas: {
+      atividadeResumo1: arrayUnion({
+        escolhas: Object.fromEntries(
+          Object.entries(userChoices).map(([key, value]) => [
+            key,
+            value ? value.text : null
+          ])
+        ),
+        data: new Date().toISOString(),
+      }),
+    },
+  },
+  { merge: true }
+);
 
     console.log("Respostas guardadas com sucesso!");
   } catch (error) {
