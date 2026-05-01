@@ -53,34 +53,35 @@ const guardarRespostas = async () => {
     const user = auth.currentUser;
 
     if (!user) {
-      console.error("Utilizador ainda não disponível");
+      console.error("Utilizador não autenticado");
       return;
     }
 
-    console.log("A guardar:", userChoices); 
+    const userRef = doc(db, "alunos", user.uid);
 
-const userRef = doc(db, "alunos", user.uid);
-  await setDoc(
-  userRef,
-  {
-    respostas: {
-      atividadeResumo1: arrayUnion({
-        escolhas: Object.fromEntries(
-          Object.entries(userChoices).map(([key, value]) => [
-            key,
-            value ? value.text : null
-          ])
-        ),
-        data: new Date().toISOString(),
-      }),
-    },
-  },
-  { merge: true }
-);
+    await setDoc(
+        userRef,
+        {
+          respostas: {
+            modulo1: {
+                atividadeResumo1: arrayUnion({
+                  escolhas: Object.fromEntries(
+                    Object.entries(userChoices).map(([key, value]) => [
+                      key,
+                      value ? value.text : null
+                    ])
+                  ),
+                  data: new Date().toISOString(),
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
 
-    console.log("Respostas guardadas com sucesso!");
+    console.log("Guardado com sucesso!");
   } catch (error) {
-    console.error("Erro ao guardar respostas:", error);
+    console.error("Erro ao guardar:", error);
   }
 };
 

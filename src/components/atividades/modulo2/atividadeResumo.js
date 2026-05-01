@@ -75,27 +75,34 @@ const AtividadeResumoModulo2 = () => {
         }
     ];
 
- const guardarRespostas = async () => {
+const guardarRespostas = async () => {
   try {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    if (!user) return;
+    if (!user) {
+      console.error("Utilizador não autenticado");
+      return;
+    }
 
     const userRef = doc(db, "alunos", user.uid);
 
     await setDoc(
-  userRef,
-  {
-    atividadeResumo2: arrayUnion({
-      respostas,
-      data: new Date().toISOString(),
-    }),
-  },
-  { merge: true }
-);
+        userRef,
+        {
+          respostas: {
+            modulo1: {
+                atividadeResumo2: arrayUnion({
+                  respostas,
+                  data: new Date().toISOString(),
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
 
-    console.log("Respostas guardadas!");
+    console.log("Guardado com sucesso!");
   } catch (error) {
     console.error("Erro ao guardar:", error);
   }
@@ -342,12 +349,9 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                                         <i className="bi bi-arrow-left me-2"></i>Anterior
                                     </button>
                                     <AtividadeProgressao
-                                        moduloId={moduloId}
-                                        atividadeIndex={2}
-                                       updateUserData={async () => {
-                                        await guardarRespostas();
-                                        updateUserData?.();
-                                      }}
+                                      moduloId={moduloId}
+                                      atividadeIndex={2}
+                                      updateUserData={updateUserData}
                                     />
                                 </div>
                             </>
@@ -364,7 +368,10 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
                             {pagina > 0 && pagina <= cenarios.length && (
                                 <button
                                   className="custom-btn-turquoise"
-                                  onClick={avancar}
+                                  onClick={async () => {
+                                    await guardarRespostas();
+                                    avancar();
+                                  }}
                                 >
                                     {pagina === cenarios.length ? "Conclusão" : "Próximo"} <i className="bi bi-arrow-right ms-2"></i>
                                 </button>

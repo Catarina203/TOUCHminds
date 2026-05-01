@@ -32,23 +32,27 @@ const guardarRespostas = async () => {
       console.error("Utilizador não autenticado");
       return;
     }
-const userRef = doc(db, "alunos", user.uid);
-    await setDoc(
-  userRef,
-  {
-    respostas: {
-      unindoExperiencias: arrayUnion({
-        pensamento,
-        sensacao,
-        comportamento,
-        data: new Date().toISOString(),
-      }),
-    },
-  },
-  { merge: true }
-);
 
-     console.log("Guardado com sucesso!");
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+        userRef,
+        {
+          respostas: {
+            modulo1: {
+                unindoExperiencias: arrayUnion({
+                  pensamento,
+                  sensacao,
+                  comportamento,
+                  data: new Date().toISOString(),
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
+
+    console.log("Guardado com sucesso!");
   } catch (error) {
     console.error("Erro ao guardar:", error);
   }

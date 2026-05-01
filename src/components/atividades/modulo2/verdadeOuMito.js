@@ -100,32 +100,39 @@ const VerdadeOuMito = () => {
   const { updateUserData } = useContext(UserContext);
   const [mostrarAviso, setMostrarAviso] = useState(false);
   const [respostas, setRespostas] = useState({});
-  
+
   const guardarRespostas = async () => {
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (!user) return;
-
-    const userRef = doc(db, "alunos", user.uid);
-
-    await setDoc(
-    userRef,
-    {
-      verdadeOuMito: arrayUnion({
-        respostas: respostas,
-        data: new Date().toISOString(),
-      }),
-    },
-    { merge: true }
-  );
-
-    console.log("Resposta adicionada ao histórico!");
-  } catch (error) {
-    console.error("Erro ao guardar:", error);
-  }
-};
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+    
+        if (!user) {
+          console.error("Utilizador não autenticado");
+          return;
+        }
+    
+        const userRef = doc(db, "alunos", user.uid);
+    
+        await setDoc(
+            userRef,
+            {
+              respostas: {
+                modulo2: {
+                    verdadeOuMito: arrayUnion({
+                      respostas: respostas,
+                      data: new Date().toISOString(),
+                    }),
+                },
+              },
+            },
+            { merge: true }
+          );
+    
+        console.log("Guardado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao guardar:", error);
+      }
+    };
 
  const avancarPagina = () => {
     // Se estiver numa afirmação e ainda não escolheu nada, mostra aviso

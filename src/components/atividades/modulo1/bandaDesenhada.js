@@ -38,12 +38,14 @@ const guardarRespostas = async () => {
       userRef,
       {
         respostas: {
-          bandaDesenhada: arrayUnion({
-            ansiedadeComum,
-            ansiedadeSOS,
-            data: new Date().toISOString()
-          })
-        }
+          modulo1: {
+              bandaDesenhada: arrayUnion({
+                ansiedadeComum,
+                ansiedadeSOS,
+                data: new Date().toISOString()
+              }),
+          },
+        },
       },
       { merge: true }
     );

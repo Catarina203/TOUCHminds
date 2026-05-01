@@ -21,34 +21,37 @@ const AnsiedadeSemFiltros = () => {
   const atividade = modulo?.atividades.find(a => a.url === "ansiedade-sem-filtros");
 
   const guardarRespostas = async () => {
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (!user) {
-      console.error("Utilizador não autenticado");
-      return;
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+  
+      if (!user) {
+        console.error("Utilizador não autenticado");
+        return;
+      }
+  
+      const userRef = doc(db, "alunos", user.uid);
+  
+      await setDoc(
+          userRef,
+          {
+            respostas: {
+              modulo1: {
+                  ansiedadeSemFiltros: arrayUnion({
+                    hashtags,
+                    data: new Date().toISOString(),
+                  }),
+              },
+            },
+          },
+          { merge: true }
+        );
+  
+      console.log("Guardado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao guardar:", error);
     }
-
-    const userRef = doc(db, "alunos", user.uid);
-   await setDoc(
-    userRef,
-    {
-      respostas: {
-        ansiedadeSemFiltros: arrayUnion({
-          hashtags,
-          data: new Date().toISOString(),
-        }),
-      },
-    },
-    { merge: true }
-  );
-
-    console.log("Guardado com sucesso!");
-  } catch (error) {
-    console.error("Erro ao guardar:", error);
-  }
-};
+  };
 
   const avancarPagina = () => {
     if (pagina > 0 && pagina <= 12 && !hashtags[pagina - 1].trim()) {
