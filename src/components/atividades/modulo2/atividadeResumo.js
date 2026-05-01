@@ -40,7 +40,7 @@ const AtividadeResumoModulo2 = () => {
             ],
             explicacao: (
                 <>
-                Olhares de julgamento podem intensificar a sensação de vergonha nas pessoas que lida com dificuldades resultantes da ansiedade. Responder com empatia e compreensão ajuda a reduzir o estigma e fortalece as relações com as outras pessoas.
+                Olhares de julgamento podem intensificar a sensação de vergonha nas pessoas que lidam com dificuldades resultantes da ansiedade. Responder com empatia e compreensão ajuda a reduzir o estigma e fortalece as relações com as outras pessoas.
                 </>
             )
         },
@@ -219,11 +219,11 @@ const progresso = Math.round((pagina / (cenarios.length + 1)) * 100);
 
                     <>
                   <p className="lead mb-4">
-                  Vê a imagem com atenção e carrega no ícone. 
+                  Vê a imagem com atenção. 
                   </p>
 
                     <p className="fw-semibold mb-4" style={{ color: "#234970" }}>
-                      Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Escolhe uma das seguintes opções:
+                      Imagina que estás lá a ver tudo — como reagirias ao ver alguém a ser alvo desses comentários? Carrega no ícone e escolhe uma das opções.
                     </p>
                             <div className="d-flex justify-content-center">
                                 {/* Wrapper com cantos e recorte */}

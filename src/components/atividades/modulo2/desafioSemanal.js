@@ -95,7 +95,7 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
         <b className='fw-bold'>Queria lançar-te um desafio para esta semana!</b><br /> <br /> 
         Ao longo dos próximos dias, fica <b>atento/a</b> a <b>conversas, comentários ou atitudes</b> em que percebes o <b>estigma</b> relacionado à ansiedade.<br /><br /> 
         Pode ser algo que ouças em <b>conversas</b>, vejas nas <b>redes sociais</b> ou observes em situações do teu <b>dia-a-dia</b>.<br /><br /> 
-        Depois de a <b>notares</b> o que está a acontecer, convido-te a <b>refletir</b> sobre como poderias <b>intervir</b> ou <b>apoiar</b> a pessoa envolvida.<br /><br /> 
+        Depois de <b>notares</b> o que está a acontecer, convido-te a <b>refletir</b> sobre como poderias <b>intervir</b> ou <b>apoiar</b> a pessoa envolvida.<br /><br /> 
         Podes usar esta <b>tabela</b> para registares:<br /> <br /> 
         <ul style={{ marginTop: "0px" }}>
           <li><b>Situação Observada:</b> Descrição breve da situação (por exemplo , uma conversa ou um comentário feito por alguém).</li>
@@ -109,7 +109,7 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
           <thead>
             <tr>
               {[
-                "Dia",
+                "Dia da Semana",
                 "Situação Observada",
                 "Reflexão/Resposta Empática",
               ].map((title) => (
@@ -128,8 +128,8 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
               <tr>
                 {[
                   {
-                    name: "dia",
-                    label: "Dia",
+                    name: "diaSemana",
+                    label: "Dia da Semana",
                     placeholder: "Escreve aqui o dia da semana",
                   },
                   {
@@ -172,7 +172,7 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
         </table>
 
         <div className="mt-3 lead">
-          Ao <b>tirares estes minutos para refletires</b> sobre o que aprendeste e o qual pode ser o <b>papel</b> nestas situações estarás a mudar a <b>tua perceção</b> sobre a ansiedade e a <b> diminuir o poder do estigma</b> associado a ela.<br /><br /> 
+          Ao <b>tirares estes minutos para refletires</b> sobre o que aprendeste e o qual pode ser o teu <b>papel</b> nestas situações estarás a mudar a <b>tua perceção</b> sobre a ansiedade e a <b> diminuir o poder do estigma</b> associado a ela.<br /><br /> 
           Espero que esta semana te ajude a <b> aprender mais sobre ti e sobre o estigma </b> relacionado com a ansiedade!<br /><br /> 
           <b><b>Vamos em frente! #DesmistificarAnsiedade</b></b>
            <p>Até para a semana!</p>
@@ -230,8 +230,8 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
               <caption className="visually-hidden">Tabela de registos anteriores do desafio semanal</caption>
               <thead>
                 <tr>
-                  <th scope="col">Data</th>
-                  <th scope="col">Dia</th>
+                  <th scope="col">Data do Registo</th>
+                  <th scope="col">Dia da Semana</th>
                   <th scope="col">Situação Observada</th>
                   <th scope="col">Reflexão/Resposta Empática</th>
                 </tr>

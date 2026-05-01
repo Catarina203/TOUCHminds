@@ -28,7 +28,7 @@ const afirmacoes = [
     resposta: "Verdade",
     explicacao:
       <p className="lead">
-        <strong>Verdade!</strong> Sentir <strong>ansiedade</strong> não tem nada de <strong>estranho</strong> — é algo <strong>humano</strong>, que <strong>todos experimentamos</strong>. O <strong>medo</strong> de ser <strong>julgado</strong> pode levar muitas pessoas a hesitar em <strong>falar</strong> sobre o que sentem. No entanto, <strong>admitir</strong> que estamos <strong>ansiosos</strong> é um sinal de <strong>coragem</strong> e <strong>autoconhecimento</strong>. <strong>Falar</strong> sobre as nossas <strong>emoções</strong> pode trazer <strong>surpresas positivas</strong>: podemos encontrar a <strong>compreensão</strong> e o <strong>apoio</strong> que desejávamos, mas não esperávamos. Mostrar <strong>vulnerabilidade</strong> não só fortalece os <strong>laços de amizade</strong>, como também cria um <strong>ambiente</strong> mais <strong>acolhedor</strong> e <strong>seguro</strong>, onde todos se sentem mais à vontade para <strong>partilhar</strong> as suas <strong>experiências</strong>.
+        <strong>Mito!</strong> Sentir <strong>ansiedade</strong> não tem nada de <strong>estranho</strong> — é algo <strong>humano</strong>, que <strong>todos experimentamos</strong>. O <strong>medo</strong> de ser <strong>julgado</strong> pode levar muitas pessoas a hesitar em <strong>falar</strong> sobre o que sentem. No entanto, <strong>admitir</strong> que estamos <strong>ansiosos</strong> é um sinal de <strong>coragem</strong> e <strong>autoconhecimento</strong>. <strong>Falar</strong> sobre as nossas <strong>emoções</strong> pode trazer <strong>surpresas positivas</strong>: podemos encontrar a <strong>compreensão</strong> e o <strong>apoio</strong> que desejávamos, mas não esperávamos. Mostrar <strong>vulnerabilidade</strong> não só fortalece os <strong>laços de amizade</strong>, como também cria um <strong>ambiente</strong> mais <strong>acolhedor</strong> e <strong>seguro</strong>, onde todos se sentem mais à vontade para <strong>partilhar</strong> as suas <strong>experiências</strong>.
       </p>
   },
   {
@@ -36,7 +36,7 @@ const afirmacoes = [
     resposta: "Verdade",
     explicacao:
      <p className="lead">
-      <strong>Verdade!</strong> A <strong>ansiedade</strong> é uma <strong>experiência</strong> única e <strong>individualizada</strong>. Cada pessoa pode <strong>sentir</strong> e <strong>expressar</strong> de maneiras diferentes, com <strong>sintomas</strong> que variam amplamente. Enquanto algumas experimentam <strong>sensações físicas</strong> como <strong>palpitações</strong> e <strong>suores</strong>, outras podem ter <strong>preocupação constante</strong> ou <strong>agitação</strong>. Nem sempre é <strong>visível</strong>: muitas pessoas lidam com a <strong>ansiedade</strong> em <strong>silêncio</strong>, apresentando uma <strong>aparência calma</strong> enquanto <strong>lutam internamente</strong>. Isso pode levar à <strong>incompreensão</strong> por parte de <strong>amigos</strong> e <strong>familiares</strong>, que podem não perceber que aquela pessoa está a lidar com uma <strong>experiência</strong> de <strong>ansiedade difícil</strong>.
+      <strong>Verdade!</strong> A <strong>ansiedade</strong> é uma <strong>experiência</strong> única e <strong>individualizada</strong>. Cada pessoa pode <strong>sentir</strong> e <strong>expressar</strong> de maneiras diferentes, com <strong>sintomas</strong> que variam amplamente. Enquanto algumas experimentam <strong>sensações físicas</strong> como <strong>palpitações</strong> e <strong>suores</strong>, outras podem ter <strong>preocupação constante</strong> ou <strong>agitação</strong>. Nem sempre é <strong>visível</strong>: muitas pessoas lidam com a <strong>ansiedade</strong> em <strong>silêncio</strong>, apresentando uma <strong>calma aparente</strong> enquanto <strong>lutam internamente</strong>. Isso pode levar à <strong>incompreensão</strong> por parte de <strong>amigos</strong> e <strong>familiares</strong>, que podem não perceber que aquela pessoa está a lidar com uma <strong>experiência</strong> de <strong>ansiedade difícil</strong>.
       </p>
   },
   {
@@ -44,7 +44,7 @@ const afirmacoes = [
     resposta: "Verdade",
     explicacao:
       <p className="lead">
-      <strong>Verdade!</strong> A <strong>ansiedade</strong> engloba mais do que apenas o <strong>medo</strong>. O <strong>medo</strong> é uma <strong>resposta</strong> a um <strong>perigo específico</strong> e <strong>imediato</strong>, a algo que está mesmo a <strong>acontecer</strong> (como ver um <strong>cão</strong> a correr na tua <strong>direção</strong>). Já a <strong>ansiedade</strong> é mais sobre o que <strong>poderá acontecer</strong> no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja <strong>provável</strong>. A <strong>ansiedade</strong> é <strong>preocupação</strong> com o que pode estar para <strong>vir</strong>, enquanto o <strong>medo</strong> é uma <strong>resposta</strong> ao <strong>agora</strong>.
+      <strong>Mito!</strong> A <strong>ansiedade</strong> engloba mais do que apenas o <strong>medo</strong>. O <strong>medo</strong> é uma <strong>resposta</strong> a um <strong>perigo específico</strong> e <strong>imediato</strong>, a algo que está mesmo a <strong>acontecer</strong> (como ver um <strong>cão</strong> a correr na tua <strong>direção</strong>). Já a <strong>ansiedade</strong> é mais sobre o que <strong>poderá acontecer</strong> no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja <strong>provável</strong>. A <strong>ansiedade</strong> é <strong>preocupação</strong> com o que pode estar para <strong>vir</strong>, enquanto o <strong>medo</strong> é uma <strong>resposta</strong> ao <strong>agora</strong>.
      </p>
   },
   {
@@ -76,7 +76,7 @@ const afirmacoes = [
     resposta: "Verdade",
     explicacao:
       <p className="lead">
-      <strong>Verdade!</strong> A <strong>ansiedade</strong> não aparece do nada — há sempre um <strong>“gatilho”</strong>, ou seja, um <strong>estímulo</strong> que a origina. Pode ser um <strong>pensamento</strong>, uma <strong>memória</strong>, um <strong>som</strong>, um <strong>lugar</strong>… Nem sempre conseguimos <strong>identificar</strong> de imediato qual foi esse <strong>gatilho</strong>, e por isso pode parecer que veio do nada. A <strong>intervenção psicológica </strong> pode ajudar a <strong>reconhecê-los</strong> e a <strong>compreender</strong> melhor como atuam.
+      <strong>Verdade!</strong> A <strong>ansiedade</strong> não aparece do nada — há sempre um <strong>“gatilho”</strong>, ou seja, um <strong>estímulo</strong> que a origina. Pode ser um <strong>pensamento</strong>, uma <strong>memória</strong>, um <strong>som</strong>, um <strong>lugar</strong>… Nem sempre conseguimos <strong>identificar</strong> de imediato qual foi esse <strong>gatilho</strong>, e por isso pode parecer que veio do nada. A <strong>intervenção psicológica </strong> pode ajudar a <strong>reconhecer esses gatilhos</strong> e a <strong>compreender</strong> melhor como atuam.
       </p>
   },
   {
@@ -246,7 +246,7 @@ const VerdadeOuMito = () => {
                 <div className="lead mb-3">
                   <p>
                     Ao longo desta atividade, percebeste que existem <strong>muitas ideias erradas sobre a ansiedade</strong> — os chamados <strong>mitos</strong> —
-                    que podem fazer-nos levar-nos a <strong>sentir-nos piores</strong> e a ficar mais <strong>confusos</strong> sobre o que estamos a viver.
+                    que podem fazer-nos sentir <strong>pior</strong> ou ficar mais <strong>confusos</strong> sobre o que estamos a viver.
                   </p>
                   <p>
                     A boa notícia é que, quando começamos a compreender melhor o que sentimos, tudo passa a fazer mais <strong>sentido</strong>.

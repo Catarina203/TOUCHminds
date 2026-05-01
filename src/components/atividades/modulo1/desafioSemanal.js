@@ -118,7 +118,7 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
           <thead>
             <tr>
               {[
-                "Dia",
+                "Dia da Semana",
                 "Situação",
                 "Como me senti?",
                 "Que pensamentos surgiram?",
@@ -140,8 +140,8 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
               <tr>
                 {[
                   {
-                    name: "dia",
-                    label: "Dia",
+                    name: "diaSemana",
+                    label: "Dia da Semana",
                     placeholder: "Escreve aqui o dia da semana",
                   },
                   {
@@ -257,8 +257,8 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
               <caption className="visually-hidden">Tabela de registos anteriores do desafio semanal</caption>
               <thead>
                 <tr>
-                  <th scope="col">Data</th>
-                  <th scope="col">Dia</th>
+                  <th scope="col">Data do Registo</th>
+                  <th scope="col">Dia da Semana</th>
                   <th scope="col">Situação</th>
                   <th scope="col">Como me senti?</th>
                   <th scope="col">Pensamentos</th>
