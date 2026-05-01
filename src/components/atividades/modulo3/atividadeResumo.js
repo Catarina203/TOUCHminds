@@ -47,7 +47,7 @@ const AtividadeResumoCarta = () => {
                   frasescarta: Object.fromEntries(
                     Object.entries(carta).map(([key, value]) => [
                       key,
-                      value ? value.text : null
+                      value || null
                     ])
                   ),
                   data: new Date().toISOString()
