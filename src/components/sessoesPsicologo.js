@@ -130,7 +130,7 @@ export default function SessoesPsicologo() {
           slots = slots.filter(s=>!blocked.has(s));
         }
 
-        const snapDay = await getDocs(query(collection(db,'appointments'), where('date','==',diaSel)));
+        const snapDay = await getDocs(query(collection(db,'marcacoes'), where('date','==',diaSel)));
         const booked=new Set(snapDay.docs.map(d=>d.data().hour));
         const livres=slots.filter(s=>!booked.has(s));
 
@@ -166,7 +166,7 @@ export default function SessoesPsicologo() {
       setEnviando(true);
 
       const apptId = `${diaSel}_${horaSel}`;
-      const apptRef = doc(db, 'appointments', apptId);
+      const apptRef = doc(db, 'marcacoes', apptId);
 
       await runTransaction(db, async (tx) => {
         const existing = await tx.get(apptRef);
@@ -218,7 +218,7 @@ export default function SessoesPsicologo() {
     if (!codigoConsulta){ setMsgConsulta({tipo:'danger',texto:'Introduz o teu código de participante.'}); return; }
     try{
       setLoadingConsulta(true);
-      const snapAll = await getDocs(query(collection(db,'appointments'), where('participantCode','==',codigoConsulta)));
+      const snapAll = await getDocs(query(collection(db,'marcacoes'), where('participantCode','==',codigoConsulta)));
       const todos = snapAll.docs.map(d=>({ id:d.id, ...d.data() }))
         .sort((a,b)=>`${a.date||''}T${a.hour||''}`.localeCompare(`${b.date||''}T${b.hour||''}`));
       setListaAgendamentos(todos);
@@ -277,7 +277,7 @@ useEffect(() => {
       slots = slots.filter(s => !blocked.has(s));
     }
 
-    const snapDay = await getDocs(query(collection(db,'appointments'), where('date','==',dia)));
+    const snapDay = await getDocs(query(collection(db,'marcacoes'), where('date','==',dia)));
     const booked = new Set(snapDay.docs.map(d => d.data().hour));
     return slots.filter(s => !booked.has(s));
   };
@@ -304,9 +304,9 @@ useEffect(() => {
 
     try {
       setLoadingReagendar(true);
-      const oldRef = doc(db, 'appointments', reservaReagendar.id);
+      const oldRef = doc(db, 'marcacoes', reservaReagendar.id);
       const newId  = `${novoDia}_${novaHora}`;
-      const newRef = doc(db, 'appointments', newId);
+      const newRef = doc(db, 'marcacoes', newId);
 
       await runTransaction(db, async (tx) => {
         const dest = await tx.get(newRef);
