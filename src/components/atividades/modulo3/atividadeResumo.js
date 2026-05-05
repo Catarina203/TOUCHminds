@@ -227,17 +227,6 @@ const baseInputStyle = {
                     </div>
 
                     <div className="mb-3">
-                      Mesmo que estejas a sentir{" "}
-                      <input
-                        type="text"
-                        value={carta.parte3}
-                        onChange={(e) => handleChange('parte3', e.target.value)}
-                        placeholder="continua aqui..."
-                        style={baseInputStyle}
-                      />
-                    </div>
-
-                    <div className="mb-3">
                       Quando cometes erros, é importante lembrares-te que{" "}
                       <input
                         type="text"

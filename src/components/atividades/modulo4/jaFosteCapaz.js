@@ -526,13 +526,13 @@ triedNext && pagina >= 1 && pagina <= 4 && audioEnded[idxAtual] && !choice[idxAt
                  </p>
                  <p className="lead">
                   Além disso,  <strong> ver outras pessoas a conseguirem o que parecia impossível </strong> pode nos fazer acreditar que também somos capazes. 
+                  </p>
                   <p className="lead">
                     <strong> O apoio de quem acredita em nós, como amigos </strong> , professores ou familiares, aumenta essa confiança. 
                   </p>
                   <p className="lead">
                     Quando estamos <strong> bem-dispostos e com energia </strong>, isso nota-se também no nosso corpo e ajuda a sentirmo-nos mais confiantes para enfrentar os desafios.
                   </p>
-                 </p>
                 <div className="d-flex justify-content-between mt-4">
                   <button className="custom-btn-pink" onClick={retrocederPagina}>
                     <i className="bi bi-arrow-left me-2"></i>Anterior

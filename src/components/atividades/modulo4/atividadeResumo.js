@@ -300,13 +300,29 @@ const imagemFase = {
                     
                     {/* Modified invisible clickable buttons - now open modals */}
                     <button
-                      onClick={() => handlePhaseInfoClick('calmaria')}
+                      onClick={() => handlePhaseInfoClick('desafios')}
                       style={{
                         position: 'absolute',
                         top: '27%',
                         left: '4%',
                         width: '28%',
                         height: '33%',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        zIndex: 10
+                      }}
+                      aria-label="Ver informações sobre Desafios no Surf"
+                    />
+                    
+                    <button
+                      onClick={() => handlePhaseInfoClick('calmaria')}
+                      style={{
+                        position: 'absolute',
+                        top: '4%',
+                        left: '35%',
+                        width: '30%',
+                        height: '34%',
                         background: 'transparent',
                         border: 'none',
                         cursor: 'pointer',
@@ -319,10 +335,10 @@ const imagemFase = {
                       onClick={() => handlePhaseInfoClick('preparacao')}
                       style={{
                         position: 'absolute',
-                        top: '4%',
-                        left: '35%',
-                        width: '30%',
-                        height: '34%',
+                        top: '25%',
+                        left: '66%',
+                        width: '32%',
+                        height: '35%',
                         background: 'transparent',
                         border: 'none',
                         cursor: 'pointer',
@@ -335,22 +351,6 @@ const imagemFase = {
                       onClick={() => handlePhaseInfoClick('remada')}
                       style={{
                         position: 'absolute',
-                        top: '25%',
-                        left: '66%',
-                        width: '32%',
-                        height: '35%',
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        zIndex: 10
-                      }}
-                      aria-label="Ver informações sobre Remada"
-                    />
-                    
-                    <button
-                      onClick={() => handlePhaseInfoClick('surfar')}
-                      style={{
-                        position: 'absolute',
                         top: '61%',
                         left: '55%',
                         width: '33%',
@@ -360,11 +360,11 @@ const imagemFase = {
                         cursor: 'pointer',
                         zIndex: 10
                       }}
-                      aria-label="Ver informações sobre Surfar a Onda"
+                      aria-label="Ver informações sobre Remanda"
                     />
                     
                     <button
-                      onClick={() => handlePhaseInfoClick('desafios')}
+                      onClick={() => handlePhaseInfoClick('surfar')}
                       style={{
                         position: 'absolute',
                         top: '62%',
@@ -376,7 +376,7 @@ const imagemFase = {
                         cursor: 'pointer',
                         zIndex: 10
                       }}
-                      aria-label="Ver informações sobre Desafios no Surf"
+                      aria-label="Ver informações sobre Surfar a Onda"
                     />
                   </div>
                 </div>
@@ -594,7 +594,7 @@ const imagemFase = {
               <>
                 <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="mb-3 lead">
-                  <strong>Refletir sobre o teu percurso de mudança</strong> mudança é como parar por um instante em cima da prancha e observar o mar à tua volta. 
+                  <strong>Refletir sobre o teu percurso de mudança</strong> é como parar por um instante em cima da prancha e observar o mar à tua volta. 
                 </p>
                 <p className="mb-3 lead">
                   Tal como no surf, a mudança pede <strong> prática, paciência, coragem e determinação </strong>. 

@@ -136,7 +136,7 @@ const PodcastTouchminds = () => {
                     Mas a verdade é que, quando <strong>não se fala</strong> sobre o que se sente, o <strong>sofrimento</strong> só tende a crescer.
                   </p>
                   <p className="lead mb-3">
-                    A <strong>ansiedade</strong> não é um sinal de <strong>fraqueza</strong>; é uma <strong>resposta</strong> natural do corpo, e todos passam por momentos em que ela se torna mais intensa.
+                    A <strong>ansiedade</strong> não é um sinal de fraqueza; é uma <strong>resposta natural</strong> do corpo, e todos passam por momentos em que ela se torna mais intensa.
                   </p>
                   <p className="lead mb-4">
                     Ao <strong>falar</strong> abertamente sobre a ansiedade, <strong>desmistifica-se</strong> o tema e cria-se um ambiente onde as pessoas se sentem mais à vontade para <strong>partilhar</strong> as suas

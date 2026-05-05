@@ -200,22 +200,6 @@ const handleAttemptClose = () => {
                   />
                   
                   <button
-                    onClick={() => handleAreaClick('ancora')}
-                    style={{
-                      position: 'absolute',
-                      top: '59%',
-                      right: '50%',
-                      width: '23%',
-                      height: '25%',
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      zIndex: 10
-                    }}
-                    aria-label="Âncora"
-                  />
-                  
-                  <button
                     onClick={() => handleAreaClick('martelo')}
                     style={{
                       position: 'absolute',
@@ -230,7 +214,23 @@ const handleAttemptClose = () => {
                     }}
                     aria-label="Martelo"
                   />
-                  
+
+                  <button
+                    onClick={() => handleAreaClick('ancora')}
+                    style={{
+                      position: 'absolute',
+                      top: '59%',
+                      right: '50%',
+                      width: '23%',
+                      height: '25%',
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      zIndex: 10
+                    }}
+                    aria-label="Âncora"
+                  /> 
+
                   <button
                     onClick={() => handleAreaClick('perigo')}
                     style={{
@@ -293,7 +293,10 @@ const handleAttemptClose = () => {
                   Cada fase do ciclo tem o seu <strong>valor</strong>, e <strong>não há uma forma "certa"</strong> de passar por elas. O mais importante é ires <strong>prestando atenção ao que sentes</strong>, ao que <strong>precisas</strong> e ao que <strong>te faz bem</strong>.
                 </p>
                 <p className="mb-3 lead">
-                  Tal como usaste a <strong>lupa</strong> para observar mais de perto, a <strong>bússola</strong> para refletir sobre o caminho, o <strong>mapa</strong> para planear, o <strong>martelo</strong> para agir, a <strong>âncora</strong> para manter, e caso precises podes recorrer à <strong>borracha</strong> para reajustar; lembra-te: <strong>todas estas ferramentas estão sempre contigo</strong>.
+                  Podes usar a <strong>lupa</strong> para observar mais de perto, a <strong>bússola</strong> para refletir sobre o caminho, o <strong>mapa</strong> para planear, o <strong>martelo</strong> para agir, a <strong>âncora</strong> para manter. Caso precises podes recorrer à <strong>borracha</strong> para reajustar.
+                 </p> 
+                 <p className="mb-3 lead">
+                  Lembra-te: <strong>todas estas ferramentas estão sempre contigo</strong>. Podes usá-las quando quiseres.
                 </p>
                 <p className="mb-3 lead"><strong>Podes usá-las quando precisares.</strong></p>
                 <div className="d-flex justify-content-between mt-4">

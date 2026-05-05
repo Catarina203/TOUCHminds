@@ -289,7 +289,7 @@ const BalancaVirtual = () => {
               <>
                 <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Balança Virtual</h2>
                 <p className="mb-3 lead"><strong>Sê muito bem-vindo/a à atividade da Balança Virtual!</strong></p>
-                <p className="mb-3 lead">Esta atividade vai ajudar-te a <strong>refletir</strong> de forma interativasobre os <strong>prós e contras de mudar comportamentos</strong>.</p>
+                <p className="mb-3 lead">Esta atividade vai ajudar-te a <strong>refletir</strong> de forma interativa sobre os <strong>prós e contras de mudar comportamentos</strong>.</p>
                 <p className="mb-3 lead">Seleciona um <strong>comportamento </strong> dos exemplos a seguir, aquele que mais se <strong> aproxima da tua experiência </strong> e que faz mais sentido para ti neste <strong> momento da tua vida</strong> , e que <strong> gostarias de mudar</strong>. </p>
                 <p className="mb-3 lead">Lembra-te de que a <strong>escolha é tua</strong>, e o objetivo é entender melhor as implicações de <strong>mudar ou de não mudar </strong>esse comportamento. </p>
                 <div className="text-center">

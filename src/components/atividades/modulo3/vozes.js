@@ -126,7 +126,7 @@ const AtividadeVozCritica = () => {
             <>
               <div className="text-center">
                 <p className="lead">
-                  Quando ouvimos esta <strong>voz crítica</strong>, começamos a acreditar que as nossas <strong>falhas</strong> nos definem. O <strong>autocriticismo</strong> pode criar uma sensação constante de <strong>insuficiência</strong>, como se <strong>não fôssemos bons o suficiente</strong>. Ele pode trazer <strong>vergonha</strong>, <strong>ansiedade</strong>, <strong>tristeza</strong> e <strong>insegurança</strong>, fazendo-nos sentir <strong>distantes dos outros</strong>, como se mais ninguém passasse pelas mesmas situações ou tivesse as mesmas emoções. Esses <strong>pensamentos</strong> podem fazer-nos <strong>duvidar de nós mesmos</strong>, criando uma <strong>barreira</strong> entre o que sentimos e o que realmente somos.
+                  Quando ouvimos esta <strong>voz crítica</strong>, começamos a acreditar que as nossas <strong>falhas</strong> nos definem. O <strong>autocriticismo</strong> pode criar uma sensação constante de <strong>insuficiência</strong>, como se <strong>não fôssemos bons o suficiente</strong>. Ele pode trazer <strong>vergonha</strong>, <strong>ansiedade</strong>, <strong>tristeza</strong> e <strong>insegurança</strong>, fazendo-nos sentir <strong>distantes dos outros</strong>, como se mais ninguém passasse pelas mesmas situações ou tivesse as mesmas emoções. Esses <strong>pensamentos</strong> podem fazer-nos <strong>duvidar de nós próprios</strong>, criando uma <strong>barreira</strong> entre o que sentimos e o que realmente somos.
                 </p>
               </div>
             </>,
@@ -153,7 +153,7 @@ const AtividadeVozCritica = () => {
             <>
               <div className="text-center">
                 <p className="lead">
-                  Uma alternativa ao <strong>autocriticismo</strong> é a <strong>autocompaixão</strong>. A autocompaixão é a capacidade de sermos <strong>gentis</strong> e <strong>compreensivos connosco mesmos</strong> nos <strong>momentos difíceis</strong>. Em vez de <strong>nos criticarmos</strong>, é sermos capazes de <strong>reconhecer o nosso sofrimento</strong> e, perante ele, adotarmos uma atitude de <strong>cuidado</strong> e <strong>bondade</strong>, reconhecendo que <strong>todos temos falhas</strong> e que isso <strong>não nos torna menos merecedores de compreensão e apoio</strong>.
+                  Uma alternativa ao <strong>autocriticismo</strong> é a <strong>autocompaixão</strong>. A autocompaixão é a capacidade de sermos <strong>gentis</strong> e <strong>compreensivos connosco próprios,</strong> mesmo <strong>momentos difíceis</strong>. Em vez de <strong>nos criticarmos</strong>, é sermos capazes de <strong>reconhecer o nosso sofrimento</strong> e, perante ele, adotarmos uma atitude de <strong>cuidado</strong> e <strong>bondade</strong>, reconhecendo que <strong>todos temos falhas</strong> e que isso <strong>não nos torna menos merecedores de compreensão e apoio</strong>.
                 </p>
               </div>
             </>,
@@ -162,7 +162,7 @@ const AtividadeVozCritica = () => {
             <>
               <div className="text-center">
                 <p className="lead">
-                  A <strong>autocompaixão</strong> não significa <strong>ignorar os nossos erros</strong>, mas sim <strong>olharmos para eles com compreensão</strong> e <strong>vontade de melhorar</strong>. Ao <strong>praticá-la</strong>, criamos um <strong>ambiente interno seguro e positivo</strong>, onde podemos <strong>aprender</strong>, em vez de nos criticarmos. Esta nova forma de <strong>nos tratarmos a nós mesmos</strong> é essencial para o nosso <strong>bem-estar</strong>. Cada vez que enfrentamos uma <strong>situação difícil</strong>, temos a <strong>oportunidade de escolher</strong> a forma como <strong>falamos connosco</strong>.
+                  A <strong>autocompaixão</strong> não significa <strong>ignorar os nossos erros</strong>, mas sim <strong>olharmos para eles com compreensão</strong> e <strong>vontade de melhorar</strong>. Ao <strong>praticá-la</strong>, criamos um <strong>ambiente interno seguro e positivo</strong>, onde podemos <strong>aprender</strong>, em vez de nos criticarmos. Esta nova forma de <strong>nos tratarmos a nós próprios</strong> é essencial para o nosso <strong>bem-estar</strong>. Cada vez que enfrentamos uma <strong>situação difícil</strong>, temos a <strong>oportunidade de escolher</strong> a forma como <strong>falamos connosco</strong>.
                 </p>
               </div>
             </>,
@@ -180,7 +180,7 @@ const AtividadeVozCritica = () => {
             <>
               <div className="text-center">
                 <p className="lead">
-                  A <strong>autocompaixão</strong> também significa saber <strong>pedir ajuda</strong> quando necessário. Quando <strong>reconhecemos o nosso sofrimento</strong> e aceitamos que <strong>precisamos de ajuda</strong>, estamos a dar o <strong>primeiro passo para o nosso bem-estar</strong>. Todos <strong>merecemos cuidar de nós mesmos</strong> e <strong>procurar ajuda</strong> quando precisamos.
+                  A <strong>autocompaixão</strong> também significa saber <strong>pedir ajuda</strong> quando necessário. Quando <strong>reconhecemos o nosso sofrimento</strong> e aceitamos que <strong>precisamos de ajuda</strong>, estamos a dar o <strong>primeiro passo para o nosso bem-estar</strong>. Todos <strong>merecemos cuidar de nós próprios</strong> e <strong>procurar ajuda</strong> quando precisamos.
                 </p>
               </div>
             </>,
@@ -274,8 +274,8 @@ const AtividadeVozCritica = () => {
     <div className="text-center"></div>
       <h4 className="text-center fw-bold"  style={{ color: "#234970" }}>Conclusão da Atividade</h4>
       <p className="mb-3 lead">Ao longo desta atividade, tiveste a oportunidade de <strong>refletir</strong> sobre como as nossas <strong>vozes internas</strong> podem impactar o nosso <strong>bem-estar</strong>, as nossas <strong>relações com os outros</strong> e a nossa <strong>capacidade de pedir ajuda</strong>.</p>
-      <p className="mb-3 lead">A <strong>voz crítica</strong>, muitas vezes, pode ser muito <strong>severa</strong>, levando-nos a <strong>duvidar de nós mesmos</strong> e a sentir que <strong>não somos bons o suficiente</strong>.</p>
-      <p className="mb-3 lead">Mas, como vimos, a <strong>voz compassiva</strong> nos oferece uma maneira diferente de lidar com os <strong>desafios da vida</strong> — com <strong>gentileza</strong>, <strong>compreensão</strong> e <strong>aceitação</strong>.</p>
+      <p className="mb-3 lead">A <strong>voz crítica</strong>, muitas vezes, pode ser muito <strong>severa</strong>, levando-nos a <strong>duvidar de nós próprios</strong> e a sentir que <strong>não somos bons o suficiente</strong>.</p>
+      <p className="mb-3 lead">Mas, como vimos, a <strong>voz compassiva</strong> oferece-nos uma maneira diferente de lidar com os <strong>desafios da vida</strong> — com <strong>gentileza</strong>, <strong>compreensão</strong> e <strong>aceitação</strong>.</p>
       <p className="mb-3 lead">Ao praticarmos a <strong>autocompaixão</strong>, começamos a <strong>cultivar um espaço interno mais saudável</strong>, onde podemos <strong>aprender com os nossos erros</strong> e sermos mais <strong>genuínos</strong> e <strong>felizes</strong> nas nossas relações.</p>
       <p className="mb-3 lead">Agora que <strong>refletiste</strong> sobre a tua própria <strong>voz crítica</strong> e <strong>voz compassiva</strong>, lembra-te: todas as <strong>vozes fazem parte de ti</strong>, mas a forma como <strong>escolhes ouvi-las e responder-lhes</strong> pode mudar a forma como <strong>te sentes</strong> e <strong>te relacionas com o mundo à tua volta</strong>.</p>
       <p className="mb-3 lead"><strong>Escolher ser mais compassivo contigo mesmo/a</strong> é um passo importante para o teu <strong>bem-estar</strong>.</p>
