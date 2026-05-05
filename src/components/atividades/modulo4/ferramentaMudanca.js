@@ -203,10 +203,10 @@ const handleAttemptClose = () => {
                     onClick={() => handleAreaClick('martelo')}
                     style={{
                       position: 'absolute',
-                      top: '47%',
-                      left: '8%',
-                      width: '24%',
-                      height: '24%',
+                      top: '59%',
+                      right: '50%',
+                      width: '23%',
+                      height: '25%',
                       background: 'transparent',
                       border: 'none',
                       cursor: 'pointer',
@@ -217,12 +217,12 @@ const handleAttemptClose = () => {
                   
                   <button
                     onClick={() => handleAreaClick('ancora')}
-                    style={{
+                     style={{
                       position: 'absolute',
-                      top: '59%',
-                      right: '50%',
-                      width: '23%',
-                      height: '25%',
+                      top: '47%',
+                      left: '8%',
+                      width: '24%',
+                      height: '24%',
                       background: 'transparent',
                       border: 'none',
                       cursor: 'pointer',
