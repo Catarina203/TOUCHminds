@@ -22,8 +22,8 @@ const [showWarning, setShowWarning] = useState(false);
   { id: "lupa",    titulo: "Lupa",           audio: "/audios/modulo4/ferramentas/lupa.mp3",    imagem: "/imgs/modulo4/ferramentas/lupa.png" },
   { id: "bussola", titulo: "Bússola",        audio: "/audios/modulo4/ferramentas/bussola.mp3", imagem: "/imgs/modulo4/ferramentas/bussola.png" },
   { id: "mapa",    titulo: "Mapa",           audio: "/audios/modulo4/ferramentas/mapa.mp3",    imagem: "/imgs/modulo4/ferramentas/mapa.png" },
-  { id: "ancora",  titulo: "Âncora",         audio: "/audios/modulo4/ferramentas/ancora.mp3",  imagem: "/imgs/modulo4/ferramentas/ancora.png" },
   { id: "martelo", titulo: "Martelo",        audio: "/audios/modulo4/ferramentas/martelo.mp3", imagem: "/imgs/modulo4/ferramentas/martelo.png" },
+  { id: "ancora",  titulo: "Âncora",         audio: "/audios/modulo4/ferramentas/ancora.mp3",  imagem: "/imgs/modulo4/ferramentas/ancora.png" },
   { id: "perigo",  titulo: "Sinal de Perigo",audio: "/audios/modulo4/ferramentas/perigo.mp3",  imagem: "/imgs/modulo4/ferramentas/perigo.png" },
 ];
 
