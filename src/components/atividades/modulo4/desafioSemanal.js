@@ -87,17 +87,20 @@ const DesafioSemanal = ({ id }) => {
   return (
     <div className="bg-white">
 
+      {/* TÍTULO */}
       <h4 className="mb-4" style={{ color: "#99CBC8" }}>
-        <span style={{
-          borderBottom: "3px solid #99CBC8",
-          display: "inline-block",
-          paddingBottom: "2px",
-        }}>
+        <span
+          style={{
+            borderBottom: "3px solid #99CBC8",
+            display: "inline-block",
+            paddingBottom: "2px",
+          }}
+        >
           Desafio Semanal
         </span>
       </h4>
 
-      {/* TEXTO (mantido igual) */}
+      {/* TEXTO (igual ao teu) */}
       <div className="mb-4 lead">
 
         <b className='fw-bold'>Queria lançar-te um desafio para esta semana!</b>
@@ -114,43 +117,51 @@ const DesafioSemanal = ({ id }) => {
         <strong>Pergunta-te, sem julgar:</strong>
 
         <ul style={{ marginTop: "10px" }}>
-          <li>Se continuar como estou, quais são os <strong>prós?</strong> E quais são os <strong>contras?</strong></li>
-          <li>Se fizer algo novo ou diferente, quais são os <strong>prós?</strong> E quais são os <strong>contras?</strong></li>
+          <li> Se continuar como estou, quais são os <strong> prós? </strong> E quais são os <strong>contras?</strong></li>
+          <li> Se fizer algo novo ou diferente, quais são os <strong> prós? </strong> E quais são os <strong>contras?</strong></li>
         </ul>
 
-        <p><strong>Lembra-te de uma vez em que enfrentaste algo semelhante e conseguiste</strong>.</p>
+        <p>
+          <strong>Lembra-te de uma vez em que enfrentaste algo semelhante e conseguiste</strong>.
+        </p>
 
         <ul>
-          <li>Que <strong>estratégias</strong> usaste nessa altura?</li>
-          <li>O que <strong>fizeste</strong> dessa vez que podes aplicar agora?</li>
-          <li>Podes usar esta <strong>tabela</strong> para registares.</li>
+          <li>Que<strong> estratégias </strong>usaste nessa altura?</li>
+          <li>O que <strong> fizeste </strong>dessa vez que podes aplicar agora?</li>
+          <li>Podes usar esta <b>tabela</b> para registares.</li>
         </ul>
       </div>
 
       {/* TABELA */}
       <div className="table-responsive mb-4">
         <table className="table table-bordered text-center align-middle">
+
           <thead>
             <tr>
-              <th>Dilema</th>
-              <th>Prós continuar</th>
-              <th>Contras continuar</th>
-              <th>Prós mudar</th>
-              <th>Contras mudar</th>
-              <th>Estratégias passadas</th>
+              {[
+                "Dilema",
+                "Prós continuar",
+                "Contras continuar",
+                "Prós mudar",
+                "Contras mudar",
+                "Estratégias passadas",
+              ].map((title) => (
+                <th
+                  key={title}
+                  style={{
+                    backgroundColor: "#E7C8C2",
+                    color: "#234970",
+                  }}
+                >
+                  {title}
+                </th>
+              ))}
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              {[
-                "dilema",
-                "prosContinuar",
-                "contrasContinuar",
-                "prosMudar",
-                "contrasMudar",
-                "estrategiasPassadas",
-              ].map((name) => (
+              {Object.keys(form).map((name) => (
                 <td key={name}>
                   <textarea
                     name={name}
@@ -167,22 +178,36 @@ const DesafioSemanal = ({ id }) => {
         </table>
       </div>
 
-      {/* BOTÃO */}
-      <div className="mt-3 text-start">
-        <button
-          onClick={handleAdd}
-          className="btn"
-          disabled={loading}
-          style={{
-            backgroundColor: "#66BFBF",
-            color: "white",
-            fontWeight: "600",
-            borderRadius: "8px",
-          }}
-        >
-          {loading ? "A guardar..." : "Guardar alterações"}
-        </button>
+      {/* TEXTO FINAL (QUE FALTAVA) */}
+      <div className="mb-4 lead">
+
+        <p>
+          Não é preciso chegar sempre à <strong>“decisão perfeita”.</strong> O objetivo é treinar o
+          <strong> olhar para ti próprio/a, reconhecer que já tens recursos e abrir espaço para escolhas mais conscientes.</strong>
+        </p>
+
+        <p className="fw-bold">
+          Vamos em frente! #OPoderdaMudança
+        </p>
+
+        <p>Até para a Semana!</p>
+
       </div>
+
+      {/* BOTÃO */}
+      <button
+        onClick={handleAdd}
+        className="btn"
+        disabled={loading}
+        style={{
+          backgroundColor: "#66BFBF",
+          color: "white",
+          fontWeight: "600",
+          borderRadius: "8px",
+        }}
+      >
+        {loading ? "A guardar..." : "Guardar alterações"}
+      </button>
 
       {/* FEEDBACK */}
       {feedbackMessage && (
