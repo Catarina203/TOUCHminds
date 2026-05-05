@@ -5,6 +5,9 @@ import Sidebar from "../../sidebar";
 import { UserContext } from "../../../App";
 import modulos from "../../../data/modulos";
 import AtividadeProgressao from "../atividadeProgressao";
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const EscolhaCerta = () => {
     const { id: moduloId } = useParams();
@@ -19,9 +22,43 @@ const EscolhaCerta = () => {
     const [commentText, setCommentText] = useState("");
     const [showWarning, setShowWarning] = useState(false);
     const [jaEscolheu, setJaEscolheu] = useState(false); // só 1 interação por cenário
+    const [interacoes, setInteracoes] = useState([]);
     const AUTO_DELAY = 600; // ms para mostrar o coração antes de avançar
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
+
+    const guardarRespostas = async () => {
+          try {
+            const auth = getAuth();
+            const user = auth.currentUser;
+        
+            if (!user) {
+              console.error("Utilizador não autenticado");
+              return;
+            }
+        
+            const userRef = doc(db, "alunos", user.uid);
+        
+            await setDoc(
+              userRef,
+              {
+                respostas: {
+                  modulo5: {
+                      escolhacerta: arrayUnion({
+                        interacoes,
+                        data: new Date().toISOString()
+                      }),
+                  },
+                },
+              },
+              { merge: true }
+            );
+        
+            console.log("Guardado com sucesso!");
+          } catch (error) {
+            console.error("Erro ao guardar:", error);
+          }
+        };
 
     const cenarios = [
     {
@@ -206,6 +243,14 @@ resetUI();
                                     aria-label={h.tipo}
                                     onClick={() => {
                                         if (jaEscolheu) return; // já escolheu neste cenário
+                                        const nova = {
+                                            pagina,
+                                            tipo: "gostar",
+                                            data: new Date().toISOString()
+                                        };
+
+                                        setInteracoes(prev => [...prev, nova]);
+
                                         setInteracao(h.tipo);
                                         setAnchor({ x: h.x, y: h.y });
                                         setShowWarning(false);
@@ -263,7 +308,13 @@ resetUI();
                                     onSubmit={(e) => {
                                         e.preventDefault();
                                         if (jaEscolheu || !shareTo.trim()) return;
-                                        setOpcaoSelecionada("partilhar");
+                                        const nova = {
+                                            pagina,
+                                            tipo: "partilhar",
+                                            para: shareTo,
+                                            data: new Date().toISOString()
+                                        };
+                                        setInteracoes(prev => [...prev, nova]);
                                         setJaEscolheu(true);
                                         setInteracao(null);
                                         setShareTo("");
@@ -312,7 +363,13 @@ resetUI();
                                     onSubmit={(e) => {
                                         e.preventDefault();
                                         if (jaEscolheu || commentText.trim().length < 2) return;
-                                        setOpcaoSelecionada("comentar");
+                                        const nova = {
+                                            pagina,
+                                            tipo: "comentar",
+                                            comentario: commentText,
+                                            data: new Date().toISOString()
+                                        };
+                                        setInteracoes(prev => [...prev, nova]);
                                         setJaEscolheu(true);
                                         setInteracao(null);
                                         setCommentText("");
@@ -393,6 +450,7 @@ resetUI();
                                         moduloId={moduloId}
                                         atividadeIndex={1}
                                         updateUserData={updateUserData}
+                                        onComplete={guardarRespostas}
                                     />
                                 </div>
                             </>

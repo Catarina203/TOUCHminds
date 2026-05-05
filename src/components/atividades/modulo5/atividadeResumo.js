@@ -6,6 +6,9 @@ import { UserContext } from "../../../App";
 import AtividadeProgressao from "../atividadeProgressao";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const AtividadeResumoRede = () => {
   const [pagina, setPagina] = useState(0);
@@ -15,6 +18,41 @@ const AtividadeResumoRede = () => {
   const [showWarning, setShowWarning] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+
+
+const guardarRespostas = async () => {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("Utilizador não autenticado");
+      return;
+    }
+
+    const userRef = doc(db, "alunos", user.uid);
+
+    await setDoc(
+        userRef,
+        {
+          respostas: {
+            modulo2: {
+                atividadeResumo5: arrayUnion({
+                  opcaoSelecionada,
+                  data: new Date().toISOString(),
+                }),
+            },
+          },
+        },
+        { merge: true }
+      );
+
+    console.log("Guardado com sucesso!");
+  } catch (error) {
+    console.error("Erro ao guardar:", error);
+  }
+};
+   
 
   const avancarPagina = () => {
   if (pagina >= 1 && pagina <= 4 && opcaoSelecionada === null) {
@@ -313,7 +351,10 @@ const AtividadeResumoRede = () => {
                   <AtividadeProgressao
                     moduloId={moduloId}
                     atividadeIndex={2}
-                    updateUserData={updateUserData}
+                    updateUserData={async () => {
+                    await guardarRespostas();
+                    updateUserData();
+                      }}
                   />
                 </div>
               </>
