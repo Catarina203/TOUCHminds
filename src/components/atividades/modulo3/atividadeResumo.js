@@ -22,7 +22,6 @@ const AtividadeResumoCarta = () => {
     parte7: "",
     parte8: "",
     parte9: "",
-    parte10: ""
   });
   const [erroCampos, setErroCampos] = useState(false);
 
@@ -85,28 +84,25 @@ const camposPreenchidos = Object.values(carta).filter(v => v.trim() !== "").leng
     linhas.push(`Eu sei que às vezes é difícil lidar com ${carta.parte2.trim()}.`);
 
   if (carta.parte3.trim())
-    linhas.push(`Mesmo que estejas a sentir ${carta.parte3.trim()}.`);
+    linhas.push(`Quando cometes erros, é importante lembrares-te que ${carta.parte3.trim()}.`);
 
   if (carta.parte4.trim())
-    linhas.push(`Quando cometes erros, é importante lembrares-te que ${carta.parte4.trim()}.`);
+    linhas.push(`Eu estou aqui para te apoiar, porque ${carta.parte4.trim()}.`);
 
   if (carta.parte5.trim())
-    linhas.push(`Eu estou aqui para te apoiar, porque ${carta.parte5.trim()}.`);
+    linhas.push(`É normal sentires-te frustrado/a às vezes, mas ${carta.parte5.trim()}.`);
 
   if (carta.parte6.trim())
-    linhas.push(`É normal sentires-te frustrado/a às vezes, mas ${carta.parte6.trim()}.`);
+    linhas.push(`Eu sei que já enfrentaste situações complicadas antes, e ${carta.parte6.trim()}.`);
 
   if (carta.parte7.trim())
-    linhas.push(`Eu sei que já enfrentaste situações complicadas antes, e ${carta.parte7.trim()}.`);
+    linhas.push(`Lembra-te de que, mesmo quando erramos, podemos aprender, porque ${carta.parte7.trim()}.`);
 
   if (carta.parte8.trim())
-    linhas.push(`Lembra-te de que, mesmo quando erramos, podemos aprender, porque ${carta.parte8.trim()}.`);
+    linhas.push(`Estou muito orgulhoso/a de ti por ${carta.parte8.trim()}.`);
 
   if (carta.parte9.trim())
-    linhas.push(`Estou muito orgulhoso/a de ti por ${carta.parte9.trim()}.`);
-
-  if (carta.parte10.trim())
-    linhas.push(`Para o futuro, desejo-te que ${carta.parte10.trim()}.`);
+    linhas.push(`Para o futuro, desejo-te que ${carta.parte9.trim()}.`);
 
   return linhas.join("\n");
 };
