@@ -203,22 +203,6 @@ const handleAttemptClose = () => {
                     onClick={() => handleAreaClick('martelo')}
                     style={{
                       position: 'absolute',
-                      top: '47%',
-                      left: '8%',
-                      width: '24%',
-                      height: '24%',
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      zIndex: 10
-                    }}
-                    aria-label="Martelo"
-                  />
-
-                  <button
-                    onClick={() => handleAreaClick('ancora')}
-                    style={{
-                      position: 'absolute',
                       top: '59%',
                       right: '50%',
                       width: '23%',
@@ -228,8 +212,24 @@ const handleAttemptClose = () => {
                       cursor: 'pointer',
                       zIndex: 10
                     }}
-                    aria-label="Âncora"
+                    aria-label="Martelo"
                   /> 
+
+                  <button
+                    onClick={() => handleAreaClick('ancora')}
+                    style={{
+                      position: 'absolute',
+                      top: '47%',
+                      left: '8%',
+                      width: '24%',
+                      height: '24%',
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      zIndex: 10
+                    }}
+                    aria-label="Âncora"
+                  />
 
                   <button
                     onClick={() => handleAreaClick('perigo')}
