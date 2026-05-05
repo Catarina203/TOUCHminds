@@ -101,7 +101,7 @@ const registos = userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
         <br /><br /> 
         A ideia é que <b>reflitas como te sentes</b>, o que <b>pensas</b> e como te <b>comportas</b> nessa situação.
         <br /><br /> 
-        Podes usar esta <b>tabela</b> para registares.
+        Podes usar esta <b>tabela</b> para registares:
       </p>
       <ul style={{ marginTop: "0px" }}>
         <li><b>Situação:</b>  Regista a situação que te deixou ansioso/a.</li>

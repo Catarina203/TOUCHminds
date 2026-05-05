@@ -5,13 +5,13 @@ const DesafioSemanal = ({ id }) => {
   const { userData, updateUserData } = useContext(UserContext);
 
   const [form, setForm] = useState({
-    dilema: '',
-    prosContinuar: '',
-    contrasContinuar: '',
-    prosMudar: '',
-    contrasMudar: '',
-    estrategiasPassadas: '',
-  });
+      dilema: '',
+      prosnaomudar: '',
+      contrasnaomudar: '',
+      prosMudar: '',
+      contrasMudar: '',
+      estrategiasPassadas: '',
+});
 
   const [loading, setLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
@@ -66,8 +66,8 @@ const DesafioSemanal = ({ id }) => {
 
       setForm({
         dilema: '',
-        prosContinuar: '',
-        contrasContinuar: '',
+        prosnaomudar: '',
+        contrasnaomudar: '',
         prosMudar: '',
         contrasMudar: '',
         estrategiasPassadas: '',
@@ -111,6 +111,9 @@ const DesafioSemanal = ({ id }) => {
 
         <br /><br />
 
+         <br /><br /> 
+        Podes usar esta <b>tabela</b> para registares:
+
         Quando isso acontecer, convida-te a fazer o seguinte:
         <br /><br />
 
@@ -128,7 +131,6 @@ const DesafioSemanal = ({ id }) => {
         <ul>
           <li>Que<strong> estratégias </strong>usaste nessa altura?</li>
           <li>O que <strong> fizeste </strong>dessa vez que podes aplicar agora?</li>
-          <li>Podes usar esta <b>tabela</b> para registares.</li>
         </ul>
       </div>
 
@@ -140,8 +142,8 @@ const DesafioSemanal = ({ id }) => {
             <tr>
               {[
                 "Dilema",
-                "Prós continuar",
-                "Contras continuar",
+                "Prós não mudar",
+                "Contras não mudar",
                 "Prós mudar",
                 "Contras mudar",
                 "Estratégias passadas",
@@ -227,8 +229,8 @@ const DesafioSemanal = ({ id }) => {
                 <tr>
                   <th>Data</th>
                   <th>Dilema</th>
-                  <th>Prós continuar</th>
-                  <th>Contras continuar</th>
+                  <th>Prós não mudar</th>
+                  <th>Contras não mudar</th>
                   <th>Prós mudar</th>
                   <th>Contras mudar</th>
                   <th>Estratégias passadas</th>
@@ -240,8 +242,8 @@ const DesafioSemanal = ({ id }) => {
                   <tr key={i}>
                     <td>{r.dataCriacao}</td>
                     <td>{r.dilema}</td>
-                    <td>{r.prosContinuar}</td>
-                    <td>{r.contrasContinuar}</td>
+                    <td>{r.prosnaomudar}</td>
+                    <td>{r.contrasnaomudar}</td>
                     <td>{r.prosMudar}</td>
                     <td>{r.contrasMudar}</td>
                     <td>{r.estrategiasPassadas}</td>
