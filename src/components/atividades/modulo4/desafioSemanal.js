@@ -10,7 +10,7 @@ const DesafioSemanal = ({ id }) => {
       contrasnaomudar: '',
       prosMudar: '',
       contrasMudar: '',
-      estrategiasPassadas: '',
+      estrategiasanteriores: '',
 });
 
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const DesafioSemanal = ({ id }) => {
         contrasnaomudar: '',
         prosMudar: '',
         contrasMudar: '',
-        estrategiasPassadas: '',
+        estrategiasanteriores: '',
       });
 
     } catch (error) {
@@ -105,15 +105,11 @@ const DesafioSemanal = ({ id }) => {
 
         <b className='fw-bold'>Queria lançar-te um desafio para esta semana!</b>
         <br /><br />
-
-        Ao longo dos próximos dias, quando te encontrares perante <strong>uma decisão ou dilema </strong>— seja algo pequeno ou mais importante — faz uma pausa antes de agir.
+         Ao longo dos próximos dias, quando te encontrares perante <strong>uma decisão ou dilema </strong>— seja algo pequeno ou mais importante — faz uma pausa antes de agir.
         Este é o momento para <strong> observar, sem pressa e sem te julgares.</strong>
-
-        <br /><br />
-
-         <br /><br /> 
+        <br /><br /> 
         Podes usar esta <b>tabela</b> para registares:
-
+        <br /><br /> 
         Quando isso acontecer, convida-te a fazer o seguinte:
         <br /><br />
 
@@ -142,11 +138,11 @@ const DesafioSemanal = ({ id }) => {
             <tr>
               {[
                 "Dilema",
-                "Prós não mudar",
-                "Contras não mudar",
-                "Prós mudar",
-                "Contras mudar",
-                "Estratégias passadas",
+                "Prós de não mudar",
+                "Contras de não mudar",
+                "Prós de mudar",
+                "Contras de mudar",
+                "Estratégias anteriores",
               ].map((title) => (
                 <th
                   key={title}
@@ -161,22 +157,66 @@ const DesafioSemanal = ({ id }) => {
             </tr>
           </thead>
 
-          <tbody>
-            <tr>
-              {Object.keys(form).map((name) => (
-                <td key={name}>
-                  <textarea
-                    name={name}
-                    value={form[name]}
-                    onChange={handleChange}
-                    className="form-control"
-                    rows={3}
-                    placeholder="Escreve aqui..."
-                  />
-                </td>
-              ))}
-            </tr>
-          </tbody>
+                <tbody>
+              <tr>
+                {[
+                  {
+                    name: "dilema",
+                    label: "Dilema",
+                    placeholder: "Escreve aqui o dilema ou a decisão",
+                  },
+                  {
+                    name: "prosnaomudar",
+                    label: "Prós de não mudar",
+                    placeholder: "Escreve aqui os prós de não mudar",
+                  },
+                  {
+                    name: "contrasnaomudar",
+                    label: "Contras de não mudar",
+                    placeholder: "Escreve aqui os contras de não mudar",
+                  },
+                  {
+                    name: "prosMudar",
+                    label: "Prós de mudar",
+                    placeholder: "Escreve aqui os prós de mudar",
+                  },
+                  {
+                    name: "contrasMudar",
+                    label: "Contras de mudar",
+                    placeholder: "Escreve aqui os contras de mudar",
+                  },
+                  {
+                    name: "estrategiasanteriores",
+                    label: "Estratégias anteriores",
+                    placeholder: "Escreve aqui estratégias anteriores",
+                  },
+                ].map(({ name, label, placeholder }) => (
+                  <td key={name}>
+                    <label htmlFor={`input-${name}`} className="visually-hidden">
+                      {label}
+                    </label>
+                    <textarea
+                      id={`input-${name}`}
+                      name={name}
+                      value={form[name]}
+                      onChange={handleChange}
+                      className="form-control"
+                      rows={3}
+                      style={{ resize: 'vertical' }}
+                      aria-required="true"
+                      aria-describedby={feedbackType === 'error' && form[name].trim() === '' ? `error-${name}` : undefined}
+                      aria-invalid={feedbackType === 'error' && form[name].trim() === '' ? 'true' : 'false'}
+                      placeholder={placeholder}
+                    />
+                    {feedbackType === 'error' && form[name].trim() === '' && (
+                      <div id={`error-${name}`} className="invalid-feedback d-block" role="alert">
+                        Por favor, preenche este campo.
+                      </div>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
         </table>
       </div>
 
@@ -233,7 +273,7 @@ const DesafioSemanal = ({ id }) => {
                   <th>Contras não mudar</th>
                   <th>Prós mudar</th>
                   <th>Contras mudar</th>
-                  <th>Estratégias passadas</th>
+                  <th>Estratégias anteriores</th>
                 </tr>
               </thead>
 
@@ -246,7 +286,7 @@ const DesafioSemanal = ({ id }) => {
                     <td>{r.contrasnaomudar}</td>
                     <td>{r.prosMudar}</td>
                     <td>{r.contrasMudar}</td>
-                    <td>{r.estrategiasPassadas}</td>
+                    <td>{r.estrategiasanteriores}</td>
                   </tr>
                 ))}
               </tbody>
