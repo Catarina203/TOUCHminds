@@ -138,11 +138,11 @@ const DesafioSemanal = ({ id }) => {
             <tr>
               {[
                 "Dilema",
-                "Prós de não mudar",
-                "Contras de não mudar",
-                "Prós de mudar",
-                "Contras de mudar",
-                "Estratégias anteriores",
+                "Prós de Não Mudar",
+                "Contras de Não Mudar",
+                "Prós de Mudar",
+                "Contras de Mudar",
+                "Estratégias Anteriores",
               ].map((title) => (
                 <th
                   key={title}
@@ -167,27 +167,27 @@ const DesafioSemanal = ({ id }) => {
                   },
                   {
                     name: "prosnaomudar",
-                    label: "Prós de não mudar",
+                    label: "Prós de Não Mudar",
                     placeholder: "Escreve aqui os prós de não mudar",
                   },
                   {
                     name: "contrasnaomudar",
-                    label: "Contras de não mudar",
+                    label: "Contras de Não Mudar",
                     placeholder: "Escreve aqui os contras de não mudar",
                   },
                   {
                     name: "prosMudar",
-                    label: "Prós de mudar",
+                    label: "Prós de Mudar",
                     placeholder: "Escreve aqui os prós de mudar",
                   },
                   {
                     name: "contrasMudar",
-                    label: "Contras de mudar",
+                    label: "Contras de Mudar",
                     placeholder: "Escreve aqui os contras de mudar",
                   },
                   {
                     name: "estrategiasanteriores",
-                    label: "Estratégias anteriores",
+                    label: "Estratégias Anteriores",
                     placeholder: "Escreve aqui estratégias anteriores",
                   },
                 ].map(({ name, label, placeholder }) => (
@@ -261,19 +261,19 @@ const DesafioSemanal = ({ id }) => {
       {/* REGISTOS */}
       {registos.length > 0 && (
         <>
-          <h5 className="mt-5">Registos anteriores:</h5>
+          <h5 className="mt-5">Registos Anteriores:</h5>
 
           <div className="table-responsive">
             <table className="table table-bordered text-center align-middle">
               <thead>
                 <tr>
-                  <th>Data</th>
+                  <th>Data do Registo</th>
                   <th>Dilema</th>
-                  <th>Prós não mudar</th>
-                  <th>Contras não mudar</th>
-                  <th>Prós mudar</th>
-                  <th>Contras mudar</th>
-                  <th>Estratégias anteriores</th>
+                  <th>Prós de Não Mudar</th>
+                  <th>Contras de Não Mudar</th>
+                  <th>Prós de Mudar</th>
+                  <th>Contras de Mudar</th>
+                  <th>Estratégias Anteriores</th>
                 </tr>
               </thead>
 
