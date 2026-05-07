@@ -122,6 +122,9 @@ const DesafioSemanal5 = ({ id }) => {
         <p className="mb-4">
           Lembra-te de que <strong>reconhecer que precisas de ajuda</strong> é um <strong>passo importante para cuidar de ti mesmo/a</strong>.
         </p>
+
+        Podes usar esta <b>tabela</b> para registares:
+        <br /><br />
       </div>
 
       {/* TABELA */}
@@ -168,7 +171,7 @@ const DesafioSemanal5 = ({ id }) => {
                   className="form-control"
                   rows={3}
                   style={{ resize: 'vertical' }}
-                  placeholder="Descreve a situação"
+                  placeholder="Descreve a situação aqui"
                 />
               </td>
 
@@ -213,7 +216,7 @@ const DesafioSemanal5 = ({ id }) => {
                   className="form-control"
                   rows={3}
                   style={{ resize: 'vertical' }}
-                  placeholder="Porque escolheste esta fonte de ajuda?"
+                  placeholder="Descreve aqui porque escolheste esta fonte de ajuda"
                 />
               </td>
 
