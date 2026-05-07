@@ -109,17 +109,17 @@ const EscolhaCerta = () => {
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
         hotspots: [
-        { tipo: "comentar",  x: 30, y: 90, w: 45, h: 7  },
-        { tipo: "gostar",    x: 75, y: 90, w: 8, h: 6  },
-        { tipo: "partilhar", x: 89, y: 90, w: 8, h: 6  },
+        { tipo: "comentar",  x: 30, y: 92, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 92, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 92, w: 8, h: 6  },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_7.png",
         hotspots: [
-        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
-        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6 },
-        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
+        { tipo: "comentar",  x: 30, y: 94, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 94, w: 8, h: 6 },
+        { tipo: "partilhar", x: 89, y: 94, w: 8, h: 6  },
         ],
     },
     ];
