@@ -101,17 +101,17 @@ const EscolhaCerta = () => {
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_5.png",
         hotspots: [
-        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
-        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6  },
-        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
+        { tipo: "comentar",  x: 30, y: 90, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 90, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 90, w: 8, h: 6  },
         ],
     },
     {
         imagem: "/imgs/modulo5/escolhacerta/escolha_certa_6.png",
         hotspots: [
-        { tipo: "comentar",  x: 30, y: 96, w: 45, h: 7  },
-        { tipo: "gostar",    x: 75, y: 96, w: 8, h: 6  },
-        { tipo: "partilhar", x: 89, y: 96, w: 8, h: 6  },
+        { tipo: "comentar",  x: 30, y: 90, w: 45, h: 7  },
+        { tipo: "gostar",    x: 75, y: 90, w: 8, h: 6  },
+        { tipo: "partilhar", x: 89, y: 90, w: 8, h: 6  },
         ],
     },
     {
@@ -181,10 +181,10 @@ resetUI();
                                 </h2>
                                 <p className="lead">
                                     <b>Sê muito bem-vindo/a à "Escolha Certa"</b>.<br></br><br></br>
-                                    Nesta <b> atividade</b>, vais ver uma sequência de <b>stories</b> com <b> informações</b> sobre os diferentes fontes de <b>ajuda</b> que podes procurar quando
-                                    temos <b> dificuldades</b> ou <b> problemas</b> que não estamos a conseguir lidar <b> sozinho/a</b>. <br></br><br></br>
+                                    Nesta <b> atividade</b>, vais ver uma sequência de <b>stories</b> com <b> informações</b> sobre as diferentes fontes de <b>ajuda</b> que podemos procurar quando
+                                    temos <b> dificuldades</b> ou <b> problemas</b> que não estamos a conseguir lidar <b> sozinhos/as</b>. <br></br><br></br>
                                     À medida que passas por cada <b> story</b>, <b>reflete</b> sobre o que estás a ler e <b> como isso te faz sentir</b>. Vais poder
-                                    <b> interagir</b> a cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
+                                    <b> interagir</b> com cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
                                     A ideia é <b> aprender mais</b> sobre como podemos <b>procurar ajuda</b> e <b> refletir</b> sobre o <b>impacto</b> dessa informação no nosso <b>bem-estar</b>.
                                 </p>
                                <button
@@ -204,8 +204,8 @@ resetUI();
                                 </h4>
                                 <ul className="lead" style={{ maxWidth: 700 }}>
                                 <li><b>Gostar</b>: se achaste interessante ou útil.</li>
-                                <li><b>Partilhar</b>: se quiseres partilhar com alguém que possa precisar desta informação.</li>
-                                <li><b>Comentar</b>: se quiseres expressar o que pensaste ou como te sentiste.</li>
+                                <li><b>Partilhar</b>: se quisesses partilhar com alguém que possa precisar desta informação.</li>
+                                <li><b>Comentar</b>: se quisesses expressar o que pensaste ou como te sentiste.</li>
                                 </ul>
 
                         {/* IMAGEM + HOTSPOTS + UI */}
@@ -433,9 +433,9 @@ resetUI();
                                     <b>Procurar ajuda é um passo fundamental para o nosso bem-estar</b>.
                                     Todos nós passamos por <b> momentos difíceis</b>, e saber <b> quando</b> e a <b> quem pedir ajuda</b> é essencial para lidar com esses desafios da melhor forma.<br></br><br></br>
                                     É importante lembrar que, quando estamos perante a <b> ansiedade SOS</b>, a <b> ajuda formal</b> é <b> crucial</b>. Os <b> psicólogos</b> são preparados para lidar
-                                    com essas questões e podem fornecer a <b> ajuda necessário</b> para que possas <b> compreender</b> e <b>lidar melhor com as tuas dificuldades</b>, além de <b> desenvolver estratégias eficazes</b> para o teu <b>bem-estar</b>.<br></br><br></br>
+                                    com essas questões e podem fornecer a <b> ajuda necessária</b> para que possas <b> compreender</b> e <b>lidar melhor com as tuas dificuldades</b>, além de <b> desenvolver estratégias eficazes</b> para o teu <b>bem-estar</b>.<br></br><br></br>
                                     As ajudas semiformais e informais, por outro lado, são <b>valiosas</b> para quando precisas de <b>orientação</b> ou de <b>ajuda emocional imediata</b> de pessoas
-                                    próximas a ti; não esqueças que mesmo quando estas ajudas estão presentes,  <b>a ajuda profissional</b> deve ser uma prioridade em casos de <b>ansiedade SOS persistentes</b>.<br></br><br></br>
+                                    próximas a ti; não esqueças que mesmo quando estas ajudas estão presentes,  <b>a ajuda profissional</b> deve ser uma prioridade em casos de <b>ansiedade SOS persistente</b>.<br></br><br></br>
                                     Embora as <b>ferramentas de autoajuda</b> (como <b>apps</b>, <b>chats</b> ou <b>sites</b>) possam ser <b>úteis</b>, é necessário ter <b>cuidado</b> ao escolher essas opções. Muitas dessas
                                     plataformas <b>não são construídas por profissionais</b> e podem <b>não ser baseadas em evidências científicas confiáveis</b>. Em momentos mais desafiantes, elas podem servir
                                     como <b>complemento</b>, mas <b>nunca devem substituir</b> a ajuda de profissionais ou de pessoas cuja intenção é estar do teu lado e contribuir para o teu bem-estar. <br></br><br></br>
