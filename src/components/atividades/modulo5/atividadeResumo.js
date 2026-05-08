@@ -351,10 +351,7 @@ const guardarRespostas = async () => {
                   <AtividadeProgressao
                     moduloId={moduloId}
                     atividadeIndex={2}
-                    updateUserData={async () => {
-                    await guardarRespostas();
-                    updateUserData();
-                      }}
+                    updateUserData={updateUserData}
                   />
                 </div>
               </>
@@ -392,7 +389,10 @@ const guardarRespostas = async () => {
                 }}
         >
           <Button className="custom-btn-complete"
-            onClick={() => {
+            onClick={async () => {
+                if (pagina === 4) {
+                  await guardarRespostas(); 
+                }
                 setModalAberto(false);
                 setPagina((prev) => prev + 1); 
                 setOpcaoSelecionada(null);
@@ -409,7 +409,7 @@ const guardarRespostas = async () => {
                     outline: "none"
             }}
           >
-            Próximo
+            {pagina === 4 ? "Conclusão" : "Próximo"}
           </Button>
         </Modal.Footer>
       </Modal>
