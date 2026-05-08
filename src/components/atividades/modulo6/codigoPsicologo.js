@@ -62,7 +62,7 @@ const textosPorPagina = [
     resposta: (
       <>
         O que é <strong>partilhado</strong> em consulta é <strong>confidencial</strong>, 
-        exceto em situações de <strong>risco</strong> para si próprio/a ou para outros.  
+        exceto em situações de <strong>risco</strong> para ti próprio/a ou para outros.  
         O <strong>respeito</strong> pelo <strong>tempo</strong>, <strong>espaço</strong> e <strong>experiências</strong> da pessoa é garantido.  
         A <strong>psicologia</strong> não é apenas para casos muito <strong>graves</strong>: 
         pode ser procurada por qualquer pessoa que queira cuidar do seu <strong>bem-estar</strong>.

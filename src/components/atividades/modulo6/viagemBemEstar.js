@@ -433,9 +433,9 @@ const handleOpcaoToggle = (index) => {
                   <h2 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Mochila</h2>
                   <p className="lead">
                     A <strong>mochila</strong> é o <strong>primeiro objeto</strong> desta viagem. Representa o momento em que a pessoa <strong> reconhece que precisa de ajuda</strong> e começa a preparar o que vai levar consigo nesta viagem. 
-                    É nela que são colocadas as <strong>preocupações, emoções, medos e dúvidas</strong>. 
+                    É nela que são colocadas as <strong>preocupações, medos e dúvidas</strong>. 
                     Nesta fase inicial, começa a construir-se um <strong>espaço seguro</strong>, onde é possível <strong> partilhar o que se sente sem medo de julgamento</strong>. 
-                    A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: o reconhecimento de que há experiências que merecem ser cuidadas — e que <strong> não precisam de ser carregadas sozinho/a</strong>.
+                    A <strong>mochila</strong> simboliza esse <strong>primeiro passo corajoso</strong>: o reconhecimento de que há experiências que merecem ser cuidadas — que <strong> não precisas de carregar sozinho/a</strong>.
                   </p>
 
                   <p className="lead text-center"><strong>O que colocarias na tua mochila?</strong></p>
@@ -590,7 +590,7 @@ const handleOpcaoToggle = (index) => {
                     Este é o lugar onde se pode falar com verdade, num ambiente seguro, sem medo de julgamento. 
                     A cadeira simboliza o início de uma <strong>relação terapêutica</strong>, onde o que é dito é valorizado e respeitado. 
                     É neste espaço que a pessoa começa a perceber que <strong>não está sozinha</strong> e que há alguém disponível para 
-                     <strong> ouvir com empatia</strong> e caminha connosco. Assim, a cadeira marca uma nova etapa da viagem: 
+                     <strong> ouvir com empatia</strong> e caminhar connosco. Assim, a cadeira marca uma nova etapa da viagem: 
                     o momento de se sentir <strong>ouvido/a, compreendido/a e acompanhado/a</strong>, com tempo e espaço para 
                      <strong> ser verdadeiramente quem se é</strong>.
                   </p>
@@ -740,9 +740,9 @@ const handleOpcaoToggle = (index) => {
                                 </h4>
                   <p className="lead">
                     A <strong>lâmpada</strong> é o <strong>quarto objeto</strong> desta viagem. Representa o momento em que a pessoa começa a  
-                    <strong>ganhar clareza sobre os seus desafios</strong> e a <strong>compreender melhor o que sente</strong>. 
+                     <strong>ganhar clareza sobre os seus desafios</strong> e a <strong>compreender melhor o que sente</strong>. 
                     À medida que o processo terapêutico avança, começam a surgir <strong>novas perspetivas</strong> e  
-                    <strong>formas de lidar com as emoções</strong>. A lâmpada simboliza essa <strong> luz</strong> que se vai acendendo pouco a pouco, 
+                     <strong>formas de lidar com as emoções</strong>. A lâmpada simboliza essa <strong> luz</strong> que se vai acendendo pouco a pouco, 
                     iluminando partes que antes pareciam confusas ou difíceis de entender. 
                     É como se, ao acender essa lâmpada simbólica, a pessoa começasse a  
                     <strong> ver com mais nitidez o caminho que está a percorrer</strong>, percebendo quais são as  
@@ -840,7 +840,7 @@ const handleOpcaoToggle = (index) => {
                                 </p>
 
                                 <p className="lead text-center">
-                                  <strong>Imagina que esta corda representa aquilo que te segura quando te sentes que vais cair. O que te ajudaria a continuar?</strong>
+                                  <strong>Imagina que esta corda representa aquilo que te segura quando sentes que vais cair. O que te ajudaria a continuar?</strong>
                                 </p>
 
                                 <p className="lead text-center">
@@ -940,7 +940,7 @@ const handleOpcaoToggle = (index) => {
 
                     <p className="lead text-center">
                       <strong>Arrasta as frases</strong> que te fazem sentido para dentro do pote. 
-                      <strong> Podes personalizar</strong> algumas frases que queiras colocar no teu pote que melhor representam a tua experiência”.
+                      <strong> Podes personalizar</strong> algumas frases que queiras colocar no teu pote que melhor representam a tua experiência.
                     </p>
                     
                     <div className="alert alert-info mb-3" style={{ backgroundColor: "#FBF9F9", border: "1px solid #99cbc8" }}>
@@ -1100,7 +1100,7 @@ const handleOpcaoToggle = (index) => {
                                     Chave
                                 </h4>
                     <p className="lead">
-                  A <strong>chave</strong> é o <strong>sétimo objeto</strong> e último objeto desta viagem. Representa a liberdade e a autonomia que começam a surgir quando a pessoa
+                  A <strong>chave</strong> é o <strong>sétimo</strong> e último objeto desta viagem. Representa a liberdade e a autonomia que começam a surgir quando a pessoa
                   se sente mais <strong>preparada para lidar </strong>com as suas emoções e os seus desafios. Depois de todo o caminho percorrido, esta chave simbólica é aquilo que <strong>abre novas portas
                   </strong> — portas para o futuro, para escolhas mais conscientes. É como se, ao segurar essa chave nas mãos, a pessoa percebesse que agora tem acesso a  <strong>ferramentas, estratégias e recursos internos </strong>que 
                   lhe permitem enfrentar o que vier pela frente com mais segurança e confiança.  
