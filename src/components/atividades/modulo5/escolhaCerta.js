@@ -428,17 +428,26 @@ resetUI();
                         {/* CONCLUSÃO */}
                         {pagina === cenarios.length + 1 && (
                             <>
-                                {/* ... conteúdo da conclusão ... */}
+                                <h4 className="fw-bold mb-4 text-center" style={{ color: "#234970" }}>
+                                    Conclusão da Atividade
+                                </h4>
+                                <p className="lead">
+                                    <b>Procurar ajuda é um passo fundamental para o nosso bem-estar</b>.
+                                    Todos nós passamos por <b> momentos difíceis</b>, e saber <b> quando</b> e a <b> quem pedir ajuda</b> é essencial para lidar com esses desafios da melhor forma.<br></br><br></br>
+                                    É importante lembrar que, quando estamos perante a <b> ansiedade SOS</b>, a <b> ajuda formal</b> é <b> crucial</b>. Os <b> psicólogos</b> são preparados para lidar
+                                    com essas questões e podem fornecer a <b> ajuda necessária</b> para que possas <b> compreender</b> e <b>lidar melhor com as tuas dificuldades</b>, além de <b> desenvolver estratégias eficazes</b> para o teu <b>bem-estar</b>.<br></br><br></br>
+                                    As ajudas semiformais e informais, por outro lado, são <b>valiosas</b> para quando precisas de <b>orientação</b> ou de <b>ajuda emocional imediata</b> de pessoas
+                                    próximas a ti; não esqueças que mesmo quando estas ajudas estão presentes,  <b>a ajuda profissional</b> deve ser uma prioridade em casos de <b>ansiedade SOS persistente</b>.<br></br><br></br>
+                                    Embora as <b>ferramentas de autoajuda</b> (como <b>apps</b>, <b>chats</b> ou <b>sites</b>) possam ser <b>úteis</b>, é necessário ter <b>cuidado</b> ao escolher essas opções. Muitas dessas
+                                    plataformas <b>não são construídas por profissionais</b> e podem <b>não ser baseadas em evidências científicas confiáveis</b>. Em momentos mais desafiantes, elas podem servir
+                                    como <b>complemento</b>, mas <b>nunca devem substituir</b> a ajuda de profissionais ou de pessoas cuja intenção é estar do teu lado e contribuir para o teu bem-estar. <br></br><br></br>
+                                    <b>Cuidar de ti, e deixares que alguém te cuide, é um passo muito importante para o teu bem-estar</b>.
+                                </p>
+
                                 <div className="d-flex justify-content-between mt-4">
                                     <button className="custom-btn-pink" onClick={retroceder}>
                                         <i className="bi bi-arrow-left me-2"></i>Anterior
                                     </button>
-                                    
-                                    {/* 
-                                    Garante que o AtividadeProgressao chama o onComplete.
-                                    Dica: Se o onComplete não disparar, tenta passar uma função anónima 
-                                    que imprima um log para testar: onComplete={() => { console.log('Fim'); guardarRespostas(); }}
-                                    */}
                                     <AtividadeProgressao
                                         moduloId={moduloId}
                                         atividadeIndex={1}
@@ -448,6 +457,7 @@ resetUI();
                                 </div>
                             </>
                         )}
+
                         {/* NAVEGAÇÃO */}
                         <div className="d-flex justify-content-between mt-4">
                             {pagina > 0 && pagina <= cenarios.length && (
