@@ -19,7 +19,10 @@ const AtividadeResumoRede = () => {
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
   const [respostas, setRespostas] = useState({});
+  const respostasRef = React.useRef(respostas);
 
+  // Manter o ref sempre atualizado
+  React.useEffect(() => { respostasRef.current = respostas; }, [respostas]);
 
 const guardarRespostas = async () => {
   try {
@@ -39,7 +42,7 @@ const guardarRespostas = async () => {
           respostas: {
             modulo5: {
                 atividadeResumo5: arrayUnion({
-                  respostas,
+                  respostas: respostasRef.current,
                   data: new Date().toISOString(),
                 }),
             },
