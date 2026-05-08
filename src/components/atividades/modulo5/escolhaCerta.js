@@ -43,10 +43,12 @@ const EscolhaCerta = () => {
               userRef,
               {
                 respostas: {
-                modulo5: {
-                    escolhacerta: interacoes,
-                    data: new Date().toISOString()
-                },
+                    modulo5: {
+                        escolhacerta: arrayUnion({
+                            interacoes,
+                            data: new Date().toISOString()
+                        }),
+                    },
                 },
               },
               { merge: true }
