@@ -27,39 +27,40 @@ const EscolhaCerta = () => {
 
     const atividade = modulo?.atividades.find(a => a.url === "escolha-certa");
 
-    const guardarRespostas = async (dadosFinais = interacoes) => {
-        try {
-            const auth = getAuth();
-            const user = auth.currentUser;
+    const guardarRespostas = async (respostasGuardar) => {
+    try {
+        const auth = getAuth();
+        const user = auth.currentUser;
 
-            if (!user) {
-                console.error("Utilizador não autenticado");
-                return;
-            }
-
-            const userRef = doc(db, "alunos", user.uid);
-
-            // Estrutura de salvamento
-            await setDoc(
-                userRef,
-                {
-                    respostas: {
-                        modulo5: {
-                            // Guardamos o array de interações que acumulaste
-                            escolhacerta: arrayUnion({
-                                sessoes: dadosFinais, 
-                                concluidoEm: new Date().toISOString()
-                            }),
-                        },
-                    },
-                },
-                { merge: true }
-            );
-
-            console.log("Dados guardados com sucesso no Firebase!");
-        } catch (error) {
-            console.error("Erro detalhado ao guardar:", error);
+        if (!user) {
+        console.error("Utilizador não autenticado");
+        return;
         }
+
+        const userRef = doc(db, "alunos", user.uid);
+
+        await setDoc(
+        userRef,
+        {
+            respostas: {
+            modulo5: {
+                escolhaCerta: arrayUnion({
+                respostas: respostasGuardar.map(({ tipo, subtipo }) => ({
+                    tipo,
+                    subtipo
+                })),
+                data: new Date().toISOString(),
+                }),
+            },
+            },
+        },
+        { merge: true }
+        );
+
+        console.log("Guardado com sucesso!");
+    } catch (error) {
+        console.error("Erro ao guardar:", error);
+    }
     };
 
     const cenarios = [
@@ -137,13 +138,17 @@ const resetUI = () => {
   setJaEscolheu(false); // <-- aqui é o sítio certo
 };
 
-const avancar = () => {
+const avancar = async () => {
   if (!jaEscolheu) {
     setShowWarning(true);
     return;
   }
+
   setShowWarning(false);
-  setPagina(prev => prev + 1);
+
+  const proximaPagina = pagina + 1;
+
+  setPagina(proximaPagina);
   resetUI();
 };
 
@@ -245,19 +250,28 @@ resetUI();
                                     aria-label={h.tipo}
                                     onClick={() => {
                                         if (jaEscolheu) return; // já escolheu neste cenário
-                                        const nova = {
-                                            pagina,
-                                            tipo: "gostar",
-                                            data: new Date().toISOString()
-                                        };
-
-                                        setInteracoes(prev => [...prev, nova]);
 
                                         setInteracao(h.tipo);
                                         setAnchor({ x: h.x, y: h.y });
                                         setShowWarning(false);
 
                                         if (h.tipo === "gostar") {
+                                        const nova = {
+                                            pagina,
+                                            tipo: "gostar",
+                                            subtipo: "gostar",
+                                            data: new Date().toISOString()
+                                        };
+                                        const novasInteracoes = [
+                                            ...interacoes.filter(i => i.pagina !== pagina),
+                                            nova
+                                        ];
+                                        setInteracoes(novasInteracoes);
+
+                                        if (pagina === 7) {
+                                            guardarRespostas(novasInteracoes);
+                                        }
+
                                         setLikePulse(true);
                                         setOpcaoSelecionada("gostar");
                                         setJaEscolheu(true);
@@ -313,10 +327,19 @@ resetUI();
                                         const nova = {
                                             pagina,
                                             tipo: "partilhar",
-                                            para: shareTo,
+                                            subtipo: shareTo,
                                             data: new Date().toISOString()
                                         };
-                                        setInteracoes(prev => [...prev, nova]);
+                                        const novasInteracoes = [
+                                            ...interacoes.filter(i => i.pagina !== pagina),
+                                            nova
+                                        ];
+                                        setInteracoes(novasInteracoes);
+
+                                        if (pagina === 7) {
+                                            guardarRespostas(novasInteracoes);
+                                        }
+
                                         setJaEscolheu(true);
                                         setInteracao(null);
                                         setShareTo("");
@@ -368,10 +391,19 @@ resetUI();
                                         const nova = {
                                             pagina,
                                             tipo: "comentar",
-                                            comentario: commentText,
+                                            subtipo: commentText,
                                             data: new Date().toISOString()
                                         };
-                                        setInteracoes(prev => [...prev, nova]);
+                                        const novasInteracoes = [
+                                            ...interacoes.filter(i => i.pagina !== pagina),
+                                            nova
+                                        ];
+                                        setInteracoes(novasInteracoes);
+
+                                        if (pagina === 7) {
+                                            guardarRespostas(novasInteracoes);
+                                        }
+
                                         setJaEscolheu(true);
                                         setInteracao(null);
                                         setCommentText("");
@@ -452,7 +484,6 @@ resetUI();
                                         moduloId={moduloId}
                                         atividadeIndex={1}
                                         updateUserData={updateUserData}
-                                        onComplete={() => guardarRespostas(interacoes)} 
                                     />
                                 </div>
                             </>

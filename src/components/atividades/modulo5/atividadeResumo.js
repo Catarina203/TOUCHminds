@@ -42,7 +42,10 @@ const guardarRespostas = async () => {
           respostas: {
             modulo5: {
                 atividadeResumo5: arrayUnion({
-                  respostas: respostasRef.current,
+                  0: respostasRef.current[0].props.children,
+                  1: respostasRef.current[1].props.children,
+                  2: respostasRef.current[2].props.children,
+                  3: respostasRef.current[3].props.children,
                   data: new Date().toISOString(),
                 }),
             },
