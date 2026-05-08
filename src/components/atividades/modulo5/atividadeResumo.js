@@ -18,6 +18,7 @@ const AtividadeResumoRede = () => {
   const [showWarning, setShowWarning] = useState(false);
   const { id: moduloId } = useParams();
   const { updateUserData } = useContext(UserContext);
+  const [respostas, setRespostas] = useState({});
 
 
 const guardarRespostas = async () => {
@@ -36,9 +37,9 @@ const guardarRespostas = async () => {
         userRef,
         {
           respostas: {
-            modulo2: {
+            modulo5: {
                 atividadeResumo5: arrayUnion({
-                  opcaoSelecionada,
+                  respostas,
                   data: new Date().toISOString(),
                 }),
             },
@@ -76,6 +77,11 @@ const guardarRespostas = async () => {
     setOpcaoSelecionada(index);
     setModalAberto(true);
     setShowWarning(false);
+
+    setRespostas(prev => ({
+      ...prev,
+      [pagina - 1]: cenarios[pagina - 1].opcoes[index].texto
+    }));
   };
 
   const [, setHoverIndex] = useState(null);
