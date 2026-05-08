@@ -53,8 +53,8 @@ const DesafioSemanal5 = ({ id }) => {
         ...modulosSafe,
         [chaveModulo]: {
           ...atual,
-          desafioSemanal5: [
-            ...(atual.desafioSemanal5 ?? []),
+          desafioSemanal: [
+            ...(atual.desafioSemanal ?? []),
             novoRegisto,
           ],
         },
@@ -84,7 +84,7 @@ const DesafioSemanal5 = ({ id }) => {
 
   const chaveModulo = `modulo${String(id)}`;
   const registos =
-    userData?.modulos?.[chaveModulo]?.desafioSemanal5 ?? [];
+    userData?.modulos?.[chaveModulo]?.desafioSemanal ?? [];
 
   return (
     <div className="bg-white">

@@ -85,7 +85,7 @@ export async function registerAluno(codigoParticipante, password) {
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false }
         ]},
-        modulo3: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
+        modulo3: { status: "bloqueado", mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
@@ -102,7 +102,7 @@ export async function registerAluno(codigoParticipante, password) {
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
         ]},
-        modulo6: { status: "bloqueado", desafioSemanal: [], mensagemdefim: "naomostrada", atividades: [
+        modulo6: { status: "bloqueado", mensagemdefim: "naomostrada", atividades: [
           { status: "desbloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
           { status: "bloqueado", concluido: false },
