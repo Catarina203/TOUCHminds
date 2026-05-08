@@ -53,7 +53,9 @@ const guardarRespostas = async () => {
     console.error("Erro ao guardar:", error);
   }
 };
-   
+
+const paginaRef = React.useRef(pagina);
+React.useEffect(() => { paginaRef.current = pagina; }, [pagina]);
 
   const avancarPagina = () => {
   if (pagina >= 1 && pagina <= 4 && opcaoSelecionada === null) {
@@ -396,7 +398,7 @@ const guardarRespostas = async () => {
         >
           <Button className="custom-btn-complete"
             onClick={async () => {
-                if (pagina === 4) {
+                if (paginaRef.current === 4) {
                   await guardarRespostas(); 
                 }
                 setModalAberto(false);
@@ -415,7 +417,7 @@ const guardarRespostas = async () => {
                     outline: "none"
             }}
           >
-            {pagina === 4 ? "Conclusão" : "Próximo"}
+            {paginaRef.current === 4 ? "Conclusão" : "Próximo"}
           </Button>
         </Modal.Footer>
       </Modal>
