@@ -340,7 +340,8 @@ if (showValidationError) setShowValidationError(false);
                 <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
                 <p className="lead">Nesta atividade, descobriste <strong>que o psicólogo não traz respostas feitas</strong>, mas pode ajudar-te a compreender melhor o que estás a sentir e a encontrar, contigo, o caminho mais certo. <br></br><br></br>
                   Percebeste <strong>que o processo terapêutico tem etapas</strong> — começa com confiança, passa por desafios, estratégias e pequenas conquistas que fazem a diferença.<br></br><br></br>
-                  E aprendeste também <strong>que não estás sozinho/a</strong>: há lugares, pessoas e profissionais disponíveis quando precisamos de ajuda. Lembra-te: procurar ajuda não é sinal de fraqueza — é um passo corajoso.<br></br><br></br>
+                  E aprendeste também <strong>que não estás sozinho/a</strong>: há lugares, pessoas e profissionais disponíveis quando precisamos de ajuda. <br></br><br></br>
+                  Lembra-te: procurar ajuda não é sinal de fraqueza — é um passo corajoso.<br></br><br></br>
                   Pode não ser fácil, mas agora <strong>sabes que há um caminho</strong>. E que ele começa com o simples <strong>gesto de pedir ajuda</strong>.<br></br><br></br>
                 </p>
                 <div className="d-flex justify-content-between mt-4">
