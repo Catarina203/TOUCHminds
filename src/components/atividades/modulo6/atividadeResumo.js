@@ -189,7 +189,7 @@ if (showValidationError) setShowValidationError(false);
           Caminho de Pedir Ajuda
         </h2>
         <p className="lead">
-          Arrasta para cada coluna as frases que achas que dizem respeito a cada uma delas.{" "}
+          Arrasta para cada coluna as frases que achas que lhe dizem respeito.{" "}
           <strong>Existem algumas frases que não estão corretas</strong> e que não encaixam em nenhuma das colunas.{" "}
           <strong>Descobre quais são</strong> e não as arrastes para nenhuma coluna.
         </p>
@@ -302,30 +302,39 @@ if (showValidationError) setShowValidationError(false);
         ))}
       </div>
 
-      {/* BOTÕES */}
-      <div className="d-flex justify-content-between mt-4">
-        <button className="custom-btn-pink" onClick={() => setPagina(0)}>
-          <i className="bi bi-arrow-left me-2"></i>Anterior
-        </button>
-      {todasCorretas ? (
-  <AtividadeProgressao
-    moduloId={moduloId}
-    atividadeIndex={3}
-    updateUserData={updateUserData}
-  />
-) : (
+{/* BOTÕES */}
+<div className="d-flex justify-content-between mt-4">
   <button
-    className="custom-btn-turquoise"
-    onClick={() => setShowValidationError(true)}  // 👉 ativa alerta se não está certo
+    className="custom-btn-pink"
+    onClick={() => setPagina(0)}
   >
-    Conclusão<i className="bi bi-arrow-right ms-2"></i>
+    <i className="bi bi-arrow-left me-2"></i>
+    Anterior
   </button>
-)}
-      </div>
+
+  {todasCorretas ? (
+    <button
+      className="custom-btn-turquoise"
+      onClick={() => setPagina(2)}
+    >
+      Conclusão
+      <i className="bi bi-arrow-right ms-2"></i>
+    </button>
+  ) : (
+    <button
+      className="custom-btn-turquoise"
+      onClick={() => setShowValidationError(true)}
+    >
+      Conclusão
+      <i className="bi bi-arrow-right ms-2"></i>
+    </button>
+  )}
+</div>
+
     </>
   </DragDropContext>
 )}
-
+            
             {pagina === 2 && (
               <div className="text-center">
                 <h4 className="text-center fw-bold mb-4" style={{ color: "#234970" }}>Conclusão da Atividade</h4>
