@@ -20,23 +20,23 @@ import Loading from './loading';
 const mensagensInicio = {
   1: "Falar sobre ansiedade pode ser desconfortável. Ao compreendê-la melhor, tornamo-nos mais conscientes dos seus desafios e descobrimos caminhos para lidar com ela com mais confiança!",
   2: "Desafiar mitos e estigmas pode abalar algumas ideias feitas. Esclarecer dúvidas permite desenvolver uma visão mais aberta e informada, abrindo espaço para novas formas de pensar!",
-  3: "A voz crítica tem impacto no nosso bem-estar. Compreendê-la e conhecer alternativas, como a autocompaixão, ajuda-nos a transformar a forma como lidamos connosco mesmos!",
+  3: "A voz crítica tem impacto no nosso bem-estar. Compreendê-la e conhecer alternativas, como a autocompaixão, ajuda-nos a transformar a forma como nos relacionamos connosco mesmos!",
   4: "A mudança gera dúvidas e desconforto. Refletir sobre os prós e contras torna as decisões mais conscientes, aumentando a clareza e a confiança no processo!",
   5: "Falar sobre sintomas e pedir ajuda pode ser difícil. Perceber este passo mostra que pedir ajuda é um gesto de cuidado, e saber que existem diferentes formas de ajuda permite encontrar respostas adequadas a cada situação!",
-  6: "Conhecer melhor a ajuda profissional revela como este recurso pode ser essencial para o bem-estar. Estar bem informado/a ajuda a lidar com qualquer situação que surja!"
+  6: "Conhecer melhor a ajuda profissional revela como este recurso pode ser essencial para o bem-estar. Estar bem informado/a ajuda a lidar com qualquer situação que possa surgir!"
 };
 
 const mensagensFim = {
   1: "Neste módulo, exploraste o que é a ansiedade e os desafios que ela acarreta. Compreender a ansiedade é um passo essencial para lidar com ela. Continua a explorar com curiosidade e abertura!",
   2: "Neste módulo, desmontaste mitos e estigmas sobre a ansiedade e viste como pô-los em causa. Preserva o espírito crítico e estimula a vontade de aprender!",
-  3: "Neste módulo, exploraste a tua voz crítica e aprendeste a tratar-te de outra forma. Adota esta nova perspetiva e sê mais gentil contigo!",
-  4: "Neste módulo, ponderaste os prós e os contras da mudança. Reconhecer que decidir traz incertezas mostra que pensar com cuidado é um ato de coragem. Confia no processo e no que vais descobrindo pelo caminho!",
+  3: "Neste módulo, exploraste a tua voz crítica e aprendeste a tratar-te de outra forma. Adota esta nova perspetiva e sê mais gentil contigo próprio!",
+  4: "Neste módulo, ponderaste os prós e os contras da mudança. Confia no processo e no que vais descobrindo pelo caminho!",
   5: "Neste módulo conheceste alguns sinais de mal-estar e a importância de pedir ajuda. Reconhecer este passo abre caminho para encontrares ajuda quando precisares. Valoriza este gesto e continua a cuidar de ti!",
   6: "Neste módulo, explorastes o papel da ajuda profissional: o que envolve e quando a procurar. Guarda esta informação e confia que podes pedir ajuda sempre que for preciso!"
 };
 
 const mensagensExtra = {
-  3: "Parabéns por chegares a meio do percurso! Até agora, exploraste a ansiedade, os estigmas associados e a forma como nos relacionamos com a nossa voz crítica. Estes temas podem ser desafiantes, mas refletir sobre eles demonstra o teu envolvimento. Mantém esta atitude nos próximos módulos — cada passo conta!",
+  3: "Parabéns por chegares a meio do percurso! Até agora, exploraste a ansiedade, os estigmas associados à saúde mental e a forma como nos relacionamos com a nossa voz crítica. Estes temas podem ser desafiantes, mas refletir sobre eles demonstra o teu envolvimento. Mantém esta atitude nos próximos módulos — cada passo conta!",
   6: "Parabéns por terminares os seis módulos! Ao longo deste percurso, refletiste sobre desafios, decisões e formas de pedir ajuda quando necessário. Explorar estes temas exige tempo e empenho — e isso já é um grande passo. Agora falta apenas a sessão final com o psicólogo, onde vais consolidar tudo o que aprendeste. Leva contigo estas aprendizagens e recorre a elas sempre que precisares."};
 
 const Modulos = () => {
