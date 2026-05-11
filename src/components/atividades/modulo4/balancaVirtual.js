@@ -584,7 +584,7 @@ const BalancaVirtual = () => {
                 <p className="mb-3 lead">Ao longo desta <strong>atividade</strong>, exploraste formas de pensar sobre a <strong>mudança de comportamento</strong>.</p>
                 <p className="mb-3 lead">
                   Lembra-te da importância de usar a <strong>estratégia</strong> de pensar nos <strong>prós e contras</strong>,
-                  tanto de <strong>mudar</strong> quanto de <strong>não mudar</strong>, nas situações <strong>do dia-a-dia</strong>.
+                  tanto de <strong>mudar</strong> quanto de <strong>não mudar</strong>, nas situações <strong>do dia a dia</strong>.
                 </p>
                 <p className="mb-3 lead">
                   Sempre que te deparares com a necessidade de tomar uma <strong>decisão</strong> sobre a <strong>mudança</strong> de um <strong>comportamento</strong>,

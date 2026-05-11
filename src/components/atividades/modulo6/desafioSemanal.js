@@ -29,7 +29,7 @@ const DesafioSemanal6 = () => {
           O objetivo é <strong>identificar essas situações e procurares ajuda</strong> seja com um amigo, um familiar ou até um psicólogo.
         </p>
         <p>
-          Este desafio tem como objetivo ajudar-te a <strong>dar o primeiro passo em direção a seres mais consciente da importância de procurar ajuda</strong>, mesmo para as pequenas dificuldades do dia-a-dia, como conversar sobre uma preocupação ou pedir conselhos.
+          Este desafio tem como objetivo ajudar-te a <strong>dar o primeiro passo em direção a seres mais consciente da importância de procurar ajuda</strong>, mesmo para as pequenas dificuldades do dia a dia, como conversar sobre uma preocupação ou pedir conselhos.
         </p>
 
         <p><strong className="fw-bold">Vamos em frente! #UmNovoComeço</strong></p>

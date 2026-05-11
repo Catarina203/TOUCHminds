@@ -94,7 +94,7 @@ await updateUserData({ ...(userData ?? {}), modulos: modulosAtualizados });
       <div className="mb-4 lead">
         <b className='fw-bold'>Queria lançar-te um desafio para esta semana!</b><br /> <br /> 
         Ao longo dos próximos dias, fica <b>atento/a</b> a <b>conversas, comentários ou atitudes</b> em que percebes o <b>estigma</b> relacionado à ansiedade.<br /><br /> 
-        Pode ser algo que ouças em <b>conversas</b>, vejas nas <b>redes sociais</b> ou observes em situações do teu <b>dia-a-dia</b>.<br /><br /> 
+        Pode ser algo que ouças em <b>conversas</b>, vejas nas <b>redes sociais</b> ou observes em situações do teu <b>dia a dia</b>.<br /><br /> 
         Depois de <b>notares</b> o que está a acontecer, convido-te a <b>refletir</b> sobre como poderias <b>intervir</b> ou <b>apoiar</b> a pessoa envolvida.<br /><br /> 
         Podes usar esta <b>tabela</b> para registares:<br /> <br /> 
         <ul style={{ marginTop: "0px" }}>
