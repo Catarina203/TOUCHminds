@@ -36,6 +36,7 @@ const mensagensFim = {
 };
 
 const mensagensExtra = {
+  2: "Marca a tua sessão!",
   3: "Parabéns por chegares a meio do percurso! Até agora, exploraste a ansiedade, os estigmas associados à saúde mental e a forma como nos relacionamos com a nossa voz crítica. Estes temas podem ser desafiantes, mas refletir sobre eles demonstra o teu envolvimento. Mantém esta atitude nos próximos módulos — cada passo conta!",
   6: "Parabéns por terminares os seis módulos! Ao longo deste percurso, refletiste sobre desafios, decisões e formas de pedir ajuda quando necessário. Explorar estes temas exige tempo e empenho — e isso já é um grande passo. Agora falta apenas a sessão final com o psicólogo, onde vais consolidar tudo o que aprendeste. Leva contigo estas aprendizagens e recorre a elas sempre que precisares."};
 
@@ -161,7 +162,8 @@ const Modulos = () => {
         show={showModal}
         onHide={() => {
           setShowModal(false);
-          if ((id === '3' && progressoModulo === 100 && mfim === 'naomostrada') ||
+          if ((id === '2' && progressoModulo === 100 && mfim === 'naomostrada') ||
+              (id === '3' && progressoModulo === 100 && mfim === 'naomostrada') ||
               (id === '6' && progressoModulo === 100 && mfim === 'naomostrada'))
           {
             setShowExtraModal(true);
@@ -209,7 +211,8 @@ const Modulos = () => {
           <Button
             onClick={() => {
               setShowModal(false);
-              if ((id === '3' && progressoModulo === 100 && mfim === 'naomostrada') ||
+              if ((id === '2' && progressoModulo === 100 && mfim === 'naomostrada') ||
+                  (id === '3' && progressoModulo === 100 && mfim === 'naomostrada') ||
                   (id === '6' && progressoModulo === 100 && mfim === 'naomostrada'))
               {
                 setShowExtraModal(true);

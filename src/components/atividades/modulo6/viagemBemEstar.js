@@ -7,6 +7,9 @@ import { UserContext } from "../../../App";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { db } from "../../../database/database";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const corda = [
   {
@@ -30,9 +33,9 @@ const comportamentos = {
       "Preocupação excessiva com muitas coisas",
       "Pensamentos que eu não me consigo livrar",
       "Medo de não ter ninguém que me possa ajudar caso eu precise",
-      "EDITABLE_1",
-      "EDITABLE_2",
-      "EDITABLE_3",
+      "MOCHILA_EDITABLE_1",
+      "MOCHILA_EDITABLE_2",
+      "MOCHILA_EDITABLE_3",
     ],
   },
   pote: {
@@ -42,9 +45,9 @@ const comportamentos = {
       "Fui gentil comigo num dia difícil",
       "Fui capaz de identificar o que estava a sentir em determinado momento",
       "Fui capaz de reconhecer que existem coisas que me causam desconforto",
-      "EDITABLE_1",
-      "EDITABLE_2", 
-      "EDITABLE_3",
+      "POTE_EDITABLE_1",
+      "POTE_EDITABLE_2", 
+      "POTE_EDITABLE_3",
     ],
   },
 };
@@ -62,17 +65,16 @@ const ViagemBemEstar = () => {
   pote: [],  // Add this line
 });
   const [showValidationError, setShowValidationError] = useState(false);
-  
-const [quadrantes, setQuadrantes] = useState([
-  { id: "mochila", titulo: "" },
-]);
-
 
   // State for custom phrases
   const [customPhrases, setCustomPhrases] = useState({
-    EDITABLE_1: "",
-    EDITABLE_2: "",
-    EDITABLE_3: "",
+    MOCHILA_EDITABLE_1: "",
+    MOCHILA_EDITABLE_2: "",
+    MOCHILA_EDITABLE_3: "",
+
+    POTE_EDITABLE_1: "",
+    POTE_EDITABLE_2: "",
+    POTE_EDITABLE_3: "",
   });
   const [editingPhrase, setEditingPhrase] = useState(null);
   
@@ -99,6 +101,57 @@ const [quadrantes, setQuadrantes] = useState([
   setPagina(3);
 };
 
+  const guardarRespostas = async () => {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+    
+        if (!user) {
+          console.error("Utilizador não autenticado");
+          return;
+        }
+    
+        const userRef = doc(db, "alunos", user.uid);
+    
+        await setDoc(
+            userRef,
+            {
+              respostas: {
+                modulo6: {
+                    atividadeResumo5: arrayUnion({
+                      mochila: respostas.mochila.map((frase) =>
+                        customPhrases[frase] !== undefined
+                          ? customPhrases[frase]
+                          : frase
+                      ),
+                      cadeira: cadeiraSelecionada,
+                      espelho: emocaoInput,
+                      lampada: ferramenta,
+                      corda: opcoesSelecionadas,
+                      pote: respostas.pote.map((frase) =>
+                        customPhrases[frase] !== undefined
+                          ? customPhrases[frase]
+                          : frase
+                      ),
+                      chave: chave,
+                      data: new Date().toISOString(),
+                    }),
+                },
+              },
+            },
+            { merge: true }
+          );
+    
+        console.log("Guardado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao guardar:", error);
+      }
+    };
+    
+  const [quadrantes, setQuadrantes] = useState([
+    { id: "mochila", titulo: "" },
+  ]);
+
   const initializePhrases = (behaviorKey = 'mochila') => { // Changed default from 'procrastinacao' to 'mochila'
     const selectedBehavior = comportamentos[behaviorKey];
     if (selectedBehavior) {
@@ -107,21 +160,22 @@ const [quadrantes, setQuadrantes] = useState([
       setCurrentBehavior(behaviorKey); // Update current behavior
     }
     
-    setRespostas(prev => ({
-  ...prev,
-  mochila: [],
-}));
     setShowValidationError(false);
   };
 
 useEffect(() => {
+  // reset frases customizadas
   if (pagina === 1) {
     initializePhrases('mochila');
     setQuadrantes([{ id: "mochila", titulo: "" }]);
+    setRespostas(prev => ({
+      ...prev,
+      mochila: []
+    }));
   } else if (pagina === 6) {
     initializePhrases('pote');
     setQuadrantes([{ id: "pote", titulo: "" }]);
-    // Also reset the respostas for pote
+
     setRespostas(prev => ({
       ...prev,
       pote: []
@@ -1162,11 +1216,12 @@ const handleOpcaoToggle = (index) => {
                   </button>
                   <button
                       className="custom-btn-turquoise"
-                      onClick={() => {
+                      onClick={async () => {
                         if (!chave.trim()) {
                           setChaveError(true); 
                           return;
                         }
+                        await guardarRespostas();
                         handleProceedToReflection(); 
                       }}
                       style={{ cursor: 'pointer' }}
