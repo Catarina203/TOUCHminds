@@ -119,11 +119,7 @@ const DesafioSemanal5 = ({ id }) => {
           Este desafio tem como objetivo <strong>ajudar-te a identificar e avaliar as opções de ajuda disponíveis</strong>.
         </p>
 
-        <p className="mb-4">
-          Lembra-te de que <strong>reconhecer que precisas de ajuda</strong> é um <strong>passo importante para cuidar de ti mesmo/a</strong>.
-        </p>
-
-        Podes usar esta <b>tabela</b> para registares:
+        Podes usar esta <b>tabela</b> para registares.
         <br /><br />
       </div>
 
@@ -171,7 +167,7 @@ const DesafioSemanal5 = ({ id }) => {
                   className="form-control"
                   rows={3}
                   style={{ resize: 'vertical' }}
-                  placeholder="Descreve a situação aqui"
+                  placeholder="Descreve aqui brevemente a situação"
                 />
               </td>
 
@@ -226,6 +222,11 @@ const DesafioSemanal5 = ({ id }) => {
       </div>
 
       <div className="mb-4 lead">
+       
+      <p className="mb-4">
+          Lembra-te de que <strong>reconhecer que precisas de ajuda</strong> é um <strong>passo importante para cuidar de ti mesmo/a</strong>.
+     </p>
+       
         <p className="fw-bold">
           Vamos em frente! #ReviravoltaEmRede
         </p>

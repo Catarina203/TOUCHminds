@@ -189,7 +189,7 @@ resetUI();
                                 <p className="lead">
                                     <b>Sê muito bem-vindo/a à "Escolha Certa"</b>.<br></br><br></br>
                                     Nesta <b> atividade</b>, vais ver uma sequência de <b>stories</b> com <b> informações</b> sobre as diferentes fontes de <b>ajuda</b> que podemos procurar quando
-                                    temos <b> dificuldades</b> ou <b> problemas</b> que não estamos a conseguir lidar <b> sozinhos/as</b>. <br></br><br></br>
+                                    temos <b> dificuldades</b> ou <b> problemas</b> relacionados com a ansiedade que não estamos a conseguir lidar <b> sozinhos/as</b>. <br></br><br></br>
                                     À medida que passas por cada <b> story</b>, <b>reflete</b> sobre o que estás a ler e <b> como isso te faz sentir</b>. Vais poder
                                     <b> interagir</b> com cada story, escolhendo uma opção que reflete a tua <b> reação</b> ao conteúdo apresentado. <br></br><br></br>
                                     A ideia é <b> aprender mais</b> sobre como podemos <b>procurar ajuda</b> e <b> refletir</b> sobre o <b>impacto</b> dessa informação no nosso <b>bem-estar</b>.

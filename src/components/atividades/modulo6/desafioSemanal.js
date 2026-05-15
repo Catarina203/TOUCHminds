@@ -15,10 +15,10 @@ const DesafioSemanal6 = () => {
 
       <div className="mb-4 lead">
         <p className="mb-3 fw-bold">
-          Queria lançar-te um desafio para esta semana!
+          Queria lançar-te um último desafio!
         </p>
         <p>
-          Identifica uma <strong>situação do teu dia a dia</strong> em que sentes que poderia ser útil 
+          Sempre que identificares uma <strong>situação do teu dia a dia</strong> em que sentes que poderia ser útil 
           <strong> procurar ajuda.</strong>
         </p>
         <p>
@@ -33,7 +33,6 @@ const DesafioSemanal6 = () => {
         </p>
 
         <p><strong className="fw-bold">Vamos em frente! #UmNovoComeço</strong></p>
-        <p>Até para a Semana!</p>
       </div>
     </div>
   );

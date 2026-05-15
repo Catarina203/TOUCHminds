@@ -108,8 +108,6 @@ const DesafioSemanal = ({ id }) => {
          Ao longo dos próximos dias, quando te encontrares perante <strong>uma decisão ou dilema </strong>— seja algo pequeno ou mais importante — faz uma pausa antes de agir.
         Este é o momento para <strong> observar, sem pressa e sem te julgares.</strong>
         <br /><br /> 
-        Podes usar esta <b>tabela</b> para registares:
-        <br /><br /> 
         Quando isso acontecer, convida-te a fazer o seguinte:
         <br /><br />
 
@@ -128,6 +126,8 @@ const DesafioSemanal = ({ id }) => {
           <li>Que<strong> estratégias </strong>usaste nessa altura?</li>
           <li>O que <strong> fizeste </strong>dessa vez que podes aplicar agora?</li>
         </ul>
+        Podes usar esta <b>tabela</b> para registares.
+        <br /><br /> 
       </div>
 
       {/* TABELA */}
