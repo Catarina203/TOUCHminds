@@ -36,11 +36,13 @@ const mensagensFim = {
 };
 
 const mensagensExtra = {
-  2: "Marca a tua sessão!",
+  2: "Parabéns pelo teu progresso até aqui! Agora que concluíste o segundo módulo, não te esqueças de marcar a tua sessão com a psicóloga para a próxima semana. Este será um momento importante para esclarecer dúvidas, refletir sobre o que exploraste até agora e acompanhar o teu percurso.",
   3: "Parabéns por chegares a meio do percurso! Até agora, exploraste a ansiedade, os estigmas associados à saúde mental e a forma como nos relacionamos com a nossa voz crítica. Estes temas podem ser desafiantes, mas refletir sobre eles demonstra o teu envolvimento. Mantém esta atitude nos próximos módulos — cada passo conta!",
-  6: "Parabéns por terminares os seis módulos! Ao longo deste percurso, refletiste sobre desafios, decisões e formas de pedir ajuda quando necessário. Explorar estes temas exige tempo e empenho — e isso já é um grande passo. Agora falta apenas a sessão final com o psicólogo, onde vais consolidar tudo o que aprendeste. Leva contigo estas aprendizagens e recorre a elas sempre que precisares."};
+  4: "Parabéns pelo teu empenho ao longo deste percurso! Agora que concluíste o quarto módulo, lembra-te de marcar a tua sessão com a psicóloga para a próxima semana. Esta sessão poderá ajudar-te a consolidar aprendizagens, refletir sobre desafios e continuar o percurso com mais confiança.",
+  6: "Parabéns por terminares os seis módulos! Ao longo deste percurso, refletiste sobre desafios, decisões e formas de pedir ajuda quando necessário. Explorar estes temas exige tempo e empenho — e isso já é um grande passo. Agora falta apenas a sessão final com o psicólogo, onde vais consolidar tudo o que aprendeste. Leva contigo estas aprendizagens e recorre a elas sempre que precisares.",
+  6: "Parabéns por estares prestes a concluíres este percurso! Agora que terminaste os módulos, não te esqueças de marcar a tua última sessão com a psicóloga para a próxima semana. Este será um espaço importante para refletires sobre o teu percurso, consolidar aprendizagens e esclarecer qualquer dúvida final."};
 
-const Modulos = () => {
+  const Modulos = () => {
   const { id } = useParams();  
   const { userData } = useContext(UserContext);  
 
