@@ -44,10 +44,10 @@ const afirmacoes = [
   },
   {
     texto: <p style={{color:'#234970'}}>Ter ansiedade não é o mesmo que sentir medo.</p>,
-    resposta: "Mito",
+    resposta: "Verdade",
     explicacao:
       <p className="lead">
-      <strong>Mito!</strong> A <strong>ansiedade</strong> engloba mais do que apenas o <strong>medo</strong>. O <strong>medo</strong> é uma <strong>resposta</strong> a um <strong>perigo específico</strong> e <strong>imediato</strong>, a algo que está mesmo a <strong>acontecer</strong> (como ver um <strong>cão</strong> a correr na tua <strong>direção</strong>). Já a <strong>ansiedade</strong> é mais sobre o que <strong>poderá acontecer</strong> no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja <strong>provável</strong>. A <strong>ansiedade</strong> é <strong>preocupação</strong> com o que pode estar para <strong>vir</strong>, enquanto o <strong>medo</strong> é uma <strong>resposta</strong> ao <strong>agora</strong>.
+      <strong>Verdade!</strong> A <strong>ansiedade</strong> engloba mais do que apenas o <strong>medo</strong>. O <strong>medo</strong> é uma <strong>resposta</strong> a um <strong>perigo específico</strong> e <strong>imediato</strong>, a algo que está mesmo a <strong>acontecer</strong> (como ver um <strong>cão</strong> a correr na tua <strong>direção</strong>). Já a <strong>ansiedade</strong> é mais sobre o que <strong>poderá acontecer</strong> no <strong>futuro</strong> — uma <strong>preocupação constante</strong> — mesmo que nem seja <strong>provável</strong>. A <strong>ansiedade</strong> é <strong>preocupação</strong> com o que pode estar para <strong>vir</strong>, enquanto o <strong>medo</strong> é uma <strong>resposta</strong> ao <strong>agora</strong>.
      </p>
   },
   {
