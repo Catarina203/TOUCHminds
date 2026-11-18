@@ -141,7 +141,7 @@ const LandingPage = () => {
             <Accordion.Item eventKey="1">
               <Accordion.Header className="font-poppins">A quem se dirige?</Accordion.Header>
               <Accordion.Body className="font-poppins">
-                O TOUCHminds destina-se a adolescentes dos 15 aos 17 anos que sentem que a ansiedade tem impacto na sua vida. Atualmente, o programa está disponível para
+                O TOUCHminds destina-se a adolescentes dos 15 aos 19 anos que sentem que a ansiedade tem impacto na sua vida. Atualmente, o programa está disponível para
                 participantes das escolas selecionadas no norte do país, sendo necessário efetuar um registo na plataforma para aceder ao programa.
               </Accordion.Body>
             </Accordion.Item>
